@@ -7,5 +7,5 @@ from the contents of the _proto/_ directory in this repository, as follows:
 
 # Branching
 This repository uses a simple branching model with only two distinguished branches:
- 1. The head of `master` points to the latest protobufs to be deployed in mainnet. (Tags mark deployed versions )
+ 1. The head of `master` points to the latest protobufs blessed for deployment to mainnet. (Tags mark deployed versions )
  2. The head of `develop` points to the latest candidate for the next tag in `master`. 
