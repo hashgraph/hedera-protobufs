@@ -1,7 +1,3 @@
-syntax = "proto3";
-
-package proto;
-
 /*-
  * ‌
  * Hedera Network Services Protobuf
@@ -21,13 +17,3 @@ package proto;
  * limitations under the License.
  * ‍
  */
-
-option java_package = "com.hederahashgraph.api.proto.java";
-option java_multiple_files = true;
-
-/*
-Submit an arbitrary (serialized) Transaction to the network without prechecks. Requires superuser privileges.
-*/
-message UncheckedSubmitBody {
-    bytes transactionBytes = 1; // The serialized bytes of the Transaction to be submitted without prechecks
-}
