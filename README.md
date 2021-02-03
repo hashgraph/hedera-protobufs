@@ -2,7 +2,7 @@
 The authoritative repository of [protocol buffers](https://developers.google.com/protocol-buffers) 
 used by the Hedera Hashgraph public network, especially to define its gRPC API. Other repositories 
 are used to deploy language-specific libraries generated 
-from the contents of the _proto/_ directory in this repository, as follows:
+from the _*.proto_ files in this repository:
  - [Java](https://github.com/hashgraph/hedera-protobufs-java)
 
 # Overview of services
