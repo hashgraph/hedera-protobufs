@@ -31,11 +31,19 @@ import "QueryHeader.proto";
 import "ResponseHeader.proto";
 import "ScheduleCreate.proto";
 
+/*
+Gets information about Scheduled Transaction instance
+
+Answered with status INVALID_SCHEDULE_ID if the Scheduled Transaction is deleted, expires or is executed.
+ */
 message ScheduleGetInfoQuery {
   QueryHeader header = 1; // standard info sent from client to node including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
   ScheduleID scheduleID = 2; // The ID of the Scheduled Entity
 }
 
+/*
+Metadata about a Scheduled Transaction instance
+ */
 message ScheduleInfo {
   ScheduleID scheduleID = 1; // The ID of the Scheduled Entity
   AccountID creatorAccountID = 2; // The Account ID which created the Scheduled TX
@@ -47,6 +55,9 @@ message ScheduleInfo {
   Timestamp expirationTime = 8; // The epoch second at which the schedule will expire
 }
 
+/*
+Response that gets returned, when the client sends the node a ScheduleGetInfoQuery
+*/
 message ScheduleGetInfoResponse {
   ResponseHeader header = 1; // Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither
   ScheduleInfo scheduleInfo = 2; // The information requested about this schedule instance
