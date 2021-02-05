@@ -31,7 +31,7 @@ import "Timestamp.proto";
 
 // Current state of a topic.
 message ConsensusTopicInfo {
-    string memo = 1; // Short publicly visible memo about the topic. No guarantee of uniqueness.
+    string memo = 1; // The memo associated with the topic (UTF-8 encoding max 100 bytes)
 
     // When a topic is created, its running hash is initialized to 48 bytes of binary zeros.
     // For each submitted message, the topic's running hash is then updated to the output
