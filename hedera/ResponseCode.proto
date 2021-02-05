@@ -209,7 +209,7 @@ enum ResponseCodeEnum {
   EMPTY_TOKEN_TRANSFER_BODY = 199; // TokenTransfersTransactionBody has no TokenTransferList
   EMPTY_TOKEN_TRANSFER_ACCOUNT_AMOUNTS = 200; // TokenTransfersTransactionBody has a TokenTransferList with no AccountAmounts
 
-  INVALID_SCHEDULE_ID = 201; // The Scheduled entity does not exist
+  INVALID_SCHEDULE_ID = 201; // The Scheduled entity does not exist; or has now expired, been deleted, or been executed
   SCHEDULE_IS_IMMUTABLE = 202; // The Scheduled entity cannot be modified. Admin key not set
   INVALID_SCHEDULE_PAYER_ID = 203; // The provided Scheduled Payer does not exist
   INVALID_SCHEDULE_ACCOUNT_ID = 204; // The Schedule Create Transaction TransactionID account does not exist
