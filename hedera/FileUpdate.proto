@@ -37,5 +37,5 @@ message FileUpdateTransactionBody {
     Timestamp expirationTime = 2; // The new expiry time (ignored if not later than the current expiry)
     KeyList keys = 3; // The new list of keys that can modify or delete the file
     bytes contents = 4; // The new contents that should overwrite the file's current contents
-    google.protobuf.StringValue memo = 5; // The new memo to be associated with the file (UTF-8 encoding max 100 bytes)
+    google.protobuf.StringValue memo = 5; // If set, the new memo to be associated with the file (UTF-8 encoding max 100 bytes)
 }
