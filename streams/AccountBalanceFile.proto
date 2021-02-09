@@ -26,7 +26,6 @@ option java_package = "com.hedera.services.stream.proto";
 option java_multiple_files = true;
 
 import "BasicTypes.proto";
-import "CryptoGetAccountBalance.proto";
 import "Timestamp.proto";
 
 /* Includes all currency balances (both hbar and token) of a single account in the ledger. */

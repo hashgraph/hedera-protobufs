@@ -376,7 +376,6 @@ message ServicesConfigurationList {
     repeated Setting nameValue = 1; // list of name value pairs of the application properties
 }
 
-
 /* Token's information related to the given Account */
 message TokenRelationship {
     TokenID tokenId = 1; // The ID of the token
@@ -384,4 +383,19 @@ message TokenRelationship {
     uint64 balance = 3; // The balance that the Account holds in the smallest denomination
     TokenKycStatus kycStatus = 4; // The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned
     TokenFreezeStatus freezeStatus = 5; // The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned
+}
+
+/* A number of <i>transferable units</i> of a certain token.
+
+The transferable unit of a token is its smallest denomination, as given by the token's <tt>decimals</tt> property---each minted token contains <tt>10<sup>decimals</sup></tt> transferable units. For example, we could think of the cent as the transferable unit of the US dollar (<tt>decimals=2</tt>); and the tinybar as the transferable unit of hbar (<tt>decimals=8</tt>).
+
+Transferable units are not directly comparable across different tokens. */
+message TokenBalance {
+    TokenID tokenId = 1; // A unique token id
+    uint64 balance = 2; // A number of transferable units of the identified token
+}
+
+/* A sequence of token balances, for use in a v2 account balances CSV export. */
+message TokenBalances {
+    repeated TokenBalance tokenBalances = 1;
 }
