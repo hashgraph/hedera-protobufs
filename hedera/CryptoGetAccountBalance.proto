@@ -62,15 +62,3 @@ message CryptoGetAccountBalanceResponse {
     uint64 balance = 3; // The current balance, in tinybars.
     repeated TokenBalance tokenBalances = 4; // The token balances possessed by the target account.
 }
-
-message SingleAccountBalances {
-    AccountID accountID = 1;
-    uint64 hbarBalance = 2;
-    repeated TokenBalance tokenBalances = 3;
-}
-
-message AllAccountBalances {
-    Timestamp consensusTimestamp = 1;
-    repeated SingleAccountBalances allAccounts = 2;
-}
-
