@@ -383,6 +383,7 @@ message TokenRelationship {
     uint64 balance = 3; // The balance that the Account holds in the smallest denomination
     TokenKycStatus kycStatus = 4; // The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned
     TokenFreezeStatus freezeStatus = 5; // The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned
+    uint32 decimals = 6; // Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
 }
 
 /* A number of <i>transferable units</i> of a certain token.
@@ -393,9 +394,10 @@ Transferable units are not directly comparable across different tokens. */
 message TokenBalance {
     TokenID tokenId = 1; // A unique token id
     uint64 balance = 2; // A number of transferable units of the identified token
+    uint32 decimals = 3; // Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
 }
 
-/* A sequence of token balances, for use in a v2 account balances CSV export. */
+/* A sequence of token balances */
 message TokenBalances {
     repeated TokenBalance tokenBalances = 1;
 }

@@ -28,11 +28,16 @@ option java_multiple_files = true;
 import "BasicTypes.proto";
 import "Timestamp.proto";
 
+message TokenUnitBalance {
+    TokenID tokenId = 1; // A unique token id
+    uint64 balance = 2; // A number of transferable units of the identified token
+}
+
 /* Includes all currency balances (both hbar and token) of a single account in the ledger. */
 message SingleAccountBalances {
     AccountID accountID = 1; // The account
     uint64 hbarBalance = 2; // The account's hbar balance
-    repeated TokenBalance tokenBalances = 3; // The list of the account's token balances
+    repeated TokenUnitBalance tokenUnitBalances = 3; // The list of the account's token balances
 }
 
 /* Includes all currency balances (both hbar and token) of all accounts in the ledger. */
