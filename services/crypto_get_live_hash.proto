@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package proto.v1;
 
 /*-
  * ‌
