@@ -39,10 +39,10 @@ message GetByKeyQuery {
 /* the ID for a single entity (account, livehash, file, or smart contract instance) */
 message EntityID {
     oneof entity {
-        AccountID accountID = 1; // The Account ID for the cryptocurrency account
-        LiveHash liveHash = 2; // A uniquely identifying livehash of an acount
-        FileID fileID = 3; // The file ID of the file
-        ContractID contractID = 4; // The smart contract ID that identifies instance
+        AccountID account_id = 1; // The Account ID for the cryptocurrency account
+        LiveHash live_hash = 2; // A uniquely identifying livehash of an acount
+        FileID file_id = 3; // The file ID of the file
+        ContractID contract_id = 4; // The smart contract ID that identifies instance
     }
 }
 /* Response when the client sends the node GetByKeyQuery */

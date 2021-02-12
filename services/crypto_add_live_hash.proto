@@ -32,7 +32,7 @@ import "duration.proto";
 /* A hash---presumably of some kind of credential or certificate---along with a list of keys, each of which may be either a primitive or a threshold key. */
 message LiveHash {
     // The account to which the livehash is attached
-    AccountID accountId = 1;
+    AccountID account_id = 1;
     // The SHA-384 hash of a credential or certificate
     bytes hash = 2;
     // A list of keys (primitive or threshold), all of which must sign to attach the livehash to an account, and any one of which can later delete it.
@@ -51,5 +51,5 @@ An account cannot have two identical livehashes associated. To modify the list o
 livehash should first be deleted, then recreated with a new list of keys. */
 message CryptoAddLiveHashTransactionBody {
     // A hash of some credential or certificate, along with the keys of the entities that asserted it validity
-    LiveHash liveHash = 3;
+    LiveHash live_hash = 3;
 }

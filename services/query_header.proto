@@ -46,5 +46,5 @@ Each query from the client to the node will contain the QueryHeader, which gives
 */
 message QueryHeader {
     Transaction payment = 1; // A signed CryptoTransferTransaction to pay the node a fee for handling this query
-    ResponseType responseType = 2; // The requested response, asking for cost, state proof, both, or neither
+    ResponseType response_type = 2; // The requested response, asking for cost, state proof, both, or neither
 }

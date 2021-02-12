@@ -38,18 +38,18 @@ message TransactionReceipt {
     ResponseCodeEnum status = 1;
 
     // In the receipt of a CryptoCreate, the id of the newly created account
-    AccountID accountID = 2;
+    AccountID account_id = 2;
     // In the receipt of a FileCreate, the id of the newly created file
-    FileID fileID = 3;
+    FileID file_id = 3;
     // In the receipt of a ContractCreate, the id of the newly created contract
-    ContractID contractID = 4;
+    ContractID contract_id = 4;
     // The exchange rates in effect when the transaction reached consensus
-    ExchangeRateSet exchangeRate = 5;
+    ExchangeRateSet exchange_rate = 5;
     // In the receipt of a ConsensusCreateTopic, the id of the newly created topic.
-    TopicID topicID = 6;
+    TopicID topic_id = 6;
 
     // In the receipt of a ConsensusSubmitMessage, the new sequence number of the topic that received the message
-    uint64 topicSequenceNumber = 7;
+    uint64 topic_sequence_number = 7;
 
     // In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.
     // This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the
@@ -93,17 +93,17 @@ message TransactionReceipt {
     // 10. The number of nanoseconds since 9. before the ConsensusSubmitMessage reached consensus (4 bytes)
     // 11. The topicSequenceNumber from above (8 bytes)
     // 12. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes)
-    bytes topicRunningHash = 8;
+    bytes topic_running_hash = 8;
 
     // In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update the running hash.
-    uint64 topicRunningHashVersion = 9;
+    uint64 topic_running_hash_version = 9;
 
     // In the receipt of a CreateToken, the id of the newly created token
-    TokenID tokenID = 10;
+    TokenID token_id = 10;
 
     // In the receipt of TokenMint, TokenWipe, TokenBurn, the current total supply of this token
-    uint64 newTotalSupply = 11;
+    uint64 new_total_supply = 11;
 
     // In the receipt of a CreateSchedule, the id of the newly created Scheduled Entity
-    ScheduleID scheduleID = 12;
+    ScheduleID schedule_id = 12;
 }

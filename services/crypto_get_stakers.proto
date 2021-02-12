@@ -32,19 +32,19 @@ import "response_header.proto";
 /* Get all the accounts that are proxy staking to this account. For each of them, give the amount currently staked. This is not yet implemented, but will be in a future version of the API. */
 message CryptoGetStakersQuery {
     QueryHeader header = 1; // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
-    AccountID accountID = 2; // The Account ID for which the records should be retrieved
+    AccountID account_id = 2; // The Account ID for which the records should be retrieved
 }
 
 /* information about a single account that is proxy staking */
 message ProxyStaker {
-    AccountID accountID = 1; // The Account ID that is proxy staking
+    AccountID account_id = 1; // The Account ID that is proxy staking
     int64 amount = 2; // The number of hbars that are currently proxy staked
 }
 
 /* all of the accounts proxy staking to a given account, and the amounts proxy staked */
 message AllProxyStakers {
-    AccountID accountID = 1; // The Account ID that is being proxy staked to
-    repeated ProxyStaker proxyStaker = 2; // Each of the proxy staking accounts, and the amount they are proxy staking
+    AccountID account_id = 1; // The Account ID that is being proxy staked to
+    repeated ProxyStaker proxy_staker = 2; // Each of the proxy staking accounts, and the amount they are proxy staking
 }
 /* Response when the client sends the node CryptoGetStakersQuery */
 message CryptoGetStakersResponse {

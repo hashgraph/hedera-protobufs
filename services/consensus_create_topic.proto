@@ -36,18 +36,18 @@ message ConsensusCreateTopicTransactionBody {
     // Anyone can increase the topic's expirationTime via ConsensusService.updateTopic(), regardless of the adminKey.
     // If no adminKey is specified, updateTopic may only be used to extend the topic's expirationTime, and deleteTopic
     // is disallowed.
-    Key adminKey = 2;
+    Key admin_key = 2;
 
     // Access control for submitMessage.
     // If unspecified, no access control is performed on ConsensusService.submitMessage (all submissions are allowed).
-    Key submitKey = 3;
+    Key submit_key = 3;
 
     // The initial lifetime of the topic and the amount of time to attempt to extend the topic's lifetime by
     // automatically at the topic's expirationTime, if the autoRenewAccount is configured (once autoRenew functionality
     // is supported by HAPI).
     // Limited to MIN_AUTORENEW_PERIOD and MAX_AUTORENEW_PERIOD value by server-side configuration.
     // Required.
-    Duration autoRenewPeriod = 6;
+    Duration auto_renew_period = 6;
 
     // Optional account to be used at the topic's expirationTime to extend the life of the topic (once autoRenew
     // functionality is supported by HAPI).
@@ -55,5 +55,5 @@ message ConsensusCreateTopicTransactionBody {
     // can be extended using all funds on the account (whichever is the smaller duration/amount and if any extension
     // is possible with the account's funds).
     // If specified, there must be an adminKey and the autoRenewAccount must sign this transaction.
-    AccountID autoRenewAccount = 7;
+    AccountID auto_renew_account = 7;
 }

@@ -36,7 +36,7 @@ If the target contract is immutable (that is, was created without an admin key),
 2. If the transfer account or contract has receiverSigRequired, its associated key must also sign. */
 message ContractDeleteTransactionBody {
     // The id of the contract to be deleted
-    ContractID contractID = 1;
+    ContractID contract_id = 1;
     oneof obtainers {
         // The id of an account to receive any remaining hBars from the deleted contract
 		AccountID transferAccountID = 2;

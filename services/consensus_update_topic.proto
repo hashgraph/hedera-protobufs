@@ -33,7 +33,7 @@ import "timestamp.proto";
 // All fields left null will not be updated.
 // See [ConsensusService.updateTopic()](#proto.ConsensusService)
 message ConsensusUpdateTopicTransactionBody {
-    TopicID topicID = 1;
+    TopicID topic_id = 1;
 
     google.protobuf.StringValue memo = 2; // If set, the new memo to be associated with the topic (UTF-8 encoding max 100 bytes)
 
@@ -42,24 +42,24 @@ message ConsensusUpdateTopicTransactionBody {
     // this transaction.
     // On topics with no adminKey, extending the expirationTime is the only updateTopic option allowed on the topic.
     // If unspecified, no change.
-    Timestamp expirationTime = 4;
+    Timestamp expiration_time = 4;
 
     // Access control for update/delete of the topic.
     // If unspecified, no change.
     // If empty keyList - the adminKey is cleared.
-    Key adminKey = 6;
+    Key admin_key = 6;
 
     // Access control for ConsensusService.submitMessage.
     // If unspecified, no change.
     // If empty keyList - the submitKey is cleared.
-    Key submitKey = 7;
+    Key submit_key = 7;
 
     // The amount of time to extend the topic's lifetime automatically at expirationTime if the autoRenewAccount is
     // configured and has funds (once autoRenew functionality is supported by HAPI).
     // Limited to between MIN_AUTORENEW_PERIOD (6999999 seconds) and MAX_AUTORENEW_PERIOD (8000001 seconds) by
     // servers-side configuration (which may change).
     // If unspecified, no change.
-    Duration autoRenewPeriod = 8;
+    Duration auto_renew_period = 8;
 
     // Optional account to be used at the topic's expirationTime to extend the life of the topic.
     // Once autoRenew functionality is supported by HAPI, the topic lifetime will be extended up to a maximum of the
@@ -67,5 +67,5 @@ message ConsensusUpdateTopicTransactionBody {
     // smaller duration/amount).
     // If specified as the default value (0.0.0), the autoRenewAccount will be removed.
     // If unspecified, no change.
-    AccountID autoRenewAccount = 9;
+    AccountID auto_renew_account = 9;
 }

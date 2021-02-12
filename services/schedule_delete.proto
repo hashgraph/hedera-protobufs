@@ -34,5 +34,5 @@ The operation must be signed by the specified Admin Key of the Scheduled Transac
 Once deleted, sign and delete transactions will resolve to INVALID_SCHEDULE_ID.
 */
 message ScheduleDeleteTransactionBody {
-  ScheduleID scheduleID = 1; // The ID of the Scheduled Entity
+  ScheduleID schedule_id = 1; // The ID of the Scheduled Entity
 }

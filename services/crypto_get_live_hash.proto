@@ -35,7 +35,7 @@ message CryptoGetLiveHashQuery {
     // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
     QueryHeader header = 1;
     // The account to which the livehash is associated
-    AccountID accountID = 2;
+    AccountID account_id = 2;
     // The SHA-384 data in the livehash
     bytes hash = 3;
 }
@@ -45,7 +45,7 @@ message CryptoGetLiveHashResponse {
     // Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither
     ResponseHeader header = 1;
     // The livehash, if present
-    LiveHash liveHash = 2;
+    LiveHash live_hash = 2;
 }
 
 

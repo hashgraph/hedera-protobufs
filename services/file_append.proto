@@ -33,7 +33,7 @@ Append the given contents to the end of the specified file. If a file is too big
 */
 message FileAppendTransactionBody {
     // The file to which the bytes will be appended
-    FileID fileID = 2;
+    FileID file_id = 2;
     // The bytes that will be appended to the end of the specified file
     bytes contents = 4;
 }

@@ -32,7 +32,7 @@ Undelete a file or smart contract that was deleted by SystemDelete; requires a H
 */
 message SystemUndeleteTransactionBody {
     oneof id {
-        FileID fileID = 1; // The file ID to undelete, in the format used in transactions
-        ContractID contractID = 2; // The contract ID instance to undelete, in the format used in transactions
+        FileID file_id = 1; // The file ID to undelete, in the format used in transactions
+        ContractID contract_id = 2; // The contract ID instance to undelete, in the format used in transactions
     }
 }

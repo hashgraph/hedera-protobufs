@@ -29,5 +29,5 @@ option java_multiple_files = true;
 Submit an arbitrary (serialized) Transaction to the network without prechecks. Requires superuser privileges.
 */
 message UncheckedSubmitBody {
-    bytes transactionBytes = 1; // The serialized bytes of the Transaction to be submitted without prechecks
+    bytes transaction_bytes = 1; // The serialized bytes of the Transaction to be submitted without prechecks
 }

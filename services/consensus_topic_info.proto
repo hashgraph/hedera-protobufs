@@ -39,18 +39,18 @@ message ConsensusTopicInfo {
     //
     // See the TransactionReceipt.proto documentation for an exact description of the
     // data included in the SHA-384 digest used for the update.
-    bytes runningHash = 2;
+    bytes running_hash = 2;
 
     // Sequence number (starting at 1 for the first submitMessage) of messages on the topic.
-    uint64 sequenceNumber = 3;
+    uint64 sequence_number = 3;
 
     // Effective consensus timestamp at (and after) which submitMessage calls will no longer succeed on the topic
     // and the topic will expire and after AUTORENEW_GRACE_PERIOD be automatically deleted.
-    Timestamp expirationTime = 4;
+    Timestamp expiration_time = 4;
 
-    Key adminKey = 5; // Access control for update/delete of the topic. Null if there is no key.
-    Key submitKey = 6; // Access control for ConsensusService.submitMessage. Null if there is no key.
+    Key admin_key = 5; // Access control for update/delete of the topic. Null if there is no key.
+    Key submit_key = 6; // Access control for ConsensusService.submitMessage. Null if there is no key.
 
-    Duration autoRenewPeriod = 7; // If an auto-renew account is specified, when the topic expires, its lifetime will be extended by up to this duration (depending on the solvency of the auto-renew account). If the auto-renew account has no funds at all, the topic will be deleted instead.
-    AccountID autoRenewAccount = 8; // The account, if any, to charge for automatic renewal of the topic's lifetime upon expiry.
+    Duration auto_renew_period = 7; // If an auto-renew account is specified, when the topic expires, its lifetime will be extended by up to this duration (depending on the solvency of the auto-renew account). If the auto-renew account has no funds at all, the topic will be deleted instead.
+    AccountID auto_renew_account = 8; // The account, if any, to charge for automatic renewal of the topic's lifetime upon expiry.
 }

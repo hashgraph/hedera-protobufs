@@ -37,7 +37,7 @@ message ConsensusGetTopicInfoQuery {
     QueryHeader header = 1;
 
     // The Topic for which information is being requested
-    TopicID topicID = 2;
+    TopicID topic_id = 2;
 }
 
 // Retrieve the parameters of and state of a consensus topic.
@@ -45,7 +45,7 @@ message ConsensusGetTopicInfoResponse {
     // Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither.
     ResponseHeader header = 1;
 
-    TopicID topicID = 2; // Topic identifier.
+    TopicID topic_id = 2; // Topic identifier.
 
-    ConsensusTopicInfo topicInfo = 5; // Current state of the topic
+    ConsensusTopicInfo topic_info = 5; // Current state of the topic
 }

@@ -55,31 +55,31 @@ import "schedule_get_info.proto";
 /* A single query, which is sent from the client to a node. This includes all possible queries. Each Query should not have more than 50 levels. */
 message Query {
     oneof query {
-        GetByKeyQuery getByKey = 1; // Get all entities associated with a given key
-        GetBySolidityIDQuery getBySolidityID = 2; // Get the IDs in the format used in transactions, given the format used in Solidity
-        ContractCallLocalQuery contractCallLocal = 3; // Call a function of a smart contract instance
-        ContractGetInfoQuery contractGetInfo = 4; // Get information about a smart contract instance
-        ContractGetBytecodeQuery contractGetBytecode = 5; // Get bytecode used by a smart contract instance
-        ContractGetRecordsQuery ContractGetRecords = 6; // Get Records of the contract instance
+        GetByKeyQuery get_by_key = 1; // Get all entities associated with a given key
+        GetBySolidityIDQuery get_by_solidity_id = 2; // Get the IDs in the format used in transactions, given the format used in Solidity
+        ContractCallLocalQuery contract_call_local = 3; // Call a function of a smart contract instance
+        ContractGetInfoQuery contract_get_info = 4; // Get information about a smart contract instance
+        ContractGetBytecodeQuery contract_get_bytecode = 5; // Get bytecode used by a smart contract instance
+        ContractGetRecordsQuery contract_get_records = 6; // Get Records of the contract instance
 
-        CryptoGetAccountBalanceQuery cryptogetAccountBalance = 7; // Get the current balance in a cryptocurrency account
-        CryptoGetAccountRecordsQuery cryptoGetAccountRecords = 8; // Get all the records that currently exist for transactions involving an account
-        CryptoGetInfoQuery cryptoGetInfo = 9; // Get all information about an account
-        CryptoGetLiveHashQuery cryptoGetLiveHash = 10; // Get a single livehash from a single account, if present
-        CryptoGetStakersQuery cryptoGetProxyStakers = 11; // Get all the accounts that proxy stake to a given account, and how much they proxy stake (not yet implemented in the current API)
+        CryptoGetAccountBalanceQuery cryptoget_account_balance = 7; // Get the current balance in a cryptocurrency account
+        CryptoGetAccountRecordsQuery crypto_get_account_records = 8; // Get all the records that currently exist for transactions involving an account
+        CryptoGetInfoQuery crypto_get_info = 9; // Get all information about an account
+        CryptoGetLiveHashQuery crypto_get_live_hash = 10; // Get a single livehash from a single account, if present
+        CryptoGetStakersQuery crypto_get_proxy_stakers = 11; // Get all the accounts that proxy stake to a given account, and how much they proxy stake (not yet implemented in the current API)
 
-        FileGetContentsQuery fileGetContents = 12; // Get the contents of a file (the bytes stored in it)
-        FileGetInfoQuery fileGetInfo = 13; // Get information about a file, such as its expiration date
+        FileGetContentsQuery file_get_contents = 12; // Get the contents of a file (the bytes stored in it)
+        FileGetInfoQuery file_get_info = 13; // Get information about a file, such as its expiration date
 
-        TransactionGetReceiptQuery transactionGetReceipt = 14; // Get a receipt for a transaction (lasts 180 seconds)
-        TransactionGetRecordQuery transactionGetRecord = 15; // Get a record for a transaction
-        TransactionGetFastRecordQuery transactionGetFastRecord = 16; // Get a record for a transaction (lasts 180 seconds)
-        ConsensusGetTopicInfoQuery consensusGetTopicInfo = 50; // Get the parameters of and state of a consensus topic.
+        TransactionGetReceiptQuery transaction_get_receipt = 14; // Get a receipt for a transaction (lasts 180 seconds)
+        TransactionGetRecordQuery transaction_get_record = 15; // Get a record for a transaction
+        TransactionGetFastRecordQuery transaction_get_fast_record = 16; // Get a record for a transaction (lasts 180 seconds)
+        ConsensusGetTopicInfoQuery consensus_get_topic_info = 50; // Get the parameters of and state of a consensus topic.
 
-        NetworkGetVersionInfoQuery networkGetVersionInfo = 51; // Get the versions of the HAPI protobuf and Hedera Services software deployed on the responding node.
+        NetworkGetVersionInfoQuery network_get_version_info = 51; // Get the versions of the HAPI protobuf and Hedera Services software deployed on the responding node.
 
-        TokenGetInfoQuery tokenGetInfo = 52; // Get all information about a token
+        TokenGetInfoQuery token_get_info = 52; // Get all information about a token
 
-        ScheduleGetInfoQuery scheduleGetInfo = 53; // Get all information about a scheduled entity
+        ScheduleGetInfoQuery schedule_get_info = 53; // Get all information about a scheduled entity
     }
 }

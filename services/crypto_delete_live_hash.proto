@@ -30,7 +30,7 @@ import "basic_types.proto";
 /* At consensus, deletes a livehash associated to the given account. The transaction must be signed by either the key of the owning account, or at least one of the keys associated to the livehash. */
 message CryptoDeleteLiveHashTransactionBody {
     // The account owning the livehash
-    AccountID accountOfLiveHash = 1;
+    AccountID account_of_live_hash = 1;
     // The SHA-384 livehash to delete from the account
-    bytes liveHashToDelete = 2;
+    bytes live_hash_to_delete = 2;
 }

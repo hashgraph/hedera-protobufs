@@ -31,34 +31,34 @@ option java_multiple_files = true;
 
   Everything is partitioned into realms so that each Solidity smart contract can  access everything in just a single realm, locking all those entities while it's  running, but other smart contracts could potentially run in other realms in  parallel. So realms allow Solidity to be parallelized somewhat, even though the  language itself assumes everything is serial. */
 message ShardID {
-    int64 shardNum = 1; //the shard number (nonnegative)
+    int64 shard_num = 1; //the shard number (nonnegative)
 }
 
 /* The ID for a realm. Within a given shard, every realm has a unique ID. Each account, file, and contract instance belongs to exactly one realm. */
 message RealmID {
-    int64 shardNum = 1; //The shard number (nonnegative)
-    int64 realmNum = 2; //The realm number (nonnegative)
+    int64 shard_num = 1; //The shard number (nonnegative)
+    int64 realm_num = 2; //The realm number (nonnegative)
 }
 
 /* The ID for an a cryptocurrency account  */
 message AccountID {
-    int64 shardNum = 1; //The shard number (nonnegative)
-    int64 realmNum = 2; //The realm number (nonnegative)
-    int64 accountNum = 3; //A nonnegative account number unique within its realm
+    int64 shard_num = 1; //The shard number (nonnegative)
+    int64 realm_num = 2; //The realm number (nonnegative)
+    int64 account_num = 3; //A nonnegative account number unique within its realm
 }
 
 /* The ID for a file  */
 message FileID {
-    int64 shardNum = 1; //The shard number (nonnegative)
-    int64 realmNum = 2; //The realm number (nonnegative)
-    int64 fileNum = 3; //A nonnegative File number unique within its realm
+    int64 shard_num = 1; //The shard number (nonnegative)
+    int64 realm_num = 2; //The realm number (nonnegative)
+    int64 file_num = 3; //A nonnegative File number unique within its realm
 }
 
 /* The ID for a smart contract instance  */
 message ContractID {
-    int64 shardNum = 1; //The shard number (nonnegative)
-    int64 realmNum = 2; //The realm number (nonnegative)
-    int64 contractNum = 3; //A nonnegative number unique within its realm
+    int64 shard_num = 1; //The shard number (nonnegative)
+    int64 realm_num = 2; //The realm number (nonnegative)
+    int64 contract_num = 3; //A nonnegative number unique within its realm
 }
 
 /*
@@ -70,21 +70,21 @@ Applicable to Scheduled Transactions:
 - Scheduled Transactions should be submitted with only nonce populated (if desired). Nonce is an additional option presented to users so that they can create multiple sequential Scheduled Transactions that have the same transaction body.
 */
 message TransactionID {
-    Timestamp transactionValidStart = 1; // The transaction is invalid if consensusTimestamp < transactionID.transactionStartValid
-    AccountID accountID = 2; // The Account ID that paid for this transaction
+    Timestamp transaction_valid_start = 1; // The transaction is invalid if consensusTimestamp < transactionID.transactionStartValid
+    AccountID account_id = 2; // The Account ID that paid for this transaction
     bool scheduled = 3; // Whether the Transaction is of type Scheduled or no
     bytes nonce = 4; // Used to manipulate the uniqueness check for idempotent schedule transaction creation
 }
 
 /* An account, and the amount that it sends or receives during a cryptocurrency or token transfer. */
 message AccountAmount {
-    AccountID accountID = 1; // The Account ID that sends/receives cryptocurrency or tokens
+    AccountID account_id = 1; // The Account ID that sends/receives cryptocurrency or tokens
     sint64 amount = 2; // The amount of tinybars (for Crypto transfers) or in the lowest denomination (for Token transfers) that the account sends(negative) or receives(positive)
 }
 
 /* A list of accounts and amounts to transfer out of each account (negative) or into it (positive). */
 message TransferList {
-    repeated AccountAmount accountAmounts = 1; // Multiple list of AccountAmount pairs, each of which has an account and an amount to transfer into it (positive) or out of it (negative)
+    repeated AccountAmount account_amounts = 1; // Multiple list of AccountAmount pairs, each of which has an account and an amount to transfer into it (positive) or out of it (negative)
 }
 
 /* A list of token IDs and amounts representing the transferred out (negative) or into (positive) amounts, represented in the lowest denomination of the token */
@@ -95,23 +95,23 @@ message TokenTransferList {
 
 /* Unique identifier for a topic (used by the consensus service) */
 message TopicID {
-    int64 shardNum = 1; // The shard number (nonnegative)
-    int64 realmNum = 2; // The realm number (nonnegative)
-    int64 topicNum = 3; // Unique topic identifier within a realm (nonnegative).
+    int64 shard_num = 1; // The shard number (nonnegative)
+    int64 realm_num = 2; // The realm number (nonnegative)
+    int64 topic_num = 3; // Unique topic identifier within a realm (nonnegative).
 }
 
 /* Unique identifier for a token */
 message TokenID {
-    int64 shardNum = 1; // A nonnegative shard number
-    int64 realmNum = 2; // A nonnegative realm number
-    int64 tokenNum = 3; // A nonnegative token number
+    int64 shard_num = 1; // A nonnegative shard number
+    int64 realm_num = 2; // A nonnegative realm number
+    int64 token_num = 3; // A nonnegative token number
 }
 
 /* Unique identifier for a Schedule */
 message ScheduleID {
-    int64 shardNum = 1; // A nonnegative shard number
-    int64 realmNum = 2; // A nonnegative realm number
-    int64 scheduleNum = 3; // A nonnegative schedule number
+    int64 shard_num = 1; // A nonnegative shard number
+    int64 realm_num = 2; // A nonnegative realm number
+    int64 schedule_num = 3; // A nonnegative schedule number
 }
 
 /* Possible Freeze statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship */
@@ -142,12 +142,12 @@ enum TokenKycStatus {
  */
 message Key {
     oneof key {
-        ContractID contractID = 1; // smart contract instance that is authorized as if it had signed with a key
+        ContractID contract_id = 1; // smart contract instance that is authorized as if it had signed with a key
         bytes ed25519 = 2; // ed25519 public key bytes
-        bytes RSA_3072 = 3; // RSA-3072 public key bytes
-        bytes ECDSA_384 = 4; // ECDSA with the p-384 curve public key bytes
-        ThresholdKey thresholdKey = 5; // a threshold N followed by a list of M keys, any N of which are required to form a valid signature
-        KeyList keyList = 6; // A list of Keys of the Key type.
+        bytes rsa_3072 = 3; // RSA-3072 public key bytes
+        bytes ecdsa_384 = 4; // ECDSA with the p-384 curve public key bytes
+        ThresholdKey threshold_key = 5; // a threshold N followed by a list of M keys, any N of which are required to form a valid signature
+        KeyList key_list = 6; // A list of Keys of the Key type.
     }
 }
 
@@ -171,10 +171,10 @@ message Signature {
     oneof signature {
         bytes contract = 1; // smart contract virtual signature (always length zero)
         bytes ed25519 = 2; // ed25519 signature bytes
-        bytes RSA_3072 = 3; //RSA-3072 signature bytes
-        bytes ECDSA_384 = 4; //ECDSA p-384 signature bytes
-        ThresholdSignature thresholdSignature = 5; // A list of signatures for a single N-of-M threshold Key. This must be a list of exactly M signatures, at least N of which are non-null.
-        SignatureList signatureList = 6; // A list of M signatures, each corresponding to a Key in a KeyList of the same length.
+        bytes rsa_3072 = 3; //RSA-3072 signature bytes
+        bytes ecdsa_384 = 4; //ECDSA p-384 signature bytes
+        ThresholdSignature threshold_signature = 5; // A list of signatures for a single N-of-M threshold Key. This must be a list of exactly M signatures, at least N of which are non-null.
+        SignatureList signature_list = 6; // A list of M signatures, each corresponding to a Key in a KeyList of the same length.
     }
 }
 
@@ -201,12 +201,12 @@ The client may use any number of bytes from 0 to the whole length of the public 
 If 0 bytes is used, then it is assumed that only one public key is used to sign.
 */
 message SignaturePair {
-    bytes pubKeyPrefix = 1; // First few bytes of the public key
+    bytes pub_key_prefix = 1; // First few bytes of the public key
     oneof signature {
         bytes contract = 2; // smart contract virtual signature (always length zero)
         bytes ed25519 = 3; // ed25519 signature
-        bytes RSA_3072 = 4; //RSA-3072 signature
-        bytes ECDSA_384 = 5; //ECDSA p-384 signature
+        bytes rsa_3072 = 4; //RSA-3072 signature
+        bytes ecdsa_384 = 5; //ECDSA p-384 signature
     }
 }
 
@@ -214,7 +214,7 @@ message SignaturePair {
 A set of signatures corresponding to every unique public key used to sign a given transaction. If one public key matches more than one prefixes on the signature map, the transaction containing the map will fail immediately with the response code KEY_PREFIX_MISMATCH.
 */
 message SignatureMap {
-    repeated SignaturePair sigPair = 1; // Each signature pair corresponds to a unique Key required to sign the transaction.
+    repeated SignaturePair sig_pair = 1; // Each signature pair corresponds to a unique Key required to sign the transaction.
 }
 
 /*
@@ -307,9 +307,9 @@ message FeeComponents {
 /* The fees for a specific transaction or query based on the fee data. */
 message TransactionFeeSchedule {
     // A particular transaction or query
-    HederaFunctionality hederaFunctionality = 1;
+    HederaFunctionality hedera_functionality = 1;
     // Resource price coefficients
-    FeeData feeData = 2;
+    FeeData fee_data = 2;
 }
 
 /*
@@ -329,35 +329,35 @@ A list of resource prices fee for different transactions and queries and the tim
 */
 message FeeSchedule {
     // List of price coefficients for network resources
-    repeated TransactionFeeSchedule transactionFeeSchedule = 1;
+    repeated TransactionFeeSchedule transaction_fee_schedule = 1;
     // FeeSchedule expiry time
-    TimestampSeconds expiryTime = 2;
+    TimestampSeconds expiry_time = 2;
 }
 
 /* This contains two Fee Schedules with expiry timestamp. */
 message CurrentAndNextFeeSchedule {
-    FeeSchedule currentFeeSchedule = 1; // Contains current Fee Schedule
-    FeeSchedule nextFeeSchedule = 2; // Contains next Fee Schedule
+    FeeSchedule current_fee_schedule = 1; // Contains current Fee Schedule
+    FeeSchedule next_fee_schedule = 2; // Contains next Fee Schedule
 }
 
 /*
 The metadata for a Node – including IP Address, and the crypto account associated with the Node.
 */
 message NodeAddress {
-    bytes ipAddress = 1; // The ip address of the Node with separator & octets
+    bytes ip_address = 1; // The ip address of the Node with separator & octets
     int32 portno = 2; // The port number of the grpc server for the node
     bytes memo = 3; // The memo field of the node (usage to store account ID is deprecated)
-    string RSA_PubKey = 4; // The RSA public key of the node
-    int64 nodeId = 5; // A non-sequential identifier for the node
-    AccountID nodeAccountId = 6; // The account to be paid for queries and transactions sent to this node
-    bytes nodeCertHash = 7; // A hash of the X509 cert used for gRPC traffic to this node
+    string rsa_pub_key = 4; // The RSA public key of the node
+    int64 node_id = 5; // A non-sequential identifier for the node
+    AccountID node_account_id = 6; // The account to be paid for queries and transactions sent to this node
+    bytes node_cert_hash = 7; // A hash of the X509 cert used for gRPC traffic to this node
 }
 
 /*
 A list of nodes and their metadata.
 */
 message NodeAddressBook {
-    repeated NodeAddress nodeAddress = 1; // Contains multiple Node Address for the network
+    repeated NodeAddress node_address = 1; // Contains multiple Node Address for the network
 }
 
 message SemanticVersion {
@@ -373,16 +373,16 @@ message Setting {
 }
 
 message ServicesConfigurationList {
-    repeated Setting nameValue = 1; // list of name value pairs of the application properties
+    repeated Setting name_value = 1; // list of name value pairs of the application properties
 }
 
 /* Token's information related to the given Account */
 message TokenRelationship {
-    TokenID tokenId = 1; // The ID of the token
+    TokenID token_id = 1; // The ID of the token
     string symbol = 2; // The Symbol of the token
     uint64 balance = 3; // The balance that the Account holds in the smallest denomination
-    TokenKycStatus kycStatus = 4; // The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned
-    TokenFreezeStatus freezeStatus = 5; // The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned
+    TokenKycStatus kyc_status = 4; // The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned
+    TokenFreezeStatus freeze_status = 5; // The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned
     uint32 decimals = 6; // Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
 }
 
@@ -392,12 +392,12 @@ The transferable unit of a token is its smallest denomination, as given by the t
 
 Transferable units are not directly comparable across different tokens. */
 message TokenBalance {
-    TokenID tokenId = 1; // A unique token id
+    TokenID token_id = 1; // A unique token id
     uint64 balance = 2; // A number of transferable units of the identified token
     uint32 decimals = 3; // Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
 }
 
 /* A sequence of token balances */
 message TokenBalances {
-    repeated TokenBalance tokenBalances = 1;
+    repeated TokenBalance token_balances = 1;
 }

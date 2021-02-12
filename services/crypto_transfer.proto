@@ -32,5 +32,5 @@ If any sender account fails to have sufficient hbars, then the entire transactio
 */
 message CryptoTransferTransactionBody {
     TransferList transfers = 1;
-    repeated TokenTransferList tokenTransfers = 2;
+    repeated TokenTransferList token_transfers = 2;
 }
