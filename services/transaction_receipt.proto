@@ -25,9 +25,9 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "ResponseCode.proto";
-import "ExchangeRate.proto";
+import "basic_types.proto";
+import "response_code.proto";
+import "exchange_rate.proto";
 
 /*
 The summary of a transaction's result so far. If the transaction has not reached consensus, this result will be necessarily incomplete.

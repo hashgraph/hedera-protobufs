@@ -25,11 +25,11 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "Timestamp.proto";
-import "BasicTypes.proto";
-import "TransactionReceipt.proto";
-import "CryptoTransfer.proto";
-import "ContractCallLocal.proto";
+import "timestamp.proto";
+import "basic_types.proto";
+import "transaction_receipt.proto";
+import "crypto_transfer.proto";
+import "contract_call_local.proto";
 
 /* Response when the client sends the node TransactionGetRecordResponse */
 message TransactionRecord {

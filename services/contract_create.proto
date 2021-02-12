@@ -24,8 +24,8 @@ package proto;
 
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
-import "BasicTypes.proto";
-import "Duration.proto";
+import "basic_types.proto";
+import "duration.proto";
 /*
 Start a new smart contract instance. After the instance is created, the ContractID for it is in the receipt, and can be
 retrieved by the Record or with a GetByKey query. The instance will run the bytecode stored in a previously created
