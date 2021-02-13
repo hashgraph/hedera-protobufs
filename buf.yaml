@@ -15,6 +15,9 @@ lint:
 
     PACKAGE_DIRECTORY_MATCH:
       - mirror/consensus_service.proto
+      - streams/account_balance_file.proto
+
+    PACKAGE_SAME_JAVA_PACKAGE:
       - services/basic_types.proto
       - services/consensus_create_topic.proto
       - services/consensus_delete_topic.proto
@@ -96,7 +99,88 @@ lint:
       - services/transaction_record.proto
       - services/transaction_response.proto
       - services/unchecked_submit.proto
-      - streams/account_balance_file.proto
+    PACKAGE_VERSION_SUFFIX:
+      - services/basic_types.proto
+      - services/consensus_create_topic.proto
+      - services/consensus_delete_topic.proto
+      - services/consensus_get_topic_info.proto
+      - services/consensus_service.proto
+      - services/consensus_submit_message.proto
+      - services/consensus_topic_info.proto
+      - services/consensus_update_topic.proto
+      - services/contract_call.proto
+      - services/contract_call_local.proto
+      - services/contract_create.proto
+      - services/contract_delete.proto
+      - services/contract_get_bytecode.proto
+      - services/contract_get_info.proto
+      - services/contract_get_records.proto
+      - services/contract_update.proto
+      - services/crypto_add_live_hash.proto
+      - services/crypto_create.proto
+      - services/crypto_delete.proto
+      - services/crypto_delete_live_hash.proto
+      - services/crypto_get_account_balance.proto
+      - services/crypto_get_account_records.proto
+      - services/crypto_get_info.proto
+      - services/crypto_get_live_hash.proto
+      - services/crypto_get_stakers.proto
+      - services/crypto_service.proto
+      - services/crypto_transfer.proto
+      - services/crypto_update.proto
+      - services/duration.proto
+      - services/exchange_rate.proto
+      - services/file_append.proto
+      - services/file_create.proto
+      - services/file_delete.proto
+      - services/file_get_contents.proto
+      - services/file_get_info.proto
+      - services/file_service.proto
+      - services/file_update.proto
+      - services/freeze.proto
+      - services/freeze_service.proto
+      - services/get_by_key.proto
+      - services/get_by_solidity_id.proto
+      - services/network_get_version_info.proto
+      - services/network_service.proto
+      - services/query.proto
+      - services/query_header.proto
+      - services/response.proto
+      - services/response_code.proto
+      - services/response_header.proto
+      - services/schedule_create.proto
+      - services/schedule_delete.proto
+      - services/schedule_get_info.proto
+      - services/schedule_service.proto
+      - services/schedule_sign.proto
+      - services/smart_contract_service.proto
+      - services/system_delete.proto
+      - services/system_undelete.proto
+      - services/timestamp.proto
+      - services/token_associate.proto
+      - services/token_burn.proto
+      - services/token_create.proto
+      - services/token_delete.proto
+      - services/token_dissociate.proto
+      - services/token_freeze_account.proto
+      - services/token_get_info.proto
+      - services/token_grant_kyc.proto
+      - services/token_mint.proto
+      - services/token_revoke_kyc.proto
+      - services/token_service.proto
+      - services/token_unfreeze_account.proto
+      - services/token_update.proto
+      - services/token_wipe_account.proto
+      - services/transaction.proto
+      - services/transaction_body.proto
+      - services/transaction_contents.proto
+      - services/transaction_get_fast_record.proto
+      - services/transaction_get_receipt.proto
+      - services/transaction_get_record.proto
+      - services/transaction_receipt.proto
+      - services/transaction_record.proto
+      - services/transaction_response.proto
+      - services/unchecked_submit.proto
 
     RPC_REQUEST_RESPONSE_UNIQUE:
       - services/consensus_service.proto

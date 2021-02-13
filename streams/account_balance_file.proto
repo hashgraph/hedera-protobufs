@@ -26,19 +26,19 @@ import "services/basic_types.proto";
 import "services/timestamp.proto";
 
 message TokenUnitBalance {
-    services.v1.TokenID token_id = 1; // A unique token id
+    services.TokenID token_id = 1; // A unique token id
     uint64 balance = 2; // A number of transferable units of the identified token
 }
 
 /* Includes all currency balances (both hbar and token) of a single account in the ledger. */
 message SingleAccountBalances {
-    services.v1.AccountID account_id = 1; // The account
+    services.AccountID account_id = 1; // The account
     uint64 hbar_balance = 2; // The account's hbar balance
     repeated TokenUnitBalance token_unit_balances = 3; // The list of the account's token balances
 }
 
 /* Includes all currency balances (both hbar and token) of all accounts in the ledger. */
 message AllAccountBalances {
-    services.v1.Timestamp consensus_timestamp = 1; // An instant in consensus time 
+    services.Timestamp consensus_timestamp = 1; // An instant in consensus time 
     repeated SingleAccountBalances all_accounts = 2; // The list of account balances for all accounts, after handling all transactions with consensus timestamp up to and including the above instant
 }
