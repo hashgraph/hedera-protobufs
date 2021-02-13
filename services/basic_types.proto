@@ -229,8 +229,13 @@ message ScheduleID {
  * CryptoGetInfoResponse in TokenRelationship.
  */
 enum TokenFreezeStatus {
+    // UNDOCUMENTED
     FREEZE_NOT_APPLICABLE = 0;
+
+    // UNDOCUMENTED
     FROZEN = 1;
+
+    // UNDOCUMENTED
     UNFROZEN = 2;
 }
 
@@ -239,8 +244,13 @@ enum TokenFreezeStatus {
  * CryptoGetInfoResponse in TokenRelationship.
  */
 enum TokenKycStatus {
+    // UNDOCUMENTED
     KYC_NOT_APPLICABLE = 0;
+
+    // UNDOCUMENTED
     GRANTED = 1;
+
+    // UNDOCUMENTED
     REVOKED = 2;
 }
 
@@ -366,6 +376,7 @@ message KeyList {
  */
 message Signature {
     option deprecated = true;
+
     oneof signature {
         // Smart contract virtual signature (always length zero).
         bytes contract = 1;
@@ -457,69 +468,186 @@ message SignatureMap {
  * The transactions and queries supported by Hedera Hashgraph.
  */
 enum HederaFunctionality {
-    NONE = 0; // UNSPECIFIED - Need to keep first value as unspecified because first element is ignored and not parsed (0 is ignored by parser)
-    CRYPTO_TRANSFER = 1; // crypto transfer
-    CRYPTO_UPDATE = 2; // crypto update account
-    CRYPTO_DELETE = 3; // crypto delete account
+    // UNSPECIFIED - Need to keep first value as unspecified because first 
+    // element is ignored and not parsed (0 is ignored by parser)
+    NONE = 0; 
+
+    // Crypto transfer
+    CRYPTO_TRANSFER = 1; 
+
+    // Crypto update account
+    CRYPTO_UPDATE = 2; 
+
+    // Crypto delete account
+    CRYPTO_DELETE = 3; 
+
     // Add a livehash to a crypto account
     CRYPTO_ADD_LIVE_HASH = 4;
+
     // Delete a livehash from a crypto account
     CRYPTO_DELETE_LIVE_HASH = 5;
-    CONTRACT_CALL = 6; // Smart Contract Call
-    CONTRACT_CREATE = 7; // Smart Contract Create Contract
-    CONTRACT_UPDATE = 8; // Smart Contract update contract
-    FILE_CREATE = 9; // File Operation create file
-    FILE_APPEND = 10; // File Operation append file
-    FILE_UPDATE = 11; // File Operation update file
-    FILE_DELETE = 12; // File Operation delete file
-    CRYPTO_GET_ACCOUNT_BALANCE = 13; // crypto get account balance
-    CRYPTO_GET_ACCOUNT_RECORDS = 14; // crypto get account record
-    CRYPTO_GET_INFO = 15; // Crypto get info
-    CONTRACT_CALL_LOCAL = 16; // Smart Contract Call
-    CONTRACT_GET_INFO = 17; // Smart Contract get info
-    CONTRACT_GET_BYTECODE = 18; // Smart Contract, get the byte code
-    GET_BY_SOLIDITY_ID = 19; // Smart Contract, get by solidity ID
-    GET_BY_KEY = 20; // Smart Contract, get by key
+
+    // Smart Contract Call
+    CONTRACT_CALL = 6; 
+
+    // Smart Contract Create Contract
+    CONTRACT_CREATE = 7; 
+
+    // Smart Contract update contract
+    CONTRACT_UPDATE = 8; 
+
+    // File Operation create file
+    FILE_CREATE = 9; 
+
+    // File Operation append file
+    FILE_APPEND = 10; 
+
+    // File Operation update file
+    FILE_UPDATE = 11; 
+
+    // File Operation delete file
+    FILE_DELETE = 12; 
+
+    // Crypto get account balance
+    CRYPTO_GET_ACCOUNT_BALANCE = 13; 
+
+    // Crypto get account record
+    CRYPTO_GET_ACCOUNT_RECORDS = 14; 
+
+    // Crypto get info
+    CRYPTO_GET_INFO = 15; 
+
+    // Smart Contract Call
+    CONTRACT_CALL_LOCAL = 16; 
+
+    // Smart Contract get info
+    CONTRACT_GET_INFO = 17; 
+
+    // Smart Contract, get the byte code
+    CONTRACT_GET_BYTECODE = 18; 
+
+    // Smart Contract, get by solidity ID
+    GET_BY_SOLIDITY_ID = 19; 
+
+    // Smart Contract, get by key
+    GET_BY_KEY = 20; 
+
     // Get a live hash from a crypto account
     CRYPTO_GET_LIVE_HASH = 21;
-    CRYPTO_GET_STAKERS = 22; // Crypto, get the stakers for the node
-    FILE_GET_CONTENTS = 23; // File Operations get file contents
-    FILE_GET_INFO = 24; // File Operations get the info of the file
-    TRANSACTION_GET_RECORD = 25; // Crypto get the transaction records
-    CONTRACT_GET_RECORDS = 26; // Contract get the transaction records
-    CRYPTO_CREATE = 27; // crypto create account
-    SYSTEM_DELETE = 28; // system delete file
-    SYSTEM_UNDELETE = 29; // system undelete file
-    CONTRACT_DELETE = 30; // delete contract
-    FREEZE = 31; // freeze
-    CREATE_TRANSACTION_RECORD = 32; // Create Tx Record
-    CRYPTO_ACCOUNT_AUTO_RENEW = 33; // Crypto Auto Renew
-    CONTRACT_AUTO_RENEW = 34; // Contract Auto Renew
-    GET_VERSION_INFO = 35; //Get Version
-    TRANSACTION_GET_RECEIPT = 36; // Transaction Get Receipt
-    CONSENSUS_CREATE_TOPIC = 50; // Create Topic
-    CONSENSUS_UPDATE_TOPIC = 51; // Update Topic
-    CONSENSUS_DELETE_TOPIC = 52; // Delete Topic
-    CONSENSUS_GET_TOPIC_INFO = 53; // Get Topic information
-    CONSENSUS_SUBMIT_MESSAGE = 54; // Submit message to topic
+
+    // Crypto, get the stakers for the node
+    CRYPTO_GET_STAKERS = 22; 
+
+    // File Operations get file contents
+    FILE_GET_CONTENTS = 23; 
+
+    // File Operations get the info of the file
+    FILE_GET_INFO = 24; 
+
+    // Crypto get the transaction records
+    TRANSACTION_GET_RECORD = 25; 
+
+    // Contract get the transaction records
+    CONTRACT_GET_RECORDS = 26; 
+
+    // Crypto create account
+    CRYPTO_CREATE = 27; 
+
+    // System delete file
+    SYSTEM_DELETE = 28; 
+
+    // System undelete file
+    SYSTEM_UNDELETE = 29; 
+
+    // Delete contract
+    CONTRACT_DELETE = 30; 
+
+    // Freeze
+    FREEZE = 31; 
+
+    // Create Tx Record
+    CREATE_TRANSACTION_RECORD = 32; 
+
+    // Crypto Auto Renew
+    CRYPTO_ACCOUNT_AUTO_RENEW = 33; 
+
+    // Contract Auto Renew
+    CONTRACT_AUTO_RENEW = 34; 
+
+    // Get Version
+    GET_VERSION_INFO = 35; 
+
+    // Transaction Get Receipt
+    TRANSACTION_GET_RECEIPT = 36; 
+
+    // Create Topic
+    CONSENSUS_CREATE_TOPIC = 50; 
+
+    // Update Topic
+    CONSENSUS_UPDATE_TOPIC = 51; 
+
+    // Delete Topic
+    CONSENSUS_DELETE_TOPIC = 52; 
+
+    // Get Topic information
+    CONSENSUS_GET_TOPIC_INFO = 53; 
+
+    // Submit message to topic
+    CONSENSUS_SUBMIT_MESSAGE = 54; 
+
+    // UNDOCUMENTED
     UNCHECKED_SUBMIT = 55;
-    TOKEN_CREATE = 56; // Create Token
-    TOKEN_GET_INFO = 58; // Get Token information
-    TOKEN_FREEZE_ACCOUNT = 59; // Freeze Account
-    TOKEN_UNFREEZE_ACCOUNT = 60; // Unfreeze Account
-    TOKEN_GRANT_KYC_TO_ACCOUNT = 61; // Grant KYC to Account
-    TOKEN_REVOKE_KYC_FROM_ACCOUNT = 62; // Revoke KYC from Account
-    TOKEN_DELETE = 63; // Delete Token
-    TOKEN_UPDATE = 64; // Update Token
-    TOKEN_MINT = 65; // Mint tokens to treasury
-    TOKEN_BURN = 66; // Burn tokens from treasury
-    TOKEN_ACCOUNT_WIPE = 67; // Wipe token amount from Account holder
-    TOKEN_ASSOCIATE_TO_ACCOUNT = 68; // Associate tokens to an account
-    TOKEN_DISSOCIATE_FROM_ACCOUNT = 69; // Dissociate tokens from an account
-    SCHEDULE_CREATE = 70; // Create Scheduled Transaction
-    SCHEDULE_DELETE = 71; // Delete Scheduled Transaction
-    SCHEDULE_SIGN = 72; // Sign Scheduled Transaction
-    SCHEDULE_GET_INFO = 73; // Get Scheduled Transaction Information
+
+    // Create Token
+    TOKEN_CREATE = 56; 
+
+    // Get Token information
+    TOKEN_GET_INFO = 58; 
+
+    // Freeze Account
+    TOKEN_FREEZE_ACCOUNT = 59; 
+
+    // Unfreeze Account
+    TOKEN_UNFREEZE_ACCOUNT = 60; 
+
+    // Grant KYC to Account
+    TOKEN_GRANT_KYC_TO_ACCOUNT = 61; 
+
+    // Revoke KYC from Account
+    TOKEN_REVOKE_KYC_FROM_ACCOUNT = 62; 
+
+    // Delete Token
+    TOKEN_DELETE = 63; 
+
+    // Update Token
+    TOKEN_UPDATE = 64; 
+
+    // Mint tokens to treasury
+    TOKEN_MINT = 65; 
+
+    // Burn tokens from treasury
+    TOKEN_BURN = 66; 
+
+    // Wipe token amount from Account holder
+    TOKEN_ACCOUNT_WIPE = 67; 
+
+    // Associate tokens to an account
+    TOKEN_ASSOCIATE_TO_ACCOUNT = 68; 
+
+    // Dissociate tokens from an account
+    TOKEN_DISSOCIATE_FROM_ACCOUNT = 69; 
+
+    // Create Scheduled Transaction
+    SCHEDULE_CREATE = 70; 
+
+    // Delete Scheduled Transaction
+    SCHEDULE_DELETE = 71; 
+
+    // Sign Scheduled Transaction
+    SCHEDULE_SIGN = 72; 
+
+    // Get Scheduled Transaction Information
+    SCHEDULE_GET_INFO = 73; 
 }
 
 /*
@@ -558,10 +686,12 @@ message FeeComponents {
     // The price per hbar transferred for a transfer
     int64 tv = 9;
 
-    // The price of bandwidth for data retrieved from memory for a response, measured in bytes
+    // The price of bandwidth for data retrieved from memory for a response, 
+    // measured in bytes
     int64 bpr = 10;
 
-    // The price of bandwidth for data retrieved from disk for a response, measured in bytes
+    // The price of bandwidth for data retrieved from disk for a response, 
+    // measured in bytes
     int64 sbpr = 11;
 }
 
@@ -655,6 +785,9 @@ message NodeAddressBook {
     repeated NodeAddress node_address = 1;
 }
 
+/*
+ * UNDOCUMENTED
+ */
 message SemanticVersion {
     // Increases with incompatible API changes
    int32 major = 1;
@@ -666,12 +799,23 @@ message SemanticVersion {
    int32 patch = 3;
 }
 
+/*
+ * UNDOCUMENTED
+ */
 message Setting {
-    string name = 1; // name of the property
-    string value = 2; // value of the property
-    bytes data = 3; // any data associated with property
+    // Name of the property
+    string name = 1; 
+
+    // Value of the property
+    string value = 2; 
+
+    // Any data associated with property
+    bytes data = 3; 
 }
 
+/*
+ * UNDOCUMENTED
+ */
 message ServicesConfigurationList {
     // list of name value pairs of the application properties
     repeated Setting name_value = 1;
@@ -730,5 +874,6 @@ message TokenBalance {
  * A sequence of token balances.
  */
 message TokenBalances {
+    // UNDOCUMENTED
     repeated TokenBalance token_balances = 1;
 }

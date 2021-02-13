@@ -27,6 +27,9 @@ option java_multiple_files = true;
 
 import "services/basic_types.proto";
 
+/*
+ * UNDOCUMENTED
+ */
 message ConsensusMessageChunkInfo {
     // TransactionID of the first chunk, gets copied to every subsequent chunk
     // in a fragmented message.
@@ -40,6 +43,9 @@ message ConsensusMessageChunkInfo {
     int32 number = 3;
 }
 
+/*
+ * UNDOCUMENTED
+ */
 message ConsensusSubmitMessageTransactionBody {
     // Topic to submit message to.
     TopicID topic_id = 1;

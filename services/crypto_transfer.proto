@@ -42,6 +42,9 @@ import "services/basic_types.proto";
  * accounts, skipping those accounts that don't need a signature.
  */
 message CryptoTransferTransactionBody {
+    // UNDOCUMENTED
     TransferList transfers = 1;
+
+    // UNDOCUMENTED
     repeated TokenTransferList token_transfers = 2;
 }

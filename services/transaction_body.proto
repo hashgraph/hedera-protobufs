@@ -111,7 +111,7 @@ message TransactionBody {
     // Updates a contract
     ContractUpdateTransactionBody contract_update_instance = 9;
 
-    //Delete contract and transfer remaining balance into specified account
+    // Delete contract and transfer remaining balance into specified account
     ContractDeleteTransactionBody contract_delete_instance = 22;
 
     // Attach a new livehash to an account
@@ -147,7 +147,7 @@ message TransactionBody {
     // Hedera administrative deletion of a file or smart contract
     SystemDeleteTransactionBody system_delete = 20;
 
-    //To undelete an entity deleted by SystemDelete
+    // To undelete an entity deleted by SystemDelete
     SystemUndeleteTransactionBody system_undelete = 21;
 
     // Freeze the nodes
@@ -165,6 +165,7 @@ message TransactionBody {
     // Submits message to a topic
     ConsensusSubmitMessageTransactionBody consensus_submit_message = 27;
 
+    // UNDOCUMENTED
     UncheckedSubmitBody unchecked_submit = 28;
 
     // Creates a token instance

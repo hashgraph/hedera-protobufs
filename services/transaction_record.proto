@@ -73,6 +73,7 @@ message TransactionRecord {
     // All Token transfers as a result of this transaction
     repeated TokenTransferList token_transfer_lists = 11;
 
-    // Reference to the scheduled transaction ID that this transaction record represent
+    // Reference to the scheduled transaction ID that this transaction 
+    // record represent
     ScheduleID schedule_ref = 12;
 }

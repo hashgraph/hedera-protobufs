@@ -37,7 +37,7 @@ message ConsensusCreateTopicTransactionBody {
 
     // Access control for updateTopic/deleteTopic.
     // Anyone can increase the topic's expirationTime via
-    // ConsensusService.updateTopic(), regardless of the adminKey.  If no
+    // ConsensusService.updateTopic(), regardless of the adminKey. If no
     // adminKey is specified, updateTopic may only be used to extend the
     // topic's expirationTime, and deleteTopic is disallowed.
     Key admin_key = 2;

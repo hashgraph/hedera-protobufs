@@ -84,7 +84,8 @@ message CryptoUpdateTransactionBody {
     // If it is empty when it expires, then it is deleted.
     Duration auto_renew_period = 8;
 
-    // The new expiration time to extend to (ignored if equal to or before the current one)
+    // The new expiration time to extend to (ignored if equal to or before the 
+    // current one)
     Timestamp expiration_time = 9;
 
     oneof receiver_sig_required_field {

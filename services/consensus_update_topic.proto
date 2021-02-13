@@ -35,6 +35,7 @@ import "services/timestamp.proto";
  * See [ConsensusService.updateTopic()](#proto.ConsensusService)
  */
 message ConsensusUpdateTopicTransactionBody {
+    // UNDOCUMENTED
     TopicID topic_id = 1;
 
     // If set, the new memo to be associated with the topic (UTF-8 encoding

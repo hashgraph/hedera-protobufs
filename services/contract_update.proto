@@ -82,7 +82,7 @@ message ContractUpdateTransactionBody {
         // associated with the account (UTF-8 encoding max 100 bytes)
       string memo = 9 [deprecated = true];
 
-        // If set, the new memo to be associated with the account (UTF-8
+      // If set, the new memo to be associated with the account (UTF-8
       // encoding max 100 bytes)
       google.protobuf.StringValue memo_wrapper = 10;
     }

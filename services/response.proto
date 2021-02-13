@@ -76,7 +76,7 @@ message Response {
         // Get information about a smart contract instance
         ContractGetInfoResponse contract_get_info = 4;
 
-        //Get all existing records for a smart contract instance
+        // Get all existing records for a smart contract instance
         ContractGetRecordsResponse contract_get_records_response = 6;
 
         // Get the current balance in a cryptocurrency account

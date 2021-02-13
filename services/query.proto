@@ -77,7 +77,6 @@ message Query {
         // Get Records of the contract instance
         ContractGetRecordsQuery contract_get_records = 6;
 
-
         // Get the current balance in a cryptocurrency account
         CryptoGetAccountBalanceQuery cryptoget_account_balance = 7;
 
@@ -95,13 +94,11 @@ message Query {
         // much they proxy stake (not yet implemented in the current API)
         CryptoGetStakersQuery crypto_get_proxy_stakers = 11;
 
-
         // Get the contents of a file (the bytes stored in it)
         FileGetContentsQuery file_get_contents = 12;
 
         // Get information about a file, such as its expiration date
         FileGetInfoQuery file_get_info = 13;
-
 
         // Get a receipt for a transaction (lasts 180 seconds)
         TransactionGetReceiptQuery transaction_get_receipt = 14;
@@ -115,15 +112,12 @@ message Query {
         // Get the parameters of and state of a consensus topic.
         ConsensusGetTopicInfoQuery consensus_get_topic_info = 50;
 
-
         // Get the versions of the HAPI protobuf and Hedera Services software
         // deployed on the responding node.
         NetworkGetVersionInfoQuery network_get_version_info = 51;
 
-
         // Get all information about a token
         TokenGetInfoQuery token_get_info = 52;
-
 
         // Get all information about a scheduled entity
         ScheduleGetInfoQuery schedule_get_info = 53;

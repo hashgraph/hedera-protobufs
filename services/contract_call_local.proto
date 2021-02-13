@@ -84,7 +84,7 @@ message ContractFunctionResult {
  * state of the contract instance (and so, cannot spend anything from the
  * instance's cryptocurrency account). It will not have a consensus timestamp.
  * It cannot generate a record or a receipt. The response will contain the
- * output returned by the function call.  This is useful for calling getter
+ * output returned by the function call. This is useful for calling getter
  * functions, which purely read the state and don't change it. It is faster
  * and cheaper than a normal call, because it is purely local to a single 
  * node.

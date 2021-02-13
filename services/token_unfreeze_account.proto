@@ -44,7 +44,8 @@ import "services/basic_types.proto";
  *  - If no Freeze Key is defined, the transaction will resolve to
  *    TOKEN_HAS_NO_FREEZE_KEY.
  *
- * Once executed the Account is marked as Unfrozen and will be able to receive or send tokens. The operation is idempotent.
+ * Once executed the Account is marked as Unfrozen and will be able to receive 
+ * or send tokens. The operation is idempotent.
  */
 message TokenUnfreezeAccountTransactionBody {
     // The token for which this account will be unfrozen. If token does not
