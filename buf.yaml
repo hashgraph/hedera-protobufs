@@ -1,22 +1,17 @@
 version: v1beta1
 lint:
-  use:
-    - DEFAULT
   ignore_only:
     ENUM_VALUE_PREFIX:
       - services/basic_types.proto
       - services/query_header.proto
       - services/response_code.proto
-
     ENUM_ZERO_VALUE_SUFFIX:
       - services/basic_types.proto
       - services/query_header.proto
       - services/response_code.proto
-
     PACKAGE_DIRECTORY_MATCH:
       - mirror/consensus_service.proto
       - streams/account_balance_file.proto
-
     PACKAGE_SAME_JAVA_PACKAGE:
       - services/basic_types.proto
       - services/consensus_create_topic.proto
@@ -71,6 +66,7 @@ lint:
       - services/schedule_get_info.proto
       - services/schedule_service.proto
       - services/schedule_sign.proto
+      - services/signed_transaction.proto
       - services/smart_contract_service.proto
       - services/system_delete.proto
       - services/system_undelete.proto
@@ -91,7 +87,6 @@ lint:
       - services/token_wipe_account.proto
       - services/transaction.proto
       - services/transaction_body.proto
-      - services/transaction_contents.proto
       - services/transaction_get_fast_record.proto
       - services/transaction_get_receipt.proto
       - services/transaction_get_record.proto
@@ -153,6 +148,7 @@ lint:
       - services/schedule_get_info.proto
       - services/schedule_service.proto
       - services/schedule_sign.proto
+      - services/signed_transaction.proto
       - services/smart_contract_service.proto
       - services/system_delete.proto
       - services/system_undelete.proto
@@ -173,7 +169,6 @@ lint:
       - services/token_wipe_account.proto
       - services/transaction.proto
       - services/transaction_body.proto
-      - services/transaction_contents.proto
       - services/transaction_get_fast_record.proto
       - services/transaction_get_receipt.proto
       - services/transaction_get_record.proto
@@ -181,7 +176,6 @@ lint:
       - services/transaction_record.proto
       - services/transaction_response.proto
       - services/unchecked_submit.proto
-
     RPC_REQUEST_RESPONSE_UNIQUE:
       - services/consensus_service.proto
       - services/crypto_service.proto
@@ -191,7 +185,6 @@ lint:
       - services/schedule_service.proto
       - services/smart_contract_service.proto
       - services/token_service.proto
-
     RPC_REQUEST_STANDARD_NAME:
       - mirror/consensus_service.proto
       - services/consensus_service.proto
@@ -202,7 +195,6 @@ lint:
       - services/schedule_service.proto
       - services/smart_contract_service.proto
       - services/token_service.proto
-
     RPC_RESPONSE_STANDARD_NAME:
       - mirror/consensus_service.proto
       - services/consensus_service.proto

@@ -29,7 +29,6 @@ import "services/basic_types.proto";
 import "services/timestamp.proto";
 import "services/query_header.proto";
 import "services/response_header.proto";
-import "services/schedule_create.proto";
 
 /* 
  * Gets information about Scheduled Transaction instance

@@ -25,7 +25,6 @@ package services;
 option java_package = "com.hederahashgraph.api.proto";
 option java_multiple_files = true;
 
-import "services/transaction_response.proto";
 import "services/query_header.proto";
 import "services/response_code.proto";
 

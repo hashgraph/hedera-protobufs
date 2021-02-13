@@ -128,7 +128,7 @@ message ContractID {
  *     (if desired). Nonce is an additional option presented to users so that 
  *     they can create multiple sequential Scheduled Transactions that 
  *     have the same transaction body.
-*/
+ */
 message TransactionID {
     // The transaction is invalid if 
     // consensusTimestamp < transactionID.transactionStartValid.

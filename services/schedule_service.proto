@@ -63,7 +63,7 @@ import "services/transaction.proto";
  * (Currently set to 30 minutes). If txExpiryTimeSecs pass and the Scheduled 
  * Transaction haven't yet executed, it will be removed from the ledger as if 
  * ScheduleDelete operation is executed.
-*/
+ */
 service ScheduleService {
   // Creates a new Schedule by submitting the transaction
   rpc CreateSchedule (Transaction) returns (TransactionResponse);

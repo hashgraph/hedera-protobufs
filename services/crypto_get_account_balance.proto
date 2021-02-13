@@ -28,7 +28,6 @@ option java_multiple_files = true;
 import "services/basic_types.proto";
 import "services/query_header.proto";
 import "services/response_header.proto";
-import "services/timestamp.proto";
 
 /* 
  * Get the balance of a cryptocurrency account. This returns only the balance, 

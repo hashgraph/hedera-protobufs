@@ -28,7 +28,6 @@ option java_multiple_files = true;
 import "services/timestamp.proto";
 import "services/basic_types.proto";
 import "services/transaction_receipt.proto";
-import "services/crypto_transfer.proto";
 import "services/contract_call_local.proto";
 
 /*

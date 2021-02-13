@@ -26,7 +26,6 @@ option java_package = "com.hederahashgraph.api.proto";
 option java_multiple_files = true;
 
 import "services/basic_types.proto";
-import "services/timestamp.proto";
 
 /*
  * Create a new Scheduled Transaction. After the Scheduled Transaction is 
@@ -73,7 +72,7 @@ import "services/timestamp.proto";
  *     (f.e scheduling a ScheduleCreate transaction).
  *   - SOME_SIGNATURES_WERE_INVALID is returned if one of the signatures 
  *     provided does not represent a valid signature for any required signer
-*/
+ */
 message ScheduleCreateTransactionBody {
   // The transaction serialized into bytes that must be signed
   bytes transaction_body = 1; 
