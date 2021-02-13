@@ -1,7 +1,3 @@
-syntax = "proto3";
-
-package services.v1;
-
 /*-
  * ‌
  * Hedera Network Services Protobuf
@@ -21,6 +17,10 @@ package services.v1;
  * limitations under the License.
  * ‍
  */
+
+syntax = "proto3";
+
+package services.v1;
 
 /* An exact date and time. This is the same data structure as the protobuf Timestamp.proto (see the comments in https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) */
 message Timestamp {
