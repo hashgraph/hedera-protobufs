@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -77,139 +77,139 @@ import "services/schedule_sign.proto";
  * A single transaction. All transaction types are possible here.
  */
 message TransactionBody {
-  // The ID for this transaction, which includes the payer's account (the 
-  // account paying the transaction fee). If two transactions have the same 
+  // The ID for this transaction, which includes the payer's account (the
+  // account paying the transaction fee). If two transactions have the same
   // transactionID, they won't both have an effect
-  TransactionID transaction_id = 1; 
+  TransactionID transaction_id = 1;
 
-  // The account of the node that submits the client's transaction to the 
+  // The account of the node that submits the client's transaction to the
   // network
-  AccountID node_account_id = 2; 
+  AccountID node_account_id = 2;
 
   // The maximum transaction fee the client is willing to pay
-  uint64 transaction_fee = 3; 
+  uint64 transaction_fee = 3;
 
   // The transaction is invalid if consensusTimestamp > transactionID.
   // transactionValidStart + transactionValidDuration
-  Duration transaction_valid_duration = 4; 
+  Duration transaction_valid_duration = 4;
 
-  // Should a record of this transaction be generated? (A receipt is always 
+  // Should a record of this transaction be generated? (A receipt is always
   // generated, but the record is optional)
-  bool generate_record = 5 [deprecated = true]; 
+  bool generate_record = 5 [deprecated = true];
 
-  // Any notes or descriptions that should be put into the record 
+  // Any notes or descriptions that should be put into the record
   // (max length 100)
-  string memo = 6; 
+  string memo = 6;
 
   oneof data {
     // Calls a function of a contract instance
-    ContractCallTransactionBody contract_call = 7; 
+    ContractCallTransactionBody contract_call = 7;
 
     // Creates a contract instance
-    ContractCreateTransactionBody contract_create_instance = 8; 
+    ContractCreateTransactionBody contract_create_instance = 8;
 
     // Updates a contract
-    ContractUpdateTransactionBody contract_update_instance = 9; 
+    ContractUpdateTransactionBody contract_update_instance = 9;
 
     //Delete contract and transfer remaining balance into specified account
-    ContractDeleteTransactionBody contract_delete_instance = 22; 
+    ContractDeleteTransactionBody contract_delete_instance = 22;
 
     // Attach a new livehash to an account
-    CryptoAddLiveHashTransactionBody crypto_add_live_hash = 10; 
+    CryptoAddLiveHashTransactionBody crypto_add_live_hash = 10;
 
     // Create a new cryptocurrency account
-    CryptoCreateTransactionBody crypto_create_account = 11; 
+    CryptoCreateTransactionBody crypto_create_account = 11;
 
     // Delete a cryptocurrency account (mark as deleted, and transfer hbars out)
-    CryptoDeleteTransactionBody crypto_delete = 12; 
+    CryptoDeleteTransactionBody crypto_delete = 12;
 
     // Remove a livehash from an account
-    CryptoDeleteLiveHashTransactionBody crypto_delete_live_hash = 13; 
+    CryptoDeleteLiveHashTransactionBody crypto_delete_live_hash = 13;
 
     // Transfer amount between accounts
-    CryptoTransferTransactionBody crypto_transfer = 14; 
+    CryptoTransferTransactionBody crypto_transfer = 14;
 
     // Modify information such as the expiration date for an account
-    CryptoUpdateTransactionBody crypto_update_account = 15; 
+    CryptoUpdateTransactionBody crypto_update_account = 15;
 
     // Add bytes to the end of the contents of a file
-    FileAppendTransactionBody file_append = 16; 
+    FileAppendTransactionBody file_append = 16;
 
     // Create a new file
-    FileCreateTransactionBody file_create = 17; 
+    FileCreateTransactionBody file_create = 17;
 
     // Delete a file (remove contents and mark as deleted until it expires)
-    FileDeleteTransactionBody file_delete = 18; 
+    FileDeleteTransactionBody file_delete = 18;
 
     // Modify information such as the expiration date for a file
-    FileUpdateTransactionBody file_update = 19; 
+    FileUpdateTransactionBody file_update = 19;
 
     // Hedera administrative deletion of a file or smart contract
-    SystemDeleteTransactionBody system_delete = 20; 
+    SystemDeleteTransactionBody system_delete = 20;
 
     //To undelete an entity deleted by SystemDelete
-    SystemUndeleteTransactionBody system_undelete = 21; 
+    SystemUndeleteTransactionBody system_undelete = 21;
 
     // Freeze the nodes
-    FreezeTransactionBody freeze = 23; 
+    FreezeTransactionBody freeze = 23;
 
     // Creates a topic
-    ConsensusCreateTopicTransactionBody consensus_create_topic = 24; 
+    ConsensusCreateTopicTransactionBody consensus_create_topic = 24;
 
     // Updates a topic
-    ConsensusUpdateTopicTransactionBody consensus_update_topic = 25; 
+    ConsensusUpdateTopicTransactionBody consensus_update_topic = 25;
 
     // Deletes a topic
-    ConsensusDeleteTopicTransactionBody consensus_delete_topic = 26; 
+    ConsensusDeleteTopicTransactionBody consensus_delete_topic = 26;
 
     // Submits message to a topic
-    ConsensusSubmitMessageTransactionBody consensus_submit_message = 27; 
+    ConsensusSubmitMessageTransactionBody consensus_submit_message = 27;
 
     UncheckedSubmitBody unchecked_submit = 28;
 
     // Creates a token instance
-    TokenCreateTransactionBody token_creation = 29; 
+    TokenCreateTransactionBody token_creation = 29;
 
     // Freezes account not to be able to transact with a token
-    TokenFreezeAccountTransactionBody token_freeze = 31; 
+    TokenFreezeAccountTransactionBody token_freeze = 31;
 
     // Unfreezes account for a token
-    TokenUnfreezeAccountTransactionBody token_unfreeze = 32; 
+    TokenUnfreezeAccountTransactionBody token_unfreeze = 32;
 
     // Grants KYC to an account for a token
-    TokenGrantKycTransactionBody token_grant_kyc = 33; 
+    TokenGrantKycTransactionBody token_grant_kyc = 33;
 
     // Revokes KYC of an account for a token
-    TokenRevokeKycTransactionBody token_revoke_kyc = 34; 
+    TokenRevokeKycTransactionBody token_revoke_kyc = 34;
 
     // Deletes a token instance
-    TokenDeleteTransactionBody token_deletion = 35; 
+    TokenDeleteTransactionBody token_deletion = 35;
 
     // Updates a token instance
-    TokenUpdateTransactionBody token_update = 36; 
+    TokenUpdateTransactionBody token_update = 36;
 
     // Mints new tokens to a token's treasury account
-    TokenMintTransactionBody token_mint = 37; 
+    TokenMintTransactionBody token_mint = 37;
 
     // Burns tokens from a token's treasury account
-    TokenBurnTransactionBody token_burn = 38; 
+    TokenBurnTransactionBody token_burn = 38;
 
     // Wipes amount of tokens from an account
-    TokenWipeAccountTransactionBody token_wipe = 39; 
+    TokenWipeAccountTransactionBody token_wipe = 39;
 
     // Associate tokens to an account
-    TokenAssociateTransactionBody token_associate = 40; 
+    TokenAssociateTransactionBody token_associate = 40;
 
     // Dissociate tokens from an account
-    TokenDissociateTransactionBody token_dissociate = 41; 
+    TokenDissociateTransactionBody token_dissociate = 41;
 
     // Creates a scheduled transaction instance
-    ScheduleCreateTransactionBody schedule_create = 42; 
+    ScheduleCreateTransactionBody schedule_create = 42;
 
     // Deletes a scheduled transaction instance
-    ScheduleDeleteTransactionBody schedule_delete = 43; 
+    ScheduleDeleteTransactionBody schedule_delete = 43;
 
     // Signs a scheduled transaction instance
-    ScheduleSignTransactionBody schedule_sign = 44; 
+    ScheduleSignTransactionBody schedule_sign = 44;
   }
 }

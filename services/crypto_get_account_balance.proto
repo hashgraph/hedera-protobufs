@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -29,41 +29,41 @@ import "services/basic_types.proto";
 import "services/query_header.proto";
 import "services/response_header.proto";
 
-/* 
- * Get the balance of a cryptocurrency account. This returns only the balance, 
- * so it is a smaller reply than CryptoGetInfo, which returns the balance plus 
+/*
+ * Get the balance of a cryptocurrency account. This returns only the balance,
+ * so it is a smaller reply than CryptoGetInfo, which returns the balance plus
  * additional information.
  */
 message CryptoGetAccountBalanceQuery {
-    // Standard info sent from client to node, including the signed payment, 
-    // and what kind of response is requested (cost, state proof, both, or 
+    // Standard info sent from client to node, including the signed payment,
+    // and what kind of response is requested (cost, state proof, both, or
     // neither).
-    QueryHeader header = 1; 
+    QueryHeader header = 1;
 
     oneof balance_source {
         // The account ID for which information is requested
-    	AccountID account_id = 2; 
+    	AccountID account_id = 2;
 
         // The account ID for which information is requested
-    	ContractID contract_id = 3; 
+    	ContractID contract_id = 3;
     }
 }
 
-/* 
+/*
  * Response when the client sends the node CryptoGetAccountBalanceQuery
  */
 message CryptoGetAccountBalanceResponse {
-    // Standard response from node to client, including the requested fields: 
+    // Standard response from node to client, including the requested fields:
     // cost, or state proof, or both, or neither.
-    ResponseHeader header = 1; 
+    ResponseHeader header = 1;
 
-    // The account ID that is being described (this is useful with state proofs, 
+    // The account ID that is being described (this is useful with state proofs,
     // for proving to a third party)
-    AccountID account_id = 2; 
+    AccountID account_id = 2;
 
     // The current balance, in tinybars.
-    uint64 balance = 3; 
+    uint64 balance = 3;
 
     // The token balances possessed by the target account.
-    repeated TokenBalance token_balances = 4; 
+    repeated TokenBalance token_balances = 4;
 }

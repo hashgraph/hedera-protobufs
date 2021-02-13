@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -31,37 +31,37 @@ import "services/query_header.proto";
 import "services/response_header.proto";
 
 /*
- * Requests records of all transactions for which the given account was the 
- * effective payer in the last 3 minutes of consensus time and 
- * <tt>ledger.keepRecordsInState=true</tt> was true during 
+ * Requests records of all transactions for which the given account was the
+ * effective payer in the last 3 minutes of consensus time and
+ * <tt>ledger.keepRecordsInState=true</tt> was true during
  * <tt>handleTransaction</tt>.
  */
 message CryptoGetAccountRecordsQuery {
-    // Standard info sent from client to node, including the signed payment, 
-    // and what kind of response is requested (cost, state proof, both, or 
+    // Standard info sent from client to node, including the signed payment,
+    // and what kind of response is requested (cost, state proof, both, or
     // neither).
-    QueryHeader header = 1; 
+    QueryHeader header = 1;
 
     // The account ID for which the records should be retrieved
-    AccountID account_id = 2; 
+    AccountID account_id = 2;
 }
 
 /*
- * Returns records of all transactions for which the given account was the 
- * effective payer in the last 3 minutes of consensus time and 
- * <tt>ledger.keepRecordsInState=true</tt> was true during 
+ * Returns records of all transactions for which the given account was the
+ * effective payer in the last 3 minutes of consensus time and
+ * <tt>ledger.keepRecordsInState=true</tt> was true during
  * <tt>handleTransaction</tt>.
  */
 message CryptoGetAccountRecordsResponse {
-    // Standard response from node to client, including the requested fields: 
+    // Standard response from node to client, including the requested fields:
     // cost, or state proof, or both, or neither
-    ResponseHeader header = 1; 
+    ResponseHeader header = 1;
 
     // The account that this record is for
-    AccountID account_id = 2; 
+    AccountID account_id = 2;
 
     // List of records
-    repeated TransactionRecord records = 3; 
+    repeated TransactionRecord records = 3;
 }
 
 

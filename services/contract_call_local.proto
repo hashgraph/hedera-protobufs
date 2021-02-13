@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -29,98 +29,98 @@ import "services/basic_types.proto";
 import "services/query_header.proto";
 import "services/response_header.proto";
 
-/* 
- * The log information for an event returned by a smart contract function call. 
+/*
+ * The log information for an event returned by a smart contract function call.
  * One function call may return several such events.
  */
 message ContractLoginfo {
     // Address of a contract that emitted the event
-    ContractID contract_id = 1; 
+    ContractID contract_id = 1;
 
     // Bloom filter for a particular log
-    bytes bloom = 2; 
+    bytes bloom = 2;
 
     // Topics of a particular event
-    repeated bytes topic = 3; 
+    repeated bytes topic = 3;
 
     // Event data
-    bytes data = 4; 
+    bytes data = 4;
 }
 
-/* 
- * The result returned by a call to a smart contract function. This is part of 
- * the response to a ContractCallLocal query, and is in the record for a 
- * ContractCall or ContractCreateInstance transaction. The 
- * ContractCreateInstance transaction record has the results of the call to 
+/*
+ * The result returned by a call to a smart contract function. This is part of
+ * the response to a ContractCallLocal query, and is in the record for a
+ * ContractCall or ContractCreateInstance transaction. The
+ * ContractCreateInstance transaction record has the results of the call to
  * the constructor.
  */
 message ContractFunctionResult {
     // The smart contract instance whose function was called
-    ContractID contract_id = 1; 
+    ContractID contract_id = 1;
 
     // The result returned by the function
-    bytes contract_call_result = 2; 
+    bytes contract_call_result = 2;
 
     // Message In case there was an error during smart contract execution
-    string error_message = 3; 
+    string error_message = 3;
 
     // Bloom filter for record
-    bytes bloom = 4; 
+    bytes bloom = 4;
 
     // Units of gas used to execute contract
-    uint64 gas_used = 5; 
+    uint64 gas_used = 5;
 
     // The log info for events returned by the function
-    repeated ContractLoginfo log_info = 6; 
+    repeated ContractLoginfo log_info = 6;
 
     // The list of smart contracts that were created by the function call
-    repeated ContractID created_contract_i_ds = 7; 
+    repeated ContractID created_contract_i_ds = 7;
 }
 
-/* 
- * Call a function of the given smart contract instance, giving it 
- * functionParameters as its inputs. This is performed locally on the 
- * particular node that the client is communicating with. It cannot change the 
- * state of the contract instance (and so, cannot spend anything from the 
- * instance's cryptocurrency account). It will not have a consensus timestamp. 
- * It cannot generate a record or a receipt. The response will contain the 
- * output returned by the function call.  This is useful for calling getter 
- * functions, which purely read the state and don't change it. It is faster 
- * and cheaper than a normal call, because it is purely local to a single  
+/*
+ * Call a function of the given smart contract instance, giving it
+ * functionParameters as its inputs. This is performed locally on the
+ * particular node that the client is communicating with. It cannot change the
+ * state of the contract instance (and so, cannot spend anything from the
+ * instance's cryptocurrency account). It will not have a consensus timestamp.
+ * It cannot generate a record or a receipt. The response will contain the
+ * output returned by the function call.  This is useful for calling getter
+ * functions, which purely read the state and don't change it. It is faster
+ * and cheaper than a normal call, because it is purely local to a single 
  * node.
  *
- * Unlike a ContractCall transaction, the node will consume the entire amount 
+ * Unlike a ContractCall transaction, the node will consume the entire amount
  * of provided gas in determining the fee for this query.
  */
 message ContractCallLocalQuery {
-    // Standard info sent from client to node, including the signed payment, 
-    // and what kind of response is requested (cost, state proof, both, or 
+    // Standard info sent from client to node, including the signed payment,
+    // and what kind of response is requested (cost, state proof, both, or
     // neither). The payment must cover the fees and all of the gas offered.
-    QueryHeader header = 1; 
+    QueryHeader header = 1;
 
     // The contract instance to call, in the format used in transactions
-    ContractID contract_id = 2; 
+    ContractID contract_id = 2;
 
-    // The amount of gas to use for the call; all of the gas offered will be 
+    // The amount of gas to use for the call; all of the gas offered will be
     // used and charged a corresponding fee
-    int64 gas = 3; 
+    int64 gas = 3;
 
     // Which function to call, and the parameters to pass to the function.
-    bytes function_parameters = 4; 
+    bytes function_parameters = 4;
 
-    // Max number of bytes that the result might include. The run will fail if 
+    // Max number of bytes that the result might include. The run will fail if
     // it would have returned more than this number of bytes.
-    int64 max_result_size = 5; 
+    int64 max_result_size = 5;
 }
 
 /*
  * Response when the client sends the node ContractCallLocalQuery
  */
 message ContractCallLocalResponse {
-    // Standard response from node to client, including the requested fields: 
+    // Standard response from node to client, including the requested fields:
     // cost, or state proof, or both, or neither.
-    ResponseHeader header = 1; 
+    ResponseHeader header = 1;
 
     // The value returned by the function (if it completed and didn't fail).
-    ContractFunctionResult function_result = 2; 
+    ContractFunctionResult function_result = 2;
 }

@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -30,12 +30,12 @@ import "services/query_header.proto";
 import "services/response_header.proto";
 import "services/crypto_add_live_hash.proto";
 
-/* 
+/*
  * Requests a livehash associated to an account.
  */
 message CryptoGetLiveHashQuery {
-    // Standard info sent from client to node, including the signed payment, 
-    // and what kind of response is requested (cost, state proof, both, or 
+    // Standard info sent from client to node, including the signed payment,
+    // and what kind of response is requested (cost, state proof, both, or
     // neither).
     QueryHeader header = 1;
 
@@ -46,14 +46,14 @@ message CryptoGetLiveHashQuery {
     bytes hash = 3;
 }
 
-/* 
- * Returns the full livehash associated to an account, if it is present. Note 
- * that the only way to obtain a state proof exhibiting the absence of a 
- * livehash from an account is to retrieve a state proof of the entire account 
+/*
+ * Returns the full livehash associated to an account, if it is present. Note
+ * that the only way to obtain a state proof exhibiting the absence of a
+ * livehash from an account is to retrieve a state proof of the entire account
  * with its list of livehashes.
  */
 message CryptoGetLiveHashResponse {
-    // Standard response from node to client, including the requested fields: 
+    // Standard response from node to client, including the requested fields:
     // cost, or state proof, or both, or neither
     ResponseHeader header = 1;
 

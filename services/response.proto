@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -54,73 +54,73 @@ import "services/token_get_info.proto";
 
 import "services/schedule_get_info.proto";
 
-/* 
- * A single response, which is returned from the node to the client, after the 
+/*
+ * A single response, which is returned from the node to the client, after the
  * client sent the node a query. This includes all responses.
  */
 message Response {
     oneof response {
         // Get all entities associated with a given key
-        GetByKeyResponse get_by_key = 1; 
+        GetByKeyResponse get_by_key = 1;
 
-        // Get the IDs in the format used in transactions, given the format 
+        // Get the IDs in the format used in transactions, given the format
         // used in Solidity
-        GetBySolidityIDResponse get_by_solidity_id = 2; 
+        GetBySolidityIDResponse get_by_solidity_id = 2;
 
         // Response to call a function of a smart contract instance
-        ContractCallLocalResponse contract_call_local = 3; 
+        ContractCallLocalResponse contract_call_local = 3;
 
         // Get the bytecode for a smart contract instance
-        ContractGetBytecodeResponse contract_get_bytecode_response = 5; 
+        ContractGetBytecodeResponse contract_get_bytecode_response = 5;
 
         // Get information about a smart contract instance
-        ContractGetInfoResponse contract_get_info = 4; 
+        ContractGetInfoResponse contract_get_info = 4;
 
         //Get all existing records for a smart contract instance
-        ContractGetRecordsResponse contract_get_records_response = 6; 
+        ContractGetRecordsResponse contract_get_records_response = 6;
 
         // Get the current balance in a cryptocurrency account
-        CryptoGetAccountBalanceResponse cryptoget_account_balance = 7; 
+        CryptoGetAccountBalanceResponse cryptoget_account_balance = 7;
 
-        // Get all the records that currently exist for transactions involving 
+        // Get all the records that currently exist for transactions involving
         // an account
-        CryptoGetAccountRecordsResponse crypto_get_account_records = 8; 
+        CryptoGetAccountRecordsResponse crypto_get_account_records = 8;
 
         // Get all information about an account
-        CryptoGetInfoResponse crypto_get_info = 9; 
+        CryptoGetInfoResponse crypto_get_info = 9;
 
         // Contains a livehash associated to an account
-        CryptoGetLiveHashResponse crypto_get_live_hash = 10; 
+        CryptoGetLiveHashResponse crypto_get_live_hash = 10;
 
-        // Get all the accounts that proxy stake to a given account, and how 
+        // Get all the accounts that proxy stake to a given account, and how
         // much they proxy stake
-        CryptoGetStakersResponse crypto_get_proxy_stakers = 11; 
+        CryptoGetStakersResponse crypto_get_proxy_stakers = 11;
 
         // Get the contents of a file (the bytes stored in it)
-        FileGetContentsResponse file_get_contents = 12; 
+        FileGetContentsResponse file_get_contents = 12;
 
         // Get information about a file, such as its expiration date
-        FileGetInfoResponse file_get_info = 13; 
+        FileGetInfoResponse file_get_info = 13;
 
         // Get a receipt for a transaction
-        TransactionGetReceiptResponse transaction_get_receipt = 14; 
+        TransactionGetReceiptResponse transaction_get_receipt = 14;
 
         // Get a record for a transaction
-        TransactionGetRecordResponse transaction_get_record = 15; 
+        TransactionGetRecordResponse transaction_get_record = 15;
 
         // Get a record for a transaction (lasts 180 seconds)
-        TransactionGetFastRecordResponse transaction_get_fast_record = 16; 
+        TransactionGetFastRecordResponse transaction_get_fast_record = 16;
 
         // Parameters of and state of a consensus topic..
-        ConsensusGetTopicInfoResponse consensus_get_topic_info = 150; 
+        ConsensusGetTopicInfoResponse consensus_get_topic_info = 150;
 
         // Semantic versions of Hedera Services and HAPI proto
-        NetworkGetVersionInfoResponse network_get_version_info = 151; 
+        NetworkGetVersionInfoResponse network_get_version_info = 151;
 
         // Get all information about a token
-        TokenGetInfoResponse token_get_info = 152; 
+        TokenGetInfoResponse token_get_info = 152;
 
         // Get all information about a schedule entity
-        ScheduleGetInfoResponse schedule_get_info = 153; 
+        ScheduleGetInfoResponse schedule_get_info = 153;
     }
 }

@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -29,54 +29,54 @@ import "services/basic_types.proto";
 import "services/query_header.proto";
 import "services/response_header.proto";
 
-/* 
- * Get all the accounts that are proxy staking to this account. For each of 
- * them, give the amount currently staked. This is not yet implemented, but 
+/*
+ * Get all the accounts that are proxy staking to this account. For each of
+ * them, give the amount currently staked. This is not yet implemented, but
  * will be in a future version of the API.
  */
 message CryptoGetStakersQuery {
-    // Standard info sent from client to node, including the signed payment, 
-    // and what kind of response is requested (cost, state proof, both, or 
+    // Standard info sent from client to node, including the signed payment,
+    // and what kind of response is requested (cost, state proof, both, or
     // neither).
-    QueryHeader header = 1; 
+    QueryHeader header = 1;
 
     // The Account ID for which the records should be retrieved.
-    AccountID account_id = 2; 
+    AccountID account_id = 2;
 }
 
-/* 
+/*
  * Information about a single account that is proxy staking.
  */
 message ProxyStaker {
     // The Account ID that is proxy staking.
-    AccountID account_id = 1; 
+    AccountID account_id = 1;
 
     // The number of hbars that are currently proxy staked.
-    int64 amount = 2; 
+    int64 amount = 2;
 }
 
-/* 
- * All of the accounts proxy staking to a given account, and 
+/*
+ * All of the accounts proxy staking to a given account, and
  * the amounts proxy staked.
  */
 message AllProxyStakers {
     // The Account ID that is being proxy staked to.
-    AccountID account_id = 1; 
+    AccountID account_id = 1;
 
-    // Each of the proxy staking accounts, and the amount they are 
+    // Each of the proxy staking accounts, and the amount they are
     // proxy staking.
-    repeated ProxyStaker proxy_staker = 2; 
+    repeated ProxyStaker proxy_staker = 2;
 }
 
-/* 
+/*
  * Response when the client sends the node CryptoGetStakersQuery
  */
 message CryptoGetStakersResponse {
-    // Standard response from node to client, including the requested fields: 
+    // Standard response from node to client, including the requested fields:
     // cost, or state proof, or both, or neither.
-    ResponseHeader header = 1; 
+    ResponseHeader header = 1;
 
-    // List of accounts proxy staking to this account, and the amount each is 
+    // List of accounts proxy staking to this account, and the amount each is
     // currently proxy staking.
-    AllProxyStakers stakers = 3; 
+    AllProxyStakers stakers = 3;
 }

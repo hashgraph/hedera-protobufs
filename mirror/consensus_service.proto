@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Mirror Node
- * 
+ *
  * Copyright (C) 2019 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -34,39 +34,39 @@ message ConsensusTopicQuery {
     // Defaults to current time if not set.
     services.Timestamp consensus_start_time = 2;
 
-    // Include messages which reached consensus before this time. 
+    // Include messages which reached consensus before this time.
     // If not set it will receive indefinitely.
     services.Timestamp consensus_end_time = 3;
 
-    // The maximum number of messages to receive before stopping. 
+    // The maximum number of messages to receive before stopping.
     // If not set or set to zero it will return messages indefinitely.
     uint64 limit = 4;
 }
 
 message ConsensusTopicResponse {
     // The time at which the transaction reached consensus.
-    services.Timestamp consensus_timestamp = 1; 
+    services.Timestamp consensus_timestamp = 1;
 
     // The message body originally in the ConsensusSubmitMessageTransactionBody.
     // Message size will be less than 6KiB.
     bytes message = 2;
 
     // The running hash (SHA384) of every message.
-    bytes running_hash = 3; 
+    bytes running_hash = 3;
 
     // Starts at 1 for first submitted message. Incremented on each submitted message.
-    uint64 sequence_number = 4; 
+    uint64 sequence_number = 4;
 
     // Version of the SHA-384 digest used to update the running hash.
-    uint64 running_hash_version = 5; 
+    uint64 running_hash_version = 5;
 
     // Optional information of the current chunk in a fragmented message.
-    services.ConsensusMessageChunkInfo chunk_info = 6; 
+    services.ConsensusMessageChunkInfo chunk_info = 6;
 }
 
 /*
- * The Mirror Service provides the ability to query a stream of Hedera 
- * Consensus Service (HCS) messages for an HCS Topic via a specific 
+ * The Mirror Service provides the ability to query a stream of Hedera
+ * Consensus Service (HCS) messages for an HCS Topic via a specific
  * (possibly open-ended) time range.
  */
 service ConsensusService {

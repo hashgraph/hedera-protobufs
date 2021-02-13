@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -28,10 +28,10 @@ option java_multiple_files = true;
 
 import "services/basic_types.proto";
 
-/* 
- * Append the given contents to the end of the specified file. If a file is 
- * too big to create with a single FileCreateTransaction, then it can be 
- * created with the first part of its contents, and then appended as many 
+/*
+ * Append the given contents to the end of the specified file. If a file is
+ * too big to create with a single FileCreateTransaction, then it can be
+ * created with the first part of its contents, and then appended as many
  * times as necessary to create the entire file.
  */
 message FileAppendTransactionBody {

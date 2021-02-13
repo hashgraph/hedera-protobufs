@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -31,78 +31,78 @@ import "services/basic_types.proto";
 import "services/query_header.proto";
 import "services/response_header.proto";
 
-/* 
- * Get information about a smart contract instance. This includes the account 
- * that it uses, the file containing its bytecode, and the time when it will 
+/*
+ * Get information about a smart contract instance. This includes the account
+ * that it uses, the file containing its bytecode, and the time when it will
  * expire.
  */
 message ContractGetInfoQuery {
-    // Standard info sent from client to node, including the signed payment, 
-    // and what kind of response is requested (cost, state proof, both, or 
+    // Standard info sent from client to node, including the signed payment,
+    // and what kind of response is requested (cost, state proof, both, or
     // neither).
-    QueryHeader header = 1; 
+    QueryHeader header = 1;
 
     // the contract for which information is requested
-    ContractID contract_id = 2; 
+    ContractID contract_id = 2;
 }
 
-/* 
+/*
  * Response when the client sends the node ContractGetInfoQuery
  */
 message ContractGetInfoResponse {
-    // Standard response from node to client, including the requested fields: 
+    // Standard response from node to client, including the requested fields:
     // cost, or state proof, or both, or neither
-    ResponseHeader header = 1; 
+    ResponseHeader header = 1;
 
     message ContractInfo {
         // ID of the contract instance, in the format used in transactions
-        ContractID contract_id = 1; 
+        ContractID contract_id = 1;
 
-        // ID of the cryptocurrency account owned by the contract instance, in 
+        // ID of the cryptocurrency account owned by the contract instance, in
         // the format used in transactions
-        AccountID account_id = 2; 
+        AccountID account_id = 2;
 
-        // ID of both the contract instance and the cryptocurrency account 
+        // ID of both the contract instance and the cryptocurrency account
         // owned by the contract instance, in the format used by Solidity
-        string contract_account_id = 3; 
+        string contract_account_id = 3;
 
-        // The state of the instance and its fields can be modified 
-        // arbitrarily if this key signs a transaction to modify it. If this 
-        // is null, then such modifications are not possible, and there is no 
-        // administrator that can override the normal operation of this smart 
-        // contract instance. Note that if it is created with no admin keys, 
-        // then there is no administrator to authorize changing the admin keys, 
+        // The state of the instance and its fields can be modified
+        // arbitrarily if this key signs a transaction to modify it. If this
+        // is null, then such modifications are not possible, and there is no
+        // administrator that can override the normal operation of this smart
+        // contract instance. Note that if it is created with no admin keys,
+        // then there is no administrator to authorize changing the admin keys,
         // so there can never be any admin keys for that instance.
-        Key admin_key = 4; 
+        Key admin_key = 4;
 
-        // The current time at which this contract instance (and its account) 
+        // The current time at which this contract instance (and its account)
         // is set to expire
-        Timestamp expiration_time = 5; 
+        Timestamp expiration_time = 5;
 
-        // The expiration time will extend every this many seconds. If there 
-        // are insufficient funds, then it extends as long as possible. If the 
+        // The expiration time will extend every this many seconds. If there
+        // are insufficient funds, then it extends as long as possible. If the
         // account is empty when it expires, then it is deleted.
-        Duration auto_renew_period = 6; 
+        Duration auto_renew_period = 6;
 
-        // Number of bytes of storage being used by this instance (which 
+        // Number of bytes of storage being used by this instance (which
         // affects the cost to extend the expiration time)
-        int64 storage = 7; 
+        int64 storage = 7;
 
         // The memo associated with the contract (max 100 bytes)
-        string memo = 8; 
+        string memo = 8;
 
         // The current balance, in tinybars
-        uint64 balance = 9; 
+        uint64 balance = 9;
 
         // Whether the contract has been deleted
-        bool deleted = 10; 
+        bool deleted = 10;
 
         // The tokens associated to the contract
-        repeated TokenRelationship token_relationships = 11; 
+        repeated TokenRelationship token_relationships = 11;
     }
 
-    // The information about this contract instance (a state proof can be 
+    // The information about this contract instance (a state proof can be
     // generated for this)
-    ContractInfo contract_info = 2; 
+    ContractInfo contract_info = 2;
 }
 

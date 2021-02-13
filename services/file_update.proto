@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -29,27 +29,27 @@ import "services/basic_types.proto";
 import "services/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
-/* 
- * Modify the metadata and/or contents of a file. If a field is not set in the 
- * transaction body, the corresponding file attribute will be unchanged. This 
- * transaction must be signed by all the keys in the key list of the file 
- * being updated. If the keys themselves are being update, then the 
+/*
+ * Modify the metadata and/or contents of a file. If a field is not set in the
+ * transaction body, the corresponding file attribute will be unchanged. This
+ * transaction must be signed by all the keys in the key list of the file
+ * being updated. If the keys themselves are being update, then the
  * transaction must also be signed by all the new keys.
  */
 message FileUpdateTransactionBody {
     // The ID of the file to update
-    FileID file_id = 1; 
+    FileID file_id = 1;
 
     // The new expiry time (ignored if not later than the current expiry)
-    Timestamp expiration_time = 2; 
+    Timestamp expiration_time = 2;
 
     // The new list of keys that can modify or delete the file
-    KeyList keys = 3; 
+    KeyList keys = 3;
 
     // The new contents that should overwrite the file's current contents
-    bytes contents = 4; 
+    bytes contents = 4;
 
-    // If set, the new memo to be associated with the file (UTF-8 encoding max 
+    // If set, the new memo to be associated with the file (UTF-8 encoding max
     // 100 bytes)
-    google.protobuf.StringValue memo = 5; 
+    google.protobuf.StringValue memo = 5;
 }

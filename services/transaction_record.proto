@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -34,45 +34,45 @@ import "services/contract_call_local.proto";
  * Response when the client sends the node TransactionGetRecordResponse
  */
 message TransactionRecord {
-    // The status (reach consensus, or failed, or is unknown) and the ID of 
+    // The status (reach consensus, or failed, or is unknown) and the ID of
     // any new account/file/instance created.
-    TransactionReceipt receipt = 1; 
+    TransactionReceipt receipt = 1;
 
-    // The hash of the Transaction that executed (not the hash of any 
+    // The hash of the Transaction that executed (not the hash of any
     // Transaction that failed for having a duplicate TransactionID)
-    bytes transaction_hash = 2; 
+    bytes transaction_hash = 2;
 
     // The consensus timestamp (or null if didn't reach consensus yet)
-    Timestamp consensus_timestamp = 3; 
+    Timestamp consensus_timestamp = 3;
 
     // The ID of the transaction this record represents
-    TransactionID transaction_id = 4; 
+    TransactionID transaction_id = 4;
 
     // The memo that was submitted as part of the transaction (max 100 bytes)
-    string memo = 5; 
+    string memo = 5;
 
-    // The actual transaction fee charged, not the original transactionFee 
+    // The actual transaction fee charged, not the original transactionFee
     // value from TransactionBody
-    uint64 transaction_fee = 6; 
+    uint64 transaction_fee = 6;
 
     oneof body {
-        // Record of the value returned by the smart contract function (if it 
+        // Record of the value returned by the smart contract function (if it
         // completed and didn't fail) from ContractCallTransaction
-        ContractFunctionResult contract_call_result = 7; 
+        ContractFunctionResult contract_call_result = 7;
 
-        // Record of the value returned by the smart contract constructor 
+        // Record of the value returned by the smart contract constructor
         // (if it completed and didn't fail) from ContractCreateTransaction
-        ContractFunctionResult contract_create_result = 8; 
+        ContractFunctionResult contract_create_result = 8;
     }
 
-    // All hbar transfers as a result of this transaction, such as fees, or 
-    // transfers performed by the transaction, or by a smart contract it calls, 
+    // All hbar transfers as a result of this transaction, such as fees, or
+    // transfers performed by the transaction, or by a smart contract it calls,
     // or by the creation of threshold records that it triggers.
-    TransferList transfer_list = 10; 
+    TransferList transfer_list = 10;
 
     // All Token transfers as a result of this transaction
-    repeated TokenTransferList token_transfer_lists = 11; 
+    repeated TokenTransferList token_transfer_lists = 11;
 
     // Reference to the scheduled transaction ID that this transaction record represent
-    ScheduleID schedule_ref = 12; 
+    ScheduleID schedule_ref = 12;
 }

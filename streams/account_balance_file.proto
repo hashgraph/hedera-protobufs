@@ -3,11 +3,11 @@ syntax = "proto3";
 package streams.v1;
 
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +19,7 @@ package streams.v1;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 import "services/basic_types.proto";
@@ -27,37 +27,37 @@ import "services/timestamp.proto";
 
 message TokenUnitBalance {
     // A unique token id
-    services.TokenID token_id = 1; 
+    services.TokenID token_id = 1;
 
     // A number of transferable units of the identified token
-    uint64 balance = 2; 
+    uint64 balance = 2;
 }
 
 /*
- * Includes all currency balances (both hbar and token) of a single account in 
+ * Includes all currency balances (both hbar and token) of a single account in
  * the ledger.
  */
 message SingleAccountBalances {
     // The account
-    services.AccountID account_id = 1; 
+    services.AccountID account_id = 1;
 
     // The account's hbar balance
-    uint64 hbar_balance = 2; 
+    uint64 hbar_balance = 2;
 
     // The list of the account's token balances
-    repeated TokenUnitBalance token_unit_balances = 3; 
+    repeated TokenUnitBalance token_unit_balances = 3;
 }
 
 /*
- * Includes all currency balances (both hbar and token) of all accounts in the 
+ * Includes all currency balances (both hbar and token) of all accounts in the
  * ledger.
  */
 message AllAccountBalances {
-    // An instant in consensus time 
-    services.Timestamp consensus_timestamp = 1; 
+    // An instant in consensus time
+    services.Timestamp consensus_timestamp = 1;
 
-    // The list of account balances for all accounts, after handling all 
-    // transactions with consensus timestamp up to and including the above 
+    // The list of account balances for all accounts, after handling all
+    // transactions with consensus timestamp up to and including the above
     // instant
-    repeated SingleAccountBalances all_accounts = 2; 
+    repeated SingleAccountBalances all_accounts = 2;
 }

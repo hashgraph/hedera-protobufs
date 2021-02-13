@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -60,67 +60,67 @@ import "services/timestamp.proto";
  * immutable token.
  */
 message TokenCreateTransactionBody {
-    // The publicly visible name of the token, limited to a UTF-8 encoding of 
+    // The publicly visible name of the token, limited to a UTF-8 encoding of
     // length <tt>tokens.maxSymbolUtf8Bytes</tt>.
-    string name = 1; 
+    string name = 1;
 
-    // The publicly visible token symbol, limited to a UTF-8 encoding of 
+    // The publicly visible token symbol, limited to a UTF-8 encoding of
     // length <tt>tokens.maxTokenNameUtf8Bytes</tt>.
-    string symbol = 2; 
+    string symbol = 2;
 
-    // The number of decimal places a token is divisible by. This field can 
+    // The number of decimal places a token is divisible by. This field can
     // never be changed!
-    uint32 decimals = 3; 
+    uint32 decimals = 3;
 
-    // Specifies the initial supply of tokens to be put in circulation. The 
-    // initial supply is sent to the Treasury Account. The supply is in the 
+    // Specifies the initial supply of tokens to be put in circulation. The
+    // initial supply is sent to the Treasury Account. The supply is in the
     // lowest denomination possible.
-    uint64 initial_supply = 4; 
+    uint64 initial_supply = 4;
 
-    // The account which will act as a treasury for the token. This account 
+    // The account which will act as a treasury for the token. This account
     // will receive the specified initial supply
-    AccountID treasury = 5; 
+    AccountID treasury = 5;
 
-    // The key which can perform update/delete operations on the token. If 
-    // empty, the token can be perceived as immutable (not being able to 
+    // The key which can perform update/delete operations on the token. If
+    // empty, the token can be perceived as immutable (not being able to
     // be updated/deleted)
-    Key admin_key = 6; 
+    Key admin_key = 6;
 
-    // The key which can grant or revoke KYC of an account for the token's 
-    // transactions. If empty, KYC is not required, and KYC grant or revoke 
+    // The key which can grant or revoke KYC of an account for the token's
+    // transactions. If empty, KYC is not required, and KYC grant or revoke
     // operations are not possible.
-    Key kyc_key = 7; 
+    Key kyc_key = 7;
 
-    // The key which can sign to freeze or unfreeze an account for token 
+    // The key which can sign to freeze or unfreeze an account for token
     // transactions. If empty, freezing is not possible
-    Key freeze_key = 8; 
+    Key freeze_key = 8;
 
-    // The key which can wipe the token balance of an account. If empty, wipe 
+    // The key which can wipe the token balance of an account. If empty, wipe
     // is not possible
-    Key wipe_key = 9; 
+    Key wipe_key = 9;
 
-    // The key which can change the supply of a token. The key is used to sign 
+    // The key which can change the supply of a token. The key is used to sign
     // Token Mint/Burn operations
-    Key supply_key = 10; 
+    Key supply_key = 10;
 
-    // The default Freeze status (frozen or unfrozen) of Hedera accounts 
-    // relative to this token. If true, an account must be unfrozen before it 
+    // The default Freeze status (frozen or unfrozen) of Hedera accounts
+    // relative to this token. If true, an account must be unfrozen before it
     // can receive the token
-    bool freeze_default = 11; 
+    bool freeze_default = 11;
 
-    // The epoch second at which the token should expire; if an auto-renew 
-    // account and period are specified, this is coerced to the current epoch 
+    // The epoch second at which the token should expire; if an auto-renew
+    // account and period are specified, this is coerced to the current epoch
     // second plus the autoRenewPeriod
-    Timestamp expiry = 13; 
+    Timestamp expiry = 13;
 
-    // An account which will be automatically charged to renew the token's 
+    // An account which will be automatically charged to renew the token's
     // expiration, at autoRenewPeriod interval
-    AccountID auto_renew_account = 14; 
+    AccountID auto_renew_account = 14;
 
-    // The interval at which the auto-renew account will be charged to extend 
+    // The interval at which the auto-renew account will be charged to extend
     // the token's expiry
-    Duration auto_renew_period = 15; 
+    Duration auto_renew_period = 15;
 
     // The memo associated with the token (UTF-8 encoding max 100 bytes)
-    string memo = 16; 
+    string memo = 16;
 }

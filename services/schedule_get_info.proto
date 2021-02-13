@@ -1,9 +1,9 @@
 /*-
- * 
+ *
  * Hedera Network Services Protobuf
- * 
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 syntax = "proto3";
@@ -30,19 +30,19 @@ import "services/timestamp.proto";
 import "services/query_header.proto";
 import "services/response_header.proto";
 
-/* 
+/*
  * Gets information about Scheduled Transaction instance
  *
- * Answered with status INVALID_SCHEDULE_ID if the Scheduled Transaction is 
+ * Answered with status INVALID_SCHEDULE_ID if the Scheduled Transaction is
  * deleted, expires or is executed.
  */
 message ScheduleGetInfoQuery {
-  // Standard info sent from client to node including the signed payment, and 
+  // Standard info sent from client to node including the signed payment, and
   // what kind of response is requested (cost, state proof, both, or neither).
-  QueryHeader header = 1; 
+  QueryHeader header = 1;
 
   // The ID of the Scheduled Entity
-  ScheduleID schedule_id = 2; 
+  ScheduleID schedule_id = 2;
 }
 
 /*
@@ -50,40 +50,40 @@ message ScheduleGetInfoQuery {
  */
 message ScheduleInfo {
   // The ID of the Scheduled Entity
-  ScheduleID schedule_id = 1; 
+  ScheduleID schedule_id = 1;
 
   // The Account ID which created the Scheduled TX
-  AccountID creator_account_id = 2; 
+  AccountID creator_account_id = 2;
 
   // The account which is going to pay for the execution of the Scheduled TX
-  AccountID payer_account_id = 3; 
+  AccountID payer_account_id = 3;
 
   // The transaction serialized into bytes that must be signed
-  bytes transaction_body = 4; 
+  bytes transaction_body = 4;
 
   // The signatories that have provided signatures so far for the Scheduled TX
-  KeyList signatories = 5; 
+  KeyList signatories = 5;
 
   // The Key which is able to delete the Scheduled Transaction if set
-  Key admin_key = 6; 
+  Key admin_key = 6;
 
-  // Publicly visible information about the Scheduled entity, up to 100 bytes. 
+  // Publicly visible information about the Scheduled entity, up to 100 bytes.
   // No guarantee of uniqueness.
-  string memo = 7; 
+  string memo = 7;
 
   // The epoch second at which the schedule will expire
-  Timestamp expiration_time = 8; 
+  Timestamp expiration_time = 8;
 }
 
 /*
- * Response that gets returned, when the client sends the node 
+ * Response that gets returned, when the client sends the node
  * a ScheduleGetInfoQuery
  */
 message ScheduleGetInfoResponse {
-  // Standard response from node to client, including the requested fields: 
+  // Standard response from node to client, including the requested fields:
   // cost, or state proof, or both, or neither
-  ResponseHeader header = 1; 
+  ResponseHeader header = 1;
 
   // The information requested about this schedule instance
-  ScheduleInfo schedule_info = 2; 
+  ScheduleInfo schedule_info = 2;
 }
