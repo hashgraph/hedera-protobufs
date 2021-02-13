@@ -27,38 +27,48 @@ import "services/timestamp.proto";
 import "services/consensus_submit_message.proto";
 
 message ConsensusTopicQuery {
-    services.TopicID topic_id = 1; // A required topic ID to retrieve messages for.
+    // A required topic ID to retrieve messages for.
+    services.TopicID topic_id = 1;
 
-    // Include messages which reached consensus on or after this time. Defaults to current time if not set.
+    // Include messages which reached consensus on or after this time.
+    // Defaults to current time if not set.
     services.Timestamp consensus_start_time = 2;
 
-    // Include messages which reached consensus before this time. If not set it will receive indefinitely.
+    // Include messages which reached consensus before this time. 
+    // If not set it will receive indefinitely.
     services.Timestamp consensus_end_time = 3;
 
-    // The maximum number of messages to receive before stopping. If not set or set to zero it will return messages
-    // indefinitely.
+    // The maximum number of messages to receive before stopping. 
+    // If not set or set to zero it will return messages indefinitely.
     uint64 limit = 4;
 }
 
 message ConsensusTopicResponse {
-    services.Timestamp consensus_timestamp = 1; // The time at which the transaction reached consensus
+    // The time at which the transaction reached consensus.
+    services.Timestamp consensus_timestamp = 1; 
 
-    // The message body originally in the ConsensusSubmitMessageTransactionBody. Message size will be less than 6KiB.
+    // The message body originally in the ConsensusSubmitMessageTransactionBody.
+    // Message size will be less than 6KiB.
     bytes message = 2;
 
-    bytes running_hash = 3; // The running hash (SHA384) of every message.
+    // The running hash (SHA384) of every message.
+    bytes running_hash = 3; 
 
-    uint64 sequence_number = 4; // Starts at 1 for first submitted message. Incremented on each submitted message.
+    // Starts at 1 for first submitted message. Incremented on each submitted message.
+    uint64 sequence_number = 4; 
 
-    uint64 running_hash_version = 5; // Version of the SHA-384 digest used to update the running hash.
+    // Version of the SHA-384 digest used to update the running hash.
+    uint64 running_hash_version = 5; 
 
-    services.ConsensusMessageChunkInfo chunk_info = 6; // Optional information of the current chunk in a fragmented message.
+    // Optional information of the current chunk in a fragmented message.
+    services.ConsensusMessageChunkInfo chunk_info = 6; 
 }
 
-//
-// The Mirror Service provides the ability to query a stream of Hedera Consensus Service (HCS) messages for an
-// HCS Topic via a specific (possibly open-ended) time range.
-//
+/*
+ * The Mirror Service provides the ability to query a stream of Hedera 
+ * Consensus Service (HCS) messages for an HCS Topic via a specific 
+ * (possibly open-ended) time range.
+ */
 service ConsensusService {
     rpc SubscribeTopic (ConsensusTopicQuery) returns (stream ConsensusTopicResponse);
 }

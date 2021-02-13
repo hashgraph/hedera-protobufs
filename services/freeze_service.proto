@@ -27,8 +27,11 @@ option java_multiple_files = true;
 import "services/transaction_response.proto";
 import "services/transaction.proto";
 
-/* The request and responses for freeze service. */
+/* 
+ * The request and responses for freeze service.
+ */
 service FreezeService {
-
-    rpc Freeze (Transaction) returns (TransactionResponse); // Freezes the nodes by submitting the transaction. The grpc server returns the TransactionResponse
+    // Freezes the nodes by submitting the transaction. The grpc server 
+    // returns the TransactionResponse
+    rpc Freeze (Transaction) returns (TransactionResponse); 
 }

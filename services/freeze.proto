@@ -29,12 +29,28 @@ import "services/duration.proto";
 import "services/timestamp.proto";
 import "services/basic_types.proto";
 
-/* Set the freezing period in which the platform will stop creating events and accepting transactions. This is used before safely shut down the platform for maintenance. */
+/* 
+ * Set the freezing period in which the platform will stop creating events and 
+ * accepting transactions. This is used before safely shut down the platform 
+ * for maintenance.
+ */
 message FreezeTransactionBody {
-    int32 start_hour = 1; // The start hour (in UTC time), a value between 0 and 23
-    int32 start_min = 2; // The start minute (in UTC time), a value between 0 and 59
-    int32 end_hour = 3; // The end hour (in UTC time), a value between 0 and 23
-    int32 end_min = 4; // The end minute (in UTC time), a value between 0 and 59
-    FileID update_file = 5; // The ID of the file needs to be updated during a freeze transaction
-    bytes file_hash = 6; // The hash value of the file, used to verify file content before performing freeze and update
+    // The start hour (in UTC time), a value between 0 and 23
+    int32 start_hour = 1; 
+
+    // The start minute (in UTC time), a value between 0 and 59
+    int32 start_min = 2; 
+
+    // The end hour (in UTC time), a value between 0 and 23
+    int32 end_hour = 3; 
+
+    // The end minute (in UTC time), a value between 0 and 59
+    int32 end_min = 4; 
+
+    // The ID of the file needs to be updated during a freeze transaction
+    FileID update_file = 5; 
+
+    // The hash value of the file, used to verify file content before 
+    // performing freeze and update
+    bytes file_hash = 6; 
 }

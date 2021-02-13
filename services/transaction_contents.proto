@@ -28,6 +28,10 @@ option java_multiple_files = true;
 import "services/basic_types.proto";
 
 message SignedTransaction {
-    bytes body_bytes = 1; // TransactionBody serialized into bytes, which needs to be signed
-    SignatureMap sig_map = 2; // The signatures on the body with the new format, to authorize the transaction
+    // TransactionBody serialized into bytes, which needs to be signed
+    bytes body_bytes = 1; 
+
+    // The signatures on the body with the new format, to authorize 
+    // the transaction
+    SignatureMap sig_map = 2; 
 }

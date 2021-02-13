@@ -30,23 +30,30 @@ import "services/transaction_response.proto";
 import "services/transaction.proto";
 
 /*
-Transactions and queries for the file service.
-*/
+ * Transactions and queries for the file service.
+ */
 service FileService {
     // Creates a file
     rpc CreateFile (Transaction) returns (TransactionResponse);
+
     // Updates a file
     rpc UpdateFile (Transaction) returns (TransactionResponse);
+
     // Deletes a file
     rpc DeleteFile (Transaction) returns (TransactionResponse);
+
     // Appends to a file
     rpc AppendContent (Transaction) returns (TransactionResponse);
+
     // Retrieves the file contents
     rpc GetFileContent (Query) returns (Response);
+
     // Retrieves the file information
     rpc GetFileInfo (Query) returns (Response);
+
     // Deletes a file if the submitting account has network admin privileges
     rpc SystemDelete (Transaction) returns (TransactionResponse);
+
     // Undeletes a file if the submitting account has network admin privileges
     rpc SystemUndelete (Transaction) returns (TransactionResponse);
 }

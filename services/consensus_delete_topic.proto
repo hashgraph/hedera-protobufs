@@ -27,7 +27,10 @@ option java_multiple_files = true;
 
 import "services/basic_types.proto";
 
-// See [ConsensusService.deleteTopic()](#proto.ConsensusService)
+/*
+ * See [ConsensusService.deleteTopic()](#proto.ConsensusService)
+ */
 message ConsensusDeleteTopicTransactionBody {
-    TopicID topic_id = 1; // Topic identifier.
+    // Topic identifier.
+    TopicID topic_id = 1; 
 }

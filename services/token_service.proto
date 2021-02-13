@@ -30,30 +30,43 @@ import "services/response.proto";
 import "services/transaction_response.proto";
 import "services/transaction.proto";
 
-/* Transactions and queries for the Token Service */
+/*
+ * Transactions and queries for the Token Service
+ */
 service TokenService {
     // Creates a new Token by submitting the transaction
     rpc CreateToken (Transaction) returns (TransactionResponse);
+
     // Updates the account by submitting the transaction
     rpc UpdateToken (Transaction) returns (TransactionResponse);
+
     // Mints an amount of the token to the defined treasury account
     rpc MintToken (Transaction) returns (TransactionResponse);
+
     // Burns an amount of the token from the defined treasury account
     rpc BurnToken (Transaction) returns (TransactionResponse);
+
     // Deletes a Token
     rpc DeleteToken (Transaction) returns (TransactionResponse);
+
     // Wipes the provided amount of tokens from the specified Account ID
     rpc WipeTokenAccount (Transaction) returns (TransactionResponse);
+
     // Freezes the transfer of tokens to or from the specified Account ID
     rpc FreezeTokenAccount (Transaction) returns (TransactionResponse);
+
     // Unfreezes the transfer of tokens to or from the specified Account ID
     rpc UnfreezeTokenAccount (Transaction) returns (TransactionResponse);
+
     // Flags the provided Account ID as having gone through KYC
     rpc GrantKycToTokenAccount (Transaction) returns (TransactionResponse);
+
     // Removes the KYC flag of the provided Account ID
     rpc RevokeKycFromTokenAccount (Transaction) returns (TransactionResponse);
+
     // Associates tokens to an account
     rpc AssociateTokens (Transaction) returns (TransactionResponse);
+
     // Dissociates tokens from an account
     rpc DissociateTokens (Transaction) returns (TransactionResponse);
 
