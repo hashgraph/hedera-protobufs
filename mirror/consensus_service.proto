@@ -20,14 +20,11 @@
 
 syntax = "proto3";
 
-package com.hedera.mirror.api.proto;
+package mirror.v1;
 
-option java_package = "com.hedera.mirror.api.proto";
-option java_multiple_files = true; // Required for the reactor-grpc generator to work correctly
-
-import "services/v1/basic_types.proto";
-import "services/v1/timestamp.proto";
-import "services/v1/consensus_submit_message.proto";
+import "services/basic_types.proto";
+import "services/timestamp.proto";
+import "services/consensus_submit_message.proto";
 
 message ConsensusTopicQuery {
     services.v1.TopicID topic_id = 1; // A required topic ID to retrieve messages for.
