@@ -77,7 +77,7 @@ message GetByKeyResponse {
 
     // The list of entities that include this public key in their associated
     // Key list
-    repeated EntityID entities = 2;
+    repeated EntityID entity_ids = 2;
 }
 
 

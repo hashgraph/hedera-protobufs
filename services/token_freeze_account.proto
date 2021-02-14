@@ -50,8 +50,8 @@ import "services/basic_types.proto";
 message TokenFreezeAccountTransactionBody {
     // The token for which this account will be frozen. If token does not exist,
     // transaction results in INVALID_TOKEN_ID
-    TokenID token = 1;
+    TokenID token_id = 1;
 
     // The account to be frozen
-    AccountID account = 2;
+    AccountID account_id = 2;
 }

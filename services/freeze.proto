@@ -48,7 +48,7 @@ message FreezeTransactionBody {
     int32 end_min = 4;
 
     // The ID of the file needs to be updated during a freeze transaction
-    FileID update_file = 5;
+    FileID update_file_id = 5;
 
     // The hash value of the file, used to verify file content before
     // performing freeze and update

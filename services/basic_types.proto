@@ -176,7 +176,7 @@ message TransferList {
  */
 message TokenTransferList {
     // The ID of the token.
-    TokenID token = 1;
+    TokenID token_id = 1;
 
     // Multiple list of AccountAmounts, each of which has an account and amount.
     repeated AccountAmount transfers = 2;
@@ -439,7 +439,7 @@ message SignaturePair {
 
     oneof signature {
         // Smart contract virtual signature (always length zero)
-        bytes contract = 2;
+        bytes contract_id = 2;
 
         // Ed25519 signature
         bytes ed25519 = 3;

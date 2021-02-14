@@ -75,5 +75,5 @@ message TransactionRecord {
 
     // Reference to the scheduled transaction ID that this transaction 
     // record represent
-    ScheduleID schedule_ref = 12;
+    ScheduleID schedule_ref_id = 12;
 }

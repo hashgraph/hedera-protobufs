@@ -37,5 +37,5 @@ import "services/basic_types.proto";
 message TokenDeleteTransactionBody {
     // The token to be deleted. If invalid token is specified, transaction
     // will result in INVALID_TOKEN_ID
-    TokenID token = 1;
+    TokenID token_id = 1;
 }

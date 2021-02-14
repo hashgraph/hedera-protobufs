@@ -76,5 +76,5 @@ message ConsensusUpdateTopicTransactionBody {
     // If specified as the default value (0.0.0), the autoRenewAccount will be
     // removed.
     // If unspecified, no change.
-    AccountID auto_renew_account = 9;
+    AccountID auto_renew_account_id = 9;
 }

@@ -68,5 +68,5 @@ message ConsensusCreateTopicTransactionBody {
     //
     // If specified, there must be an adminKey and the autoRenewAccount must
     // sign this transaction.
-    AccountID auto_renew_account = 7;
+    AccountID auto_renew_account_id = 7;
 }

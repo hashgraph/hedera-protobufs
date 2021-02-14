@@ -43,8 +43,8 @@ import "services/basic_types.proto";
  */
 message CryptoTransferTransactionBody {
     // UNDOCUMENTED
-    TransferList transfers = 1;
+    TransferList transfer_list = 1;
 
     // UNDOCUMENTED
-    repeated TokenTransferList token_transfers = 2;
+    repeated TokenTransferList token_transfer_lists = 2;
 }
