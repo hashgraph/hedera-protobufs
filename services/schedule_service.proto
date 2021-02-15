@@ -65,15 +65,15 @@ import "services/transaction.proto";
  * ScheduleDelete operation is executed.
  */
 service ScheduleService {
-  // Creates a new Schedule by submitting the transaction
-  rpc CreateSchedule (Transaction) returns (TransactionResponse);
+    // Creates a new Schedule by submitting the transaction
+    rpc CreateSchedule (Transaction) returns (TransactionResponse);
 
-  // Signs a new Schedule by submitting the transaction
-  rpc SignSchedule (Transaction) returns (TransactionResponse);
+    // Signs a new Schedule by submitting the transaction
+    rpc SignSchedule (Transaction) returns (TransactionResponse);
 
-  // Deletes a new Schedule by submitting the transaction
-  rpc DeleteSchedule (Transaction) returns (TransactionResponse);
+    // Deletes a new Schedule by submitting the transaction
+    rpc DeleteSchedule (Transaction) returns (TransactionResponse);
 
-  // Retrieves the metadata of a schedule entity
-  rpc GetScheduleInfo (Query) returns (Response);
+    // Retrieves the metadata of a schedule entity
+    rpc GetScheduleInfo (Query) returns (Response);
 }

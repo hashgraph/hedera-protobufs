@@ -42,9 +42,9 @@ import "services/basic_types.proto";
  *     provided does not represent a valid signature for any required signer
  */
 message ScheduleSignTransactionBody {
-  // The ID of the Scheduled entity
-  ScheduleID schedule_id = 1;
+    // The ID of the Scheduled entity
+    ScheduleID schedule_id = 1;
 
-  // The signature map containing the signature(s) to authorise the transaction
-  SignatureMap sig_map = 2;
+    // The signature map containing the signature(s) to authorise the transaction
+    SignatureMap sig_map = 2;
 }

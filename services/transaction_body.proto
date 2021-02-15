@@ -77,140 +77,140 @@ import "services/schedule_sign.proto";
  * A single transaction. All transaction types are possible here.
  */
 message TransactionBody {
-  // The ID for this transaction, which includes the payer's account (the
-  // account paying the transaction fee). If two transactions have the same
-  // transactionID, they won't both have an effect
-  TransactionID transaction_id = 1;
+    // The ID for this transaction, which includes the payer's account (the
+    // account paying the transaction fee). If two transactions have the same
+    // transactionID, they won't both have an effect
+    TransactionID transaction_id = 1;
 
-  // The account of the node that submits the client's transaction to the
-  // network
-  AccountID node_account_id = 2;
+    // The account of the node that submits the client's transaction to the
+    // network
+    AccountID node_account_id = 2;
 
-  // The maximum transaction fee the client is willing to pay
-  uint64 transaction_fee = 3;
+    // The maximum transaction fee the client is willing to pay
+    uint64 transaction_fee = 3;
 
-  // The transaction is invalid if consensusTimestamp > transactionID.
-  // transactionValidStart + transactionValidDuration
-  Duration transaction_valid_duration = 4;
+    // The transaction is invalid if consensusTimestamp > transactionID.
+    // transactionValidStart + transactionValidDuration
+    Duration transaction_valid_duration = 4;
 
-  // Should a record of this transaction be generated? (A receipt is always
-  // generated, but the record is optional)
-  bool generate_record = 5 [deprecated = true];
+    // Should a record of this transaction be generated? (A receipt is always
+    // generated, but the record is optional)
+    bool generate_record = 5 [deprecated = true];
 
-  // Any notes or descriptions that should be put into the record
-  // (max length 100)
-  string memo = 6;
+    // Any notes or descriptions that should be put into the record
+    // (max length 100)
+    string memo = 6;
 
-  oneof data {
-    // Calls a function of a contract instance
-    ContractCallTransactionBody contract_call = 7;
+    oneof data {
+        // Calls a function of a contract instance
+        ContractCallTransactionBody contract_call = 7;
 
-    // Creates a contract instance
-    ContractCreateTransactionBody contract_create_instance = 8;
+        // Creates a contract instance
+        ContractCreateTransactionBody contract_create_instance = 8;
 
-    // Updates a contract
-    ContractUpdateTransactionBody contract_update_instance = 9;
+        // Updates a contract
+        ContractUpdateTransactionBody contract_update_instance = 9;
 
-    // Delete contract and transfer remaining balance into specified account
-    ContractDeleteTransactionBody contract_delete_instance = 22;
+        // Delete contract and transfer remaining balance into specified account
+        ContractDeleteTransactionBody contract_delete_instance = 22;
 
-    // Attach a new livehash to an account
-    CryptoAddLiveHashTransactionBody crypto_add_live_hash = 10;
+        // Attach a new livehash to an account
+        CryptoAddLiveHashTransactionBody crypto_add_live_hash = 10;
 
-    // Create a new cryptocurrency account
-    CryptoCreateTransactionBody crypto_create_account = 11;
+        // Create a new cryptocurrency account
+        CryptoCreateTransactionBody crypto_create_account = 11;
 
-    // Delete a cryptocurrency account (mark as deleted, and transfer hbars out)
-    CryptoDeleteTransactionBody crypto_delete = 12;
+        // Delete a cryptocurrency account (mark as deleted, and transfer hbars out)
+        CryptoDeleteTransactionBody crypto_delete = 12;
 
-    // Remove a livehash from an account
-    CryptoDeleteLiveHashTransactionBody crypto_delete_live_hash = 13;
+        // Remove a livehash from an account
+        CryptoDeleteLiveHashTransactionBody crypto_delete_live_hash = 13;
 
-    // Transfer amount between accounts
-    CryptoTransferTransactionBody crypto_transfer = 14;
+        // Transfer amount between accounts
+        CryptoTransferTransactionBody crypto_transfer = 14;
 
-    // Modify information such as the expiration date for an account
-    CryptoUpdateTransactionBody crypto_update_account = 15;
+        // Modify information such as the expiration date for an account
+        CryptoUpdateTransactionBody crypto_update_account = 15;
 
-    // Add bytes to the end of the contents of a file
-    FileAppendTransactionBody file_append = 16;
+        // Add bytes to the end of the contents of a file
+        FileAppendTransactionBody file_append = 16;
 
-    // Create a new file
-    FileCreateTransactionBody file_create = 17;
+        // Create a new file
+        FileCreateTransactionBody file_create = 17;
 
-    // Delete a file (remove contents and mark as deleted until it expires)
-    FileDeleteTransactionBody file_delete = 18;
+        // Delete a file (remove contents and mark as deleted until it expires)
+        FileDeleteTransactionBody file_delete = 18;
 
-    // Modify information such as the expiration date for a file
-    FileUpdateTransactionBody file_update = 19;
+        // Modify information such as the expiration date for a file
+        FileUpdateTransactionBody file_update = 19;
 
-    // Hedera administrative deletion of a file or smart contract
-    SystemDeleteTransactionBody system_delete = 20;
+        // Hedera administrative deletion of a file or smart contract
+        SystemDeleteTransactionBody system_delete = 20;
 
-    // To undelete an entity deleted by SystemDelete
-    SystemUndeleteTransactionBody system_undelete = 21;
+        // To undelete an entity deleted by SystemDelete
+        SystemUndeleteTransactionBody system_undelete = 21;
 
-    // Freeze the nodes
-    FreezeTransactionBody freeze = 23;
+        // Freeze the nodes
+        FreezeTransactionBody freeze = 23;
 
-    // Creates a topic
-    ConsensusCreateTopicTransactionBody consensus_create_topic = 24;
+        // Creates a topic
+        ConsensusCreateTopicTransactionBody consensus_create_topic = 24;
 
-    // Updates a topic
-    ConsensusUpdateTopicTransactionBody consensus_update_topic = 25;
+        // Updates a topic
+        ConsensusUpdateTopicTransactionBody consensus_update_topic = 25;
 
-    // Deletes a topic
-    ConsensusDeleteTopicTransactionBody consensus_delete_topic = 26;
+        // Deletes a topic
+        ConsensusDeleteTopicTransactionBody consensus_delete_topic = 26;
 
-    // Submits message to a topic
-    ConsensusSubmitMessageTransactionBody consensus_submit_message = 27;
+        // Submits message to a topic
+        ConsensusSubmitMessageTransactionBody consensus_submit_message = 27;
 
-    // UNDOCUMENTED
-    UncheckedSubmitBody unchecked_submit = 28;
+        // UNDOCUMENTED
+        UncheckedSubmitBody unchecked_submit = 28;
 
-    // Creates a token instance
-    TokenCreateTransactionBody token_creation = 29;
+        // Creates a token instance
+        TokenCreateTransactionBody token_creation = 29;
 
-    // Freezes account not to be able to transact with a token
-    TokenFreezeAccountTransactionBody token_freeze = 31;
+        // Freezes account not to be able to transact with a token
+        TokenFreezeAccountTransactionBody token_freeze = 31;
 
-    // Unfreezes account for a token
-    TokenUnfreezeAccountTransactionBody token_unfreeze = 32;
+        // Unfreezes account for a token
+        TokenUnfreezeAccountTransactionBody token_unfreeze = 32;
 
-    // Grants KYC to an account for a token
-    TokenGrantKycTransactionBody token_grant_kyc = 33;
+        // Grants KYC to an account for a token
+        TokenGrantKycTransactionBody token_grant_kyc = 33;
 
-    // Revokes KYC of an account for a token
-    TokenRevokeKycTransactionBody token_revoke_kyc = 34;
+        // Revokes KYC of an account for a token
+        TokenRevokeKycTransactionBody token_revoke_kyc = 34;
 
-    // Deletes a token instance
-    TokenDeleteTransactionBody token_deletion = 35;
+        // Deletes a token instance
+        TokenDeleteTransactionBody token_deletion = 35;
 
-    // Updates a token instance
-    TokenUpdateTransactionBody token_update = 36;
+        // Updates a token instance
+        TokenUpdateTransactionBody token_update = 36;
 
-    // Mints new tokens to a token's treasury account
-    TokenMintTransactionBody token_mint = 37;
+        // Mints new tokens to a token's treasury account
+        TokenMintTransactionBody token_mint = 37;
 
-    // Burns tokens from a token's treasury account
-    TokenBurnTransactionBody token_burn = 38;
+        // Burns tokens from a token's treasury account
+        TokenBurnTransactionBody token_burn = 38;
 
-    // Wipes amount of tokens from an account
-    TokenWipeAccountTransactionBody token_wipe = 39;
+        // Wipes amount of tokens from an account
+        TokenWipeAccountTransactionBody token_wipe = 39;
 
-    // Associate tokens to an account
-    TokenAssociateTransactionBody token_associate = 40;
+        // Associate tokens to an account
+        TokenAssociateTransactionBody token_associate = 40;
 
-    // Dissociate tokens from an account
-    TokenDissociateTransactionBody token_dissociate = 41;
+        // Dissociate tokens from an account
+        TokenDissociateTransactionBody token_dissociate = 41;
 
-    // Creates a scheduled transaction instance
-    ScheduleCreateTransactionBody schedule_create = 42;
+        // Creates a scheduled transaction instance
+        ScheduleCreateTransactionBody schedule_create = 42;
 
-    // Deletes a scheduled transaction instance
-    ScheduleDeleteTransactionBody schedule_delete = 43;
+        // Deletes a scheduled transaction instance
+        ScheduleDeleteTransactionBody schedule_delete = 43;
 
-    // Signs a scheduled transaction instance
-    ScheduleSignTransactionBody schedule_sign = 44;
-  }
+        // Signs a scheduled transaction instance
+        ScheduleSignTransactionBody schedule_sign = 44;
+    }
 }
