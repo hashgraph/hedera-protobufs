@@ -8,10 +8,10 @@ jobs:
         if: success()
         uses: actions/checkout@v1
         with:
-          ref: master
-      - name: checkout-master
+          ref: develop
+      - name: checkout-develop
         if: success()
-        run: git checkout master
+        run: git checkout develop
       - name: checkout
         if: success()
         uses: actions/checkout@v1
