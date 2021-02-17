@@ -379,7 +379,7 @@ message Signature {
 
     oneof signature {
         // Smart contract virtual signature (always length zero).
-        bytes contract = 1;
+        bytes contract_id = 1;
 
         // Ed25519 signature bytes.
         bytes ed25519 = 2;

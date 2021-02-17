@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package streams.v1;
+package streams;
 
 /*-
  *

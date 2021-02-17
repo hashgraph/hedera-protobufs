@@ -176,6 +176,8 @@ lint:
       - services/transaction_record.proto
       - services/transaction_response.proto
       - services/unchecked_submit.proto
+      - mirror/consensus_service.proto
+      - streams/account_balance_file.proto
     RPC_REQUEST_RESPONSE_UNIQUE:
       - services/consensus_service.proto
       - services/crypto_service.proto

@@ -20,7 +20,7 @@
 
 syntax = "proto3";
 
-package mirror.v1;
+package mirror;
 
 import "services/basic_types.proto";
 import "services/timestamp.proto";
