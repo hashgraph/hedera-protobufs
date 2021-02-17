@@ -175,6 +175,29 @@
         
           
           <li>
+            <a href="#AccountBalanceFile.proto">AccountBalanceFile.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.AllAccountBalances"><span class="badge">M</span>AllAccountBalances</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.SingleAccountBalances"><span class="badge">M</span>SingleAccountBalances</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenUnitBalance"><span class="badge">M</span>TokenUnitBalance</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#BasicTypes.proto">BasicTypes.proto</a>
             <ul>
               
@@ -272,6 +295,14 @@
               
                 <li>
                   <a href="#proto.ThresholdSignature"><span class="badge">M</span>ThresholdSignature</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenBalance"><span class="badge">M</span>TokenBalance</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenBalances"><span class="badge">M</span>TokenBalances</a>
                 </li>
               
                 <li>
@@ -656,14 +687,6 @@
               
                 <li>
                   <a href="#proto.CryptoGetAccountBalanceResponse"><span class="badge">M</span>CryptoGetAccountBalanceResponse</a>
-                </li>
-              
-                <li>
-                  <a href="#proto.TokenBalance"><span class="badge">M</span>TokenBalance</a>
-                </li>
-              
-                <li>
-                  <a href="#proto.TokenBalances"><span class="badge">M</span>TokenBalances</a>
                 </li>
               
               
@@ -1679,6 +1702,120 @@
     
       
       <div class="file-heading">
+        <h2 id="AccountBalanceFile.proto">AccountBalanceFile.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.AllAccountBalances">AllAccountBalances</h3>
+        <p>Includes all currency balances (both hbar and token) of all accounts in the ledger.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>consensusTimestamp</td>
+                  <td><a href="#proto.Timestamp">Timestamp</a></td>
+                  <td></td>
+                  <td><p>An instant in consensus time </p></td>
+                </tr>
+              
+                <tr>
+                  <td>allAccounts</td>
+                  <td><a href="#proto.SingleAccountBalances">SingleAccountBalances</a></td>
+                  <td>repeated</td>
+                  <td><p>The list of account balances for all accounts, after handling all transactions with consensus timestamp up to and including the above instant </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.SingleAccountBalances">SingleAccountBalances</h3>
+        <p>Includes all currency balances (both hbar and token) of a single account in the ledger.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>accountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>The account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>hbarBalance</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p>The account&#39;s hbar balance </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenUnitBalances</td>
+                  <td><a href="#proto.TokenUnitBalance">TokenUnitBalance</a></td>
+                  <td>repeated</td>
+                  <td><p>The list of the account&#39;s token balances </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.TokenUnitBalance">TokenUnitBalance</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tokenId</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>A unique token id </p></td>
+                </tr>
+              
+                <tr>
+                  <td>balance</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p>A number of transferable units of the identified token </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
         <h2 id="BasicTypes.proto">BasicTypes.proto</h2><a href="#title">Top</a>
       </div>
       <p></p>
@@ -2603,6 +2740,68 @@
 
         
       
+        <h3 id="proto.TokenBalance">TokenBalance</h3>
+        <p>A number of <i>transferable units</i> of a certain token.</p><p>The transferable unit of a token is its smallest denomination, as given by the token's <tt>decimals</tt> property---each minted token contains <tt>10<sup>decimals</sup></tt> transferable units. For example, we could think of the cent as the transferable unit of the US dollar (<tt>decimals=2</tt>); and the tinybar as the transferable unit of hbar (<tt>decimals=8</tt>).</p><p>Transferable units are not directly comparable across different tokens.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tokenId</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>A unique token id </p></td>
+                </tr>
+              
+                <tr>
+                  <td>balance</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p>A number of transferable units of the identified token </p></td>
+                </tr>
+              
+                <tr>
+                  <td>decimals</td>
+                  <td><a href="#uint32">uint32</a></td>
+                  <td></td>
+                  <td><p>Tokens divide into &lt;tt&gt;10&lt;sup&gt;decimals&lt;/sup&gt;&lt;/tt&gt; pieces </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.TokenBalances">TokenBalances</h3>
+        <p>A sequence of token balances</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tokenBalances</td>
+                  <td><a href="#proto.TokenBalance">TokenBalance</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="proto.TokenID">TokenID</h3>
         <p>Unique identifier for a token</p>
 
@@ -2684,6 +2883,13 @@
                   <td><a href="#proto.TokenFreezeStatus">TokenFreezeStatus</a></td>
                   <td></td>
                   <td><p>The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned </p></td>
+                </tr>
+              
+                <tr>
+                  <td>decimals</td>
+                  <td><a href="#uint32">uint32</a></td>
+                  <td></td>
+                  <td><p>Tokens divide into &lt;tt&gt;10&lt;sup&gt;decimals&lt;/sup&gt;&lt;/tt&gt; pieces </p></td>
                 </tr>
               
             </tbody>
@@ -2794,7 +3000,7 @@
         
       
         <h3 id="proto.TransactionID">TransactionID</h3>
-        <p>The ID for a transaction. This is used for retrieving receipts and records for a transaction, for appending to a file right after creating it, for instantiating a smart contract with bytecode in a file just created, and internally by the network for detecting when duplicate transactions are submitted. A user might get a transaction processed faster by submitting it to N nodes, each with a different node account, but all with the same TransactionID. Then, the transaction will take effect when the first of all those nodes submits the transaction and it reaches consensus. The other transactions will not take effect. So this could make the transaction take effect faster, if any given node might be slow. However, the full transaction fee is charged for each transaction, so the total fee is N times as much if the transaction is sent to N nodes.</p>
+        <p>The ID for a transaction. This is used for retrieving receipts and records for a transaction, for appending to a file right after creating it, for instantiating a smart contract with bytecode in a file just created, and internally by the network for detecting when duplicate transactions are submitted. A user might get a transaction processed faster by submitting it to N nodes, each with a different node account, but all with the same TransactionID. Then, the transaction will take effect when the first of all those nodes submits the transaction and it reaches consensus. The other transactions will not take effect. So this could make the transaction take effect faster, if any given node might be slow. However, the full transaction fee is charged for each transaction, so the total fee is N times as much if the transaction is sent to N nodes.</p><p>Applicable to Scheduled Transactions:</p><p>- The ID of a Scheduled Transaction has transactionValidStart and accountIDs inherited from the ScheduleCreate transaction that created it. That is to say that they are equal</p><p>- The scheduled property is true for Scheduled Transactions</p><p>- transactionValidStart, accountID and scheduled properties should be omitted</p><p>- Scheduled Transactions should be submitted with only nonce populated (if desired). Nonce is an additional option presented to users so that they can create multiple sequential Scheduled Transactions that have the same transaction body.</p>
 
         
           <table class="field-table">
@@ -2815,6 +3021,20 @@
                   <td><a href="#proto.AccountID">AccountID</a></td>
                   <td></td>
                   <td><p>The Account ID that paid for this transaction </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scheduled</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Whether the Transaction is of type Scheduled or no </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nonce</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>Used to manipulate the uniqueness check for idempotent schedule transaction creation </p></td>
                 </tr>
               
             </tbody>
@@ -3678,7 +3898,7 @@ Request is [ConsensusSubmitMessageTransactionBody](#proto.ConsensusSubmitMessage
                   <td>memo</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
-                  <td><p>Short publicly visible memo about the topic. No guarantee of uniqueness. </p></td>
+                  <td><p>The memo associated with the topic (UTF-8 encoding max 100 bytes) </p></td>
                 </tr>
               
                 <tr>
@@ -3778,7 +3998,7 @@ and the topic will expire and after AUTORENEW_GRACE_PERIOD be automatically dele
                   <td>memo</td>
                   <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
                   <td></td>
-                  <td><p>Short publicly visible memo about the topic. No guarantee of uniqueness. Null for &#34;do not update&#34;. </p></td>
+                  <td><p>If set, the new memo to be associated with the topic (UTF-8 encoding max 100 bytes) </p></td>
                 </tr>
               
                 <tr>
@@ -4666,12 +4886,40 @@ If unspecified, no change. </p></td>
                   <td>memo</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
-                  <td><p>The new contract memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes) </p></td>
+                  <td><p>[Deprecated] If set with a non-zero length, the new memo to be associated with the account (UTF-8 encoding max 100 bytes) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memoWrapper</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p>If set, the new memo to be associated with the account (UTF-8 encoding max 100 bytes) </p></td>
                 </tr>
               
             </tbody>
           </table>
 
+          
+            
+            
+            <h4>Fields with deprecated option</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Option</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
           
 
         
@@ -4851,6 +5099,13 @@ If unspecified, no change. </p></td>
                   <td><a href="#proto.Key">Key</a></td>
                   <td></td>
                   <td><p>If realmID is null, then this the admin key for the new realm that will be created </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The memo associated with the account (UTF-8 encoding max 100 bytes) </p></td>
                 </tr>
               
             </tbody>
@@ -5064,61 +5319,6 @@ If unspecified, no change. </p></td>
                   <td><a href="#proto.TokenBalance">TokenBalance</a></td>
                   <td>repeated</td>
                   <td><p>The token balances possessed by the target account. </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="proto.TokenBalance">TokenBalance</h3>
-        <p>A number of <i>transferable units</i> of a certain token.</p><p>The transferable unit of a token is its smallest denomination, as given by the token's <tt>decimals</tt> property---each minted token contains <tt>10<sup>decimals</sup></tt> transferable units. For example, we could think of the cent as the transferable unit of the US dollar (<tt>decimals=2</tt>); and the tinybar as the transferable unit of hbar (<tt>decimals=8</tt>).</p><p>Transferable units are not directly comparable across different tokens.</p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>tokenId</td>
-                  <td><a href="#proto.TokenID">TokenID</a></td>
-                  <td></td>
-                  <td><p>A unique token id </p></td>
-                </tr>
-              
-                <tr>
-                  <td>balance</td>
-                  <td><a href="#uint64">uint64</a></td>
-                  <td></td>
-                  <td><p>A number of transferable units of the identified token </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="proto.TokenBalances">TokenBalances</h3>
-        <p>A sequence of token balances, for use in a v2 account balances CSV export.</p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>tokenBalances</td>
-                  <td><a href="#proto.TokenBalance">TokenBalance</a></td>
-                  <td>repeated</td>
-                  <td><p> </p></td>
                 </tr>
               
             </tbody>
@@ -5393,6 +5593,13 @@ If unspecified, no change. </p></td>
                   <td><a href="#proto.TokenRelationship">TokenRelationship</a></td>
                   <td>repeated</td>
                   <td><p>All tokens related to this account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The memo associated with the account </p></td>
                 </tr>
               
             </tbody>
@@ -5926,6 +6133,13 @@ If unspecified, no change. </p></td>
                   <td><p>If true, this account&#39;s key must sign any transaction depositing into this account (in addition to all withdrawals) </p></td>
                 </tr>
               
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p>If set, the new memo to be associated with the account (UTF-8 encoding max 100 bytes) </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -6211,6 +6425,13 @@ If unspecified, no change. </p></td>
                   <td><p>If realmID is null, then this the admin key for the new realm that will be created </p></td>
                 </tr>
               
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The memo associated with the file (UTF-8 encoding max 100 bytes) </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -6484,6 +6705,13 @@ If unspecified, no change. </p></td>
                   <td><p>One of these keys must sign in order to modify or delete the file </p></td>
                 </tr>
               
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The memo associated with the file </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -6623,6 +6851,13 @@ If unspecified, no change. </p></td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
                   <td><p>The new contents that should overwrite the file&#39;s current contents </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p>If set, the new memo to be associated with the file (UTF-8 encoding max 100 bytes) </p></td>
                 </tr>
               
             </tbody>
@@ -8254,7 +8489,7 @@ by HAPI.</p></td>
               <tr>
                 <td>TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED</td>
                 <td>166</td>
-                <td><p>Maximum number of token relations for a given account is exceeded</p></td>
+                <td><p>An involved account already has more than &lt;tt&gt;tokens.maxPerAccount&lt;/tt&gt; associations with non-deleted tokens.</p></td>
               </tr>
             
               <tr>
@@ -8464,7 +8699,7 @@ by HAPI.</p></td>
               <tr>
                 <td>INVALID_SCHEDULE_ID</td>
                 <td>201</td>
-                <td><p>The Scheduled entity does not exist</p></td>
+                <td><p>The Scheduled entity does not exist; or has now expired, been deleted, or been executed</p></td>
               </tr>
             
               <tr>
@@ -8474,21 +8709,51 @@ by HAPI.</p></td>
               </tr>
             
               <tr>
-                <td>SCHEDULE_WAS_DELETED</td>
-                <td>203</td>
-                <td><p>The Scheduled entity was already deleted</p></td>
-              </tr>
-            
-              <tr>
                 <td>INVALID_SCHEDULE_PAYER_ID</td>
-                <td>204</td>
+                <td>203</td>
                 <td><p>The provided Scheduled Payer does not exist</p></td>
               </tr>
             
               <tr>
                 <td>INVALID_SCHEDULE_ACCOUNT_ID</td>
-                <td>205</td>
+                <td>204</td>
                 <td><p>The Schedule Create Transaction TransactionID account does not exist</p></td>
+              </tr>
+            
+              <tr>
+                <td>NO_NEW_VALID_SIGNATURES</td>
+                <td>205</td>
+                <td><p>The provided sig map did not contain any new valid signatures from required signers of the scheduled transaction</p></td>
+              </tr>
+            
+              <tr>
+                <td>UNRESOLVABLE_REQUIRED_SIGNERS</td>
+                <td>206</td>
+                <td><p>The required signers for a scheduled transaction cannot be resolved, for example because they do not exist or have been deleted</p></td>
+              </tr>
+            
+              <tr>
+                <td>UNPARSEABLE_SCHEDULED_TRANSACTION</td>
+                <td>207</td>
+                <td><p>The bytes allegedly representing a transaction to be scheduled could not be parsed</p></td>
+              </tr>
+            
+              <tr>
+                <td>UNSCHEDULABLE_TRANSACTION</td>
+                <td>208</td>
+                <td><p>ScheduleCreate and ScheduleSign transactions cannot be scheduled</p></td>
+              </tr>
+            
+              <tr>
+                <td>SOME_SIGNATURES_WERE_INVALID</td>
+                <td>209</td>
+                <td><p>At least one of the signatures in the provided sig map did not represent a valid signature for any required signer</p></td>
+              </tr>
+            
+              <tr>
+                <td>TRANSACTION_ID_FIELD_NOT_ALLOWED</td>
+                <td>210</td>
+                <td><p>The &lt;tt&gt;scheduled&lt;/tt&gt; and &lt;tt&gt;nonce&lt;/tt&gt; fields in the &lt;tt&gt;TransactionID&lt;/tt&gt; may not be set in a top-level transaction</p></td>
               </tr>
             
           </tbody>
@@ -8566,7 +8831,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleCreateTransactionBody">ScheduleCreateTransactionBody</h3>
-        <p></p>
+        <p>Create a new Scheduled Transaction. After the Scheduled Transaction is created, the Schedule ID for it is set in the receipt.</p><p>Users are able to create the Scheduled Transactions without the need for them to sign the scheduled underlying transaction (f.e Account A creates Scheduled Transaction for Account B, C and D to sign)</p><p>Creating immutable scheduled transaction: Scheduled Transaction can be created as immutable if the adminKey is omitted. In this case no one is able to execute ScheduleDelete operation and the Scheduled Transaction will either execute or expire</p><p>Defining the Payer of the Transactions: By default, the payer of the Scheduled Transaction is the Account that creates it in the first place. However, users have the option to create Scheduled Transactions with Payer set to any account. If a Payer is provided, its signature will be required in order for the scheduled transaction to reach execution.</p><p>Providing Signatures as part of the creation: Users are able to provide signatures for the Scheduled Transaction as part of the creation itself</p><p>Idempotent Creation: Creating Scheduled Transactions is an idempotent operation in the sense that if multiple parties perform ScheduleCreate operation specifying identical transactions, only the first one will create the transaction and the other operations will append the provided signatures.</p><p>The criteria for identical transactions is the following: If there is a previously created Scheduled Transaction, that hasn't yet been executed and all of the properties are exactly the same except for the sigMap (transactionBody, adminKey, payerAccountID and memo).</p><p>In that sense, ScheduleCreate transaction referring to an already created Scheduled Transaction and providing the rest of the required signature(s) will cause the underlying encoded transaction to be executed!</p><p>Note: Even though only the first ScheduleCreate Transaction will create new Scheduled Entity and the rest of them will have their signatures from the sigMap witnessed, the ScheduleID property in the TransactionReceipt will be set on all of them.</p><p>INVALID_ACCOUNT_ID is returned if the specified payerAccountID does not exist.</p><p>UNRESOLVABLE_REQUIRED_SIGNERS is returned if the transactionBody defines required Signers that cannot be resolved (f.e signature from non-existing account is requested)</p><p>UNPARSEABLE_SCHEDULED_TRANSACTION is returned if the transactionBody cannot be parsed into normal Transaction</p><p>UNSCHEDULABLE_TRANSACTION is returned if the transactionBody is representing a transaction that is not allowed to be scheduled (f.e scheduling a ScheduleCreate transaction)</p><p>SOME_SIGNATURES_WERE_INVALID is returned if one of the signatures provided does not represent a valid signature for any required signer</p>
 
         
           <table class="field-table">
@@ -8603,6 +8868,13 @@ by HAPI.</p></td>
                   <td><p>(optional) Signatures that could be provided (similarly to how signatures are provided in ScheduleSign operation) on Scheduled Transaction creation </p></td>
                 </tr>
               
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>(optional) Publicly visible information about the Scheduled entity, up to 100 bytes. No guarantee of uniqueness. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -8625,7 +8897,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleDeleteTransactionBody">ScheduleDeleteTransactionBody</h3>
-        <p></p>
+        <p>Deletes a Scheduled Transaction from the ledger.</p><p>The operation must be signed by the specified Admin Key of the Scheduled Transaction. If admin key is not set, Transaction will result in SCHEDULE_IS_IMMUTABLE.</p><p>Once deleted, sign and delete transactions will resolve to INVALID_SCHEDULE_ID.</p>
 
         
           <table class="field-table">
@@ -8663,7 +8935,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleGetInfoQuery">ScheduleGetInfoQuery</h3>
-        <p></p>
+        <p>Gets information about Scheduled Transaction instance</p><p>Answered with status INVALID_SCHEDULE_ID if the Scheduled Transaction is deleted, expires or is executed.</p>
 
         
           <table class="field-table">
@@ -8694,7 +8966,7 @@ by HAPI.</p></td>
         
       
         <h3 id="proto.ScheduleGetInfoResponse">ScheduleGetInfoResponse</h3>
-        <p></p>
+        <p>Response that gets returned, when the client sends the node a ScheduleGetInfoQuery</p>
 
         
           <table class="field-table">
@@ -8725,7 +8997,7 @@ by HAPI.</p></td>
         
       
         <h3 id="proto.ScheduleInfo">ScheduleInfo</h3>
-        <p></p>
+        <p>Metadata about a Scheduled Transaction instance</p>
 
         
           <table class="field-table">
@@ -8763,10 +9035,10 @@ by HAPI.</p></td>
                 </tr>
               
                 <tr>
-                  <td>signers</td>
+                  <td>signatories</td>
                   <td><a href="#proto.KeyList">KeyList</a></td>
                   <td></td>
-                  <td><p>The keys that have provided signatures so far for the Scheduled TX </p></td>
+                  <td><p>The signatories that have provided signatures so far for the Scheduled TX </p></td>
                 </tr>
               
                 <tr>
@@ -8774,6 +9046,20 @@ by HAPI.</p></td>
                   <td><a href="#proto.Key">Key</a></td>
                   <td></td>
                   <td><p>The Key which is able to delete the Scheduled Transaction if set </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Publicly visible information about the Scheduled entity, up to 100 bytes. No guarantee of uniqueness. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>expirationTime</td>
+                  <td><a href="#proto.Timestamp">Timestamp</a></td>
+                  <td></td>
+                  <td><p>The epoch second at which the schedule will expire </p></td>
                 </tr>
               
             </tbody>
@@ -8804,7 +9090,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleService">ScheduleService</h3>
-        <p>Transactions and queries for the Schedule Service</p>
+        <p>Transactions and queries for the Schedule Service</p><p>The Schedule Service allows transactions to be submitted without all the required signatures and allows anyone to provide the required signatures independently after a transaction has already been created.</p><p>Execution:</p><p>Scheduled Transactions are executed once all required signatures are collected and witnessed. Every time new signature is provided, a check is performed on the "readiness" of the execution.</p><p>The Scheduled Transaction will be executed immediately after the transaction that triggered it and will be externalised in a separate Transaction Record.</p><p>Transaction Record:</p><p>The timestamp of the Scheduled Transaction will be equal to consensusTimestamp + 1 nano, where consensusTimestamp is the timestamp of the transaction that triggered the execution.</p><p>The Transaction ID of the Scheduled Transaction will have the scheduled property set to true and inherit the transactionValidStart and accountID from the ScheduleCreate transaction.</p><p>The scheduleRef property of the transaction record will be populated with the ScheduleID of the Scheduled Transaction.</p><p>Post execution:</p><p>Once a given Scheduled Transaction executes, it will be removed from the ledger and any upcoming operation referring the ScheduleID will resolve to INVALID_SCHEDULE_ID.</p><p>Expiry:</p><p>Scheduled Transactions have a global expiry time txExpiryTimeSecs (Currently set to 30 minutes). If txExpiryTimeSecs pass and the Scheduled Transaction haven't yet executed, it will be removed from the ledger as if ScheduleDelete operation is executed.</p>
         <table class="enum-table">
           <thead>
             <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
@@ -8852,7 +9138,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleSignTransactionBody">ScheduleSignTransactionBody</h3>
-        <p></p>
+        <p>Provides signatures for a given Scheduled Transaction. The Scheduled Transaction executes if all of the required signatures are witnessed.</p><p>INVALID_SCHEDULE_ID is returned if the specified ScheduleID does not exist; or has now expired, been deleted, or been executed</p><p>UNRESOLVABLE_REQUIRED_SIGNERS is returned if any of the required keys were updated/deleted and cannot be resolved</p><p>INVALID_ACCOUNT_ID is returned if the payerAccountID has been deleted or cannot be resolved</p><p>NO_NEW_VALID_SIGNATURES is returned if there are no new signatures provided in the sigMap to be witnessed</p><p>SOME_SIGNATURES_WERE_INVALID is returned if one of the signatures provided does not represent a valid signature for any required signer</p>
 
         
           <table class="field-table">
@@ -9384,6 +9670,13 @@ by HAPI.</p></td>
                   <td><p>The interval at which the auto-renew account will be charged to extend the token&#39;s expiry </p></td>
                 </tr>
               
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The memo associated with the token (UTF-8 encoding max 100 bytes) </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -9722,6 +10015,13 @@ by HAPI.</p></td>
                   <td><a href="#proto.Timestamp">Timestamp</a></td>
                   <td></td>
                   <td><p>The epoch second at which the token will expire </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The memo associated with the token </p></td>
                 </tr>
               
             </tbody>
@@ -10063,14 +10363,14 @@ by HAPI.</p></td>
                   <td>symbol</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
-                  <td><p>The new Symbol of the Token. Must be UTF-8 capitalized alphabetical string identifying the token. </p></td>
+                  <td><p>The new publicly visible Token symbol, limited to a UTF-8 encoding of length &lt;tt&gt;tokens.maxTokenNameUtf8Bytes&lt;/tt&gt;. </p></td>
                 </tr>
               
                 <tr>
                   <td>name</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
-                  <td><p>The new Name of the Token. Must be a string of ASCII characters. </p></td>
+                  <td><p>The new publicly visible name of the Token, limited to a UTF-8 encoding of length &lt;tt&gt;tokens.maxSymbolUtf8Bytes&lt;/tt&gt;. </p></td>
                 </tr>
               
                 <tr>
@@ -10134,6 +10434,13 @@ by HAPI.</p></td>
                   <td><a href="#proto.Timestamp">Timestamp</a></td>
                   <td></td>
                   <td><p>The new expiry time of the token. Expiry can be updated even if admin key is not set. If the provided expiry is earlier than the current token expiry, transaction wil resolve to INVALID_EXPIRATION_TIME </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p>If set, the new memo to be associated with the token (UTF-8 encoding max 100 bytes) </p></td>
                 </tr>
               
             </tbody>
