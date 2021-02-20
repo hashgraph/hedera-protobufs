@@ -147,7 +147,8 @@ enum ResponseCodeEnum {
     // node account, the receiver account should be only one account in the list
     INVALID_RECEIVING_NODE_ACCOUNT = 35;
 
-    MISSING_QUERY_HEADER = 36; // Header is missing in Query request
+    // Header is missing in Query request
+    MISSING_QUERY_HEADER = 36;
 
     // The update of the account failed
     ACCOUNT_UPDATE_FAILED = 37;
@@ -390,6 +391,7 @@ enum ResponseCodeEnum {
     // Transfer Account should not be same as Account to be deleted
     TRANSFER_ACCOUNT_SAME_AS_DELETE_ACCOUNT = 107;
 
+    // UNDOCUMENTED
     TOTAL_LEDGER_BALANCE_INVALID = 108;
 
     // The expiration date/time on a smart contract may not be reduced
