@@ -40,20 +40,20 @@ message TransactionReceipt {
     ResponseCodeEnum status = 1;
 
     // In the receipt of a CryptoCreate, the id of the newly created account
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 
     // In the receipt of a FileCreate, the id of the newly created file
-    FileID file_id = 3;
+    FileID file_i_d = 3;
 
     // In the receipt of a ContractCreate, the id of the newly created contract
-    ContractID contract_id = 4;
+    ContractID contract_i_d = 4;
 
     // The exchange rates in effect when the transaction reached consensus
     ExchangeRateSet exchange_rate = 5;
 
     // In the receipt of a ConsensusCreateTopic, the id of the newly
     // created topic.
-    TopicID topic_id = 6;
+    TopicID topic_i_d = 6;
 
     // In the receipt of a ConsensusSubmitMessage, the new sequence number of
     // the topic that received the message
@@ -120,7 +120,7 @@ message TransactionReceipt {
     uint64 topic_running_hash_version = 9;
 
     // In the receipt of a CreateToken, the id of the newly created token
-    TokenID token_id = 10;
+    TokenID token_i_d = 10;
 
     // In the receipt of TokenMint, TokenWipe, TokenBurn, the current total
     // supply of this token
@@ -128,5 +128,5 @@ message TransactionReceipt {
 
     // In the receipt of a CreateSchedule, the id of the newly created
     // Scheduled Entity
-    ScheduleID schedule_id = 12;
+    ScheduleID schedule_i_d = 12;
 }

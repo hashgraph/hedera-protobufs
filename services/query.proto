@@ -63,7 +63,7 @@ message Query {
 
         // Get the IDs in the format used in transactions, given the format
         // used in Solidity
-        GetBySolidityIDQuery get_by_solidity_id = 2;
+        GetBySolidityIDQuery get_by_solidity_i_d = 2;
 
         // Call a function of a smart contract instance
         ContractCallLocalQuery contract_call_local = 3;

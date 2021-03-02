@@ -50,8 +50,8 @@ import "services/basic_types.proto";
  */
 message TokenDissociateTransactionBody {
     // The account to be dissociated with the provided tokens
-    AccountID account_id = 1;
+    AccountID account = 1;
 
     // The tokens to be dissociated with the provided account
-    repeated TokenID token_ids = 2;
+    repeated TokenID tokens = 2;
 }

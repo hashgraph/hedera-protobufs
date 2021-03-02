@@ -43,7 +43,7 @@ message CryptoGetAccountRecordsQuery {
     QueryHeader header = 1;
 
     // The account ID for which the records should be retrieved
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 }
 
 /*
@@ -58,7 +58,7 @@ message CryptoGetAccountRecordsResponse {
     ResponseHeader header = 1;
 
     // The account that this record is for
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 
     // List of records
     repeated TransactionRecord records = 3;

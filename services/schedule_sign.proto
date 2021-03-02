@@ -43,7 +43,7 @@ import "services/basic_types.proto";
  */
 message ScheduleSignTransactionBody {
     // The ID of the Scheduled entity
-    ScheduleID schedule_id = 1;
+    ScheduleID schedule_i_d = 1;
 
     // The signature map containing the signature(s) to authorise the transaction
     SignatureMap sig_map = 2;

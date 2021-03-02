@@ -33,7 +33,7 @@ import "services/basic_types.proto";
 message ConsensusMessageChunkInfo {
     // TransactionID of the first chunk, gets copied to every subsequent chunk
     // in a fragmented message.
-    TransactionID initial_transaction_id = 1;
+    TransactionID initial_transaction_i_d = 1;
 
     // The total number of chunks in the message.
     int32 total = 2;
@@ -48,7 +48,7 @@ message ConsensusMessageChunkInfo {
  */
 message ConsensusSubmitMessageTransactionBody {
     // Topic to submit message to.
-    TopicID topic_id = 1;
+    TopicID topic_i_d = 1;
 
     // Message to be submitted. Max size of the Transaction
     // (including signatures) is 6KiB.

@@ -43,7 +43,7 @@ message CryptoGetInfoQuery {
     QueryHeader header = 1;
 
     // The account ID for which information is requested
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 }
 
 /*
@@ -56,12 +56,12 @@ message CryptoGetInfoResponse {
 
     message AccountInfo {
         // The account ID for which this information applies
-        AccountID account_id = 1;
+        AccountID account_i_d = 1;
 
         // The Contract Account ID comprising of both the contract instance
         // and the cryptocurrency account owned by the contract instance, in
         // the format used by Solidity
-        string contract_account_id = 2;
+        string contract_account_i_d = 2;
 
         // If true, then this account has been deleted, it will disappear when
         // it expires, and all transactions for it will fail except the
@@ -75,7 +75,7 @@ message CryptoGetInfoResponse {
         // If the proxyAccountID account refuses to accept proxy staking , or
         // if it is not currently running a node, then it will behave as if
         // proxyAccountID was null.
-        AccountID proxy_account_id = 4;
+        AccountID proxy_account_i_d = 4;
 
         // The total number of tinybars proxy staked to this account
         int64 proxy_received = 6;

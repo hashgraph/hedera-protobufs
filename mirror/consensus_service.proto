@@ -31,7 +31,7 @@ import "services/consensus_submit_message.proto";
  */
 message ConsensusTopicQuery {
     // A required topic ID to retrieve messages for.
-    services.TopicID topic_id = 1;
+    services.TopicID topic_i_d = 1;
 
     // Include messages which reached consensus on or after this time.
     // Defaults to current time if not set.

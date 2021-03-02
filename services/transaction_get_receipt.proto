@@ -45,7 +45,7 @@ message TransactionGetReceiptQuery {
     QueryHeader header = 1;
 
     // The ID of the transaction for which the receipt is requested.
-    TransactionID transaction_id = 2;
+    TransactionID transaction_i_d = 2;
 
     // Whether receipts of processing duplicate transactions should be
     // returned along with the receipt of processing the first consensus

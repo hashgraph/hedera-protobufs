@@ -54,14 +54,14 @@ message GetBySolidityIDResponse {
     ResponseHeader header = 1;
 
     //  The Account ID for the cryptocurrency account
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 
     // The file Id for the file
-    FileID file_id = 3;
+    FileID file_i_d = 3;
 
     // A smart contract ID for the instance (if this is included, then the
     // associated accountID will also be included)
-    ContractID contract_id = 4;
+    ContractID contract_i_d = 4;
 }
 
 

@@ -34,7 +34,7 @@ import "services/basic_types.proto";
  */
 message CryptoDeleteLiveHashTransactionBody {
     // The account owning the livehash
-    AccountID account_id_of_live_hash = 1;
+    AccountID account_of_live_hash = 1;
 
     // The SHA-384 livehash to delete from the account
     bytes live_hash_to_delete = 2;

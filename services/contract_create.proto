@@ -95,7 +95,7 @@ message ContractCreateTransactionBody {
     // The file containing the smart contract byte code. A copy will be made
     // and held by the contract instance, and have the same expiration time as
     // the instance. The file is referenced one of two ways:
-    FileID file_id = 1;
+    FileID file_i_d = 1;
 
     // The state of the instance and its fields can be modified arbitrarily if
     // this key signs a transaction to modify it. If this is null, then such
@@ -120,7 +120,7 @@ message ContractCreateTransactionBody {
     // proxyAccountID account refuses to accept proxy staking , or if it is
     // not currently running a node, then it will behave as if  proxyAccountID
     // was null.
-    AccountID proxy_account_id = 6;
+    AccountID proxy_account_i_d = 6;
 
     // The instance will charge its account every this many seconds to renew
     // for this long
@@ -130,10 +130,10 @@ message ContractCreateTransactionBody {
     bytes constructor_parameters = 9;
 
     // Shard in which to create this
-    ShardID shard_id = 10;
+    ShardID shard_i_d = 10;
 
     // Realm in which to create this (leave this null to create a new realm)
-    RealmID realm_id = 11;
+    RealmID realm_i_d = 11;
 
     // If realmID is null, then this the admin key for the new realm that will
     // be created

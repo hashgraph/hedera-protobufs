@@ -45,7 +45,7 @@ message TransactionGetFastRecordQuery {
     QueryHeader header = 1;
 
     // The ID of the transaction for which the record is requested.
-    TransactionID transaction_id = 2;
+    TransactionID transaction_i_d = 2;
 }
 
 /*

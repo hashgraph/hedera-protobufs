@@ -78,7 +78,7 @@ message CryptoCreateTransactionBody {
     // proxyAccountID account refuses to accept proxy staking , or if it is
     // not currently running a node, then it will behave as if proxyAccountID
     // was null.
-    AccountID proxy_account_id = 3;
+    AccountID proxy_account_i_d = 3;
 
     // [Deprecated]. The threshold amount (in tinybars) for which an account
     // record is created for any send/withdraw transaction
@@ -98,11 +98,11 @@ message CryptoCreateTransactionBody {
     Duration auto_renew_period = 9;
 
     // The shard in which this account is created
-    ShardID shard_id = 10;
+    ShardID shard_i_d = 10;
 
     // The realm in which this account is created (leave this null to create a
     // new realm)
-    RealmID realm_id = 11;
+    RealmID realm_i_d = 11;
 
     // If realmID is null, then this the admin key for the new realm that will
     // be created

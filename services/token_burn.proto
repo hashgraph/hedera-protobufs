@@ -40,7 +40,7 @@ import "services/basic_types.proto";
 message TokenBurnTransactionBody {
     // The token for which to burn tokens. If token does not exist,
     // transaction results in INVALID_TOKEN_ID
-    TokenID token_id = 1;
+    TokenID token = 1;
 
     // The amount to burn from the Treasury Account. Amount must be a positive
     // non-zero number, not bigger than the token balance of the treasury

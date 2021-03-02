@@ -39,5 +39,5 @@ import "services/basic_types.proto";
 message FileDeleteTransactionBody {
     // The file to delete. It will be marked as deleted until it expires.
     // Then it will disappear.
-    FileID file_id = 2;
+    FileID file_i_d = 2;
 }

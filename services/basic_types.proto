@@ -135,7 +135,7 @@ message TransactionID {
     Timestamp transaction_valid_start = 1;
 
     // The Account ID that paid for this transaction.
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 
     // Whether the Transaction is of type Scheduled or no.
     bool scheduled = 3;
@@ -151,7 +151,7 @@ message TransactionID {
  */
 message AccountAmount {
     // The Account ID that sends/receives cryptocurrency or tokens.
-    AccountID account_id = 1;
+    AccountID account_i_d = 1;
 
     // The amount of tinybars (for Crypto transfers) or in the lowest
     // denomination (for Token transfers) that the account sends(negative) or
@@ -176,7 +176,7 @@ message TransferList {
  */
 message TokenTransferList {
     // The ID of the token.
-    TokenID token_id = 1;
+    TokenID token = 1;
 
     // Multiple list of AccountAmounts, each of which has an account and amount.
     repeated AccountAmount transfers = 2;
@@ -299,16 +299,16 @@ message Key {
     oneof key {
         // Smart contract instance that is authorized as if it had signed
         // with a key.
-        ContractID contract_id = 1;
+        ContractID contract_i_d = 1;
 
         // Ed25519 public key bytes.
         bytes ed25519 = 2;
 
         // RSA-3072 public key bytes.
-        bytes rsa_3072 = 3;
+        bytes r_s_a_3072 = 3;
 
         // ECDSA with the p-384 curve public key bytes.
-        bytes ecdsa_384 = 4;
+        bytes e_c_d_s_a_384 = 4;
 
         // A threshold N followed by a list of M keys, any N of which are
         // required to form a valid signature.
@@ -379,16 +379,16 @@ message Signature {
 
     oneof signature {
         // Smart contract virtual signature (always length zero).
-        bytes contract_id = 1;
+        bytes contract_i_d = 1;
 
         // Ed25519 signature bytes.
         bytes ed25519 = 2;
 
         // RSA-3072 signature bytes.
-        bytes rsa_3072 = 3;
+        bytes r_s_a_3072 = 3;
 
         // ECDSA p-384 signature bytes.
-        bytes ecdsa_384 = 4;
+        bytes e_c_d_s_a_384 = 4;
 
         // A list of signatures for a single N-of-M threshold Key. This must
         // be a list of exactly M signatures, at least N of which are non-null.
@@ -439,16 +439,16 @@ message SignaturePair {
 
     oneof signature {
         // Smart contract virtual signature (always length zero)
-        bytes contract_id = 2;
+        bytes contract_i_d = 2;
 
         // Ed25519 signature
         bytes ed25519 = 3;
 
         // RSA-3072 signature
-        bytes rsa_3072 = 4;
+        bytes r_s_a_3072 = 4;
 
         // ECDSA p-384 signature
-        bytes ecdsa_384 = 5;
+        bytes e_c_d_s_a_384 = 5;
     }
 }
 
@@ -765,7 +765,7 @@ message NodeAddress {
     bytes memo = 3;
 
     // The RSA public key of the node.
-    string rsa_pub_key = 4;
+    string r_s_a__pub_key = 4;
 
     // A non-sequential identifier for the node.
     int64 node_id = 5;
@@ -826,7 +826,7 @@ message ServicesConfigurationList {
  */
 message TokenRelationship {
     // The ID of the token.
-    TokenID token_id = 1;
+    TokenID token_i_d = 1;
 
     // The Symbol of the token.
     string symbol = 2;

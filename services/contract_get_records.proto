@@ -43,7 +43,7 @@ message ContractGetRecordsQuery {
     QueryHeader header = 1;
 
     // The smart contract instance for which the records should be retrieved
-    ContractID contract_id = 2;
+    ContractID contract_i_d = 2;
 }
 
 /*
@@ -58,7 +58,7 @@ message ContractGetRecordsResponse {
     ResponseHeader header = 1;
 
     // The smart contract instance that this record is for
-    ContractID contract_id = 2;
+    ContractID contract_i_d = 2;
 
     // List of records, each with contractCreateResult or contractCallResult
     // as its body

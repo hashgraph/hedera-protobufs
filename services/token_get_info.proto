@@ -42,7 +42,7 @@ message TokenGetInfoQuery {
 
     // The token for which information is requested. If invalid token is
     // provided, INVALID_TOKEN_ID response is returned.
-    TokenID token_id = 2;
+    TokenID token = 2;
 }
 
 /*
@@ -50,7 +50,7 @@ message TokenGetInfoQuery {
  */
 message TokenInfo {
     // ID of the token instance
-    TokenID token_id = 1;
+    TokenID token_i_d = 1;
 
     // The name of the token. It is a string of ASCII only characters
     string name = 2;
@@ -65,7 +65,7 @@ message TokenInfo {
     uint64 total_supply = 5;
 
     // The ID of the account which is set as Treasury
-    AccountID treasury_account_id = 6;
+    AccountID treasury = 6;
 
     // The key which can perform update/delete operations on the token. If
     // empty, the token can be perceived as immutable (not being able to be
@@ -106,14 +106,14 @@ message TokenInfo {
 
     // An account which will be automatically charged to renew the token's
     // expiration, at autoRenewPeriod interval
-    AccountID auto_renew_account_id = 15;
+    AccountID auto_renew_account = 15;
 
     // The interval at which the auto-renew account will be charged to extend
     // the token's expiry
     Duration auto_renew_period = 16;
 
     // The epoch second at which the token will expire
-    Timestamp expiration_time = 17;
+    Timestamp expiry = 17;
 
     // The memo associated with the token
     string memo = 18;

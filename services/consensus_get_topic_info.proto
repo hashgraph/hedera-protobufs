@@ -40,7 +40,7 @@ message ConsensusGetTopicInfoQuery {
     QueryHeader header = 1;
 
     // The Topic for which information is being requested.
-    TopicID topic_id = 2;
+    TopicID topic_i_d = 2;
 }
 
 /*
@@ -52,7 +52,7 @@ message ConsensusGetTopicInfoResponse {
     ResponseHeader header = 1;
 
     // Topic identifier.
-    TopicID topic_id = 2;
+    TopicID topic_i_d = 2;
 
     // Current state of the topic.
     ConsensusTopicInfo topic_info = 5;

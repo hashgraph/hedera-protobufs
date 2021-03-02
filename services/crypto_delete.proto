@@ -35,8 +35,8 @@ import "services/basic_types.proto";
  */
 message CryptoDeleteTransactionBody {
     // The account ID which will receive all remaining hbars
-    AccountID transfer_account_id = 1;
+    AccountID transfer_account_i_d = 1;
 
     // The account ID which should be deleted
-    AccountID delete_account_id = 2;
+    AccountID delete_account_i_d = 2;
 }

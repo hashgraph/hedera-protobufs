@@ -58,10 +58,10 @@ import "services/basic_types.proto";
 message TokenWipeAccountTransactionBody {
     // The token for which the account will be wiped. If token does not exist,
     // transaction results in INVALID_TOKEN_ID
-    TokenID token_id = 1;
+    TokenID token = 1;
 
     // The account to be wiped
-    AccountID account_id = 2;
+    AccountID account = 2;
 
     // The amount of tokens to wipe from the specified account. Amount must be
     // a positive non-zero number in the lowest denomination possible, not

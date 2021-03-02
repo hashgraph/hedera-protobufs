@@ -70,5 +70,5 @@ message ConsensusTopicInfo {
 
     // The account, if any, to charge for automatic renewal of the topic's
     // lifetime upon expiry.
-    AccountID auto_renew_account_id = 8;
+    AccountID auto_renew_account = 8;
 }

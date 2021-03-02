@@ -43,7 +43,7 @@ message ContractGetInfoQuery {
     QueryHeader header = 1;
 
     // the contract for which information is requested
-    ContractID contract_id = 2;
+    ContractID contract_i_d = 2;
 }
 
 /*
@@ -56,15 +56,15 @@ message ContractGetInfoResponse {
 
     message ContractInfo {
         // ID of the contract instance, in the format used in transactions
-        ContractID contract_id = 1;
+        ContractID contract_i_d = 1;
 
         // ID of the cryptocurrency account owned by the contract instance, in
         // the format used in transactions
-        AccountID account_id = 2;
+        AccountID account_i_d = 2;
 
         // ID of both the contract instance and the cryptocurrency account
         // owned by the contract instance, in the format used by Solidity
-        string contract_account_id = 3;
+        string contract_account_i_d = 3;
 
         // The state of the instance and its fields can be modified
         // arbitrarily if this key signs a transaction to modify it. If this

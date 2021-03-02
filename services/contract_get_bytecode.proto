@@ -39,7 +39,7 @@ message ContractGetBytecodeQuery {
     QueryHeader header = 1;
 
     // The contract for which information is requested
-    ContractID contract_id = 2;
+    ContractID contract_i_d = 2;
 }
 
 /*

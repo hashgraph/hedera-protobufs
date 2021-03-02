@@ -80,11 +80,11 @@ message TransactionBody {
     // The ID for this transaction, which includes the payer's account (the
     // account paying the transaction fee). If two transactions have the same
     // transactionID, they won't both have an effect
-    TransactionID transaction_id = 1;
+    TransactionID transaction_i_d = 1;
 
     // The account of the node that submits the client's transaction to the
     // network
-    AccountID node_account_id = 2;
+    AccountID node_account_i_d = 2;
 
     // The maximum transaction fee the client is willing to pay
     uint64 transaction_fee = 3;

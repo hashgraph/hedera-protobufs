@@ -41,7 +41,7 @@ import "services/basic_types.proto";
  */
 message ContractCallTransactionBody {
     // The contract instance to call, in the format used in transactions.
-    ContractID contract_id = 1;
+    ContractID contract_i_d = 1;
 
     // The maximum amount of gas to use for the call.
     int64 gas = 2;

@@ -24,6 +24,7 @@ package services;
 
 option java_package = "com.hederahashgraph.api.proto";
 option java_multiple_files = true;
+
 import "services/basic_types.proto";
 
 /*
@@ -42,15 +43,15 @@ import "services/basic_types.proto";
  */
 message ContractDeleteTransactionBody {
     // The id of the contract to be deleted
-    ContractID contract_id = 1;
+    ContractID contract_i_d = 1;
 
     oneof obtainers {
         // The id of an account to receive any remaining hBars from the
         // deleted contract
-        AccountID transfer_account_id = 2;
+        AccountID transfer_account_i_d = 2;
 
         // The id of a contract to receive any remaining hBars from the
         // deleted contract
-        ContractID transfer_contract_id = 3;
+        ContractID transfer_contract_i_d = 3;
     }
 }

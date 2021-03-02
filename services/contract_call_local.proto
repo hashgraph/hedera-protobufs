@@ -35,7 +35,7 @@ import "services/response_header.proto";
  */
 message ContractLoginfo {
     // Address of a contract that emitted the event
-    ContractID contract_id = 1;
+    ContractID contract_i_d = 1;
 
     // Bloom filter for a particular log
     bytes bloom = 2;
@@ -56,7 +56,7 @@ message ContractLoginfo {
  */
 message ContractFunctionResult {
     // The smart contract instance whose function was called
-    ContractID contract_id = 1;
+    ContractID contract_i_d = 1;
 
     // The result returned by the function
     bytes contract_call_result = 2;
@@ -74,7 +74,7 @@ message ContractFunctionResult {
     repeated ContractLoginfo log_info = 6;
 
     // The list of smart contracts that were created by the function call
-    repeated ContractID created_contract_ids = 7;
+    repeated ContractID created_contract_i_ds = 7;
 }
 
 /*
@@ -99,7 +99,7 @@ message ContractCallLocalQuery {
     QueryHeader header = 1;
 
     // The contract instance to call, in the format used in transactions
-    ContractID contract_id = 2;
+    ContractID contract_i_d = 2;
 
     // The amount of gas to use for the call; all of the gas offered will be
     // used and charged a corresponding fee

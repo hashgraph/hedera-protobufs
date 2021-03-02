@@ -65,7 +65,7 @@ message Response {
 
         // Get the IDs in the format used in transactions, given the format
         // used in Solidity
-        GetBySolidityIDResponse get_by_solidity_id = 2;
+        GetBySolidityIDResponse get_by_solidity_i_d = 2;
 
         // Response to call a function of a smart contract instance
         ContractCallLocalResponse contract_call_local = 3;

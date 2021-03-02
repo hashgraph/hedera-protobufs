@@ -41,7 +41,7 @@ import "google/protobuf/wrappers.proto";
  */
 message CryptoUpdateTransactionBody {
     // The account ID which is being updated in this transaction
-    AccountID account_id_to_update = 2;
+    AccountID account_i_d_to_update = 2;
 
     // The new key
     Key key = 3;
@@ -53,7 +53,7 @@ message CryptoUpdateTransactionBody {
     // proxyAccountID account refuses to accept proxy staking , or if it is
     // not currently running a node, then it will behave as if proxyAccountID
     // was null.
-    AccountID proxy_account_id = 4;
+    AccountID proxy_account_i_d = 4;
 
     // [Deprecated]. Payments earned from proxy staking are shared between the
     // node and this account, with proxyFraction / 10000 going to this account

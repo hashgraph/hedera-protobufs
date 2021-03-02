@@ -37,5 +37,5 @@ import "services/basic_types.proto";
  */
 message ScheduleDeleteTransactionBody {
     // The ID of the Scheduled Entity
-    ScheduleID schedule_id = 1;
+    ScheduleID schedule_i_d = 1;
 }

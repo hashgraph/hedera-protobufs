@@ -36,7 +36,7 @@ import "services/timestamp.proto";
  */
 message ConsensusUpdateTopicTransactionBody {
     // UNDOCUMENTED
-    TopicID topic_id = 1;
+    TopicID topic_i_d = 1;
 
     // If set, the new memo to be associated with the topic (UTF-8 encoding
     // max 100 bytes)
@@ -76,5 +76,5 @@ message ConsensusUpdateTopicTransactionBody {
     // If specified as the default value (0.0.0), the autoRenewAccount will be
     // removed.
     // If unspecified, no change.
-    AccountID auto_renew_account_id = 9;
+    AccountID auto_renew_account = 9;
 }

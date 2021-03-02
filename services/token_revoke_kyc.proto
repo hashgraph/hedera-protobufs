@@ -49,8 +49,8 @@ import "services/basic_types.proto";
 message TokenRevokeKycTransactionBody {
     // The token for which this account will get his KYC revoked. If token
     // does not exist, transaction results in INVALID_TOKEN_ID
-    TokenID token_id = 1;
+    TokenID token = 1;
 
     // The account to be KYC Revoked
-    AccountID account_id = 2;
+    AccountID account = 2;
 }

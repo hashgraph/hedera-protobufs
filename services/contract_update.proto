@@ -54,7 +54,7 @@ import "google/protobuf/wrappers.proto";
  */
 message ContractUpdateTransactionBody {
     // The id of the contract to be updated
-    ContractID contract_id = 1;
+    ContractID contract_i_d = 1;
 
     // The new expiry of the contract, no earlier than the current expiry
     // (resolves to EXPIRATION_REDUCTION_NOT_ALLOWED otherwise)
@@ -65,7 +65,7 @@ message ContractUpdateTransactionBody {
 
     // (NOT YET IMPLEMENTED) The new id of the account to which the contract
     // is proxy staked
-    AccountID proxy_account_id = 6;
+    AccountID proxy_account_i_d = 6;
 
     // (NOT YET IMPLEMENTED) The new interval at which the contract will pay
     // to extend its expiry (by the same interval)
@@ -73,7 +73,7 @@ message ContractUpdateTransactionBody {
 
     // The new id of the file asserted to contain the bytecode of the Solidity
     // transaction that created this contract
-    FileID file_id = 8;
+    FileID file_i_d = 8;
 
     // The new contract memo, assumed to be Unicode encoded with UTF-8 (at
     // most 100 bytes)

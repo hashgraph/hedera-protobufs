@@ -41,7 +41,7 @@ message CryptoGetStakersQuery {
     QueryHeader header = 1;
 
     // The Account ID for which the records should be retrieved.
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 }
 
 /*
@@ -49,7 +49,7 @@ message CryptoGetStakersQuery {
  */
 message ProxyStaker {
     // The Account ID that is proxy staking.
-    AccountID account_id = 1;
+    AccountID account_i_d = 1;
 
     // The number of hbars that are currently proxy staked.
     int64 amount = 2;
@@ -61,7 +61,7 @@ message ProxyStaker {
  */
 message AllProxyStakers {
     // The Account ID that is being proxy staked to.
-    AccountID account_id = 1;
+    AccountID account_i_d = 1;
 
     // Each of the proxy staking accounts, and the amount they are
     // proxy staking.

@@ -54,16 +54,16 @@ message GetByKeyQuery {
 message EntityID {
     oneof entity {
         // The Account ID for the cryptocurrency account
-        AccountID account_id = 1;
+        AccountID account_i_d = 1;
 
         // A uniquely identifying livehash of an acount
         LiveHash live_hash = 2;
 
         // The file ID of the file
-        FileID file_id = 3;
+        FileID file_i_d = 3;
 
         // The smart contract ID that identifies instance
-        ContractID contract_id = 4;
+        ContractID contract_i_d = 4;
     }
 }
 
@@ -77,7 +77,7 @@ message GetByKeyResponse {
 
     // The list of entities that include this public key in their associated
     // Key list
-    repeated EntityID entity_ids = 2;
+    repeated EntityID entities = 2;
 }
 
 

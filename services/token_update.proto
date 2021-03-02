@@ -54,7 +54,7 @@ import "google/protobuf/wrappers.proto";
  */
 message TokenUpdateTransactionBody {
     // The Token to be updated
-    TokenID token_id = 1;
+    TokenID token = 1;
 
     // The new publicly visible Token symbol, limited to a UTF-8 encoding of
     // length <tt>tokens.maxTokenNameUtf8Bytes</tt>.
@@ -68,7 +68,7 @@ message TokenUpdateTransactionBody {
     // is not existing or deleted, the response will be
     // INVALID_TREASURY_ACCOUNT_FOR_TOKEN. If successful, the Token balance
     // held in the previous Treasury Account is transferred to the new one.
-    AccountID treasury_account_id = 4;
+    AccountID treasury = 4;
 
     // The new admin key of the Token. If Token is immutable, transaction will
     // resolve to TOKEN_IS_IMMUTABlE.
@@ -92,7 +92,7 @@ message TokenUpdateTransactionBody {
 
     // The new account which will be automatically charged to renew the token'
     // s expiration, at autoRenewPeriod interval.
-    AccountID auto_renew_account_id = 10;
+    AccountID auto_renew_account = 10;
 
     // The new interval at which the auto-renew account will be charged to
     // extend the token's expiry.
@@ -101,7 +101,7 @@ message TokenUpdateTransactionBody {
     // The new expiry time of the token. Expiry can be updated even if admin
     // key is not set. If the provided expiry is earlier than the current
     // token expiry, transaction wil resolve to INVALID_EXPIRATION_TIME
-    Timestamp expiration_time = 12;
+    Timestamp expiry = 12;
 
     // If set, the new memo to be associated with the token (UTF-8 encoding
     // max 100 bytes)

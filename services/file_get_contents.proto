@@ -40,7 +40,7 @@ message FileGetContentsQuery {
     QueryHeader header = 1;
 
     // The file ID of the file whose contents are requested
-    FileID file_id = 2;
+    FileID file_i_d = 2;
 }
 
 /*
@@ -53,7 +53,7 @@ message FileGetContentsResponse {
 
     message FileContents {
         // The file ID of the file whose contents are being returned
-        FileID file_id = 1;
+        FileID file_i_d = 1;
 
         // The bytes contained in the file
         bytes contents = 2;

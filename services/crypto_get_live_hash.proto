@@ -40,7 +40,7 @@ message CryptoGetLiveHashQuery {
     QueryHeader header = 1;
 
     // The account to which the livehash is associated
-    AccountID account_id = 2;
+    AccountID account_i_d = 2;
 
     // The SHA-384 data in the livehash
     bytes hash = 3;

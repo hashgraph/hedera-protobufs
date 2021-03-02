@@ -36,7 +36,7 @@ import "services/basic_types.proto";
  */
 message FileAppendTransactionBody {
     // The file to which the bytes will be appended
-    FileID file_id = 2;
+    FileID file_i_d = 2;
 
     // The bytes that will be appended to the end of the specified file
     bytes contents = 4;

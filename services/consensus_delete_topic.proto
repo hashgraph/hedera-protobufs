@@ -32,5 +32,5 @@ import "services/basic_types.proto";
  */
 message ConsensusDeleteTopicTransactionBody {
     // Topic identifier.
-    TopicID topic_id = 1;
+    TopicID topic_i_d = 1;
 }

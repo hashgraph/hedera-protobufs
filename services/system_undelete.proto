@@ -34,10 +34,10 @@ import "services/basic_types.proto";
 message SystemUndeleteTransactionBody {
     oneof id {
         // The file ID to undelete, in the format used in transactions
-        FileID file_id = 1;
+        FileID file_i_d = 1;
 
         // The contract ID instance to undelete, in the format used in
         // transactions
-        ContractID contract_id = 2;
+        ContractID contract_i_d = 2;
     }
 }

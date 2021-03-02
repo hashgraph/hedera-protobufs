@@ -41,7 +41,7 @@ import "services/basic_types.proto";
 message TokenMintTransactionBody {
     // The token for which to mint tokens. If token does not exist,
     // transaction results in INVALID_TOKEN_ID
-    TokenID token_id = 1;
+    TokenID token = 1;
 
     // The amount to mint to the Treasury Account. Amount must be a positive
     // non-zero number represented in the lowest denomination of the token.

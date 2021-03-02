@@ -42,7 +42,7 @@ message ScheduleGetInfoQuery {
     QueryHeader header = 1;
 
     // The ID of the Scheduled Entity
-    ScheduleID schedule_id = 2;
+    ScheduleID schedule_i_d = 2;
 }
 
 /*
@@ -50,13 +50,13 @@ message ScheduleGetInfoQuery {
  */
 message ScheduleInfo {
     // The ID of the Scheduled Entity
-    ScheduleID schedule_id = 1;
+    ScheduleID schedule_i_d = 1;
 
     // The Account ID which created the Scheduled TX
-    AccountID creator_account_id = 2;
+    AccountID creator_account_i_d = 2;
 
     // The account which is going to pay for the execution of the Scheduled TX
-    AccountID payer_account_id = 3;
+    AccountID payer_account_i_d = 3;
 
     // The transaction serialized into bytes that must be signed
     bytes transaction_body = 4;

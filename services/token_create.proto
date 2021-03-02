@@ -79,7 +79,7 @@ message TokenCreateTransactionBody {
 
     // The account which will act as a treasury for the token. This account
     // will receive the specified initial supply
-    AccountID treasury_account_id = 5;
+    AccountID treasury = 5;
 
     // The key which can perform update/delete operations on the token. If
     // empty, the token can be perceived as immutable (not being able to
@@ -111,11 +111,11 @@ message TokenCreateTransactionBody {
     // The epoch second at which the token should expire; if an auto-renew
     // account and period are specified, this is coerced to the current epoch
     // second plus the autoRenewPeriod
-    Timestamp expiration_time = 13;
+    Timestamp expiry = 13;
 
     // An account which will be automatically charged to renew the token's
     // expiration, at autoRenewPeriod interval
-    AccountID auto_renew_account_id = 14;
+    AccountID auto_renew_account = 14;
 
     // The interval at which the auto-renew account will be charged to extend
     // the token's expiry
