@@ -7,20 +7,21 @@ from the _*.proto_ files in this repository:
 
 # Overview of services
 
-There are four primary service families, which inter-operate on entities 
+There are six primary service families, which inter-operate on entities 
 controlled by one (or more) Ed25519 keypairs:
-1. The [cryptocurrency service](hedera/CryptoService.proto),
+1. The [cryptocurrency service](services/CryptoService.proto),
 for cryptocurrency accounts with transfers denominated 
 in [hBar (ℏ)](https://help.hedera.com/hc/en-us/articles/360000674317-What-are-the-official-HBAR-cryptocurrency-denominations-).
-2. The [consensus service](hedera/ConsensusService.proto), for
+2. The [consensus service](services/ConsensusService.proto), for
 fast and unbiased ordering of opaque binary messages exchanged on 
 arbitrary topics.
-3. The [smart contract service](hedera/SmartContractService.proto), for
+3. The [smart contract service](services/SmartContractService.proto), for
 execution of Solidity contract creations and calls; contract may both possess
 ℏ themselves and exchange it with non-contract accounts.
-4. The [file service](hedera/FileService.proto), for storage and 
+4. The [file service](services/FileService.proto), for storage and 
 retrieval of opaque binary data.
-5. The [token service](hedera/TokenService.proto), for token related operations such as create, update, mint, burn, transfer etc.. 
+5. The [token service](services/TokenService.proto), for token related operations such as create, update, mint, burn, transfer etc.
+6. The [scheduling service](services/ScheduleService.proto), for scheduling a transaction to be executed when the ledger has received all gating signatures. (Limited availability on previewnet as of 0.12.0). 
 
 There are also two secondary service families:
 1. The [network service](hedera/NetworkService.proto), for operations scoped
