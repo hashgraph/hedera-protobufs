@@ -227,31 +227,37 @@ message ScheduleID {
 /*
  * Possible Freeze statuses returned on TokenGetInfoQuery or
  * CryptoGetInfoResponse in TokenRelationship.
+ *
+ * TODO: These fields must be `camelCase` to maintain backwards compatibility.
+ * This should be fixed ASAP.
  */
 enum TokenFreezeStatus {
     // UNDOCUMENTED
-    FREEZE_NOT_APPLICABLE = 0;
+    FreezeNotApplicable = 0;
 
     // UNDOCUMENTED
-    FROZEN = 1;
+    Frozen = 1;
 
     // UNDOCUMENTED
-    UNFROZEN = 2;
+    Unfrozen = 2;
 }
 
 /*
  * Possible KYC statuses returned on TokenGetInfoQuery or
  * CryptoGetInfoResponse in TokenRelationship.
+ *
+ * TODO: These fields must be `camelCase` to maintain backwards compatibility.
+ * This should be fixed ASAP.
  */
 enum TokenKycStatus {
     // UNDOCUMENTED
-    KYC_NOT_APPLICABLE = 0;
+    KycNotApplicable = 0;
 
     // UNDOCUMENTED
-    GRANTED = 1;
+    Granted = 1;
 
     // UNDOCUMENTED
-    REVOKED = 2;
+    Revoked = 2;
 }
 
 /*
@@ -296,26 +302,32 @@ enum TokenKycStatus {
  * nested ThresholdKeys.
  */
 message Key {
+    // TODO: These field names must be camelCase because Java generates
+    // `CONTRACTID` for `contractID` and 
+    // `CONTRACT_ID` for `contractID` so we can't rename these fields
+    // if we want to maintain backwards compatibility
+    // 
+    // We should fix this ASAP though
     oneof key {
         // Smart contract instance that is authorized as if it had signed
         // with a key.
-        ContractID contract_i_d = 1;
+        ContractID contractID = 1;
 
         // Ed25519 public key bytes.
         bytes ed25519 = 2;
 
         // RSA-3072 public key bytes.
-        bytes r_s_a_3072 = 3;
+        bytes RSA_3072 = 3;
 
         // ECDSA with the p-384 curve public key bytes.
-        bytes e_c_d_s_a_384 = 4;
+        bytes ECDSA_384 = 4;
 
         // A threshold N followed by a list of M keys, any N of which are
         // required to form a valid signature.
-        ThresholdKey threshold_key = 5;
+        ThresholdKey thresholdKey = 5;
 
         // A list of Keys of the Key type.
-        KeyList key_list = 6;
+        KeyList keyList = 6;
     }
 }
 
@@ -826,7 +838,7 @@ message ServicesConfigurationList {
  */
 message TokenRelationship {
     // The ID of the token.
-    TokenID token_i_d = 1;
+    TokenID token_id = 1;
 
     // The Symbol of the token.
     string symbol = 2;

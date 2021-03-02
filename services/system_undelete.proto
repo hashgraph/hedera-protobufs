@@ -32,12 +32,18 @@ import "services/basic_types.proto";
  * requires a Hedera administrative multisignature.
  */
 message SystemUndeleteTransactionBody {
+    // TODO: These field names must be camelCase because Java generates
+    // `FILEID` for `fileID` and 
+    // `FILE_ID` for `fileID` so we can't rename these fields
+    // if we want to maintain backwards compatibility
+    // 
+    // We should fix this ASAP though
     oneof id {
         // The file ID to undelete, in the format used in transactions
-        FileID file_i_d = 1;
+        FileID fileID = 1;
 
         // The contract ID instance to undelete, in the format used in
         // transactions
-        ContractID contract_i_d = 2;
+        ContractID contractID = 2;
     }
 }

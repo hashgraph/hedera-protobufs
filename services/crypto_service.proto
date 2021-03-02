@@ -75,8 +75,8 @@ service CryptoService {
 
     // Retrieves the record of a transaction that is either awaiting consensus
     // , or reached consensus in the last 180 seconds
-    rpc GetTxRecordByTxId (Query) returns (Response);
+    rpc GetTxRecordByTxID (Query) returns (Response);
 
     // (NOT CURRENTLY SUPPORTED) Retrieves the stakers for a node by account id
-    rpc GetStakersByAccountId (Query) returns (Response);
+    rpc GetStakersByAccountID (Query) returns (Response);
 }

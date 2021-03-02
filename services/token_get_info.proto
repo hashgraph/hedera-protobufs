@@ -50,7 +50,7 @@ message TokenGetInfoQuery {
  */
 message TokenInfo {
     // ID of the token instance
-    TokenID token_i_d = 1;
+    TokenID token_id = 1;
 
     // The name of the token. It is a string of ASCII only characters
     string name = 2;

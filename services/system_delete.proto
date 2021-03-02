@@ -39,13 +39,19 @@ import "services/timestamp.proto";
  * the expiration time here.
  */
 message SystemDeleteTransactionBody {
+    // TODO: These field names must be camelCase because Java generates
+    // `FILEID` for `fileID` and 
+    // `FILE_ID` for `fileID` so we can't rename these fields
+    // if we want to maintain backwards compatibility
+    // 
+    // We should fix this ASAP though
     oneof id {
         // The file ID of the file to delete, in the format used in transactions
-        FileID file_i_d = 1;
+        FileID fileID = 1;
 
         // The contract ID instance to delete, in the format used in
         // transactions
-        ContractID contract_i_d = 2;
+        ContractID contractID = 2;
     }
 
     // The timestamp in seconds at which the "deleted" file should truly be
