@@ -5,13 +5,17 @@ lint:
       - services/basic_types.proto
       - services/query_header.proto
       - services/response_code.proto
+    ENUM_VALUE_UPPER_SNAKE_CASE:
+      - services/basic_types.proto
     ENUM_ZERO_VALUE_SUFFIX:
       - services/basic_types.proto
       - services/query_header.proto
       - services/response_code.proto
-    PACKAGE_DIRECTORY_MATCH:
-      - mirror/consensus_service.proto
-      - streams/account_balance_file.proto
+    FIELD_LOWER_SNAKE_CASE:
+      - services/basic_types.proto
+      - services/system_delete.proto
+      - services/system_undelete.proto
+      - services/transaction_body.proto
     PACKAGE_SAME_JAVA_PACKAGE:
       - services/basic_types.proto
       - services/consensus_create_topic.proto
@@ -95,6 +99,7 @@ lint:
       - services/transaction_response.proto
       - services/unchecked_submit.proto
     PACKAGE_VERSION_SUFFIX:
+      - mirror/consensus_service.proto
       - services/basic_types.proto
       - services/consensus_create_topic.proto
       - services/consensus_delete_topic.proto
@@ -176,7 +181,6 @@ lint:
       - services/transaction_record.proto
       - services/transaction_response.proto
       - services/unchecked_submit.proto
-      - mirror/consensus_service.proto
       - streams/account_balance_file.proto
     RPC_REQUEST_RESPONSE_UNIQUE:
       - services/consensus_service.proto
