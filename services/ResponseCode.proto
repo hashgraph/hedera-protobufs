@@ -219,4 +219,9 @@ enum ResponseCodeEnum {
   UNSCHEDULABLE_TRANSACTION = 208; // ScheduleCreate and ScheduleSign transactions cannot be scheduled
   SOME_SIGNATURES_WERE_INVALID = 209; // At least one of the signatures in the provided sig map did not represent a valid signature for any required signer
   TRANSACTION_ID_FIELD_NOT_ALLOWED = 210; // The <tt>scheduled</tt> and <tt>nonce</tt> fields in the <tt>TransactionID</tt> may not be set in a top-level transaction
+  INVALID_NFT_ID = 211;
+  ACCOUNT_NOT_OWNER_OF_NFT = 212;
+  ACCOUNT_NOT_ASSOCIATED_TO_NFT_TYPE = 213;
+  NFT_WAS_DELETED = 214;
+  INVALID_NFT_SERIAL_NO = 215;
 }
