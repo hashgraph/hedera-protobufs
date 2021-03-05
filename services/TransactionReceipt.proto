@@ -109,4 +109,7 @@ message TransactionReceipt {
 
     // In the receipt of a ScheduleCreate or ScheduleSign that resolves to SUCCESS, the TransactionID that should be used to query for the receipt or record of the relevant scheduled transaction
     TransactionID scheduledTransactionID = 13;
+
+    // In the receipt of a NftCreate, the id of the newly created NFT entity
+    NftID nftID = 14;
 }

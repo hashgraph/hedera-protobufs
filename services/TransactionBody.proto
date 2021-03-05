@@ -73,6 +73,8 @@ import "ScheduleCreate.proto";
 import "ScheduleDelete.proto";
 import "ScheduleSign.proto";
 
+import "NftCreate.proto";
+
 /* A single transaction. All transaction types are possible here. */
 message TransactionBody {
   TransactionID transactionID = 1; // The ID for this transaction, which includes the payer's account (the account paying the transaction fee). If two transactions have the same transactionID, they won't both have an effect
@@ -125,5 +127,7 @@ message TransactionBody {
     ScheduleCreateTransactionBody scheduleCreate = 42; // Creates a scheduled transaction instance
     ScheduleDeleteTransactionBody scheduleDelete = 43; // Deletes a scheduled transaction instance
     ScheduleSignTransactionBody scheduleSign = 44; // Signs a scheduled transaction instance
+
+    NftCreateTransactionBody nftCreate = 45; 
   }
 }
