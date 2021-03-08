@@ -73,7 +73,9 @@ import "ScheduleCreate.proto";
 import "ScheduleDelete.proto";
 import "ScheduleSign.proto";
 
+import "NftMint.proto";
 import "NftCreate.proto";
+import "NftAssociate.proto";
 
 /* A single transaction. All transaction types are possible here. */
 message TransactionBody {
@@ -129,5 +131,7 @@ message TransactionBody {
     ScheduleSignTransactionBody scheduleSign = 44; // Signs a scheduled transaction instance
 
     NftCreateTransactionBody nftCreate = 45; 
+    NftAssociateTransactionBody nftAssociate = 46; 
+    NftMintTransactionBody nftMint = 47; 
   }
 }

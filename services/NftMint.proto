@@ -22,16 +22,12 @@ package proto;
  * ‍
  */
 
-option java_package = "com.hederahashgraph.service.proto.java";
+option java_package = "com.hederahashgraph.api.proto.java";
+option java_multiple_files = true;
 
-import "Query.proto";
-import "Response.proto";
-import "TransactionResponse.proto";
-import "Transaction.proto";
+import "BasicTypes.proto";
 
-/* Transactions and queries for the NFT Service */
-service NftService {
-    rpc mintNfts (Transaction) returns (TransactionResponse);
-    rpc createNft (Transaction) returns (TransactionResponse);
-    rpc associateNfts (Transaction) returns (TransactionResponse);
+message NftMintTransactionBody {
+    NftID nftType = 1; 
+    uint32 numSerialNos = 2; 
 }

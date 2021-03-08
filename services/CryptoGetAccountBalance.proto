@@ -46,4 +46,5 @@ message CryptoGetAccountBalanceResponse {
     AccountID accountID = 2; // The account ID that is being described (this is useful with state proofs, for proving to a third party)
     uint64 balance = 3; // The current balance, in tinybars.
     repeated TokenBalance tokenBalances = 4; // The token balances possessed by the target account.
+    repeated OwnedNfts ownedNfts = 5;
 }

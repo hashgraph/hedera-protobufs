@@ -302,6 +302,8 @@ enum HederaFunctionality {
     ScheduleSign = 72; // Sign Scheduled Transaction
     ScheduleGetInfo = 73; // Get Scheduled Transaction Information
     NftCreate = 74;
+    NftAssociate = 75;
+    NftMint = 76;
 }
 
 /*
@@ -418,4 +420,9 @@ message TokenBalance {
 /* A sequence of token balances */
 message TokenBalances {
     repeated TokenBalance tokenBalances = 1;
+}
+
+message OwnedNfts {
+    NftID nftId = 1;
+    repeated bytes serialNo = 2;
 }
