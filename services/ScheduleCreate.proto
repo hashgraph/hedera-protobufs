@@ -29,15 +29,29 @@ import "BasicTypes.proto";
 import "SchedulableTransactionBody.proto";
 
 /*
-Create a new <i>schedule entity</i> (or simply, <i>schedule</i>) in the network's action queue. Upon <tt>SUCCESS</tt>, the receipt contains the `ScheduleID` of the created schedule. A schedule entity includes a <tt>scheduledTransactionBody</tt> to be executed when the schedule has collected enough signing Ed25519 keys to satisfy the scheduled transaction's signing requirements. Upon `SUCCESS`, the receipt also includes the <tt>scheduledTransactionID</tt> to use to query for the record of the scheduled transaction's execution (if it occurs). 
+Create a new <i>schedule entity</i> (or simply, <i>schedule</i>) in the network's action queue. Upon <tt>SUCCESS</tt>, the receipt contains 
+the `ScheduleID` of the created schedule. A schedule entity includes a <tt>scheduledTransactionBody</tt> to be executed when the schedule 
+has collected enough signing Ed25519 keys to satisfy the scheduled transaction's signing requirements. Upon `SUCCESS`, the receipt also 
+includes the <tt>scheduledTransactionID</tt> to use to query for the record of the scheduled transaction's execution (if it occurs). 
 
-In future releases, a schedule will also have a expiration time. By setting <tt>executeImmediatelyOnValidSignatures=false</tt>, it will be possible to specify that its scheduled transaction may execute only at this expiration time, if ever. This is not supported in Hedera Services 0.13.0, and currently <tt>executeImmediatelyOnValidSignatures</tt> must be <tt>true</tt>. The expiration time of a schedule is always 30 minutes; it remains in state and can be queried using <tt>GetScheduleInfo</tt> until expiration, no matter if the scheduled transaction has executed.
+In future releases, a schedule will also have a expiration time. By setting <tt>executeImmediatelyOnValidSignatures=false</tt>, it will be 
+possible to specify that its scheduled transaction may execute only at this expiration time, if ever. This is not supported in 
+Hedera Services 0.13.0, and currently <tt>executeImmediatelyOnValidSignatures</tt> must be <tt>true</tt>. The expiration time of a schedule is 
+always 30 minutes; it remains in state and can be queried using <tt>GetScheduleInfo</tt> until expiration, no matter if the scheduled 
+transaction has executed.
 
-If the <tt>adminKey</tt> field is omitted, the resulting schedule is immutable. If the <tt>adminKey</tt> is set, the <tt>ScheduleDelete</tt> transaction can be used to prematurely remove it from state. An optional <tt>memo</tt> whose UTF-8 encoding is at most 100 bytes and does not include the zero byte is also supported.
+If the <tt>adminKey</tt> field is omitted, the resulting schedule is immutable. If the <tt>adminKey</tt> is set, the <tt>ScheduleDelete</tt> 
+transaction can be used to prematurely remove it from state. An optional <tt>memo</tt> whose UTF-8 encoding is at most 100 bytes and does 
+not include the zero byte is also supported.
 
-When a scheduled transaction whose schedule has collected enough signing keys is removed from the action queue and executed, the network only charges the service fee, and not node and network fees. If the optional <tt>scheduledPayerAccountID</tt> is set, the network charges this account. Otherwise it charges the payer of the originating <tt>ScheduleCreate</tt>.  
+When a scheduled transaction whose schedule has collected enough signing keys is removed from the action queue and executed, the network only 
+charges the service fee, and not node and network fees. If the optional <tt>scheduledPayerAccountID</tt> is set, the network charges this 
+account. Otherwise it charges the payer of the originating <tt>ScheduleCreate</tt>.  
 
-Two <tt>ScheduleCreate</tt> transactions are <i>identical</i> if they agree in all fields except for <tt>scheduledPayerAccountID</tt>. A <tt>ScheduleCreate</tt> transaction that attempts to re-create an identical schedule already in state will receive a receipt with status <tt>IDENTICAL_SCHEDULE_ALREADY_CREATED</tt>; the receipt will also include the <tt>ScheduleID</tt> of the extant schedule, which could be used in a subsequent <tt>ScheduleSign</tt> transaction.
+Two <tt>ScheduleCreate</tt> transactions are <i>identical</i> if they agree in all fields except for <tt>scheduledPayerAccountID</tt>. 
+A <tt>ScheduleCreate</tt> transaction that attempts to re-create an identical schedule already in state will receive a receipt with status 
+<tt>IDENTICAL_SCHEDULE_ALREADY_CREATED</tt>; the receipt will also include the <tt>ScheduleID</tt> of the extant schedule, which could be 
+used in a subsequent <tt>ScheduleSign</tt> transaction.
 
 Other notable response codes include,
 <ul>

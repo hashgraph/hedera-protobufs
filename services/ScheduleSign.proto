@@ -33,8 +33,8 @@ requirements, and it was scheduled with <tt>executeImmediatelyOnValidSignatures=
 eligible for execution. In Hedera Services 0.13.0, this will actually cause its immediate execution; although 
 future releases may change this sequencing.
 
-Upon <tt>SUCCESS</tt>, the receipt includes the <tt>scheduledTransactionID</tt> to use to query for the record of the scheduled transaction's execution 
-(if it occurs). 
+Upon <tt>SUCCESS</tt>, the receipt includes the <tt>scheduledTransactionID</tt> to use to query for the 
+record of the scheduled transaction's execution (if it occurs). 
 
 Other notable response codes include,
 <ul>
