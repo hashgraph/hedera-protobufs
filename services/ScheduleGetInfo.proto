@@ -54,6 +54,7 @@ message ScheduleInfo {
   KeyList signers = 7; // The Ed25519 keys the network deems to have signed the scheduled transaction
   AccountID creatorAccountID = 8; // The id of the account that created the schedule
   AccountID payerAccountID = 9; // The id of the account responsible for the service fee of the scheduled transaction
+  TransactionID scheduledTransactionID = 10; // The transaction id that will be used in the record of the scheduled transaction (if it executes)
 }  
 
 /*
