@@ -53,7 +53,7 @@ message ScheduleInfo {
   Key adminKey = 6; // The key used to delete the schedule from state
   KeyList signers = 7; // The Ed25519 keys the network deems to have signed the scheduled transaction
   AccountID creatorAccountID = 8; // The id of the account that created the schedule
-  AccountID scheduledPayerAccountID = 9; // The id of the account responsible for the service fee of the scheduled transaction
+  AccountID payerAccountID = 9; // The id of the account responsible for the service fee of the scheduled transaction
 }  
 
 /*
