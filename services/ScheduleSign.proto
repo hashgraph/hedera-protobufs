@@ -30,8 +30,8 @@ import "BasicTypes.proto";
 /*
 Adds signing keys to a scheduled transaction. If the new keys satisfy the scheduled transaction's signing
 requirements, and it was scheduled with <tt>executeImmediatelyOnValidSignatures=true</tt>, it will become 
-eligible for execution. In Hedera Services 0.13.0, this will actually cause its immediate execution; although 
-future releases may change this sequencing.
+eligible for execution. In Hedera Services 0.13.0, this will in fact cause its execution immediately
+after the triggering <tt>ScheduleSign</tt>; but future releases may change this sequencing.
 
 Upon <tt>SUCCESS</tt>, the receipt includes the <tt>scheduledTransactionID</tt> to use to query for the 
 record of the scheduled transaction's execution (if it occurs). 

@@ -51,10 +51,9 @@ message ScheduleInfo {
   SchedulableTransactionBody scheduledTransactionBody = 4; // The scheduled transaction
   string memo = 5; // The publicly visible memo of the schedule
   Key adminKey = 6; // The key used to delete the schedule from state
-  bool executeImmediatelyOnValidSignatures = 7; // May the scheduled transaction be executed as soon as its schedule has enough affirming signers? 
-  KeyList signers = 8; // The Ed25519 keys the network deems to have signed the scheduled transaction
-  AccountID creatorAccountID = 9; // The id of the account that created the schedule
-  AccountID scheduledPayerAccountID = 10; // The id of the account responsible for the service fee of the scheduled transaction
+  KeyList signers = 7; // The Ed25519 keys the network deems to have signed the scheduled transaction
+  AccountID creatorAccountID = 8; // The id of the account that created the schedule
+  AccountID scheduledPayerAccountID = 9; // The id of the account responsible for the service fee of the scheduled transaction
 }  
 
 /*

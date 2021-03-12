@@ -222,4 +222,5 @@ enum ResponseCodeEnum {
   IDENTICAL_SCHEDULE_ALREADY_CREATED = 211; // A schedule already exists with the same identifying fields of an attempted ScheduleCreate (that is, all fields other than scheduledPayerAccountID)
   UTF8_ENCODING_CONTAINS_ZERO_BYTE = 212; // A string field in the transaction has a UTF-8 encoding with the prohibited zero byte
   SCHEDULE_WAS_DELETED = 213; // A schedule being signed or deleted has already been deleted
+  SCHEDULE_WAS_EXECUTED = 214; // A schedule being signed has already been executed
 }

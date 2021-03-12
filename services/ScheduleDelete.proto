@@ -28,7 +28,8 @@ option java_multiple_files = true;
 import "BasicTypes.proto";
 
 /*
-Deletes a schedule from the network's action queue. Must be signed by the admin key of the target schedule. 
+Marks a schedule in the network's action queue as deleted. Must be signed by the admin key of the target schedule. 
+A deleted schedule cannot receive any additional signing keys, nor will it be executed.
 
 Other notable response codes include,
 <ul>

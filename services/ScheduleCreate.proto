@@ -34,23 +34,24 @@ the `ScheduleID` of the created schedule. A schedule entity includes a <tt>sched
 has collected enough signing Ed25519 keys to satisfy the scheduled transaction's signing requirements. Upon `SUCCESS`, the receipt also 
 includes the <tt>scheduledTransactionID</tt> to use to query for the record of the scheduled transaction's execution (if it occurs). 
 
-In future releases, a schedule will also have a expiration time. By setting <tt>executeImmediatelyOnValidSignatures=false</tt>, it will be 
-possible to specify that its scheduled transaction may execute only at this expiration time, if ever. This is not supported in 
-Hedera Services 0.13.0, and currently <tt>executeImmediatelyOnValidSignatures</tt> must be <tt>true</tt>. The expiration time of a schedule is 
-always 30 minutes; it remains in state and can be queried using <tt>GetScheduleInfo</tt> until expiration, no matter if the scheduled 
-transaction has executed.
+The expiration time of a schedule is always 30 minutes; it remains in state and can be queried using <tt>GetScheduleInfo</tt> until expiration, 
+no matter if the scheduled transaction has executed or marked deleted.
 
 If the <tt>adminKey</tt> field is omitted, the resulting schedule is immutable. If the <tt>adminKey</tt> is set, the <tt>ScheduleDelete</tt> 
-transaction can be used to prematurely remove it from state. An optional <tt>memo</tt> whose UTF-8 encoding is at most 100 bytes and does 
-not include the zero byte is also supported.
+transaction can be used to mark it as deleted. The creator may also specify an optional <tt>memo</tt> whose UTF-8 encoding is at most 100 
+bytes and does not include the zero byte is also supported.
 
-When a scheduled transaction whose schedule has collected enough signing keys is removed from the action queue and executed, the network only 
-charges the service fee, and not node and network fees. If the optional <tt>scheduledPayerAccountID</tt> is set, the network charges this 
-account. Otherwise it charges the payer of the originating <tt>ScheduleCreate</tt>.  
+When a scheduled transaction whose schedule has collected enough signing keys is executed, the network only charges its payer the service fee, 
+and not the node and network fees. If the optional <tt>payerAccountID</tt> is set, the network charges this account. Otherwise it charges the 
+payer of the originating <tt>ScheduleCreate</tt>.  
 
-Two <tt>ScheduleCreate</tt> transactions are <i>identical</i> if they agree in all fields except for <tt>scheduledPayerAccountID</tt>. 
+Two <tt>ScheduleCreate</tt> transactions are <i>identical</i> if they are equal in all their fields other than <tt>payerAccountID</tt>. 
+(Here "equal" should be understood in the sense of gRPC object equality in the network software runtime. In particular, a gRPC object with 
+<a href="https://developers.google.com/protocol-buffers/docs/proto3#unknowns">unknown fields</a> is not equal to a gRPC object without
+unknown fields, even if they agree on all known fields.) 
+
 A <tt>ScheduleCreate</tt> transaction that attempts to re-create an identical schedule already in state will receive a receipt with status 
-<tt>IDENTICAL_SCHEDULE_ALREADY_CREATED</tt>; the receipt will also include the <tt>ScheduleID</tt> of the extant schedule, which could be 
+<tt>IDENTICAL_SCHEDULE_ALREADY_CREATED</tt>; the receipt will include the <tt>ScheduleID</tt> of the extant schedule, which may be 
 used in a subsequent <tt>ScheduleSign</tt> transaction.
 
 Other notable response codes include,
@@ -66,6 +67,5 @@ message ScheduleCreateTransactionBody {
   SchedulableTransactionBody scheduledTransactionBody = 1; // The scheduled transaction
   string memo = 2; // An optional memo with a UTF-8 encoding of no more than 100 bytes which does not contain the zero byte
   Key adminKey = 3; // An optional Hedera key which can be used to sign a ScheduleDelete and remove the schedule
-  bool executeImmediatelyOnValidSignatures = 4; // May the scheduled transaction be executed as soon as its schedule has enough signing keys? MUST be true
-  AccountID scheduledPayerAccountID = 5; // An optional id of the account to be charged the service fee for the scheduled transaction at the consensus time that it executes (if ever)
+  AccountID payerAccountID = 4; // An optional id of the account to be charged the service fee for the scheduled transaction at the consensus time that it executes (i    f ever); defaults to the ScheduleCreate payer if not given
 }
