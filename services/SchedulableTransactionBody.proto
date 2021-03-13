@@ -43,8 +43,6 @@ import "FileCreate.proto";
 import "FileDelete.proto";
 import "FileUpdate.proto";
 
-import "Duration.proto";
-import "BasicTypes.proto";
 import "ContractDelete.proto";
 
 import "ConsensusCreateTopic.proto";
