@@ -52,7 +52,8 @@ unknown fields, even if they agree on all known fields.)
 
 A <tt>ScheduleCreate</tt> transaction that attempts to re-create an identical schedule already in state will receive a receipt with status 
 <tt>IDENTICAL_SCHEDULE_ALREADY_CREATED</tt>; the receipt will include the <tt>ScheduleID</tt> of the extant schedule, which may be 
-used in a subsequent <tt>ScheduleSign</tt> transaction.
+used in a subsequent <tt>ScheduleSign</tt> transaction. (The receipt will also include the <tt>TransactionID</tt> to use in querying 
+for the receipt or record of the scheduled transaction.)
 
 Other notable response codes include,
 <ul>
