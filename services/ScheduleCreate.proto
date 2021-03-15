@@ -68,5 +68,5 @@ message ScheduleCreateTransactionBody {
   SchedulableTransactionBody scheduledTransactionBody = 1; // The scheduled transaction
   string memo = 2; // An optional memo with a UTF-8 encoding of no more than 100 bytes which does not contain the zero byte
   Key adminKey = 3; // An optional Hedera key which can be used to sign a ScheduleDelete and remove the schedule
-  AccountID payerAccountID = 4; // An optional id of the account to be charged the service fee for the scheduled transaction at the consensus time that it executes (i    f ever); defaults to the ScheduleCreate payer if not given
+  AccountID payerAccountID = 4; // An optional id of the account to be charged the service fee for the scheduled transaction at the consensus time that it executes (if ever); defaults to the ScheduleCreate payer if not given
 }

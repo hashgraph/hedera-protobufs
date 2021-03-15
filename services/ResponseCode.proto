@@ -219,7 +219,7 @@ enum ResponseCodeEnum {
   SOME_SIGNATURES_WERE_INVALID = 208; // At least one of the signatures in the provided sig map did not represent a valid signature for any required signer
   TRANSACTION_ID_FIELD_NOT_ALLOWED = 209; // The scheduled field in the TransactionID may not be set to true
   IDENTICAL_SCHEDULE_ALREADY_CREATED = 210; // A schedule already exists with the same identifying fields of an attempted ScheduleCreate (that is, all fields other than scheduledPayerAccountID)
-  UTF8_ENCODING_CONTAINS_ZERO_BYTE = 211; // A string field in the transaction has a UTF-8 encoding with the prohibited zero byte
-  SCHEDULE_WAS_DELETED = 212; // A schedule being signed or deleted has already been deleted
-  SCHEDULE_WAS_EXECUTED = 213; // A schedule being signed has already been executed
+  INVALID_ZERO_BYTE_IN_STRING = 211; // A string field in the transaction has a UTF-8 encoding with the prohibited zero byte
+  SCHEDULE_ALREADY_DELETED = 212; // A schedule being signed or deleted has already been deleted
+  SCHEDULE_ALREADY_EXECUTED = 213; // A schedule being signed or deleted has already been executed
 }

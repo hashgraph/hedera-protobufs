@@ -109,6 +109,6 @@ message SchedulableTransactionBody {
     TokenAssociateTransactionBody tokenAssociate = 32; // Associate tokens to an account
     TokenDissociateTransactionBody tokenDissociate = 33; // Dissociate tokens from an account
 
-    ScheduleDeleteTransactionBody scheduleDelete = 43; // Marks a schedule in the network's action queue as deleted, preventing it from executing
+    ScheduleDeleteTransactionBody scheduleDelete = 34; // Marks a schedule in the network's action queue as deleted, preventing it from executing
   }
 }
