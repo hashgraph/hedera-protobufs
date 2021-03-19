@@ -38,6 +38,6 @@ Ed25519 key(s) associated to their account.
 # Branching
 This repository uses a simple branching model with only two distinguished branches:
  1. The head of `main` points to the latest protobufs blessed for deployment to mainnet. 
-   - Tags such as `v0.12.0` mark commits used for testnet and mainnet deploys.
+Tags such as `v0.12.0` mark commits used for testnet and mainnet deploys.
  2. The head of `develop` points to the latest candidate for the next tag in `main`. 
-   - Tags suffixed with `-alpha.x` mark commits used for previewnet deploys. 
+Tags suffixed with `-alpha.x` mark commits used for previewnet deploys. 
