@@ -22,7 +22,7 @@ execution of Solidity contract creations and calls; contract may both possess
 retrieval of opaque binary data.
 5. The [token service](services/TokenService.proto), for token related operations such as create, update, mint, burn, transfer etc.
 
-There are also tree secondary service families:
+There are also three secondary service families:
 1. The [network service](hedera/NetworkService.proto), for operations scoped
 to the network or its constituent nodes rather user-controlled entities as above.
 2. The [scheduling service](services/ScheduleService.proto), for scheduling a transaction to 
