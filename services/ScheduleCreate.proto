@@ -55,13 +55,8 @@ A <tt>ScheduleCreate</tt> transaction that attempts to re-create an identical sc
 used in a subsequent <tt>ScheduleSign</tt> transaction. (The receipt will also include the <tt>TransactionID</tt> to use in querying 
 for the receipt or record of the scheduled transaction.)
 
-Other notable response codes include,
-<ul>
-  <li> <tt>INVALID_ACCOUNT_ID</tt> if the schedule's designated payer account does not exist or was deleted.
-  <li> <tt>UNSCHEDULABLE_TRANSACTION</tt> if the scheduled transaction is not in the scheduling whitelist.
-  <li> <tt>UNRESOLVABLE_REQUIRED_SIGNERS</tt> if the scheduled transaction refers to entities that do not exist or have been deleted.
-  <li> <tt>INVALID_SIGNATURE</tt> if the <tt>ScheduleCreate</tt> signature map included invalid signatures. (No schedule is created in this case.)
-</ul>
+Other notable response codes include, <tt>INVALID_ACCOUNT_ID</tt>, <tt>UNSCHEDULABLE_TRANSACTION</tt>, <tt>UNRESOLVABLE_REQUIRED_SIGNERS</tt>, 
+<tt>INVALID_SIGNATURE</tt>. For more information please see the section of this documentation on the <tt>ResponseCode</tt> enum. 
 */
 
 message ScheduleCreateTransactionBody {
