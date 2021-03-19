@@ -7,7 +7,7 @@ from the _*.proto_ files in this repository:
 
 # Overview of services
 
-There are six primary service families, which inter-operate on entities 
+There are five primary service families, which inter-operate on entities 
 controlled by one (or more) Ed25519 keypairs:
 1. The [cryptocurrency service](services/CryptoService.proto),
 for cryptocurrency accounts with transfers denominated 
@@ -21,12 +21,13 @@ execution of Solidity contract creations and calls; contract may both possess
 4. The [file service](services/FileService.proto), for storage and 
 retrieval of opaque binary data.
 5. The [token service](services/TokenService.proto), for token related operations such as create, update, mint, burn, transfer etc.
-6. The [scheduling service](services/ScheduleService.proto), for scheduling a transaction to be executed when the ledger has received all gating signatures. (Limited availability on previewnet as of 0.12.0). 
 
-There are also two secondary service families:
+There are also three secondary service families:
 1. The [network service](hedera/NetworkService.proto), for operations scoped
 to the network or its constituent nodes rather user-controlled entities as above.
-2. The [freeze service](hedera/FreezeService.proto), for use by 
+2. The [scheduling service](services/ScheduleService.proto), for scheduling a transaction to 
+be executed when the ledger has received enough prequisite signatures. 
+3. The [freeze service](hedera/FreezeService.proto), for use by 
 privileged accounts to suspend network operations during a maintenance window.
 
 It is important to note that most network services are gated by fees which 
@@ -36,5 +37,7 @@ Ed25519 key(s) associated to their account.
 
 # Branching
 This repository uses a simple branching model with only two distinguished branches:
- 1. The head of `main` points to the latest protobufs blessed for deployment to mainnet. (Tags mark deployed versions )
+ 1. The head of `main` points to the latest protobufs blessed for deployment to mainnet. 
+Tags such as `v0.12.0` mark commits used for testnet and mainnet deploys.
  2. The head of `develop` points to the latest candidate for the next tag in `main`. 
+Tags suffixed with `-alpha.x` mark commits used for previewnet deploys. 
