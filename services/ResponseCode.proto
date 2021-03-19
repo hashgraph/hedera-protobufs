@@ -26,7 +26,6 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 enum ResponseCodeEnum {
-
   OK = 0; // The transaction passed the precheck validations.
   INVALID_TRANSACTION = 1; // For any error not handled by specific error codes listed below.
   PAYER_ACCOUNT_NOT_FOUND = 2; //Payer account does not exist.
@@ -222,4 +221,5 @@ enum ResponseCodeEnum {
   INVALID_ZERO_BYTE_IN_STRING = 211; // A string field in the transaction has a UTF-8 encoding with the prohibited zero byte
   SCHEDULE_ALREADY_DELETED = 212; // A schedule being signed or deleted has already been deleted
   SCHEDULE_ALREADY_EXECUTED = 213; // A schedule being signed or deleted has already been executed
+  MESSAGE_SIZE_TOO_LARGE = 214; // ConsensusSubmitMessage request's message size is larger than allowed.
 }
