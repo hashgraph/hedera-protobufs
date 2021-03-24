@@ -383,7 +383,7 @@ message ClientNodeAddress {
 
 /* A List of all nodes and just their information needed to connect to the network.*/
 message ClientNodeAddressBook {
-    repeated ClientNodeAddress nodeAddressAbbreviated = 1; // Contains minimal node details for the network
+    repeated ClientNodeAddress clientNodeAddress = 1; // Contains minimal node details for the network
 }
 
 message SemanticVersion {
