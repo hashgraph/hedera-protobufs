@@ -228,4 +228,6 @@ enum ResponseCodeEnum {
   BUCKET_HAS_NO_THROTTLE_GROUPS = 218; // A bucket was defined without any throttle groups
   THROTTLE_GROUP_HAS_ZERO_OPS_PER_SEC = 219; // A throttle group was assigned no opsPerSec
   THROTTLE_MISSING_FOR_SUPPORTED_OPERATION = 220; // One or more supported HederaFunctionality values have no configured throttle 
+  UNPARSEABLE_THROTTLE_DEFINITIONS = 221; // The new contents for the throttle definitions system file were not valid protobuf
+  INVALID_THROTTLE_DEFINITIONS = 222; // The new contents for the throttle definitions system file were invalid, but a more specific error code could not be determined
 }
