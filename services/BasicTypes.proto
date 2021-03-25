@@ -349,7 +349,7 @@ message NodeEndpoint {
 /*
 The metadata for a Node – including IP Address, and the crypto account associated with the Node.
 
-Note :  This structure is intended to be used to parse 0.0.102, use NodeAddressAbbreviated to parse 0.0.101.
+Note :  This structure is intended to be used to parse 0.0.102, use NodeAddressForClients to parse 0.0.101.
         Usage of NodeAddress to parse 0.0.101 is deprecated.
 */
 message NodeAddress {
@@ -368,12 +368,12 @@ message NodeAddress {
 /*
 A list of nodes and their metadata.
 */
-message NodeAddressBook {
+message AddressBook {
     repeated NodeAddress nodeAddress = 1; // Contains all details of the nodes for the network
 }
 
 /* All the information required to connect to the network.*/
-message NodeAddressAbbreviated {
+message NodeAddressForClients {
     int64 nodeId = 5; // A non-sequential identifier for the node. This value is the key between the full and abbreviated address books
     AccountID nodeAccountId = 6; // The account to be paid for queries and transactions sent to this node
     bytes nodeCertHash = 7; // A hash of the X509 cert used for gRPC traffic to this node
@@ -381,8 +381,8 @@ message NodeAddressAbbreviated {
 }
 
 /* A List of all nodes and just their information needed to connect to the network.*/
-message NodeAddressBookAbbreviated {
-    repeated NodeAddressAbbreviated nodeAddressAbbreviated = 1; // Contains minimal node details for the network
+message AddressBookForClients {
+    repeated NodeAddressForClients nodeAddressForClients = 1; // Contains minimal node details for the network
 }
 
 message SemanticVersion {
