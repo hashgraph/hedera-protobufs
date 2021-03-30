@@ -27,17 +27,25 @@ option java_multiple_files = true;
 
 import "BasicTypes.proto";
 
+/* For details behind this throttling design, please see the <i>docs/throttle-design.md</i>
+document in the <a href="https://github.com/hashgraph/hedera-services">Hedera Services</a> repository. */
+
+/* A set of operations which should be collectively throttled at a given ops-per-second limit. */
 message ThrottleGroup {
-  repeated HederaFunctionality operations = 1;
-  uint32 opsPerSec = 2;
+  repeated HederaFunctionality operations = 1; // The operations to be throttled
+  uint32 opsPerSec = 2; // The rate to be allowed
 }
 
+/* A list of throttle groups that should compete for the same internal capacity bucket. */
 message ThrottleBucket {
-  string name = 1;
-  uint32 burstPeriod = 2;
-  repeated ThrottleGroup throttleGroups = 3;
+  string name = 1; // A name for this capacity bucket (primarily for use in logs)
+  uint32 burstPeriod = 2; // The number of seconds required for this bucket to drain completely when full
+  repeated ThrottleGroup throttleGroups = 3; // The throttle groups competing for this bucket's capacity
 }
 
+/* A list of throttle buckets which, simultaneously enforced, define the system's throttling policy. 
+(When an operation appears in more than one throttling bucket, all its buckets must have capacity
+or it will be throtted.) */
 message ThrottleDefinitions {
   repeated ThrottleBucket throttleBuckets = 1;
 }
