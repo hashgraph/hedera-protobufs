@@ -46,7 +46,7 @@ message ThrottleBucket {
 /* A list of throttle buckets which, simultaneously enforced, define the system's throttling policy. 
 <ol>
   <li> When an operation appears in more than one throttling bucket, all its buckets must have capacity
-or it will be throtted.</li> 
+or it will be throttled.</li> 
   <li>An operation assigned to no buckets is always throttled.</li>
 </ol> 
 */
