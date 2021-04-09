@@ -349,6 +349,8 @@ message ServiceEndpoint {
 /* 
 The data about a node, including its service endpoints and the Hedera account to be paid for services 
 provided by the node (that is, queries answered and transactions submitted.)
+
+All fields are populated in the 0.0.102 address book file while only fields that start with # are populated in the 0.0.101 address book file.
 */
 message NodeAddress {
     bytes ipAddress = 1 [deprecated=true]; // The IP address of the Node with separator & octets encoded in UTF-8. Usage is deprecated, ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports
