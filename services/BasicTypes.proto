@@ -339,7 +339,7 @@ message CurrentAndNextFeeSchedule {
 }
 
 /* 
-The IP address and port of a service endpoint of a node. Used to reach the Hedera gRPC API and submit transactions to the network.
+Contains the IP address and the port representing a service endpoint of a Node in a network. Used to reach the Hedera API and submit transactions to the network.
 */
 message ServiceEndpoint {
     bytes ipAddressV4 = 1; // The IPv4 address of the node encoded in left to right order (e.g. 127.0.0.1 has 127 as its first byte)
@@ -351,25 +351,25 @@ The data about a node, including its service endpoints and the Hedera account to
 provided by the node (that is, queries answered and transactions submitted.)
 */
 message NodeAddress {
-    bytes ipAddress = 1 [deprecated=true]; // The ip address of the node; deprecated by the ServiceEndpoint list below
-    int32 portno = 2 [deprecated=true]; // The port number of the node's gRPC server; deprecated by the ServiceEndpoint list below
-    bytes memo = 3 [deprecated=true]; // Deprecated; the nodeAccountId below replaces an obsolete use of this field to store the node's payment account
+    bytes ipAddress = 1 [deprecated=true]; // The IP address of the Node with separator & octets encoded in UTF-8. Usage is deprecated, ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports
+    int32 portno = 2 [deprecated=true]; // The port number of the grpc server for the node.  Usage is deprecated, ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports
+    bytes memo = 3 [deprecated=true]; // Usage is deprecated, nodeAccountId is preferred to retrieve a node's account ID
     string RSA_PubKey = 4; // The node's hex-encoded RSA public key
     int64 nodeId = 5; // # A non-sequential identifier for the node
     AccountID nodeAccountId = 6; // # The account to be paid for queries and transactions sent to this node
     bytes nodeCertHash = 7; // # The hex-encoded SHA-384 hash of the X509 cert used to encrypt gRPC traffic to the node
-    repeated ServiceEndpoint serviceEndpoint = 8; // # The node's list of usable (proxy) IP address and port combinations
+    repeated ServiceEndpoint serviceEndpoint = 8; // # A node's service IP addresses and ports
     string description = 9; // A description of the node, with UTF-8 encoding up to 100 bytes
     int64 stake = 10; // The amount of tinybars staked to the node
 }
 
 /*
-Metadata for all nodes in the Hedera network.
+A list of nodes and their metadata that contains all details of the nodes for the network.
 
 Used to parse the contents of system files <tt>0.0.101</tt> and <tt>0.0.102</tt>.
 */
 message NodeAddressBook {
-    repeated NodeAddress nodeAddress = 1; // Full metadata of all nodes in the network
+    repeated NodeAddress nodeAddress = 1; // Metadata of all nodes in the network
 }
 
 message SemanticVersion {
