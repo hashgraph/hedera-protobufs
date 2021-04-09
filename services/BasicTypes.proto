@@ -342,8 +342,8 @@ message CurrentAndNextFeeSchedule {
 The IP address and port of a service endpoint of a node. Used to reach the Hedera gRPC API and submit transactions to the network.
 */
 message ServiceEndpoint {
-    string ipAddressV4 = 1; // The IPv4 address of the node encoded in left to right order (e.g. 127.0.0.1 has 127 as its first byte)
-    string port = 2; // The port of the node
+    bytes ipAddressV4 = 1; // The IPv4 address of the node encoded in left to right order (e.g. 127.0.0.1 has 127 as its first byte)
+    int32 port = 2; // The port of the node
 }
 
 /* 
