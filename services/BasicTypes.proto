@@ -342,7 +342,7 @@ message CurrentAndNextFeeSchedule {
 Contains the IP address and the port representing a service endpoint of a Node in a network. Used to reach the Hedera API and submit transactions to the network.
 */
 message ServiceEndpoint {
-    bytes ipAddressV4 = 1; // The IPv4 address of the node encoded in left to right order (e.g. 127.0.0.1 has 127 as its first byte)
+    bytes ipAddressV4 = 1; // The 32-bit IPv4 address of the node encoded in left to right order (e.g. 127.0.0.1 has 127 as its first byte)
     int32 port = 2; // The port of the node
 }
 
@@ -356,7 +356,7 @@ message NodeAddress {
     bytes ipAddress = 1 [deprecated=true]; // The IP address of the Node with separator & octets encoded in UTF-8. Usage is deprecated, ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports
     int32 portno = 2 [deprecated=true]; // The port number of the grpc server for the node.  Usage is deprecated, ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports
     bytes memo = 3 [deprecated=true]; // Usage is deprecated, nodeAccountId is preferred to retrieve a node's account ID
-    string RSA_PubKey = 4; // The node's hex-encoded RSA public key
+    string RSA_PubKey = 4; // The node's hex-encoded X509 RSA public key
     int64 nodeId = 5; // # A non-sequential identifier for the node
     AccountID nodeAccountId = 6; // # The account to be paid for queries and transactions sent to this node
     bytes nodeCertHash = 7; // # The hex-encoded SHA-384 hash of the X509 cert used to encrypt gRPC traffic to the node
