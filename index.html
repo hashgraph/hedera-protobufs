@@ -262,6 +262,10 @@
                 </li>
               
                 <li>
+                  <a href="#proto.ServiceEndpoint"><span class="badge">M</span>ServiceEndpoint</a>
+                </li>
+              
+                <li>
                   <a href="#proto.ServicesConfigurationList"><span class="badge">M</span>ServicesConfigurationList</a>
                 </li>
               
@@ -1170,6 +1174,21 @@
         
           
           <li>
+            <a href="#SchedulableTransactionBody.proto">SchedulableTransactionBody.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.SchedulableTransactionBody"><span class="badge">M</span>SchedulableTransactionBody</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#ScheduleCreate.proto">ScheduleCreate.proto</a>
             <ul>
               
@@ -1288,6 +1307,29 @@
               
                 <li>
                   <a href="#proto.SystemUndeleteTransactionBody"><span class="badge">M</span>SystemUndeleteTransactionBody</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#ThrottleDefinitions.proto">ThrottleDefinitions.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.ThrottleBucket"><span class="badge">M</span>ThrottleBucket</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.ThrottleDefinitions"><span class="badge">M</span>ThrottleDefinitions</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.ThrottleGroup"><span class="badge">M</span>ThrottleGroup</a>
                 </li>
               
               
@@ -2161,7 +2203,7 @@
         
       
         <h3 id="proto.Key">Key</h3>
-        <p>A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.</p><p>A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.</p><p>A key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.</p><p>A Key can be a list of keys. Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key.</p><p>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.</p><p>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys.</p>
+        <p>A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.</p><p>A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.</p><p>A key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.</p><p>A Key can be a list of keys. Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key.</p><p>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.</p><p>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys. Only ed25519 primitive keys are currently supported.</p>
 
         
           <table class="field-table">
@@ -2244,7 +2286,7 @@
         
       
         <h3 id="proto.NodeAddress">NodeAddress</h3>
-        <p>The metadata for a Node – including IP Address, and the crypto account associated with the Node.</p>
+        <p>The data about a node, including its service endpoints and the Hedera account to be paid for services </p><p>provided by the node (that is, queries answered and transactions submitted.) </p><p>If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the (deprecated)</p><p><tt>ipAddress</tt> and <tt>portno</tt> fields should be used. </p><p>All fields are populated in the 0.0.102 address book file while only fields that start with # are populated in the 0.0.101 address book file.</p>
 
         
           <table class="field-table">
@@ -2257,60 +2299,112 @@
                   <td>ipAddress</td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
-                  <td><p>The ip address of the Node with separator &amp; octets </p></td>
+                  <td><p>The IP address of the Node with separator &amp; octets encoded in UTF-8. Usage is deprecated, ServiceEndpoint is preferred to retrieve a node&#39;s list of IP addresses and ports </p></td>
                 </tr>
               
                 <tr>
                   <td>portno</td>
                   <td><a href="#int32">int32</a></td>
                   <td></td>
-                  <td><p>The port number of the grpc server for the node </p></td>
+                  <td><p>The port number of the grpc server for the node.  Usage is deprecated, ServiceEndpoint is preferred to retrieve a node&#39;s list of IP addresses and ports </p></td>
                 </tr>
               
                 <tr>
                   <td>memo</td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
-                  <td><p>The memo field of the node (usage to store account ID is deprecated) </p></td>
+                  <td><p>Usage is deprecated, nodeAccountId is preferred to retrieve a node&#39;s account ID </p></td>
                 </tr>
               
                 <tr>
                   <td>RSA_PubKey</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
-                  <td><p>The RSA public key of the node </p></td>
+                  <td><p>The node&#39;s hex-encoded X509 RSA public key </p></td>
                 </tr>
               
                 <tr>
                   <td>nodeId</td>
                   <td><a href="#int64">int64</a></td>
                   <td></td>
-                  <td><p>A non-sequential identifier for the node </p></td>
+                  <td><p># A non-sequential identifier for the node </p></td>
                 </tr>
               
                 <tr>
                   <td>nodeAccountId</td>
                   <td><a href="#proto.AccountID">AccountID</a></td>
                   <td></td>
-                  <td><p>The account to be paid for queries and transactions sent to this node </p></td>
+                  <td><p># The account to be paid for queries and transactions sent to this node </p></td>
                 </tr>
               
                 <tr>
                   <td>nodeCertHash</td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
-                  <td><p>A hash of the X509 cert used for gRPC traffic to this node </p></td>
+                  <td><p># The hex-encoded SHA-384 hash of the X509 cert used to encrypt gRPC traffic to the node </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serviceEndpoint</td>
+                  <td><a href="#proto.ServiceEndpoint">ServiceEndpoint</a></td>
+                  <td>repeated</td>
+                  <td><p># A node&#39;s service IP addresses and ports </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>A description of the node, with UTF-8 encoding up to 100 bytes </p></td>
+                </tr>
+              
+                <tr>
+                  <td>stake</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>The amount of tinybars staked to the node </p></td>
                 </tr>
               
             </tbody>
           </table>
 
           
+            
+            
+            <h4>Fields with deprecated option</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Option</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>ipAddress</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+                <tr>
+                  <td>portno</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
+          
 
         
       
         <h3 id="proto.NodeAddressBook">NodeAddressBook</h3>
-        <p>A list of nodes and their metadata.</p>
+        <p>A list of nodes and their metadata that contains all details of the nodes for the network.</p><p>Used to parse the contents of system files <tt>0.0.101</tt> and <tt>0.0.102</tt>.</p>
 
         
           <table class="field-table">
@@ -2323,7 +2417,7 @@
                   <td>nodeAddress</td>
                   <td><a href="#proto.NodeAddress">NodeAddress</a></td>
                   <td>repeated</td>
-                  <td><p>Contains multiple Node Address for the network </p></td>
+                  <td><p>Metadata of all nodes in the network </p></td>
                 </tr>
               
             </tbody>
@@ -2431,6 +2525,37 @@
                   <td><a href="#int32">int32</a></td>
                   <td></td>
                   <td><p>Increases with backwards-compatible bug fixes </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.ServiceEndpoint">ServiceEndpoint</h3>
+        <p>Contains the IP address and the port representing a service endpoint of a Node in a network. Used to reach the Hedera API and submit transactions to the network.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>ipAddressV4</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>The 32-bit IPv4 address of the node encoded in left to right order (e.g. 127.0.0.1 has 127 as its first byte) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>port</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>The port of the node </p></td>
                 </tr>
               
             </tbody>
@@ -2634,7 +2759,7 @@
         
       
         <h3 id="proto.SignaturePair">SignaturePair</h3>
-        <p>The client may use any number of bytes from 0 to the whole length of the public key for pubKeyPrefix.</p><p>If 0 bytes is used, then it is assumed that only one public key is used to sign.</p>
+        <p>The client may use any number of bytes from 0 to the whole length of the public key for pubKeyPrefix.</p><p>If 0 bytes is used, then it is assumed that only one public key is used to sign. Only ed25519</p><p>keys and hence signatures are currently supported.</p>
 
         
           <table class="field-table">
@@ -3000,7 +3125,7 @@
         
       
         <h3 id="proto.TransactionID">TransactionID</h3>
-        <p>The ID for a transaction. This is used for retrieving receipts and records for a transaction, for appending to a file right after creating it, for instantiating a smart contract with bytecode in a file just created, and internally by the network for detecting when duplicate transactions are submitted. A user might get a transaction processed faster by submitting it to N nodes, each with a different node account, but all with the same TransactionID. Then, the transaction will take effect when the first of all those nodes submits the transaction and it reaches consensus. The other transactions will not take effect. So this could make the transaction take effect faster, if any given node might be slow. However, the full transaction fee is charged for each transaction, so the total fee is N times as much if the transaction is sent to N nodes.</p><p>Applicable to Scheduled Transactions:</p><p>- The ID of a Scheduled Transaction has transactionValidStart and accountIDs inherited from the ScheduleCreate transaction that created it. That is to say that they are equal</p><p>- The scheduled property is true for Scheduled Transactions</p><p>- transactionValidStart, accountID and scheduled properties should be omitted</p><p>- Scheduled Transactions should be submitted with only nonce populated (if desired). Nonce is an additional option presented to users so that they can create multiple sequential Scheduled Transactions that have the same transaction body.</p>
+        <p>The ID for a transaction. This is used for retrieving receipts and records for a transaction, for appending to a file right after creating it, for instantiating a smart contract with bytecode in a file just created, and internally by the network for detecting when duplicate transactions are submitted. A user might get a transaction processed faster by submitting it to N nodes, each with a different node account, but all with the same TransactionID. Then, the transaction will take effect when the first of all those nodes submits the transaction and it reaches consensus. The other transactions will not take effect. So this could make the transaction take effect faster, if any given node might be slow. However, the full transaction fee is charged for each transaction, so the total fee is N times as much if the transaction is sent to N nodes.</p><p>Applicable to Scheduled Transactions:</p><p>- The ID of a Scheduled Transaction has transactionValidStart and accountIDs inherited from the ScheduleCreate transaction that created it. That is to say that they are equal</p><p>- The scheduled property is true for Scheduled Transactions</p><p>- transactionValidStart, accountID and scheduled properties should be omitted</p>
 
         
           <table class="field-table">
@@ -3028,13 +3153,6 @@
                   <td><a href="#bool">bool</a></td>
                   <td></td>
                   <td><p>Whether the Transaction is of type Scheduled or no </p></td>
-                </tr>
-              
-                <tr>
-                  <td>nonce</td>
-                  <td><a href="#bytes">bytes</a></td>
-                  <td></td>
-                  <td><p>Used to manipulate the uniqueness check for idempotent schedule transaction creation </p></td>
                 </tr>
               
             </tbody>
@@ -8733,27 +8851,99 @@ by HAPI.</p></td>
               </tr>
             
               <tr>
-                <td>UNPARSEABLE_SCHEDULED_TRANSACTION</td>
+                <td>SCHEDULED_TRANSACTION_NOT_IN_WHITELIST</td>
                 <td>207</td>
-                <td><p>The bytes allegedly representing a transaction to be scheduled could not be parsed</p></td>
-              </tr>
-            
-              <tr>
-                <td>UNSCHEDULABLE_TRANSACTION</td>
-                <td>208</td>
-                <td><p>ScheduleCreate and ScheduleSign transactions cannot be scheduled</p></td>
+                <td><p>Only whitelisted transaction types may be scheduled</p></td>
               </tr>
             
               <tr>
                 <td>SOME_SIGNATURES_WERE_INVALID</td>
-                <td>209</td>
+                <td>208</td>
                 <td><p>At least one of the signatures in the provided sig map did not represent a valid signature for any required signer</p></td>
               </tr>
             
               <tr>
                 <td>TRANSACTION_ID_FIELD_NOT_ALLOWED</td>
+                <td>209</td>
+                <td><p>The scheduled field in the TransactionID may not be set to true</p></td>
+              </tr>
+            
+              <tr>
+                <td>IDENTICAL_SCHEDULE_ALREADY_CREATED</td>
                 <td>210</td>
-                <td><p>The &lt;tt&gt;scheduled&lt;/tt&gt; and &lt;tt&gt;nonce&lt;/tt&gt; fields in the &lt;tt&gt;TransactionID&lt;/tt&gt; may not be set in a top-level transaction</p></td>
+                <td><p>A schedule already exists with the same identifying fields of an attempted ScheduleCreate (that is, all fields other than scheduledPayerAccountID)</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_ZERO_BYTE_IN_STRING</td>
+                <td>211</td>
+                <td><p>A string field in the transaction has a UTF-8 encoding with the prohibited zero byte</p></td>
+              </tr>
+            
+              <tr>
+                <td>SCHEDULE_ALREADY_DELETED</td>
+                <td>212</td>
+                <td><p>A schedule being signed or deleted has already been deleted</p></td>
+              </tr>
+            
+              <tr>
+                <td>SCHEDULE_ALREADY_EXECUTED</td>
+                <td>213</td>
+                <td><p>A schedule being signed or deleted has already been executed</p></td>
+              </tr>
+            
+              <tr>
+                <td>MESSAGE_SIZE_TOO_LARGE</td>
+                <td>214</td>
+                <td><p>ConsensusSubmitMessage request&#39;s message size is larger than allowed.</p></td>
+              </tr>
+            
+              <tr>
+                <td>OPERATION_REPEATED_IN_BUCKET_GROUPS</td>
+                <td>215</td>
+                <td><p>An operation was assigned to more than one throttle group in a given bucket</p></td>
+              </tr>
+            
+              <tr>
+                <td>BUCKET_CAPACITY_OVERFLOW</td>
+                <td>216</td>
+                <td><p>The capacity needed to satisfy all opsPerSec groups in a bucket overflowed a signed 8-byte integral type</p></td>
+              </tr>
+            
+              <tr>
+                <td>NODE_CAPACITY_NOT_SUFFICIENT_FOR_OPERATION</td>
+                <td>217</td>
+                <td><p>Given the network size in the address book, the node-level capacity for an operation would never be enough to accept a single request; usually means a bucket burstPeriod should be increased</p></td>
+              </tr>
+            
+              <tr>
+                <td>BUCKET_HAS_NO_THROTTLE_GROUPS</td>
+                <td>218</td>
+                <td><p>A bucket was defined without any throttle groups</p></td>
+              </tr>
+            
+              <tr>
+                <td>THROTTLE_GROUP_HAS_ZERO_OPS_PER_SEC</td>
+                <td>219</td>
+                <td><p>A throttle group was granted zero opsPerSec</p></td>
+              </tr>
+            
+              <tr>
+                <td>SUCCESS_BUT_MISSING_EXPECTED_OPERATION</td>
+                <td>220</td>
+                <td><p>The throttle definitions file was updated, but some supported operations were not assigned a bucket</p></td>
+              </tr>
+            
+              <tr>
+                <td>UNPARSEABLE_THROTTLE_DEFINITIONS</td>
+                <td>221</td>
+                <td><p>The new contents for the throttle definitions system file were not valid protobuf</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_THROTTLE_DEFINITIONS</td>
+                <td>222</td>
+                <td><p>The new throttle definitions system file were invalid, and no more specific error could be divined</p></td>
               </tr>
             
           </tbody>
@@ -8825,13 +9015,13 @@ by HAPI.</p></td>
     
       
       <div class="file-heading">
-        <h2 id="ScheduleCreate.proto">ScheduleCreate.proto</h2><a href="#title">Top</a>
+        <h2 id="SchedulableTransactionBody.proto">SchedulableTransactionBody.proto</h2><a href="#title">Top</a>
       </div>
       <p></p>
 
       
-        <h3 id="proto.ScheduleCreateTransactionBody">ScheduleCreateTransactionBody</h3>
-        <p>Create a new Scheduled Transaction. After the Scheduled Transaction is created, the Schedule ID for it is set in the receipt.</p><p>Users are able to create the Scheduled Transactions without the need for them to sign the scheduled underlying transaction (f.e Account A creates Scheduled Transaction for Account B, C and D to sign)</p><p>Creating immutable scheduled transaction: Scheduled Transaction can be created as immutable if the adminKey is omitted. In this case no one is able to execute ScheduleDelete operation and the Scheduled Transaction will either execute or expire</p><p>Defining the Payer of the Transactions: By default, the payer of the Scheduled Transaction is the Account that creates it in the first place. However, users have the option to create Scheduled Transactions with Payer set to any account. If a Payer is provided, its signature will be required in order for the scheduled transaction to reach execution.</p><p>Providing Signatures as part of the creation: Users are able to provide signatures for the Scheduled Transaction as part of the creation itself</p><p>Idempotent Creation: Creating Scheduled Transactions is an idempotent operation in the sense that if multiple parties perform ScheduleCreate operation specifying identical transactions, only the first one will create the transaction and the other operations will append the provided signatures.</p><p>The criteria for identical transactions is the following: If there is a previously created Scheduled Transaction, that hasn't yet been executed and all of the properties are exactly the same except for the sigMap (transactionBody, adminKey, payerAccountID and memo).</p><p>In that sense, ScheduleCreate transaction referring to an already created Scheduled Transaction and providing the rest of the required signature(s) will cause the underlying encoded transaction to be executed!</p><p>Note: Even though only the first ScheduleCreate Transaction will create new Scheduled Entity and the rest of them will have their signatures from the sigMap witnessed, the ScheduleID property in the TransactionReceipt will be set on all of them.</p><p>INVALID_ACCOUNT_ID is returned if the specified payerAccountID does not exist.</p><p>UNRESOLVABLE_REQUIRED_SIGNERS is returned if the transactionBody defines required Signers that cannot be resolved (f.e signature from non-existing account is requested)</p><p>UNPARSEABLE_SCHEDULED_TRANSACTION is returned if the transactionBody cannot be parsed into normal Transaction</p><p>UNSCHEDULABLE_TRANSACTION is returned if the transactionBody is representing a transaction that is not allowed to be scheduled (f.e scheduling a ScheduleCreate transaction)</p><p>SOME_SIGNATURES_WERE_INVALID is returned if one of the signatures provided does not represent a valid signature for any required signer</p>
+        <h3 id="proto.SchedulableTransactionBody">SchedulableTransactionBody</h3>
+        <p>A schedulable transaction. Note that the global/dynamic system property </p><p><tt>scheduling.whitelist</tt> controls which transaction types may be scheduled. </p><p>In Hedera Services 0.13.0, it will include only <tt>CryptoTransfer</tt> and</p><p><tt>ConsensusSubmitMessage</tt> functions.</p>
 
         
           <table class="field-table">
@@ -8841,38 +9031,300 @@ by HAPI.</p></td>
             <tbody>
               
                 <tr>
-                  <td>transactionBody</td>
-                  <td><a href="#bytes">bytes</a></td>
+                  <td>transactionFee</td>
+                  <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>The transaction serialized into bytes that must be signed </p></td>
-                </tr>
-              
-                <tr>
-                  <td>adminKey</td>
-                  <td><a href="#proto.Key">Key</a></td>
-                  <td></td>
-                  <td><p>(optional) The Key which is able to delete the Scheduled Transaction (if tx is not already executed) </p></td>
-                </tr>
-              
-                <tr>
-                  <td>payerAccountID</td>
-                  <td><a href="#proto.AccountID">AccountID</a></td>
-                  <td></td>
-                  <td><p>(optional) The account which is going to pay for the execution of the Scheduled TX. If not populated, the scheduling account is charged </p></td>
-                </tr>
-              
-                <tr>
-                  <td>sigMap</td>
-                  <td><a href="#proto.SignatureMap">SignatureMap</a></td>
-                  <td></td>
-                  <td><p>(optional) Signatures that could be provided (similarly to how signatures are provided in ScheduleSign operation) on Scheduled Transaction creation </p></td>
+                  <td><p>The maximum transaction fee the client is willing to pay </p></td>
                 </tr>
               
                 <tr>
                   <td>memo</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
-                  <td><p>(optional) Publicly visible information about the Scheduled entity, up to 100 bytes. No guarantee of uniqueness. </p></td>
+                  <td><p>A memo to include the execution record; the UTF-8 encoding may be up to 100 bytes and must not include the zero byte </p></td>
+                </tr>
+              
+                <tr>
+                  <td>contractCall</td>
+                  <td><a href="#proto.ContractCallTransactionBody">ContractCallTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Calls a function of a contract instance </p></td>
+                </tr>
+              
+                <tr>
+                  <td>contractCreateInstance</td>
+                  <td><a href="#proto.ContractCreateTransactionBody">ContractCreateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Creates a contract instance </p></td>
+                </tr>
+              
+                <tr>
+                  <td>contractUpdateInstance</td>
+                  <td><a href="#proto.ContractUpdateTransactionBody">ContractUpdateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Updates a contract </p></td>
+                </tr>
+              
+                <tr>
+                  <td>contractDeleteInstance</td>
+                  <td><a href="#proto.ContractDeleteTransactionBody">ContractDeleteTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Delete contract and transfer remaining balance into specified account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoCreateAccount</td>
+                  <td><a href="#proto.CryptoCreateTransactionBody">CryptoCreateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Create a new cryptocurrency account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoDelete</td>
+                  <td><a href="#proto.CryptoDeleteTransactionBody">CryptoDeleteTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Delete a cryptocurrency account (mark as deleted, and transfer hbars out) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoTransfer</td>
+                  <td><a href="#proto.CryptoTransferTransactionBody">CryptoTransferTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Transfer amount between accounts </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoUpdateAccount</td>
+                  <td><a href="#proto.CryptoUpdateTransactionBody">CryptoUpdateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Modify information such as the expiration date for an account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>fileAppend</td>
+                  <td><a href="#proto.FileAppendTransactionBody">FileAppendTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Add bytes to the end of the contents of a file </p></td>
+                </tr>
+              
+                <tr>
+                  <td>fileCreate</td>
+                  <td><a href="#proto.FileCreateTransactionBody">FileCreateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Create a new file </p></td>
+                </tr>
+              
+                <tr>
+                  <td>fileDelete</td>
+                  <td><a href="#proto.FileDeleteTransactionBody">FileDeleteTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Delete a file (remove contents and mark as deleted until it expires) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>fileUpdate</td>
+                  <td><a href="#proto.FileUpdateTransactionBody">FileUpdateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Modify information such as the expiration date for a file </p></td>
+                </tr>
+              
+                <tr>
+                  <td>systemDelete</td>
+                  <td><a href="#proto.SystemDeleteTransactionBody">SystemDeleteTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Hedera administrative deletion of a file or smart contract </p></td>
+                </tr>
+              
+                <tr>
+                  <td>systemUndelete</td>
+                  <td><a href="#proto.SystemUndeleteTransactionBody">SystemUndeleteTransactionBody</a></td>
+                  <td></td>
+                  <td><p>To undelete an entity deleted by SystemDelete </p></td>
+                </tr>
+              
+                <tr>
+                  <td>freeze</td>
+                  <td><a href="#proto.FreezeTransactionBody">FreezeTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Freeze the nodes </p></td>
+                </tr>
+              
+                <tr>
+                  <td>consensusCreateTopic</td>
+                  <td><a href="#proto.ConsensusCreateTopicTransactionBody">ConsensusCreateTopicTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Creates a topic </p></td>
+                </tr>
+              
+                <tr>
+                  <td>consensusUpdateTopic</td>
+                  <td><a href="#proto.ConsensusUpdateTopicTransactionBody">ConsensusUpdateTopicTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Updates a topic </p></td>
+                </tr>
+              
+                <tr>
+                  <td>consensusDeleteTopic</td>
+                  <td><a href="#proto.ConsensusDeleteTopicTransactionBody">ConsensusDeleteTopicTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Deletes a topic </p></td>
+                </tr>
+              
+                <tr>
+                  <td>consensusSubmitMessage</td>
+                  <td><a href="#proto.ConsensusSubmitMessageTransactionBody">ConsensusSubmitMessageTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Submits message to a topic </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenCreation</td>
+                  <td><a href="#proto.TokenCreateTransactionBody">TokenCreateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Creates a token instance </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenFreeze</td>
+                  <td><a href="#proto.TokenFreezeAccountTransactionBody">TokenFreezeAccountTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Freezes account not to be able to transact with a token </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenUnfreeze</td>
+                  <td><a href="#proto.TokenUnfreezeAccountTransactionBody">TokenUnfreezeAccountTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Unfreezes account for a token </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenGrantKyc</td>
+                  <td><a href="#proto.TokenGrantKycTransactionBody">TokenGrantKycTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Grants KYC to an account for a token </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenRevokeKyc</td>
+                  <td><a href="#proto.TokenRevokeKycTransactionBody">TokenRevokeKycTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Revokes KYC of an account for a token </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenDeletion</td>
+                  <td><a href="#proto.TokenDeleteTransactionBody">TokenDeleteTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Deletes a token instance </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenUpdate</td>
+                  <td><a href="#proto.TokenUpdateTransactionBody">TokenUpdateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Updates a token instance </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenMint</td>
+                  <td><a href="#proto.TokenMintTransactionBody">TokenMintTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Mints new tokens to a token&#39;s treasury account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenBurn</td>
+                  <td><a href="#proto.TokenBurnTransactionBody">TokenBurnTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Burns tokens from a token&#39;s treasury account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenWipe</td>
+                  <td><a href="#proto.TokenWipeAccountTransactionBody">TokenWipeAccountTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Wipes amount of tokens from an account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenAssociate</td>
+                  <td><a href="#proto.TokenAssociateTransactionBody">TokenAssociateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Associate tokens to an account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenDissociate</td>
+                  <td><a href="#proto.TokenDissociateTransactionBody">TokenDissociateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Dissociate tokens from an account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scheduleDelete</td>
+                  <td><a href="#proto.ScheduleDeleteTransactionBody">ScheduleDeleteTransactionBody</a></td>
+                  <td></td>
+                  <td><p>Marks a schedule in the network&#39;s action queue as deleted, preventing it from executing </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="ScheduleCreate.proto">ScheduleCreate.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.ScheduleCreateTransactionBody">ScheduleCreateTransactionBody</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>scheduledTransactionBody</td>
+                  <td><a href="#proto.SchedulableTransactionBody">SchedulableTransactionBody</a></td>
+                  <td></td>
+                  <td><p>The scheduled transaction </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An optional memo with a UTF-8 encoding of no more than 100 bytes which does not contain the zero byte </p></td>
+                </tr>
+              
+                <tr>
+                  <td>adminKey</td>
+                  <td><a href="#proto.Key">Key</a></td>
+                  <td></td>
+                  <td><p>An optional Hedera key which can be used to sign a ScheduleDelete and remove the schedule </p></td>
+                </tr>
+              
+                <tr>
+                  <td>payerAccountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>An optional id of the account to be charged the service fee for the scheduled transaction at the consensus time that it executes (if ever); defaults to the ScheduleCreate payer if not given </p></td>
                 </tr>
               
             </tbody>
@@ -8897,7 +9349,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleDeleteTransactionBody">ScheduleDeleteTransactionBody</h3>
-        <p>Deletes a Scheduled Transaction from the ledger.</p><p>The operation must be signed by the specified Admin Key of the Scheduled Transaction. If admin key is not set, Transaction will result in SCHEDULE_IS_IMMUTABLE.</p><p>Once deleted, sign and delete transactions will resolve to INVALID_SCHEDULE_ID.</p>
+        <p>Marks a schedule in the network's action queue as deleted. Must be signed by the admin key of the target schedule. </p><p>A deleted schedule cannot receive any additional signing keys, nor will it be executed.</p><p>Other notable response codes include, <tt>INVALID_SCHEDULE_ID</tt>, <tt>SCHEDULE_WAS_DELETED</tt>, <tt>SCHEDULE_WAS_EXECUTED</tt>, </p><p><tt>SCHEDULE_IS_IMMUTABLE</tt>. For more information please see the section of this documentation on the <tt>ResponseCode</tt> enum.</p>
 
         
           <table class="field-table">
@@ -8935,7 +9387,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleGetInfoQuery">ScheduleGetInfoQuery</h3>
-        <p>Gets information about Scheduled Transaction instance</p><p>Answered with status INVALID_SCHEDULE_ID if the Scheduled Transaction is deleted, expires or is executed.</p>
+        <p>Gets information about a schedule in the network's action queue.</p><p>Responds with <tt>INVALID_SCHEDULE_ID</tt> if the requested schedule doesn't exist.</p>
 
         
           <table class="field-table">
@@ -8955,7 +9407,7 @@ by HAPI.</p></td>
                   <td>scheduleID</td>
                   <td><a href="#proto.ScheduleID">ScheduleID</a></td>
                   <td></td>
-                  <td><p>The ID of the Scheduled Entity </p></td>
+                  <td><p>The id of the schedule to interrogate </p></td>
                 </tr>
               
             </tbody>
@@ -8966,7 +9418,7 @@ by HAPI.</p></td>
         
       
         <h3 id="proto.ScheduleGetInfoResponse">ScheduleGetInfoResponse</h3>
-        <p>Response that gets returned, when the client sends the node a ScheduleGetInfoQuery</p>
+        <p>Response wrapper for the <tt>ScheduleInfo</tt></p>
 
         
           <table class="field-table">
@@ -8997,7 +9449,7 @@ by HAPI.</p></td>
         
       
         <h3 id="proto.ScheduleInfo">ScheduleInfo</h3>
-        <p>Metadata about a Scheduled Transaction instance</p>
+        <p>Information summarizing schedule state</p>
 
         
           <table class="field-table">
@@ -9010,56 +9462,77 @@ by HAPI.</p></td>
                   <td>scheduleID</td>
                   <td><a href="#proto.ScheduleID">ScheduleID</a></td>
                   <td></td>
-                  <td><p>The ID of the Scheduled Entity </p></td>
+                  <td><p>The id of the schedule </p></td>
                 </tr>
               
                 <tr>
-                  <td>creatorAccountID</td>
-                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td>deletion_time</td>
+                  <td><a href="#proto.Timestamp">Timestamp</a></td>
                   <td></td>
-                  <td><p>The Account ID which created the Scheduled TX </p></td>
+                  <td><p>If the schedule has been deleted, the consensus time when this occurred </p></td>
                 </tr>
               
                 <tr>
-                  <td>payerAccountID</td>
-                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td>execution_time</td>
+                  <td><a href="#proto.Timestamp">Timestamp</a></td>
                   <td></td>
-                  <td><p>The account which is going to pay for the execution of the Scheduled TX </p></td>
-                </tr>
-              
-                <tr>
-                  <td>transactionBody</td>
-                  <td><a href="#bytes">bytes</a></td>
-                  <td></td>
-                  <td><p>The transaction serialized into bytes that must be signed </p></td>
-                </tr>
-              
-                <tr>
-                  <td>signatories</td>
-                  <td><a href="#proto.KeyList">KeyList</a></td>
-                  <td></td>
-                  <td><p>The signatories that have provided signatures so far for the Scheduled TX </p></td>
-                </tr>
-              
-                <tr>
-                  <td>adminKey</td>
-                  <td><a href="#proto.Key">Key</a></td>
-                  <td></td>
-                  <td><p>The Key which is able to delete the Scheduled Transaction if set </p></td>
-                </tr>
-              
-                <tr>
-                  <td>memo</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p>Publicly visible information about the Scheduled entity, up to 100 bytes. No guarantee of uniqueness. </p></td>
+                  <td><p>If the schedule has been executed, the consensus time when this occurred </p></td>
                 </tr>
               
                 <tr>
                   <td>expirationTime</td>
                   <td><a href="#proto.Timestamp">Timestamp</a></td>
                   <td></td>
-                  <td><p>The epoch second at which the schedule will expire </p></td>
+                  <td><p>The time at which the schedule will expire </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scheduledTransactionBody</td>
+                  <td><a href="#proto.SchedulableTransactionBody">SchedulableTransactionBody</a></td>
+                  <td></td>
+                  <td><p>The scheduled transaction </p></td>
+                </tr>
+              
+                <tr>
+                  <td>memo</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The publicly visible memo of the schedule </p></td>
+                </tr>
+              
+                <tr>
+                  <td>adminKey</td>
+                  <td><a href="#proto.Key">Key</a></td>
+                  <td></td>
+                  <td><p>The key used to delete the schedule from state </p></td>
+                </tr>
+              
+                <tr>
+                  <td>signers</td>
+                  <td><a href="#proto.KeyList">KeyList</a></td>
+                  <td></td>
+                  <td><p>The Ed25519 keys the network deems to have signed the scheduled transaction </p></td>
+                </tr>
+              
+                <tr>
+                  <td>creatorAccountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>The id of the account that created the schedule </p></td>
+                </tr>
+              
+                <tr>
+                  <td>payerAccountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>The id of the account responsible for the service fee of the scheduled transaction </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scheduledTransactionID</td>
+                  <td><a href="#proto.TransactionID">TransactionID</a></td>
+                  <td></td>
+                  <td><p>The transaction id that will be used in the record of the scheduled transaction (if it executes) </p></td>
                 </tr>
               
             </tbody>
@@ -9138,7 +9611,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.ScheduleSignTransactionBody">ScheduleSignTransactionBody</h3>
-        <p>Provides signatures for a given Scheduled Transaction. The Scheduled Transaction executes if all of the required signatures are witnessed.</p><p>INVALID_SCHEDULE_ID is returned if the specified ScheduleID does not exist; or has now expired, been deleted, or been executed</p><p>UNRESOLVABLE_REQUIRED_SIGNERS is returned if any of the required keys were updated/deleted and cannot be resolved</p><p>INVALID_ACCOUNT_ID is returned if the payerAccountID has been deleted or cannot be resolved</p><p>NO_NEW_VALID_SIGNATURES is returned if there are no new signatures provided in the sigMap to be witnessed</p><p>SOME_SIGNATURES_WERE_INVALID is returned if one of the signatures provided does not represent a valid signature for any required signer</p>
+        <p>Adds zero or more signing keys to a schedule. If the resulting set of signing keys satisfy the scheduled </p><p>transaction's signing requirements, it will be executed immediately after the triggering <tt>ScheduleSign</tt>.  </p><p>Upon <tt>SUCCESS</tt>, the receipt includes the <tt>scheduledTransactionID</tt> to use to query for the </p><p>record of the scheduled transaction's execution (if it occurs). </p><p>Other notable response codes include <tt>INVALID_SCHEDULE_ID</tt>, <tt>SCHEDULE_WAS_DELETD</tt>, </p><p><tt>INVALID_ACCOUNT_ID</tt>, <tt>UNRESOLVABLE_REQUIRED_SIGNERS</tt>, <tt>SOME_SIGNATURES_WERE_INVALID</tt>, </p><p>and <tt>NO_NEW_VALID_SIGNATURES</tt>. For more information please see the section of this </p><p>documentation on the <tt>ResponseCode</tt> enum.</p>
 
         
           <table class="field-table">
@@ -9151,14 +9624,7 @@ by HAPI.</p></td>
                   <td>scheduleID</td>
                   <td><a href="#proto.ScheduleID">ScheduleID</a></td>
                   <td></td>
-                  <td><p>The ID of the Scheduled entity </p></td>
-                </tr>
-              
-                <tr>
-                  <td>sigMap</td>
-                  <td><a href="#proto.SignatureMap">SignatureMap</a></td>
-                  <td></td>
-                  <td><p>The signature map containing the signature(s) to authorise the transaction </p></td>
+                  <td><p>The id of the schedule to add signing keys to </p></td>
                 </tr>
               
             </tbody>
@@ -9380,6 +9846,113 @@ by HAPI.</p></td>
                   <td><a href="#proto.ContractID">ContractID</a></td>
                   <td></td>
                   <td><p>The contract ID instance to undelete, in the format used in transactions </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="ThrottleDefinitions.proto">ThrottleDefinitions.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.ThrottleBucket">ThrottleBucket</h3>
+        <p>A list of throttle groups that should all compete for the same internal bucket.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>A name for this bucket (primarily for use in logs) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>burstPeriodMs</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p>The number of milliseconds required for this bucket to drain completely when full. The product of this number and the least common multiple of the milliOpsPerSec values in this bucket must not exceed 9223372036. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>throttleGroups</td>
+                  <td><a href="#proto.ThrottleGroup">ThrottleGroup</a></td>
+                  <td>repeated</td>
+                  <td><p>The throttle groups competing for this bucket </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.ThrottleDefinitions">ThrottleDefinitions</h3>
+        <p>A list of throttle buckets which, simultaneously enforced, define the system's throttling policy. </p><p><ol></p><p><li> When an operation appears in more than one throttling bucket, all its buckets must have room</p><p>or it will be throttled.</li> </p><p><li>An operation assigned to no buckets is always throttled.</li></p><p></ol></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>throttleBuckets</td>
+                  <td><a href="#proto.ThrottleBucket">ThrottleBucket</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.ThrottleGroup">ThrottleGroup</h3>
+        <p>A set of operations which should be collectively throttled at a given milli-ops-per-second limit.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>operations</td>
+                  <td><a href="#proto.HederaFunctionality">HederaFunctionality</a></td>
+                  <td>repeated</td>
+                  <td><p>The operations to be throttled </p></td>
+                </tr>
+              
+                <tr>
+                  <td>milliOpsPerSec</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p>The number of total operations per second across the entire network, multiplied by 1000. So, to choose 3 operations per second (which on a network of 30 nodes is a tenth of an operation per second for each node), set milliOpsPerSec = 3000. And to choose 3.6 ops per second, use milliOpsPerSec = 3600. Minimum allowed value is 1, and maximum allowed value is 9223372. </p></td>
                 </tr>
               
             </tbody>
@@ -10888,21 +11461,21 @@ by HAPI.</p></td>
                   <td>scheduleCreate</td>
                   <td><a href="#proto.ScheduleCreateTransactionBody">ScheduleCreateTransactionBody</a></td>
                   <td></td>
-                  <td><p>Creates a scheduled transaction instance </p></td>
+                  <td><p>Creates a schedule in the network&#39;s action queue </p></td>
                 </tr>
               
                 <tr>
                   <td>scheduleDelete</td>
                   <td><a href="#proto.ScheduleDeleteTransactionBody">ScheduleDeleteTransactionBody</a></td>
                   <td></td>
-                  <td><p>Deletes a scheduled transaction instance </p></td>
+                  <td><p>Deletes a schedule from the network&#39;s action queue </p></td>
                 </tr>
               
                 <tr>
                   <td>scheduleSign</td>
                   <td><a href="#proto.ScheduleSignTransactionBody">ScheduleSignTransactionBody</a></td>
                   <td></td>
-                  <td><p>Signs a scheduled transaction instance </p></td>
+                  <td><p>Adds one or more Ed25519 keys to the affirmed signers of a scheduled transaction </p></td>
                 </tr>
               
             </tbody>
@@ -11381,7 +11954,14 @@ Otherwise, IF the topicRunningHashVersion is &#39;3&#39;, then the input data to
                   <td>scheduleID</td>
                   <td><a href="#proto.ScheduleID">ScheduleID</a></td>
                   <td></td>
-                  <td><p>In the receipt of a CreateSchedule, the id of the newly created Scheduled Entity </p></td>
+                  <td><p>In the receipt of a ScheduleCreate, the id of the newly created Scheduled Entity </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scheduledTransactionID</td>
+                  <td><a href="#proto.TransactionID">TransactionID</a></td>
+                  <td></td>
+                  <td><p>In the receipt of a ScheduleCreate or ScheduleSign that resolves to SUCCESS, the TransactionID that should be used to query for the receipt or record of the relevant scheduled transaction </p></td>
                 </tr>
               
             </tbody>
