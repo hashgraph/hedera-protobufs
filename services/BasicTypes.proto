@@ -378,9 +378,11 @@ message NodeAddressBook {
 }
 
 message SemanticVersion {
-   int32 major = 1; // Increases with incompatible API changes
-   int32 minor = 2; // Increases with backwards-compatible new functionality
-   int32 patch = 3; // Increases with backwards-compatible bug fixes
+    int32 major = 1; // Increases with incompatible API changes
+    int32 minor = 2; // Increases with backwards-compatible new functionality
+    int32 patch = 3; // Increases with backwards-compatible bug fixes
+    string pre_release_version = 4; // A pre-release version MAY be denoted by appending a hyphen and a series of dot separated identifiers (https://semver.org/#spec-item-9); so given a semver 0.14.0-alpha.1+21AF26D3, this field would contain 'alpha.1'
+    string build_metadata = 5; // Build metadata MAY be denoted by appending a plus sign and a series of dot separated identifiers immediately following the patch or pre-release version (https://semver.org/#spec-item-10); so given a semver 0.14.0-alpha.1+21AF26D3, this field would contain '21AF26D3'
 }
 
 message Setting {
