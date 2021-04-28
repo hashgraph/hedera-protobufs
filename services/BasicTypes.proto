@@ -377,6 +377,9 @@ message NodeAddressBook {
     repeated NodeAddress nodeAddress = 1; // Metadata of all nodes in the network
 }
 
+/* Hedera follows semantic versioning (https://semver.org/) for both the HAPI protobufs and the Services software.
+This type allows the <tt>getVersionInfo</tt> query in the <tt>NetworkService</tt> to return the deployed versions
+of both protobufs and software on the node answering the query. */
 message SemanticVersion {
     int32 major = 1; // Increases with incompatible API changes
     int32 minor = 2; // Increases with backwards-compatible new functionality
