@@ -155,7 +155,7 @@ message ThresholdKey {
     KeyList keys = 2; // List of all the keys that can sign
 }
 
-/* A list of keys that requires all keys in the top level list to sign unless otherwise specified in documentation. A key list can have repeated keys. The repeated keys are not ignored. The repeated keys have more weight compared to keys that are not repeated in the key list */
+/* A list of keys that requires all keys in the top level list to sign unless otherwise specified in documentation. A key list can have repeated keys. The repeated keys are not ignored. */
 message KeyList {
     repeated Key keys = 1; // list of keys
 }
