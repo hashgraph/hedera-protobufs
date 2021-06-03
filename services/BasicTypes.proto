@@ -138,6 +138,17 @@ enum TokenType {
     NON_FUNGIBLE_UNIQUE = 1;
 }
 
+
+/**
+ * Possible FeeData Object SubTypes. Supplementary to the main HederaFunctionality Type.
+ * When not explicitly specified, DEFAULT is used.
+ */
+enum SubType {
+    DEFAULT = 0;
+    TOKEN_FUNGIBLE_COMMON = 1;
+    TOKEN_NON_FUNGIBLE_UNIQUE = 2;
+}
+
 /**
  * Possible Token Supply Types (IWA Compatibility).
  * Indicates how many tokens can have during its lifetime.
@@ -345,7 +356,7 @@ message TransactionFeeSchedule {
     // A particular transaction or query
     HederaFunctionality hederaFunctionality = 1;
     // Resource price coefficients
-    FeeData feeData = 2;
+    repeated FeeData feeData = 2;
 }
 
 /*
@@ -358,6 +369,8 @@ message FeeData {
     FeeComponents networkdata = 2;
     // Fee paid to the network for providing the service associated with the transaction; for instance, storing a file
     FeeComponents servicedata = 3;
+    // SubType distinguishing between different types of FeeData, correlating to the same HederaFunctionality
+    SubType subType = 4;
 }
 
 /*
