@@ -358,7 +358,7 @@ message TransactionFeeSchedule {
     // Resource price coefficients
     FeeData feeData = 2 [deprecated=true];
     // Resource price coefficients. Supports subtype price definition.
-    repeated FeeData feeDataList = 3;
+    repeated FeeData fees = 3;
 }
 
 /*
