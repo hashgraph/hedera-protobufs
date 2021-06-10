@@ -242,6 +242,10 @@
                 </li>
               
                 <li>
+                  <a href="#proto.NftTransfer"><span class="badge">M</span>NftTransfer</a>
+                </li>
+              
+                <li>
                   <a href="#proto.NodeAddress"><span class="badge">M</span>NodeAddress</a>
                 </li>
               
@@ -343,11 +347,23 @@
                 </li>
               
                 <li>
+                  <a href="#proto.SubType"><span class="badge">E</span>SubType</a>
+                </li>
+              
+                <li>
                   <a href="#proto.TokenFreezeStatus"><span class="badge">E</span>TokenFreezeStatus</a>
                 </li>
               
                 <li>
                   <a href="#proto.TokenKycStatus"><span class="badge">E</span>TokenKycStatus</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenSupplyType"><span class="badge">E</span>TokenSupplyType</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenType"><span class="badge">E</span>TokenType</a>
                 </li>
               
               
@@ -1449,6 +1465,25 @@
         
           
           <li>
+            <a href="#TokenGetAccountNftInfo.proto">TokenGetAccountNftInfo.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.TokenGetAccountNftInfoQuery"><span class="badge">M</span>TokenGetAccountNftInfoQuery</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenGetAccountNftInfoResponse"><span class="badge">M</span>TokenGetAccountNftInfoResponse</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#TokenGetInfo.proto">TokenGetInfo.proto</a>
             <ul>
               
@@ -1462,6 +1497,52 @@
               
                 <li>
                   <a href="#proto.TokenInfo"><span class="badge">M</span>TokenInfo</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#TokenGetNftInfo.proto">TokenGetNftInfo.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.NftID"><span class="badge">M</span>NftID</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenGetNftInfoQuery"><span class="badge">M</span>TokenGetNftInfoQuery</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenGetNftInfoResponse"><span class="badge">M</span>TokenGetNftInfoResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenNftInfo"><span class="badge">M</span>TokenNftInfo</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#TokenGetNftInfos.proto">TokenGetNftInfos.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.TokenGetNftInfosQuery"><span class="badge">M</span>TokenGetNftInfosQuery</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenGetNftInfosResponse"><span class="badge">M</span>TokenGetNftInfosResponse</a>
                 </li>
               
               
@@ -1839,7 +1920,7 @@
                   <td>balance</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>A number of transferable units of the identified token </p></td>
+                  <td><p>Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON - balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account </p></td>
                 </tr>
               
             </tbody>
@@ -2126,6 +2207,13 @@
                   <td><p>Fee paid to the network for providing the service associated with the transaction; for instance, storing a file </p></td>
                 </tr>
               
+                <tr>
+                  <td>subType</td>
+                  <td><a href="#proto.SubType">SubType</a></td>
+                  <td></td>
+                  <td><p>SubType distinguishing between different types of FeeData, correlating to the same HederaFunctionality </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -2203,7 +2291,7 @@
         
       
         <h3 id="proto.Key">Key</h3>
-        <p>A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.</p><p>A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.</p><p>A key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.</p><p>A Key can be a list of keys. Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key.</p><p>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.</p><p>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys. Only ed25519 primitive keys are currently supported.</p>
+        <p>A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.</p><p>A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.</p><p>A Key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.</p><p>A Key can be a "key list" where all keys in the list must sign unless specified otherwise in the documentation for a specific transaction type (e.g. FileDeleteTransactionBody).  Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key. A key list is always an M-of-M, unless specified otherwise in documentation. A key list can have nested key lists or threshold keys. Nested key lists are always M-of-M. A key list can have repeated Ed25519 public keys, but all repeated keys are only required to sign once.</p><p>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.</p><p>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys. Only ed25519 primitive keys are currently supported.</p>
 
         
           <table class="field-table">
@@ -2262,7 +2350,7 @@
         
       
         <h3 id="proto.KeyList">KeyList</h3>
-        <p>A list of keys</p>
+        <p>A list of keys that requires all keys (M-of-M) to sign unless otherwise specified in documentation. A KeyList may contain repeated keys, but all repeated keys are only required to sign once.</p>
 
         
           <table class="field-table">
@@ -2285,8 +2373,46 @@
 
         
       
+        <h3 id="proto.NftTransfer">NftTransfer</h3>
+        <p>A sender account, a receiver account, and the serial number of an NFT of a Token with NON_FUNGIBLE_UNIQUE type.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>senderAccountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>The accountID of the sender </p></td>
+                </tr>
+              
+                <tr>
+                  <td>receiverAccountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>The accountID of the receiver </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serialNumber</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>The serial number of the NFT </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="proto.NodeAddress">NodeAddress</h3>
-        <p>The data about a node, including its service endpoints and the Hedera account to be paid for services provided by the node (that is, queries answered and transactions submitted.) </p><p>If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the (deprecated) <tt>ipAddress</tt> and <tt>portno</tt> fields should be used. </p><p>All fields are populated in the 0.0.102 address book file while only fields that start with # are populated in the 0.0.101 address book file.</p>
+        <p>The data about a node, including its service endpoints and the Hedera account to be paid for services</p><p>provided by the node (that is, queries answered and transactions submitted.)</p><p>If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the (deprecated)</p><p><tt>ipAddress</tt> and <tt>portno</tt> fields should be used.</p><p>All fields are populated in the 0.0.102 address book file while only fields that start with # are populated in the 0.0.101 address book file.</p>
 
         
           <table class="field-table">
@@ -2497,7 +2623,7 @@
         
       
         <h3 id="proto.SemanticVersion">SemanticVersion</h3>
-        <p></p>
+        <p>Hedera follows semantic versioning (https://semver.org/) for both the HAPI protobufs and the Services software.</p><p>This type allows the <tt>getVersionInfo</tt> query in the <tt>NetworkService</tt> to return the deployed versions</p><p>of both protobufs and software on the node answering the query.</p>
 
         
           <table class="field-table">
@@ -2525,6 +2651,20 @@
                   <td><a href="#int32">int32</a></td>
                   <td></td>
                   <td><p>Increases with backwards-compatible bug fixes </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pre</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>A pre-release version MAY be denoted by appending a hyphen and a series of dot separated identifiers (https://semver.org/#spec-item-9); so given a semver 0.14.0-alpha.1&#43;21AF26D3, this field would contain &#39;alpha.1&#39; </p></td>
+                </tr>
+              
+                <tr>
+                  <td>build</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Build metadata MAY be denoted by appending a plus sign and a series of dot separated identifiers immediately following the patch or pre-release version (https://semver.org/#spec-item-10); so given a semver 0.14.0-alpha.1&#43;21AF26D3, this field would contain &#39;21AF26D3&#39; </p></td>
                 </tr>
               
             </tbody>
@@ -2886,7 +3026,7 @@
                   <td>balance</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>A number of transferable units of the identified token </p></td>
+                  <td><p>Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON - balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account </p></td>
                 </tr>
               
                 <tr>
@@ -2993,7 +3133,7 @@
                   <td>balance</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>The balance that the Account holds in the smallest denomination </p></td>
+                  <td><p>For token of type FUNGIBLE_COMMON - the balance that the Account holds in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account </p></td>
                 </tr>
               
                 <tr>
@@ -3045,7 +3185,14 @@
                   <td>transfers</td>
                   <td><a href="#proto.AccountAmount">AccountAmount</a></td>
                   <td>repeated</td>
-                  <td><p>Multiple list of AccountAmounts, each of which has an account and amount </p></td>
+                  <td><p>Applicable to tokens of type FUNGIBLE_COMMON. Multiple list of AccountAmounts, each of which has an account and amount </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nftTransfers</td>
+                  <td><a href="#proto.NftTransfer">NftTransfer</a></td>
+                  <td>repeated</td>
+                  <td><p>Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NftTransfers, each of which has a sender and receiver account, including the serial number of the NFT </p></td>
                 </tr>
               
             </tbody>
@@ -3117,9 +3264,37 @@
                   <td><p>Resource price coefficients </p></td>
                 </tr>
               
+                <tr>
+                  <td>fees</td>
+                  <td><a href="#proto.FeeData">FeeData</a></td>
+                  <td>repeated</td>
+                  <td><p>Resource price coefficients. Supports subtype price definition. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
+          
+            
+            
+            <h4>Fields with deprecated option</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Option</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>feeData</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
           
 
         
@@ -3556,6 +3731,53 @@
                 <td><p>Get Scheduled Transaction Information</p></td>
               </tr>
             
+              <tr>
+                <td>TokenGetAccountNftInfo</td>
+                <td>74</td>
+                <td><p>Get Token Account Nft Information</p></td>
+              </tr>
+            
+              <tr>
+                <td>TokenGetNftInfo</td>
+                <td>75</td>
+                <td><p>Get Token Nft Information</p></td>
+              </tr>
+            
+              <tr>
+                <td>TokenGetNftInfos</td>
+                <td>76</td>
+                <td><p>Get Token Nft List Information</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="proto.SubType">SubType</h3>
+        <p></p><p>Possible FeeData Object SubTypes. Supplementary to the main HederaFunctionality Type.</p><p>When not explicitly specified, DEFAULT is used.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>DEFAULT</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>TOKEN_FUNGIBLE_COMMON</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>TOKEN_NON_FUNGIBLE_UNIQUE</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
           </tbody>
         </table>
       
@@ -3612,6 +3834,56 @@
                 <td>Revoked</td>
                 <td>2</td>
                 <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="proto.TokenSupplyType">TokenSupplyType</h3>
+        <p></p><p>Possible Token Supply Types (IWA Compatibility).</p><p>Indicates how many tokens can have during its lifetime.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>INFINITE</td>
+                <td>0</td>
+                <td><p>Indicates that tokens of that type have an upper bound of Long.MAX_VALUE.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FINITE</td>
+                <td>1</td>
+                <td><p>Indicates that tokens of that type have an upper bound of maxSupply, provided on token creation.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="proto.TokenType">TokenType</h3>
+        <p></p><p>Possible Token Types (IWA Compatibility).</p><p>Apart from fungible and non-fungible, Tokens can have either a common or unique representation. This distinction might seem subtle, but it is important when considering</p><p>how tokens can be traced and if they can have isolated and unique properties.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>FUNGIBLE_COMMON</td>
+                <td>0</td>
+                <td><p>
+Interchangeable value with one another, where any quantity of them has the same value as another equal quantity if they are in the same class.
+Share a single set of properties, not distinct from one another. Simply represented as a balance or quantity to a given Hedera account.</p></td>
+              </tr>
+            
+              <tr>
+                <td>NON_FUNGIBLE_UNIQUE</td>
+                <td>1</td>
+                <td><p>
+Unique, not interchangeable with other tokens of the same type as they typically have different values.
+Individually traced and can carry unique properties (e.g. serial number).</p></td>
               </tr>
             
           </tbody>
@@ -5720,6 +5992,13 @@ If unspecified, no change. </p></td>
                   <td><p>The memo associated with the account </p></td>
                 </tr>
               
+                <tr>
+                  <td>ownedNfts</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>The number of NFTs owned by this account </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -6447,7 +6726,7 @@ If unspecified, no change. </p></td>
 
       
         <h3 id="proto.FileAppendTransactionBody">FileAppendTransactionBody</h3>
-        <p>Append the given contents to the end of the specified file. If a file is too big to create with a single FileCreateTransaction, then it can be created with the first part of its contents, and then appended as many times as necessary to create the entire file.</p>
+        <p>Append the given contents to the end of the specified file. If a file is too big to create with a single FileCreateTransaction, then it can be created with the first part of its contents, and then appended as many times as necessary to create the entire file. This transaction must be signed by all initial M-of-M KeyList keys. If keys contains additional KeyList or ThresholdKey then M-of-M secondary KeyList or ThresholdKey signing requirements must be meet.</p>
 
         
           <table class="field-table">
@@ -6492,7 +6771,7 @@ If unspecified, no change. </p></td>
 
       
         <h3 id="proto.FileCreateTransactionBody">FileCreateTransactionBody</h3>
-        <p>Create a new file, containing the given contents.</p><p>After the file is created, the FileID for it can be found in the receipt, or record, or retrieved with a GetByKey query.</p><p>The file contains the specified contents (possibly empty). The file will automatically disappear at the expirationTime, unless its expiration is extended by another transaction before that time. If the file is deleted, then its contents will become empty and it will be marked as deleted until it expires, and then it will cease to exist.</p><p>The keys field is a list of keys. All the keys on the list must sign to create or modify a file, but only one of them needs to sign in order to delete the file.  Each of those "keys" may itself be threshold key containing other keys (including other threshold keys). In other words, the behavior is an AND for create/modify, OR for delete. This is useful for acting as a revocation server. If it is desired to have the behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single Key, which is a threshold key, with N=1 for OR, N=M for AND.</p><p>If a file is created without ANY keys in the keys field, the file is immutable and ONLY the expirationTime of the file can be changed with a FileUpdate transaction. The file contents or its keys cannot be changed.</p><p>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.</p><p>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.</p>
+        <p>Create a new file, containing the given contents.</p><p>After the file is created, the FileID for it can be found in the receipt, or record, or retrieved with a GetByKey query.</p><p>The file contains the specified contents (possibly empty). The file will automatically disappear at the expirationTime, unless its expiration is extended by another transaction before that time. If the file is deleted, then its contents will become empty and it will be marked as deleted until it expires, and then it will cease to exist.</p><p>The keys field is a list of keys. All keys within the top-level key list must sign (M-M) to create or modify a file. However, to delete the file, only one key (1-M) is required to sign from the top-level key list.  Each of those "keys" may itself be threshold key containing other keys (including other threshold keys). In other words, the behavior is an AND for create/modify, OR for delete. This is useful for acting as a revocation server. If it is desired to have the behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single Key, which is a threshold key, with N=1 for OR, N=M for AND.</p><p>If a file is created without ANY keys in the keys field, the file is immutable and ONLY the expirationTime of the file can be changed with a FileUpdate transaction. The file contents or its keys cannot be changed.</p><p>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.</p><p>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.</p>
 
         
           <table class="field-table">
@@ -6512,7 +6791,7 @@ If unspecified, no change. </p></td>
                   <td>keys</td>
                   <td><a href="#proto.KeyList">KeyList</a></td>
                   <td></td>
-                  <td><p>All these keys must sign to create or modify the file. Any one of them can sign to delete the file. </p></td>
+                  <td><p>All keys at the top level of a key list must sign to create or modify the file. Any one of the keys at the top level key list can sign to delete the file. </p></td>
                 </tr>
               
                 <tr>
@@ -6572,7 +6851,7 @@ If unspecified, no change. </p></td>
 
       
         <h3 id="proto.FileDeleteTransactionBody">FileDeleteTransactionBody</h3>
-        <p>Delete the given file. After deletion, it will be marked as deleted and will have no contents. But information about it will continue to exist until it expires. A list of keys  was given when the file was created. All the keys on that list must sign transactions to create or modify the file, but any single one of them can be used to delete the file. Each "key" on that list may itself be a threshold key containing other keys (including other threshold keys).</p>
+        <p>Delete the given file. After deletion, it will be marked as deleted and will have no contents. But information about it will continue to exist until it expires. A list of keys was given when the file was created. All the top level keys on that list must sign transactions to create or modify the file, but any single one of the top level keys can be used to delete the file. This transaction must be signed by 1-of-M KeyList keys. If keys contains additional KeyList or ThresholdKey then 1-of-M secondary KeyList or ThresholdKey signing requirements must be meet.</p>
 
         
           <table class="field-table">
@@ -6934,7 +7213,7 @@ If unspecified, no change. </p></td>
 
       
         <h3 id="proto.FileUpdateTransactionBody">FileUpdateTransactionBody</h3>
-        <p>Modify the metadata and/or contents of a file. If a field is not set in the transaction body, the corresponding file attribute will be unchanged. This transaction must be signed by all the keys in the key list of the file being updated. If the keys themselves are being update, then the transaction must also be signed by all the new keys.</p>
+        <p>Modify the metadata and/or contents of a file. If a field is not set in the transaction body, the corresponding file attribute will be unchanged. This transaction must be signed by all the keys in the top level of a key list (M-of-M) of the file being updated. If the keys themselves are being updated, then the transaction must also be signed by all the new keys. If the keys contain additional KeyList or ThresholdKey then M-of-M secondary KeyList or ThresholdKey signing requirements must be meet</p>
 
         
           <table class="field-table">
@@ -7582,6 +7861,27 @@ If unspecified, no change. </p></td>
                   <td><p>Get all information about a scheduled entity </p></td>
                 </tr>
               
+                <tr>
+                  <td>tokenGetAccountNftInfo</td>
+                  <td><a href="#proto.TokenGetAccountNftInfoQuery">TokenGetAccountNftInfoQuery</a></td>
+                  <td></td>
+                  <td><p>Get a list of NFTs associated with the account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenGetNftInfo</td>
+                  <td><a href="#proto.TokenGetNftInfoQuery">TokenGetNftInfoQuery</a></td>
+                  <td></td>
+                  <td><p>Get all information about a NFT </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenGetNftInfos</td>
+                  <td><a href="#proto.TokenGetNftInfosQuery">TokenGetNftInfosQuery</a></td>
+                  <td></td>
+                  <td><p>Get a list of NFTs for the token </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -7831,6 +8131,27 @@ If unspecified, no change. </p></td>
                   <td><a href="#proto.ScheduleGetInfoResponse">ScheduleGetInfoResponse</a></td>
                   <td></td>
                   <td><p>Get all information about a schedule entity </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenGetAccountNftInfo</td>
+                  <td><a href="#proto.TokenGetAccountNftInfoResponse">TokenGetAccountNftInfoResponse</a></td>
+                  <td></td>
+                  <td><p>A list of the NFTs associated with the account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenGetNftInfo</td>
+                  <td><a href="#proto.TokenGetNftInfoResponse">TokenGetNftInfoResponse</a></td>
+                  <td></td>
+                  <td><p>All information about an NFT </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenGetNftInfos</td>
+                  <td><a href="#proto.TokenGetNftInfosResponse">TokenGetNftInfosResponse</a></td>
+                  <td></td>
+                  <td><p>A list of the NFTs for the token </p></td>
                 </tr>
               
             </tbody>
@@ -8944,6 +9265,48 @@ by HAPI.</p></td>
                 <td>INVALID_THROTTLE_DEFINITIONS</td>
                 <td>222</td>
                 <td><p>The new throttle definitions system file were invalid, and no more specific error could be divined</p></td>
+              </tr>
+            
+              <tr>
+                <td>ACCOUNT_EXPIRED_AND_PENDING_REMOVAL</td>
+                <td>223</td>
+                <td><p>The transaction references an account which has passed its expiration without renewal funds available, and currently remains in the ledger only because of the grace period given to expired entities</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_TOKEN_MAX_SUPPLY</td>
+                <td>224</td>
+                <td><p>Invalid token max supply</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_TOKEN_NFT_SERIAL_NUMBER</td>
+                <td>225</td>
+                <td><p>Invalid token nft serial number</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_NFT_ID</td>
+                <td>226</td>
+                <td><p>Invalid nft id</p></td>
+              </tr>
+            
+              <tr>
+                <td>METADATA_TOO_LONG</td>
+                <td>227</td>
+                <td><p>Nft metadata is too long</p></td>
+              </tr>
+            
+              <tr>
+                <td>BATCH_SIZE_LIMIT_EXCEEDED</td>
+                <td>228</td>
+                <td><p>Repeated operations count exceeds the limit</p></td>
+              </tr>
+            
+              <tr>
+                <td>QUERY_RANGE_LIMIT_EXCEEDED</td>
+                <td>229</td>
+                <td><p>The range of data to be gathered exceeds the limit</p></td>
               </tr>
             
           </tbody>
@@ -10066,7 +10429,7 @@ by HAPI.</p></td>
                   <td>tokens</td>
                   <td><a href="#proto.TokenID">TokenID</a></td>
                   <td>repeated</td>
-                  <td><p>The tokens to be associated with the provided account </p></td>
+                  <td><p>The tokens to be associated with the provided account. In the case of NON_FUNGIBLE_UNIQUE Type, once an account is associated, it can hold any number of NFTs (serial numbers) of that token type </p></td>
                 </tr>
               
             </tbody>
@@ -10111,7 +10474,14 @@ by HAPI.</p></td>
                   <td>amount</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>The amount to burn from the Treasury Account. Amount must be a positive non-zero number, not bigger than the token balance of the treasury account (0; balance], represented in the lowest denomination. </p></td>
+                  <td><p>Applicable to tokens of type FUNGIBLE_COMMON. The amount to burn from the Treasury Account. Amount must be a positive non-zero number, not bigger than the token balance of the treasury account (0; balance], represented in the lowest denomination. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serialNumbers</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>repeated</td>
+                  <td><p>Applicable to tokens of type NON_FUNGIBLE_UNIQUE. The list of serial numbers to be burned. </p></td>
                 </tr>
               
             </tbody>
@@ -10163,21 +10533,21 @@ by HAPI.</p></td>
                   <td>decimals</td>
                   <td><a href="#uint32">uint32</a></td>
                   <td></td>
-                  <td><p>The number of decimal places a token is divisible by. This field can never be changed! </p></td>
+                  <td><p>For tokens of type FUNGIBLE_COMMON - the number of decimal places a token is divisible by. For tokens of type NON_FUNGIBLE_UNIQUE - value must be 0 </p></td>
                 </tr>
               
                 <tr>
                   <td>initialSupply</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>Specifies the initial supply of tokens to be put in circulation. The initial supply is sent to the Treasury Account. The supply is in the lowest denomination possible. </p></td>
+                  <td><p>Specifies the initial supply of tokens to be put in circulation. The initial supply is sent to the Treasury Account. The supply is in the lowest denomination possible. In the case for NON_FUNGIBLE_UNIQUE Type the value must be 0 </p></td>
                 </tr>
               
                 <tr>
                   <td>treasury</td>
                   <td><a href="#proto.AccountID">AccountID</a></td>
                   <td></td>
-                  <td><p>The account which will act as a treasury for the token. This account will receive the specified initial supply </p></td>
+                  <td><p>The account which will act as a treasury for the token. This account will receive the specified initial supply or the newly minted NFTs in the case for NON_FUNGIBLE_UNIQUE Type </p></td>
                 </tr>
               
                 <tr>
@@ -10248,6 +10618,27 @@ by HAPI.</p></td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p>The memo associated with the token (UTF-8 encoding max 100 bytes) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenType</td>
+                  <td><a href="#proto.TokenType">TokenType</a></td>
+                  <td></td>
+                  <td><p>IWA compatibility. Specifies the token type. Defaults to FUNGIBLE_COMMON </p></td>
+                </tr>
+              
+                <tr>
+                  <td>supplyType</td>
+                  <td><a href="#proto.TokenSupplyType">TokenSupplyType</a></td>
+                  <td></td>
+                  <td><p>IWA compatibility. Specified the token supply type. Defaults to INFINITE </p></td>
+                </tr>
+              
+                <tr>
+                  <td>maxSupply</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>IWA Compatibility. Depends on TokenSupplyType. For tokens of type FUNGIBLE_COMMON - the maximum number of tokens that can be in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the maximum number of NFTs (serial numbers) that can be minted. This field can never be changed! </p></td>
                 </tr>
               
             </tbody>
@@ -10394,6 +10785,96 @@ by HAPI.</p></td>
     
       
       <div class="file-heading">
+        <h2 id="TokenGetAccountNftInfo.proto">TokenGetAccountNftInfo.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.TokenGetAccountNftInfoQuery">TokenGetAccountNftInfoQuery</h3>
+        <p>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M owned by the specified accountId.</p><p>Example: If Account A owns 5 NFTs (might be of different Token Entity), having start=0 and end=5 will return all of the NFTs</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>header</td>
+                  <td><a href="#proto.QueryHeader">QueryHeader</a></td>
+                  <td></td>
+                  <td><p>Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>accountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>The Account for which information is requested </p></td>
+                </tr>
+              
+                <tr>
+                  <td>start</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>Specifies the start index (inclusive) of the range of NFTs to query for. Value must be in the range [0; ownedNFTs-1] </p></td>
+                </tr>
+              
+                <tr>
+                  <td>end</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>Specifies the end index (exclusive) of the range of NFTs to query for. Value must be in the range (start; ownedNFTs] </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.TokenGetAccountNftInfoResponse">TokenGetAccountNftInfoResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>header</td>
+                  <td><a href="#proto.ResponseHeader">ResponseHeader</a></td>
+                  <td></td>
+                  <td><p>Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nfts</td>
+                  <td><a href="#proto.TokenNftInfo">TokenNftInfo</a></td>
+                  <td>repeated</td>
+                  <td><p>List of NFTs associated to the account </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
         <h2 id="TokenGetInfo.proto">TokenGetInfo.proto</h2><a href="#title">Top</a>
       </div>
       <p></p>
@@ -10496,14 +10977,14 @@ by HAPI.</p></td>
                   <td>decimals</td>
                   <td><a href="#uint32">uint32</a></td>
                   <td></td>
-                  <td><p>The number of decimal places a token is divisible by </p></td>
+                  <td><p>The number of decimal places a token is divisible by. Always 0 for tokens of type NON_FUNGIBLE_UNIQUE </p></td>
                 </tr>
               
                 <tr>
                   <td>totalSupply</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>The total supply of tokens that are currently in circulation </p></td>
+                  <td><p>For tokens of type FUNGIBLE_COMMON - the total supply of tokens that are currently in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the number of NFTs created of this token instance </p></td>
                 </tr>
               
                 <tr>
@@ -10597,6 +11078,276 @@ by HAPI.</p></td>
                   <td><p>The memo associated with the token </p></td>
                 </tr>
               
+                <tr>
+                  <td>tokenType</td>
+                  <td><a href="#proto.TokenType">TokenType</a></td>
+                  <td></td>
+                  <td><p>The token type </p></td>
+                </tr>
+              
+                <tr>
+                  <td>supplyType</td>
+                  <td><a href="#proto.TokenSupplyType">TokenSupplyType</a></td>
+                  <td></td>
+                  <td><p>The token supply type </p></td>
+                </tr>
+              
+                <tr>
+                  <td>maxSupply</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>For tokens of type FUNGIBLE_COMMON - The Maximum number of fungible tokens that can be in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the maximum number of NFTs (serial numbers) that can be in circulation </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="TokenGetNftInfo.proto">TokenGetNftInfo.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.NftID">NftID</h3>
+        <p>Represents an NFT on the Ledger</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tokenID</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>The (non-fungible) token of which this NFT is an instance </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serialNumber</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>The unique identifier of this instance </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.TokenGetNftInfoQuery">TokenGetNftInfoQuery</h3>
+        <p>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of type NON_FUNGIBLE_UNIQUE) and serial number</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>header</td>
+                  <td><a href="#proto.QueryHeader">QueryHeader</a></td>
+                  <td></td>
+                  <td><p>Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nftID</td>
+                  <td><a href="#proto.NftID">NftID</a></td>
+                  <td></td>
+                  <td><p>The ID of the NFT </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.TokenGetNftInfoResponse">TokenGetNftInfoResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>header</td>
+                  <td><a href="#proto.ResponseHeader">ResponseHeader</a></td>
+                  <td></td>
+                  <td><p>Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nft</td>
+                  <td><a href="#proto.TokenNftInfo">TokenNftInfo</a></td>
+                  <td></td>
+                  <td><p>The information about this NFT </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.TokenNftInfo">TokenNftInfo</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>nftID</td>
+                  <td><a href="#proto.NftID">NftID</a></td>
+                  <td></td>
+                  <td><p>The ID of the NFT </p></td>
+                </tr>
+              
+                <tr>
+                  <td>accountID</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>The current owner of the NFT </p></td>
+                </tr>
+              
+                <tr>
+                  <td>creationTime</td>
+                  <td><a href="#proto.Timestamp">Timestamp</a></td>
+                  <td></td>
+                  <td><p>The effective consensus timestamp at which the NFT was minted </p></td>
+                </tr>
+              
+                <tr>
+                  <td>metadata</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>Represents the unique metadata of the NFT </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="TokenGetNftInfos.proto">TokenGetNftInfos.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.TokenGetNftInfosQuery">TokenGetNftInfosQuery</h3>
+        <p>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M on the list of NFTs associated with a given NON_FUNGIBLE_UNIQUE Token.</p><p>Example: If there are 10 NFTs issued, having start=0 and end=5 will query for the first 5 NFTs. Querying +all 10 NFTs will require start=0 and end=10</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>header</td>
+                  <td><a href="#proto.QueryHeader">QueryHeader</a></td>
+                  <td></td>
+                  <td><p>Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenID</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>The ID of the token for which information is requested </p></td>
+                </tr>
+              
+                <tr>
+                  <td>start</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>Specifies the start index (inclusive) of the range of NFTs to query for. Value must be in the range [0; ownedNFTs-1] </p></td>
+                </tr>
+              
+                <tr>
+                  <td>end</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>Specifies the end index (exclusive) of the range of NFTs to query for. Value must be in the range (start; ownedNFTs] </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.TokenGetNftInfosResponse">TokenGetNftInfosResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>header</td>
+                  <td><a href="#proto.ResponseHeader">ResponseHeader</a></td>
+                  <td></td>
+                  <td><p>Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenID</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>The Token with type NON_FUNGIBLE that this record is for </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nfts</td>
+                  <td><a href="#proto.TokenNftInfo">TokenNftInfo</a></td>
+                  <td>repeated</td>
+                  <td><p>List of NFTs associated to the specified token </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -10684,7 +11435,14 @@ by HAPI.</p></td>
                   <td>amount</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>The amount to mint to the Treasury Account. Amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than 2^63. </p></td>
+                  <td><p>Applicable to tokens of type FUNGIBLE_COMMON. The amount to mint to the Treasury Account. Amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than 2^63. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>metadata</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td>repeated</td>
+                  <td><p>Applicable to tokens of type NON_FUNGIBLE_UNIQUE. A list of metadata that are being created. Maximum allowed size of each metadata is 100 bytes </p></td>
                 </tr>
               
             </tbody>
@@ -10856,6 +11614,27 @@ by HAPI.</p></td>
                 <td><a href="#proto.Query">Query</a></td>
                 <td><a href="#proto.Response">Response</a></td>
                 <td><p>Retrieves the metadata of a token</p></td>
+              </tr>
+            
+              <tr>
+                <td>getAccountNftInfo</td>
+                <td><a href="#proto.Query">Query</a></td>
+                <td><a href="#proto.Response">Response</a></td>
+                <td><p>Gets info on NFTs N through M on the list of NFTs associated with a given account</p></td>
+              </tr>
+            
+              <tr>
+                <td>getTokenNftInfo</td>
+                <td><a href="#proto.Query">Query</a></td>
+                <td><a href="#proto.Response">Response</a></td>
+                <td><p>Retrieves the metadata of an NFT by TokenID and serial number</p></td>
+              </tr>
+            
+              <tr>
+                <td>getTokenNftInfos</td>
+                <td><a href="#proto.Query">Query</a></td>
+                <td><a href="#proto.Response">Response</a></td>
+                <td><p>Gets info on NFTs N through M on the list of NFTs associated with a given Token of type NON_FUNGIBLE</p></td>
               </tr>
             
           </tbody>
@@ -11065,7 +11844,14 @@ by HAPI.</p></td>
                   <td>amount</td>
                   <td><a href="#uint64">uint64</a></td>
                   <td></td>
-                  <td><p>The amount of tokens to wipe from the specified account. Amount must be a positive non-zero number in the lowest denomination possible, not bigger than the token balance of the account (0; balance] </p></td>
+                  <td><p>Applicable to tokens of type FUNGIBLE_COMMON. The amount of tokens to wipe from the specified account. Amount must be a positive non-zero number in the lowest denomination possible, not bigger than the token balance of the account (0; balance] </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serialNumbers</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>repeated</td>
+                  <td><p>Applicable to tokens of type NON_FUNGIBLE_UNIQUE. The list of serial numbers to be wiped. </p></td>
                 </tr>
               
             </tbody>
@@ -11962,6 +12748,13 @@ Otherwise, IF the topicRunningHashVersion is &#39;3&#39;, then the input data to
                   <td><a href="#proto.TransactionID">TransactionID</a></td>
                   <td></td>
                   <td><p>In the receipt of a ScheduleCreate or ScheduleSign that resolves to SUCCESS, the TransactionID that should be used to query for the receipt or record of the relevant scheduled transaction </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serialNumbers</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>repeated</td>
+                  <td><p>In the receipt of a TokenMint for tokens of type NON_FUNGIBLE_UNIQUE, the serial numbers of the newly created NFTs </p></td>
                 </tr>
               
             </tbody>
