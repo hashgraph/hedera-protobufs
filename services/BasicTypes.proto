@@ -99,6 +99,32 @@ message TokenTransferList {
     repeated NftTransfer nftTransfers = 3; // Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NftTransfers, each of which has a sender and receiver account, including the serial number of the NFT
 }
 
+/* A list of accounts and amounts that are involved in a Token's CustomTransferFeeInHbar*/
+message CustomHbarFees {
+    TransferList customHbarFees = 1;
+}
+
+/* A list of tokenIds and amounts representing the transferred out (negative) or into (positive) amounts according to a Token's CustomTransferFeeInTokens*/
+message CustomTokenUnitFees {
+    repeated TokenTransferList customTokenUnitFees = 1;
+}
+
+/* A Token's custom transfer fee in Token Units that needs to be paid to the specified receiver when a TokenTransfer is performed.*/
+message CustomTransferFeeInTokens {
+    TokenID token = 1;
+    sint64 amount = 2;
+    bool percentage = 3;
+    sint64 minAmount = 4;
+    AccountID receiverAccountID = 5;
+}
+
+/* A Token's custom transfer fee in Hbar that needs to be paid to the specified receiver when a TokenTransfer is performed */
+message CustomTransferFeeInHbar {
+    sint64 amount = 1;
+    bool percentage = 2;
+    sint64 minAmount = 3;
+    AccountID receiverAccountID = 4;
+}
 /* Unique identifier for a topic (used by the consensus service) */
 message TopicID {
     int64 shardNum = 1; // The shard number (nonnegative)
