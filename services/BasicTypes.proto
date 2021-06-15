@@ -127,7 +127,7 @@ message TokenUnitFee {
         FractionalFee fractionalFee = 1;
         uint64 fixedFee = 2;
     }
-    TokenID token = 3;
+    TokenID denominatingTokenType = 3;
     AccountID receivingAccountID = 4;
 }
 
@@ -138,6 +138,12 @@ message HbarFee {
         uint64 fixedFee = 2;
     }
     AccountID receivingAccountID = 3;
+}
+
+/* Custom Fee in Habr and Token units to be charged*/
+message CustomFees {
+    repeated HbarFee hbarFees = 1;
+    repeated TokenUnitFee tokenUnitFees = 2;
 }
 
 /* Unique identifier for a topic (used by the consensus service) */
