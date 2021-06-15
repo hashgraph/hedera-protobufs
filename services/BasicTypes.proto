@@ -107,43 +107,40 @@ message Fraction {
 
 /* Fraction of the Token to be collected along with its floor if the transfer amount is low*/
 message FractionalFee {
-    Fraction fractionOfValueToCollect = 1;
-    uint64 minimumValueToCollect = 2;
+    Fraction fractionOfUnitsToCollect = 1; // percentage of the Tokens involved in the transfer to be charged as fee
+    uint64 minimumUnitsToCollect = 2; // minimum token units to be charged as fee
+    google.protobuf.UInt64Value maximumUnitsToCollect = 3; // maximum token units to be charged as fee
 }
 
-/* A list of accounts and amounts that are involved in a Token's HbarFee*/
+/* Fixed custom fee to be collected during a token transfer */
+message FixedFee {
+    uint64 unitsToCollect = 1;
+    /* If set, the denomination of the units to collect */
+    TokenID nonHbarDenomination = 2;
+}
+
+/* Custom transfer fee in Token units or hbar that needs to be paid to the specified receiver when a TokenTransfer is performed.*/
+message CustomFee {
+    oneof fee {
+        FixedFee fixedFee = 1; // Fixed fee to be charged
+        FractionalFee fractionalFee = 2; // Fractional Fee to be charged
+    }
+    AccountID receivingAccountID = 3; // Fee collector of this custom fee.
+}
+
+/* Custom Fees to be charged*/
+message CustomFees {
+    repeated CustomFee customFee = 1;
+}
+
+/* A list of accounts and amounts that are involved in a Token's HbarFee */
 message CustomHbarFees {
     TransferList customHbarFees = 1;
 }
 
-/* A list of tokenIds and amounts representing the transferred out (negative) or into (positive) amounts according to a Token's TokenUnitFee*/
+/* A list of tokenIds and amounts representing the transferred out (negative) or into (positive) amounts according to a Token's TokenUnitFee */
 message CustomTokenUnitFees {
     repeated TokenTransferList customTokenUnitFees = 1;
-}
-
-/* Custom transfer fee in Token units that needs to be paid to the specified receiver when a TokenTransfer is performed.*/
-message TokenUnitFee {
-    oneof amount {
-        FractionalFee fractionalFee = 1;
-        uint64 fixedFee = 2;
-    }
-    TokenID denominatingTokenType = 3;
-    AccountID receivingAccountID = 4;
-}
-
-/* A Token's custom transfer fee in Hbar that needs to be paid to the specified receiver when a TokenTransfer is performed */
-message HbarFee {
-    oneof amount {
-        FractionalFee fractionalFee = 1;
-        uint64 fixedFee = 2;
-    }
-    AccountID receivingAccountID = 3;
-}
-
-/* Custom Fee in Habr and Token units to be charged*/
-message CustomFees {
-    repeated HbarFee hbarFees = 1;
-    repeated TokenUnitFee tokenUnitFees = 2;
 }
 
 /* Unique identifier for a topic (used by the consensus service) */
