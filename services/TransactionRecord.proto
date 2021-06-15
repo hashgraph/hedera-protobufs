@@ -46,6 +46,6 @@ message TransactionRecord {
     TransferList transferList = 10; // All hbar transfers as a result of this transaction, such as fees, or transfers performed by the transaction, or by a smart contract it calls, or by the creation of threshold records that it triggers.
     repeated TokenTransferList tokenTransferLists = 11; // All Token transfers as a result of this transaction
     ScheduleID scheduleRef = 12; // Reference to the scheduled transaction ID that this transaction record represent
-    CustomHbarFees customHbarFees = 13; // All hbar transfers as a result of the CustomTransferFeeInHbar of a Token - tokenTransfer
-    CustomTokenUnitFees customTokenUnitFees = 14; // All Token transfers as a result of CustomTransferFeeInTokens of a Token  - tokenTransfer
+    CustomHbarFees customHbarFees = 13; // All hbar transfers as a result of the CustomFees of a Token - tokenTransfer
+    CustomTokenUnitFees customTokenUnitFees = 14; // All Token transfers as a result of CustomFees of a Token  - tokenTransfer
 }
