@@ -112,8 +112,8 @@ message FractionalFee {
 }
 
 /* A list of accounts and amounts that are involved in a Token's HbarFee*/
-message CustomFees {
-    repeated HbarFee
+message CustomHbarFees {
+    TransferList customHbarFees = 1;
 }
 
 /* A list of tokenIds and amounts representing the transferred out (negative) or into (positive) amounts according to a Token's TokenUnitFee*/
