@@ -60,8 +60,8 @@ message TokenInfo {
     TokenType tokenType = 19; // The token type
     TokenSupplyType supplyType = 20; // The token supply type
     int64 maxSupply = 21; // For tokens of type FUNGIBLE_COMMON - The Maximum number of fungible tokens that can be in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the maximum number of NFTs (serial numbers) that can be in circulation
-    repeated CustomTransferFeeInTokens customFeeInTokens = 22; // Custom fee in Token Units that needs to be paid to the specified receiver on a TokenTransfer
-    repeated CustomTransferFeeInHbar customFeeInHbar = 23;// Custom fee in hbar that needs to be paid to the specified receiver on a TokenTransfer
+    repeated TokenUnitFee tokenUnitFees = 22; // Custom fee in Token Units that needs to be paid to the specified receiver on a TokenTransfer
+    repeated HbarFee hbarFees = 23;// Custom fee in hbar that needs to be paid to the specified receiver on a TokenTransfer
 }
 
 /* Response when the client sends the node TokenGetInfoQuery */
