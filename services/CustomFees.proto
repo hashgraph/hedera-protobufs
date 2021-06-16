@@ -25,30 +25,47 @@ package proto;
 import "BasicTypes.proto";
 import "google/protobuf/wrappers.proto";
 
-/* Fraction of the Token to be collected along with its floor if the transfer amount is low*/
+/* A fraction of the units to be collected from the payer of a CryptoTransfer 
+that transfers units of a token. The amount charged will never be
+less than the stated minimumUnitsToCollect, and never greater than 
+the stated maximumUnitsToCollect (if given). */
 message FractionalFee {
   Fraction fractionOfUnitsToCollect = 1; // percentage of the Tokens involved in the transfer to be charged as fee
   uint64 minimumUnitsToCollect = 2; // minimum token units to be charged as fee
   google.protobuf.UInt64Value maximumUnitsToCollect = 3; // maximum token units to be charged as fee
 }
 
-/* Fixed custom fee to be collected during a token transfer */
+/* A fixed custom fee to be collected during a CryptoTransfer that transfers units of a token */
 message FixedFee {
-  uint64 unitsToCollect = 1; // units of either hbar/ token to be collected
+  uint64 unitsToCollect = 1; // units of either hbar/token to be collected
   /* If set, the denomination of the units to collect */
   TokenID tokenId = 2; // denominating token type. If this is empty the denomination type is hbar.
 }
 
-/* Custom transfer fee in Token units or hbar that needs to be paid to the specified receiver when a TokenTransfer is performed.*/
+/* Custom transfer fee in token units or hbar that must be paid to the specified feeCollector during a
+CryptoTransfer that transfers units of a token with a custom fee schedule. */
 message CustomFee {
   oneof fee {
     FixedFee fixedFee = 1; // Fixed fee to be charged
-    FractionalFee fractionalFee = 2; // Fractional Fee to be charged
+    FractionalFee fractionalFee = 2; // Fractional fee to be charged
   }
   AccountID feeCollector = 3; // Fee collector of this custom fee.
 }
 
-/* Custom Fees to be charged*/
+/* A custom transfer fee in token units or hbar that was computed, based
+on a CustomFee type, to be charged for a CryptoTransfer. */
+message CustomFeeCharged {
+  uint64 unitsCharged = 1; // units of either hbar/token that were charged for this CryptoTransfer 
+  TokenID tokenId = 2; // denominating token type. If this is empty the denomination type is hbar.
+  AccountID feeCollector = 3; // Fee collector of this custom fee.
+}
+
+/* Custom fees that are charged for a CryptoTransfer. */
+message CustomFeesCharged {
+  repeated CustomFeeCharged customFeesCharged = 1; // all custom fees charged 
+}
+
+/* Custom fees associated to a token */
 message CustomFees {
-  repeated CustomFee customFees = 1; // custom Fee to be charged
+  repeated CustomFee customFees = 1; // all custom fees for a token 
 }

@@ -26,6 +26,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 import "BasicTypes.proto";
+import "CustomFees.proto";
 import "QueryHeader.proto";
 import "ResponseHeader.proto";
 import "Timestamp.proto";
@@ -60,7 +61,7 @@ message TokenInfo {
     TokenType tokenType = 19; // The token type
     TokenSupplyType supplyType = 20; // The token supply type
     int64 maxSupply = 21; // For tokens of type FUNGIBLE_COMMON - The Maximum number of fungible tokens that can be in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the maximum number of NFTs (serial numbers) that can be in circulation
-    CustomFees customFees = 22; // Custom fee in Token Units/hbar that needs to be paid to the specified receiver on a TokenTransfer
+    CustomFees customFees = 22; // Custom fees in token units or hbar that must to be paid to specified fee collection accounts on a CryptoTransfer that moves units of this token
 }
 
 /* Response when the client sends the node TokenGetInfoQuery */

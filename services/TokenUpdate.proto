@@ -26,6 +26,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 import "BasicTypes.proto";
+import "CustomFees.proto";
 import "Duration.proto";
 import "Timestamp.proto";
 import "google/protobuf/wrappers.proto";

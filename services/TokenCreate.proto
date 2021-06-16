@@ -27,6 +27,7 @@ option java_multiple_files = true;
 
 import "Duration.proto";
 import "BasicTypes.proto";
+import "CustomFees.proto";
 import "Timestamp.proto";
 
 /*
