@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+import "BasicTypes.proto";
+import "google/protobuf/wrappers.proto";
+
+/* Fraction of the Token to be collected along with its floor if the transfer amount is low*/
+message FractionalFee {
+  Fraction fractionOfUnitsToCollect = 1; // percentage of the Tokens involved in the transfer to be charged as fee
+  uint64 minimumUnitsToCollect = 2; // minimum token units to be charged as fee
+  google.protobuf.UInt64Value maximumUnitsToCollect = 3; // maximum token units to be charged as fee
+}
+
+/* Fixed custom fee to be collected during a token transfer */
+message FixedFee {
+  uint64 unitsToCollect = 1; // units of either hbar/ token to be collected
+  /* If set, the denomination of the units to collect */
+  TokenID tokenId = 2; // denominating token type. If this is empty the denomination type is hbar.
+}
+
+/* Custom transfer fee in Token units or hbar that needs to be paid to the specified receiver when a TokenTransfer is performed.*/
+message CustomFee {
+  oneof fee {
+    FixedFee fixedFee = 1; // Fixed fee to be charged
+    FractionalFee fractionalFee = 2; // Fractional Fee to be charged
+  }
+  AccountID feeCollector = 3; // Fee collector of this custom fee.
+}
+
+/* Custom Fees to be charged*/
+message CustomFees {
+  repeated CustomFee customFees = 1; // custom Fee to be charged
+}
+
+/* A list of accounts and amounts that are involved in a Token's HbarFee */
+message CustomHbarFees {
+  TransferList customHbarFees = 1;
+}
+
+/* A list of tokenIds and amounts representing the transferred out (negative) or into (positive) amounts according to a Token's TokenUnitFee */
+message CustomTokenUnitFees {
+  repeated TokenTransferList customTokenUnitFees = 1;
+}
+

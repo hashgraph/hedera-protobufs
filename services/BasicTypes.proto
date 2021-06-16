@@ -23,7 +23,6 @@ package proto;
  */
 
 import "Timestamp.proto";
-import "google/protobuf/wrappers.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
@@ -104,44 +103,6 @@ message TokenTransferList {
 message Fraction {
     uint64 numerator = 1; // numerator of the fraction
     uint64 denominator = 2; // denominator of the fraction
-}
-
-/* Fraction of the Token to be collected along with its floor if the transfer amount is low*/
-message FractionalFee {
-    Fraction fractionOfUnitsToCollect = 1; // percentage of the Tokens involved in the transfer to be charged as fee
-    uint64 minimumUnitsToCollect = 2; // minimum token units to be charged as fee
-    google.protobuf.UInt64Value maximumUnitsToCollect = 3; // maximum token units to be charged as fee
-}
-
-/* Fixed custom fee to be collected during a token transfer */
-message FixedFee {
-    uint64 unitsToCollect = 1; // units of either hbar/ token to be collected
-    /* If set, the denomination of the units to collect */
-    TokenID tokenId = 2; // denominating token type. If this is empty the denomination type is hbar.
-}
-
-/* Custom transfer fee in Token units or hbar that needs to be paid to the specified receiver when a TokenTransfer is performed.*/
-message CustomFee {
-    oneof fee {
-        FixedFee fixedFee = 1; // Fixed fee to be charged
-        FractionalFee fractionalFee = 2; // Fractional Fee to be charged
-    }
-    AccountID feeCollector = 3; // Fee collector of this custom fee.
-}
-
-/* Custom Fees to be charged*/
-message CustomFees {
-    repeated CustomFee customFee = 1; // custom Fee to be charged
-}
-
-/* A list of accounts and amounts that are involved in a Token's HbarFee */
-message CustomHbarFees {
-    TransferList customHbarFees = 1;
-}
-
-/* A list of tokenIds and amounts representing the transferred out (negative) or into (positive) amounts according to a Token's TokenUnitFee */
-message CustomTokenUnitFees {
-    repeated TokenTransferList customTokenUnitFees = 1;
 }
 
 /* Unique identifier for a topic (used by the consensus service) */
