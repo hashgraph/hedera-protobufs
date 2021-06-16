@@ -31,6 +31,8 @@ import "BasicTypes.proto";
 If any sender account fails to have sufficient hbars, then the entire transaction fails, and none of those transfers occur, though the transaction fee is still charged. This transaction must be signed by the keys for all the sending accounts, and for any receiving accounts that have receiverSigRequired == true. The signatures are in the same order as the accounts, skipping those accounts that don't need a signature.
 */
 message CryptoTransferTransactionBody {
-    TransferList transfers = 1;
-    repeated TokenTransferList tokenTransfers = 2;
+    TransferList transfers = 1;  // For hbar transfer;
+    repeated TokenTransferList tokenTransfers = 2; // For token transfers in the transaction.
+                                                   // For any token being transferred with custom fees applied on it, the ledger will charge the custom fees accordingly,
+                                                   // but those fees should not be exposed to this transaction body.
 }
