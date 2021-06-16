@@ -115,9 +115,9 @@ message FractionalFee {
 
 /* Fixed custom fee to be collected during a token transfer */
 message FixedFee {
-    uint64 unitsToCollect = 1;
+    uint64 unitsToCollect = 1; // units of either hbar/ token to be collected
     /* If set, the denomination of the units to collect */
-    TokenID nonHbarDenomination = 2;
+    TokenID tokenId = 2; // denominating token type. If this is empty the denomination type is hbar.
 }
 
 /* Custom transfer fee in Token units or hbar that needs to be paid to the specified receiver when a TokenTransfer is performed.*/
@@ -126,12 +126,12 @@ message CustomFee {
         FixedFee fixedFee = 1; // Fixed fee to be charged
         FractionalFee fractionalFee = 2; // Fractional Fee to be charged
     }
-    AccountID receivingAccountID = 3; // Fee collector of this custom fee.
+    AccountID feeCollector = 3; // Fee collector of this custom fee.
 }
 
 /* Custom Fees to be charged*/
 message CustomFees {
-    repeated CustomFee customFee = 1;
+    repeated CustomFee customFee = 1; // custom Fee to be charged
 }
 
 /* A list of accounts and amounts that are involved in a Token's HbarFee */
