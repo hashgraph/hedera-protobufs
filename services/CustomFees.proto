@@ -52,14 +52,3 @@ message CustomFee {
 message CustomFees {
   repeated CustomFee customFees = 1; // custom Fee to be charged
 }
-
-/* A list of accounts and amounts that are involved in a Token's HbarFee */
-message CustomHbarFees {
-  TransferList customHbarFees = 1;
-}
-
-/* A list of tokenIds and amounts representing the transferred out (negative) or into (positive) amounts according to a Token's TokenUnitFee */
-message CustomTokenUnitFees {
-  repeated TokenTransferList customTokenUnitFees = 1;
-}
-
