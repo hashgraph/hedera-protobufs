@@ -246,4 +246,5 @@ enum ResponseCodeEnum {
   INVALID_TOKEN_ID_IN_CUSTOM_FEES = 234; // Any of the token Ids in customFees is invalid
   TOKEN_NOT_ASSOCIATED_TO_FEE_COLLECTOR = 235; // Any of the token Ids in customFees are not associated to feeCollector
   TOKEN_MAX_SUPPLY_REACHED = 236; // A token cannot have more units minted due to its configured supply ceiling
+  SENDER_DOES_NOT_OWN_NFT_SERIAL_NO = 237; // The transaction attempted to move an NFT serial number from an account other than its owner
 }
