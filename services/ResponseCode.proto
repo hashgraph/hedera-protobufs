@@ -245,4 +245,5 @@ enum ResponseCodeEnum {
   INVALID_CUSTOM_FEE_COLLECTOR = 233; // Any of the feeCollector accounts for customFees is invalid
   INVALID_TOKEN_ID_IN_CUSTOM_FEES = 234; // Any of the token Ids in customFees is invalid
   TOKEN_NOT_ASSOCIATED_TO_FEE_COLLECTOR = 235; // Any of the token Ids in customFees are not associated to feeCollector
+  TOKEN_MAX_SUPPLY_REACHED = 236; // A token cannot have more units minted due to its configured supply ceiling
 }
