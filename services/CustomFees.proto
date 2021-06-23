@@ -61,5 +61,5 @@ message AssessedCustomFee {
 /* The custom fees attached to a token; may be marked as mutable or immutable. */
 message CustomFees {
   bool can_update_with_admin_key = 1; // Whether the fees can be updated with the token's admin key; once this is false, it can never be made true again
-  repeated CustomFee custom_fees = 2; // All the custom fees attached to a token
+  repeated CustomFee custom_fees = 2; // All the custom fees attached to the token
 }
