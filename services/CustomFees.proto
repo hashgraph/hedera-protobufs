@@ -23,7 +23,6 @@ package proto;
  */
 
 import "BasicTypes.proto";
-import "google/protobuf/wrappers.proto";
 
 /* A fraction of the transferred units of a token to assess as a fee. The amount assessed
 will never be less than the given minimum_amount, and never greater than the given maximum_amount. 
