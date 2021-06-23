@@ -25,47 +25,42 @@ package proto;
 import "BasicTypes.proto";
 import "google/protobuf/wrappers.proto";
 
-/* A fraction of the units to be collected from the payer of a CryptoTransfer 
-that transfers units of a token. The amount charged will never be
-less than the stated minimumUnitsToCollect, and never greater than 
-the stated maximumUnitsToCollect (if given). */
+/* A fraction of the transferred units of a token to assess as a fee. The amount assessed
+will never be less than the given minimum_amount, and never greater than the given maximum_amount. 
+The denomination is always units of the token to which this fractional fee is attached. */
 message FractionalFee {
-  Fraction fractionOfUnitsToCollect = 1; // percentage of the Tokens involved in the transfer to be charged as fee
-  uint64 minimumUnitsToCollect = 2; // minimum token units to be charged as fee
-  google.protobuf.UInt64Value maximumUnitsToCollect = 3; // maximum token units to be charged as fee
+  Fraction fractional_amount = 1; // The fraction of the transferred units to assess as a fee
+  sint64 minimum_amount = 2; // The minimum amount to assess
+  sint64 maximum_amount = 3; // The maximum amount to assess (zero implies no maximum)
 }
 
-/* A fixed custom fee to be collected during a CryptoTransfer that transfers units of a token */
+/* A fixed number of units (hbar or token) to asssess as a fee during a CryptoTransfer 
+that transfers units of the token to which this fixed fee is attached. */
 message FixedFee {
-  uint64 unitsToCollect = 1; // units of either hbar/token to be collected
-  /* If set, the denomination of the units to collect */
-  TokenID tokenId = 2; // denominating token type. If this is empty the denomination type is hbar.
+  sint64 amount = 1; // The number of units to assess as a fee
+  TokenID denominating_token_id = 2; // The denomination of the fee; taken as hbar if left unset
 }
 
-/* Custom transfer fee in token units or hbar that must be paid to the specified feeCollector during a
-CryptoTransfer that transfers units of a token with a custom fee schedule. */
+/* A transfer fee to assess during a CryptoTransfer that transfers units of the token 
+to which the fee is attached. A custom fee may be either fixed or fractional, and must specify
+a fee collector account to receive the assessed fees. Only positive fees may be assessed. */
 message CustomFee {
   oneof fee {
-    FixedFee fixedFee = 1; // Fixed fee to be charged
-    FractionalFee fractionalFee = 2; // Fractional fee to be charged
+    FixedFee fixed_fee = 1; // Fixed fee to be charged
+    FractionalFee fractional_fee = 2; // Fractional fee to be charged
   }
-  AccountID feeCollector = 3; // Fee collector of this custom fee.
+  AccountID fee_collector_account_id = 3; // The account to receive the custom fee
 }
 
-/* A custom transfer fee in token units or hbar that was computed, based
-on a CustomFee type, to be charged for a CryptoTransfer. */
-message CustomFeeCharged {
-  uint64 unitsCharged = 1; // units of either hbar/token that were charged for this CryptoTransfer 
-  TokenID tokenId = 2; // denominating token type. If this is empty the denomination type is hbar.
-  AccountID feeCollector = 3; // Fee collector of this custom fee.
+/* A custom transfer fee that was assessed during handling of a CryptoTransfer. */
+message AssessedCustomFee {
+  sint64 amount = 1; // The number of units assessed for the fee
+  TokenID token_id = 2; // The denomination of the fee; taken as hbar if left unset
+  AccountID fee_collector_account_id = 3; // The account to receive the assessed fee
 }
 
-/* Custom fees that are charged for a CryptoTransfer. */
-message CustomFeesCharged {
-  repeated CustomFeeCharged customFeesCharged = 1; // all custom fees charged 
-}
-
-/* Custom fees associated to a token */
+/* The custom fees attached to a token; may be marked as mutable or immutable. */
 message CustomFees {
-  repeated CustomFee customFees = 1; // all custom fees for a token 
+  bool can_update_with_admin_key = 1; // Whether the fees can be updated with the token's admin key; once this is false, it can never be made true again
+  repeated CustomFee custom_fees = 2; // All the custom fees attached to a token
 }

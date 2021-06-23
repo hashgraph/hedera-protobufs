@@ -192,7 +192,7 @@ enum ResponseCodeEnum {
   TOKEN_HAS_NO_WIPE_KEY = 181; // Wipe key is not set on token
   INVALID_TOKEN_MINT_AMOUNT = 182; // The requested token mint amount would cause an invalid total supply
   INVALID_TOKEN_BURN_AMOUNT = 183; // The requested token burn amount would cause an invalid total supply
-  TOKEN_NOT_ASSOCIATED_TO_ACCOUNT = 184;  // A required token-account relationship is missing
+  TOKEN_NOT_ASSOCIATED_TO_ACCOUNT = 184; // A required token-account relationship is missing
   CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT = 185; // The target of a wipe operation was the token treasury account
   INVALID_KYC_KEY = 186; // The provided KYC key was invalid.
   INVALID_WIPE_KEY = 187; // The provided wipe key was invalid.
@@ -250,4 +250,6 @@ enum ResponseCodeEnum {
   CUSTOM_FEE_NOT_FULLY_SPECIFIED = 238; // A custom fee schedule entry did not specify either a fixed or fractional fee
   INVALID_CUSTOM_FEE_KEY = 239; // The provided custom fee key was invalid
   TOKEN_HAS_NO_CUSTOM_FEE_KEY = 240; // Only tokens with custom fee keys can have their fee schedule changed
+  CANNOT_ASSESS_NEGATIVE_CUSTOM_FEE = 241; // Only positive fees may be assessed at this time
+  CUSTOM_FEES_ARE_IMMUTABLE = 242; // Once custom fees are marked as immutable, they can never be changed (or made mutable again)
 }

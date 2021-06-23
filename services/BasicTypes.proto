@@ -99,10 +99,10 @@ message TokenTransferList {
     repeated NftTransfer nftTransfers = 3; // Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NftTransfers, each of which has a sender and receiver account, including the serial number of the NFT
 }
 
-/* Representing the percentage of tokens to be transferred as part of the CustomFee */
+/* A rational number, useful for example to set the fraction of a value transfer to be collected as a custom fee */
 message Fraction {
-    uint64 numerator = 1; // numerator of the fraction
-    uint64 denominator = 2; // denominator of the fraction
+    sint64 numerator = 1; // The rational's numerator
+    sint64 denominator = 2; // The rational's denominator; a zero value will result in FRACTION_DIVIDES_BY_ZERO
 }
 
 /* Unique identifier for a topic (used by the consensus service) */
@@ -143,7 +143,6 @@ enum TokenType {
      */
     NON_FUNGIBLE_UNIQUE = 1;
 }
-
 
 /**
  * Possible FeeData Object SubTypes. Supplementary to the main HederaFunctionality Type.
