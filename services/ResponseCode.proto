@@ -248,6 +248,6 @@ enum ResponseCodeEnum {
   TOKEN_MAX_SUPPLY_REACHED = 236; // A token cannot have more units minted due to its configured supply ceiling
   SENDER_DOES_NOT_OWN_NFT_SERIAL_NO = 237; // The transaction attempted to move an NFT serial number from an account other than its owner
   CUSTOM_FEE_NOT_FULLY_SPECIFIED = 238; // A custom fee schedule entry did not specify either a fixed or fractional fee
-  CANNOT_ASSESS_NEGATIVE_CUSTOM_FEE = 239; // Only positive fees may be assessed at this time
-  CUSTOM_FEES_ARE_IMMUTABLE = 240; // Once custom fees are marked as immutable, they can never be changed (or made mutable again)
+  CUSTOM_FEE_MUST_BE_POSITIVE = 239; // Only positive fees may be assessed at this time
+  CUSTOM_FEES_ARE_MARKED_IMMUTABLE = 240; // Once custom fees are marked as immutable, they can never be changed (or made mutable again)
 }
