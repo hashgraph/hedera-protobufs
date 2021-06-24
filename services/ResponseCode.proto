@@ -251,4 +251,5 @@ enum ResponseCodeEnum {
   CUSTOM_FEE_MUST_BE_POSITIVE = 239; // Only positive fees may be assessed at this time
   CUSTOM_FEES_ARE_MARKED_IMMUTABLE = 240; // Once custom fees are marked as immutable, they can never be changed (or made mutable again)
   CUSTOM_FEE_OUTSIDE_NUMERIC_RANGE = 241; // A fractional custom fee exceeded the range of a 64-bit signed integer
+  INVALID_CUSTOM_FRACTIONAL_FEES_SUM = 242; // The sum of all custom fractional fees must be strictly less than 1
 }
