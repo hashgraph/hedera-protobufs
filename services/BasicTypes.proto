@@ -101,8 +101,8 @@ message TokenTransferList {
 
 /* A rational number, used to set the amount of a value transfer to collect as a custom fee */
 message Fraction {
-    sint64 numerator = 1; // The rational's numerator
-    sint64 denominator = 2; // The rational's denominator; a zero value will result in FRACTION_DIVIDES_BY_ZERO
+    int64 numerator = 1; // The rational's numerator
+    int64 denominator = 2; // The rational's denominator; a zero value will result in FRACTION_DIVIDES_BY_ZERO
 }
 
 /* Unique identifier for a topic (used by the consensus service) */
