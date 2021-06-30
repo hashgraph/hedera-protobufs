@@ -37,6 +37,6 @@ resolve to INVALID_SIGNATURE.
 If the custom_fees list is empty, clears the fee schedule or resolves to 
 CUSTOM_SCHEDULE_ALREADY_HAS_NO_FEES if the fee schedule was already empty. */
 message TokenFeeScheduleUpdateTransactionBody {
-    TokenID tokenId = 1; // The token whose fee schedule is to be updated
+    TokenID token_id = 1; // The token whose fee schedule is to be updated
     repeated CustomFee custom_fees = 2; // The new custom fees to be assessed during a CryptoTransfer that transfers units of this token
 }
