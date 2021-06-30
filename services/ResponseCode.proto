@@ -238,7 +238,7 @@ enum ResponseCodeEnum {
   INVALID_NFT_ID = 226; // Invalid nft id
   METADATA_TOO_LONG = 227; // Nft metadata is too long
   BATCH_SIZE_LIMIT_EXCEEDED = 228; // Repeated operations count exceeds the limit
-  QUERY_RANGE_LIMIT_EXCEEDED = 229; // The range of data to be gathered exceeds the limit
+  INVALID_QUERY_RANGE = 229; // The range of data to be gathered is out of the set boundaries
   FRACTION_DIVIDES_BY_ZERO = 230; // A custom fractional fee set a denominator of zero
   INSUFFICIENT_PAYER_BALANCE_FOR_CUSTOM_FEE = 231; // The transaction payer could not afford a custom fee
   CUSTOM_FEES_LIST_TOO_LONG = 232; // The customFees list is longer than allowed limit 10
