@@ -336,6 +336,7 @@ enum HederaFunctionality {
     TokenGetAccountNftInfos = 74; // Get Token Account Nft Information
     TokenGetNftInfo = 75; // Get Token Nft Information
     TokenGetNftInfos = 76; // Get Token Nft List Information
+    TokenFeeScheduleUpdate = 77; // Update a token's custom fee schedule, if permissible
 }
 
 /*
