@@ -231,4 +231,6 @@ enum ResponseCodeEnum {
   UNPARSEABLE_THROTTLE_DEFINITIONS = 221; // The new contents for the throttle definitions system file were not valid protobuf
   INVALID_THROTTLE_DEFINITIONS = 222; // The new throttle definitions system file were invalid, and no more specific error could be divined
   ACCOUNT_EXPIRED_AND_PENDING_REMOVAL = 223; // The transaction references an account which has passed its expiration without renewal funds available, and currently remains in the ledger only because of the grace period given to expired entities
+  INVALID_TOKEN_MINT_METADATA = 245; // The requested token mint metadata was invalid
+  INVALID_TOKEN_BURN_METADATA = 246; // The requested token burn metadata was invalid
 }
