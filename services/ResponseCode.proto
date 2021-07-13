@@ -237,4 +237,6 @@ enum ResponseCodeEnum {
   METADATA_TOO_LONG = 227; // Nft metadata is too long
   BATCH_SIZE_LIMIT_EXCEEDED = 228; // Repeated operations count exceeds the limit
   QUERY_RANGE_LIMIT_EXCEEDED = 229; // The range of data to be gathered exceeds the limit
+  PAYER_ACCOUNT_DELETED = 230; // the payer account has been marked as deleted
+
 }
