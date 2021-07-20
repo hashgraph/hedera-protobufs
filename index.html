@@ -3836,7 +3836,7 @@
         </table>
       
         <h3 id="proto.SubType">SubType</h3>
-        <p></p><p>Possible FeeData Object SubTypes. Supplementary to the main HederaFunctionality Type.</p><p>When not explicitly specified, DEFAULT is used.</p>
+        <p></p><p>Allows a set of resource prices to be scoped to a certain type of a HAPI operation. </p><p>For example, the resource prices for a TokenMint operation are different between</p><p>minting fungible and non-fungible tokens. This enum allows us to "mark" a set of </p><p>prices as applying to one or the other.</p><p>Similarly, the resource prices for a basic TokenCreate without a custom fee schedule </p><p>yield a total price of $1. The resource prices for a TokenCreate with a custom fee </p><p>schedule are different and yield a total base price of $2.</p>
         <table class="enum-table">
           <thead>
             <tr><td>Name</td><td>Number</td><td>Description</td></tr>
@@ -3846,19 +3846,31 @@
               <tr>
                 <td>DEFAULT</td>
                 <td>0</td>
-                <td><p></p></td>
+                <td><p>The resource prices have no special scope</p></td>
               </tr>
             
               <tr>
                 <td>TOKEN_FUNGIBLE_COMMON</td>
                 <td>1</td>
-                <td><p></p></td>
+                <td><p>The resource prices are scoped to an operation on a fungible common token</p></td>
               </tr>
             
               <tr>
                 <td>TOKEN_NON_FUNGIBLE_UNIQUE</td>
                 <td>2</td>
-                <td><p></p></td>
+                <td><p>The resource prices are scoped to an operation on a non-fungible unique token</p></td>
+              </tr>
+            
+              <tr>
+                <td>TOKEN_FUNGIBLE_COMMON_WITH_CUSTOM_FEES</td>
+                <td>3</td>
+                <td><p>The resource prices are scoped to an operation on a fungible common token with a custom fee schedule</p></td>
+              </tr>
+            
+              <tr>
+                <td>TOKEN_NON_FUNGIBLE_UNIQUE_WITH_CUSTOM_FEES</td>
+                <td>4</td>
+                <td><p>The resource prices are scoped to an operation on a non-fungible unique token with a custom fee schedule</p></td>
               </tr>
             
           </tbody>
@@ -6764,7 +6776,7 @@ If unspecified, no change. </p></td>
         
       
         <h3 id="proto.FixedFee">FixedFee</h3>
-        <p>A fixed number of units (hbar or token) to asssess as a fee during a CryptoTransfer </p><p>that transfers units of the token to which this fixed fee is attached.</p>
+        <p>A fixed number of units (hbar or token) to assess as a fee during a CryptoTransfer </p><p>that transfers units of the token to which this fixed fee is attached.</p>
 
         
           <table class="field-table">
@@ -6784,7 +6796,7 @@ If unspecified, no change. </p></td>
                   <td>denominating_token_id</td>
                   <td><a href="#proto.TokenID">TokenID</a></td>
                   <td></td>
-                  <td><p>The denomination of the fee; taken as hbar if left unset </p></td>
+                  <td><p>The denomination of the fee; taken as hbar if left unset and, in a TokenCreate, taken as the id of the newly created token if set to the sentinel value of 0.0.0 </p></td>
                 </tr>
               
             </tbody>
@@ -9572,7 +9584,7 @@ by HAPI.</p></td>
               <tr>
                 <td>CUSTOM_FEES_LIST_TOO_LONG</td>
                 <td>232</td>
-                <td><p>The customFees list is longer than allowed limit 10</p></td>
+                <td><p>More than 10 custom fees were specified</p></td>
               </tr>
             
               <tr>
@@ -9681,6 +9693,54 @@ by HAPI.</p></td>
                 <td>CURRENT_TREASURY_STILL_OWNS_NFTS</td>
                 <td>250</td>
                 <td><p>The treasury for a unique token cannot be changed until it owns no NFTs</p></td>
+              </tr>
+            
+              <tr>
+                <td>ACCOUNT_STILL_OWNS_NFTS</td>
+                <td>251</td>
+                <td><p>An account cannot be dissociated from a unique token if it owns NFTs for the token</p></td>
+              </tr>
+            
+              <tr>
+                <td>TREASURY_MUST_OWN_BURNED_NFT</td>
+                <td>252</td>
+                <td><p>A NFT can only be burned when owned by the unique token&#39;s treasury</p></td>
+              </tr>
+            
+              <tr>
+                <td>ACCOUNT_DOES_NOT_OWN_WIPED_NFT</td>
+                <td>253</td>
+                <td><p>An account did not own the NFT to be wiped</p></td>
+              </tr>
+            
+              <tr>
+                <td>ACCOUNT_AMOUNT_TRANSFERS_ONLY_ALLOWED_FOR_FUNGIBLE_COMMON</td>
+                <td>254</td>
+                <td><p>An AccountAmount token transfers list referenced a token type other than FUNGIBLE_COMMON</p></td>
+              </tr>
+            
+              <tr>
+                <td>MAX_NFTS_IN_PRICE_REGIME_HAVE_BEEN_MINTED</td>
+                <td>255</td>
+                <td><p>All the NFTs allowed in the current price regime have already been minted</p></td>
+              </tr>
+            
+              <tr>
+                <td>PAYER_ACCOUNT_DELETED</td>
+                <td>256</td>
+                <td><p>The payer account has been marked as deleted</p></td>
+              </tr>
+            
+              <tr>
+                <td>CUSTOM_FEE_CHARGING_EXCEEDED_MAX_RECURSION_DEPTH</td>
+                <td>257</td>
+                <td><p>The reference chain of custom fees for a transferred token exceeded the maximum length of 2</p></td>
+              </tr>
+            
+              <tr>
+                <td>CUSTOM_FEE_CHARGING_EXCEEDED_MAX_ACCOUNT_AMOUNTS</td>
+                <td>258</td>
+                <td><p>More than 20 balance adjustments were to satisfy a CryptoTransfer and its implied custom fee payments</p></td>
               </tr>
             
           </tbody>
@@ -10828,7 +10888,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenBurnTransactionBody">TokenBurnTransactionBody</h3>
-        <p>Burns tokens from the Token's treasury Account. If no Supply Key is defined, the transaction will resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation decreases the Total Supply of the Token. Total supply cannot go below zero.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to burn 100 tokens, one must provide amount of 10000. In order to burn 100.55 tokens, one must provide amount of 10055.</p>
+        <p>Burns tokens from the Token's treasury Account. If no Supply Key is defined, the transaction will resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation decreases the Total Supply of the Token. Total supply cannot go below zero.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to burn 100 tokens, one must provide amount of 10000. In order to burn 100.55 tokens, one must provide amount of 10055.</p><p>For non fungible tokens the transaction body accepts serialNumbers list of integers as a parameter.</p><p>If neither the amount nor the serialNumbers get filled, a INVALID_TOKEN_BURN_AMOUNT response code will be returned.</p><p>If both amount and serialNumbers get filled, a INVALID_TRANSACTION_BODY response code will be returned.</p><p>If the serialNumbers' list count is greater than the batch size limit global dynamic property, a BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p><p>If the serialNumbers list contains a non-positive integer as a serial number, a INVALID_NFT_ID response code will be returned.</p>
 
         
           <table class="field-table">
@@ -10880,7 +10940,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenCreateTransactionBody">TokenCreateTransactionBody</h3>
-        <p>Create a new token. After the token is created, the Token ID for it is in the receipt.</p><p>The specified Treasury Account is receiving the initial supply of tokens as-well as the tokens from the Token Mint operation once executed. The balance of the treasury account is decreased when the Token Burn operation is executed.</p><p>The <tt>initialSupply</tt> is the initial supply of the smallest parts of a token (like a tinybar, not an hbar). These are the smallest units of the token which may be transferred. </p><p>The supply can change over time. If the total supply at some moment is <i>S</i> parts of tokens, and the token is using <i>D</i> decimals, then <i>S</i> must be less than or equal to 2<sup>63</sup>-1, which is 9,223,372,036,854,775,807. The number of whole tokens (not parts) will be <i>S / 10<sup>D</sup></i>.</p><p>If decimals is 8 or 11, then the number of whole tokens can be at most a few billions or millions, respectively. For example, it could match Bitcoin (21 million whole tokens with 8 decimals) or hbars (50 billion whole tokens with 8 decimals). It could even match Bitcoin with milli-satoshis (21 million whole tokens with 11 decimals).</p><p>Note that a created token is <i>immutable</i> if the <tt>adminKey</tt> is omitted. No property of an immutable token can ever change, with the sole exception of its expiry. Anyone can pay to extend the expiry time of an immutable token.</p>
+        <p>Create a new token. After the token is created, the Token ID for it is in the receipt.</p><p>The specified Treasury Account is receiving the initial supply of tokens as-well as the tokens from the Token Mint operation once executed. The balance of the treasury account is decreased when the Token Burn operation is executed.</p><p>The <tt>initialSupply</tt> is the initial supply of the smallest parts of a token (like a tinybar, not an hbar). These are the smallest units of the token which may be transferred.</p><p>The supply can change over time. If the total supply at some moment is <i>S</i> parts of tokens, and the token is using <i>D</i> decimals, then <i>S</i> must be less than or equal to 2<sup>63</sup>-1, which is 9,223,372,036,854,775,807. The number of whole tokens (not parts) will be <i>S / 10<sup>D</sup></i>.</p><p>If decimals is 8 or 11, then the number of whole tokens can be at most a few billions or millions, respectively. For example, it could match Bitcoin (21 million whole tokens with 8 decimals) or hbars (50 billion whole tokens with 8 decimals). It could even match Bitcoin with milli-satoshis (21 million whole tokens with 11 decimals).</p><p>Note that a created token is <i>immutable</i> if the <tt>adminKey</tt> is omitted. No property of an immutable token can ever change, with the sole exception of its expiry. Anyone can pay to extend the expiry time of an immutable token.</p><p>A token can be either <i>FUNGIBLE_COMMON</i> or <i>NON_FUNGIBLE_UNIQUE</i>, based on its <i>TokenType</i>. If it has been omitted, <i>FUNGIBLE_COMMON</i> type is used.</p><p>A token can have either <i>INFINITE</i> or <i>FINITE</i> supply type, based on its <i>TokenType</i>. If it has been omitted, <i>INFINITE</i> type is used.</p><p>If a <i>FUNGIBLE</i> TokenType is used, <i>initialSupply</i> should explicitly be set to a non-negative. If not, the transaction will resolve to INVALID_TOKEN_INITIAL_SUPPLY.</p><p>If a <i>NON_FUNGIBLE_UNIQUE</i> TokenType is used, <i>initialSupply</i> should explicitly be set to 0. If not, the transaction will resolve to INVALID_TOKEN_INITIAL_SUPPLY.</p><p>If an <i>INFINITE</i> TokenSupplyType is used, <i>maxSupply</i> should explicitly be set to 0. If it is not 0, the transaction will resolve to INVALID_TOKEN_MAX_SUPPLY.</p><p>If a <i>FINITE</i> TokenSupplyType is used, <i>maxSupply</i> should be explicitly set to a non-negative value. If it is not, the transaction will resolve to INVALID_TOKEN_MAX_SUPPLY.</p>
 
         
           <table class="field-table">
@@ -11089,7 +11149,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenDissociateTransactionBody">TokenDissociateTransactionBody</h3>
-        <p>Dissociates the provided account with the provided tokens. Must be signed by the provided Account's key.</p><p>If the provided account is not found, the transaction will resolve to INVALID_ACCOUNT_ID.</p><p>If the provided account has been deleted, the transaction will resolve to ACCOUNT_DELETED.</p><p>If any of the provided tokens is not found, the transaction will resolve to INVALID_TOKEN_REF.</p><p>If any of the provided tokens has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If an association between the provided account and any of the tokens does not exist, the transaction will resolve to TOKEN_NOT_ASSOCIATED_TO_ACCOUNT.</p><p>If the provided account has a nonzero balance with any of the provided tokens, the transaction will resolve to TRANSACTION_REQUIRES_ZERO_TOKEN_BALANCES.</p><p>On success, associations between the provided account and tokens are removed.</p>
+        <p>Dissociates the provided account with the provided tokens. Must be signed by the provided Account's key.</p><p>If the provided account is not found, the transaction will resolve to INVALID_ACCOUNT_ID.</p><p>If the provided account has been deleted, the transaction will resolve to ACCOUNT_DELETED.</p><p>If any of the provided tokens is not found, the transaction will resolve to INVALID_TOKEN_REF.</p><p>If any of the provided tokens has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If an association between the provided account and any of the tokens does not exist, the transaction will resolve to TOKEN_NOT_ASSOCIATED_TO_ACCOUNT.</p><p>If a token has not been deleted and has not expired, and the user has a nonzero balance, the transaction will resolve to TRANSACTION_REQUIRES_ZERO_TOKEN_BALANCES.</p><p>If a <b>fungible token</b> has expired, the user can disassociate even if their token balance is not zero.</p><p>If a <b>non fungible token</b> has expired, the user can <b>not</b> disassociate if their token balance is not zero. The transaction will resolve to TRANSACTION_REQUIRED_ZERO_TOKEN_BALANCES.</p><p>On success, associations between the provided account and tokens are removed.</p>
 
         
           <table class="field-table">
@@ -11224,7 +11284,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenGetAccountNftInfosQuery">TokenGetAccountNftInfosQuery</h3>
-        <p>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M owned by the specified accountId.</p><p>Example: If Account A owns 5 NFTs (might be of different Token Entity), having start=0 and end=5 will return all of the NFTs</p>
+        <p>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M owned by the specified accountId.</p><p>Example: If Account A owns 5 NFTs (might be of different Token Entity), having start=0 and end=5 will return all of the NFTs</p><p>INVALID_QUERY_RANGE response code will be returned if:</p><p>1) Start > End</p><p>2) Start and End indices are non-positive</p><p>3) Start and End indices are out of boundaries for the retrieved nft list</p><p>4) The range between Start and End is bigger than the global dynamic property for maximum query range</p><p>NOT_SUPPORTED response code will be returned if the queried token is of type FUNGIBLE_COMMON</p><p>INVALID_ACCOUNT_ID response code will be returned if the queried account does not exist</p><p>ACCOUNT_DELETED response code will be returned if the queried account has been deleted</p>
 
         
           <table class="field-table">
@@ -11720,7 +11780,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenGetNftInfosQuery">TokenGetNftInfosQuery</h3>
-        <p>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M on the list of NFTs associated with a given NON_FUNGIBLE_UNIQUE Token.</p><p>Example: If there are 10 NFTs issued, having start=0 and end=5 will query for the first 5 NFTs. Querying +all 10 NFTs will require start=0 and end=10</p>
+        <p>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M on the list of NFTs associated with a given NON_FUNGIBLE_UNIQUE Token.</p><p>Example: If there are 10 NFTs issued, having start=0 and end=5 will query for the first 5 NFTs. Querying +all 10 NFTs will require start=0 and end=10</p><p>INVALID_QUERY_RANGE response code will be returned if:</p><p>1) Start > End</p><p>2) Start and End indices are non-positive</p><p>3) Start and End indices are out of boundaries for the retrieved nft list</p><p>4) The range between Start and End is bigger than the global dynamic property for maximum query range</p><p>NOT_SUPPORTED response code will be returned if the queried token is of type FUNGIBLE_COMMON</p><p>INVALID_TOKEN_ID response code will be returned if the queried token does not exist</p>
 
         
           <table class="field-table">
@@ -11862,7 +11922,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenMintTransactionBody">TokenMintTransactionBody</h3>
-        <p>Mints tokens to the Token's treasury Account. If no Supply Key is defined, the transaction will resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation increases the Total Supply of the Token. The maximum total supply a token can have is 2^63-1.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to mint 100 tokens, one must provide amount of 10000. In order to mint 100.55 tokens, one must provide amount of 10055.</p>
+        <p>Mints tokens to the Token's treasury Account. If no Supply Key is defined, the transaction will resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation increases the Total Supply of the Token. The maximum total supply a token can have is 2^63-1.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to mint 100 tokens, one must provide amount of 10000. In order to mint 100.55 tokens, one must provide amount of 10055.</p><p>If both amount and metadata list get filled, a INVALID_TRANSACTION_BODY response code will be returned.</p><p>If the metadata list contains metadata which is too large, a METADATA_TOO_LONG response code will be returned.</p><p>If neither the amount nor the metadata list get filled, a INVALID_TOKEN_MINT_AMOUNT response code will be returned.</p><p>If the metadata list count is greater than the batch size limit global dynamic property, a BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p>
 
         
           <table class="field-table">
@@ -12149,7 +12209,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenUpdateTransactionBody">TokenUpdateTransactionBody</h3>
-        <p>At consensus, updates an already created token to the given values.</p><p>If no value is given for a field, that field is left unchanged. For an immutable tokens (that is, a token without an admin key), only the expiry may be updated. Setting any other field in that case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.</p><p>--- Signing Requirements ---</p><p>1. Whether or not a token has an admin key, its expiry can be extended with only the transaction payer's signature.</p><p>2. Updating any other field of a mutable token requires the admin key's signature.</p><p>3. If a new admin key is set, this new key must sign <b>unless</b> it is exactly an empty <tt>KeyList</tt>. This special sentinel key removes the existing admin key and causes the token to become immutable. (Other <tt>Key</tt> structures without a constituent <tt>Ed25519</tt> key will be rejected with <tt>INVALID_ADMIN_KEY</tt>.)</p><p>4. If a new treasury is set, the new treasury account's key must sign the transaction.</p>
+        <p>At consensus, updates an already created token to the given values.</p><p>If no value is given for a field, that field is left unchanged. For an immutable tokens (that is, a token without an admin key), only the expiry may be updated. Setting any other field in that case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.</p><p>--- Signing Requirements ---</p><p>1. Whether or not a token has an admin key, its expiry can be extended with only the transaction payer's signature.</p><p>2. Updating any other field of a mutable token requires the admin key's signature.</p><p>3. If a new admin key is set, this new key must sign <b>unless</b> it is exactly an empty <tt>KeyList</tt>. This special sentinel key removes the existing admin key and causes the token to become immutable. (Other <tt>Key</tt> structures without a constituent <tt>Ed25519</tt> key will be rejected with <tt>INVALID_ADMIN_KEY</tt>.)</p><p>4. If a new treasury is set, the new treasury account's key must sign the transaction.</p><p>--- Nft Requirements ---</p><p>1. If a non fungible token has a positive treasury balance, the operation will abort with CURRENT_TREASURY_STILL_OWNS_NFTS.</p>
 
         
           <table class="field-table">
@@ -12278,7 +12338,7 @@ by HAPI.</p></td>
 
       
         <h3 id="proto.TokenWipeAccountTransactionBody">TokenWipeAccountTransactionBody</h3>
-        <p>Wipes the provided amount of tokens from the specified Account. Must be signed by the Token's Wipe key.</p><p>If the provided account is not found, the transaction will resolve to INVALID_ACCOUNT_ID.</p><p>If the provided account has been deleted, the transaction will resolve to ACCOUNT_DELETED.</p><p>If the provided token is not found, the transaction will resolve to INVALID_TOKEN_ID.</p><p>If the provided token has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If an Association between the provided token and account is not found, the transaction will resolve to TOKEN_NOT_ASSOCIATED_TO_ACCOUNT.</p><p>If Wipe Key is not present in the Token, transaction results in TOKEN_HAS_NO_WIPE_KEY.</p><p>If the provided account is the Token's Treasury Account, transaction results in CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT</p><p>On success, tokens are removed from the account and the total supply of the token is decreased by the wiped amount.</p><p>The amount provided is in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to wipe 100 tokens from account, one must provide amount of 10000. In order to wipe 100.55 tokens, one must provide amount of 10055.</p>
+        <p>Wipes the provided amount of tokens from the specified Account. Must be signed by the Token's Wipe key.</p><p>If the provided account is not found, the transaction will resolve to INVALID_ACCOUNT_ID.</p><p>If the provided account has been deleted, the transaction will resolve to ACCOUNT_DELETED.</p><p>If the provided token is not found, the transaction will resolve to INVALID_TOKEN_ID.</p><p>If the provided token has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If an Association between the provided token and account is not found, the transaction will resolve to TOKEN_NOT_ASSOCIATED_TO_ACCOUNT.</p><p>If Wipe Key is not present in the Token, transaction results in TOKEN_HAS_NO_WIPE_KEY.</p><p>If the provided account is the Token's Treasury Account, transaction results in CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT</p><p>On success, tokens are removed from the account and the total supply of the token is decreased by the wiped amount.</p><p>If both amount and serialNumbers get filled, a INVALID_TRANSACTION_BODY response code will be returned.</p><p>If neither the amount nor the serialNumbers get filled, a INVALID_WIPING_AMOUNT response code will be returned.</p><p>If the serialNumbers list contains a non-positive integer as a serial number, a INVALID_NFT_ID response code will be returned.</p><p>If the serialNumbers' list count is greater than the batch size limit global dynamic property, a BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p><p>The amount provided is in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to wipe 100 tokens from account, one must provide amount of 10000. In order to wipe 100.55 tokens, one must provide amount of 10055.</p>
 
         
           <table class="field-table">
