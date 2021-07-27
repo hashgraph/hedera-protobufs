@@ -268,4 +268,5 @@ enum ResponseCodeEnum {
   PAYER_ACCOUNT_DELETED = 256; // The payer account has been marked as deleted
   CUSTOM_FEE_CHARGING_EXCEEDED_MAX_RECURSION_DEPTH = 257; // The reference chain of custom fees for a transferred token exceeded the maximum length of 2
   CUSTOM_FEE_CHARGING_EXCEEDED_MAX_ACCOUNT_AMOUNTS = 258; // More than 20 balance adjustments were to satisfy a CryptoTransfer and its implied custom fee payments
+  SERIAL_NUMBER_LIMIT_REACHED = 259; // Currently no more than 4,294,967,295 NFTs may be minted for a given unique token type
 }
