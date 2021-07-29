@@ -38,5 +38,4 @@ message FreezeTransactionBody {
     FileID updateFile = 5; // The ID of the file needs to be updated during a freeze transaction
     bytes fileHash = 6; // The hash value of the file, used to verify file content before performing freeze and update
     Timestamp startTime = 7; // the freeze start Timestamp
-    Timestamp endTime = 8; // the freeze end Timestamp
 }
