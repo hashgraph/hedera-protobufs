@@ -35,7 +35,7 @@ message FreezeTransactionBody {
     int32 startMin = 2 [deprecated=true]; // The start minute (in UTC time), a value between 0 and 59
     int32 endHour = 3 [deprecated=true]; // The end hour (in UTC time), a value between 0 and 23
     int32 endMin = 4 [deprecated=true]; // The end minute (in UTC time), a value between 0 and 59
-    FileID update_file_id = 5; // If set, the file whose contents should be used for a network software update during the maintenance window
-    bytes update_file_hash = 6; // If set, the expected hash of the contents of the update file (used to verify the update)
+    FileID update_file = 5; // If set, the file whose contents should be used for a network software update during the maintenance window
+    bytes file_hash = 6; // If set, the expected hash of the contents of the update file (used to verify the update)
     Timestamp start_time = 7; // The consensus time at which the maintenance window should begin
 }
