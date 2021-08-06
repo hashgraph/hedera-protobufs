@@ -34,7 +34,7 @@ message FractionalFee {
   Fraction fractional_amount = 1; // The fraction of the transferred units to assess as a fee
   int64 minimum_amount = 2; // The minimum amount to assess
   int64 maximum_amount = 3; // The maximum amount to assess (zero implies no maximum)
-  bool netOfTransfers = 4; // If true, assesses the fee to the sender, so the receiver gets the full amount from the token transfer list, and the sender is charged an additional fee; if false, the receiver does NOT get the full amount, but only what is left over after paying the fractional fee
+  bool net_of_transfers = 4; // If true, assesses the fee to the sender, so the receiver gets the full amount from the token transfer list, and the sender is charged an additional fee; if false, the receiver does NOT get the full amount, but only what is left over after paying the fractional fee
 }
 
 /* A fixed number of units (hbar or token) to assess as a fee during a CryptoTransfer 
