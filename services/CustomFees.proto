@@ -61,9 +61,9 @@ message CustomFee {
   oneof fee {
     FixedFee fixed_fee = 1; // Fixed fee to be charged
     FractionalFee fractional_fee = 2; // Fractional fee to be charged
-    RoyaltyFee royalty_fee = 3; // Royalty fee to be charged
+    RoyaltyFee royalty_fee = 4; // Royalty fee to be charged
   }
-  AccountID fee_collector_account_id = 4; // The account to receive the custom fee
+  AccountID fee_collector_account_id = 3; // The account to receive the custom fee
 }
 
 /* A custom transfer fee that was assessed during handling of a CryptoTransfer. */
