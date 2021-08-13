@@ -25,11 +25,11 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "Timestamp.proto";
-import "QueryHeader.proto";
-import "ResponseHeader.proto";
-import "SchedulableTransactionBody.proto";
+import "basic_types.proto";
+import "timestamp.proto";
+import "query_header.proto";
+import "response_header.proto";
+import "schedulable_transaction_body.proto";
 
 /*
 Gets information about a schedule in the network's action queue.

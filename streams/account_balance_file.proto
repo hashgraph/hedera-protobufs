@@ -25,8 +25,8 @@ package proto;
 option java_package = "com.hedera.services.stream.proto";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "Timestamp.proto";
+import "basic_types.proto";
+import "timestamp.proto";
 
 message TokenUnitBalance {
     TokenID tokenId = 1; // A unique token id

@@ -25,10 +25,10 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "TransactionRecord.proto";
-import "QueryHeader.proto";
-import "ResponseHeader.proto";
+import "basic_types.proto";
+import "transaction_record.proto";
+import "query_header.proto";
+import "response_header.proto";
 
 // Requests records of all transactions for which the given account was the effective payer in the last 3 minutes of consensus time and <tt>ledger.keepRecordsInState=true</tt> was true during <tt>handleTransaction</tt>.
 message CryptoGetAccountRecordsQuery {

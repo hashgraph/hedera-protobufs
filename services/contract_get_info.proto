@@ -25,11 +25,11 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "Timestamp.proto";
-import "Duration.proto";
-import "BasicTypes.proto";
-import "QueryHeader.proto";
-import "ResponseHeader.proto";
+import "timestamp.proto";
+import "duration.proto";
+import "basic_types.proto";
+import "query_header.proto";
+import "response_header.proto";
 
 /* Get information about a smart contract instance. This includes the account that it uses, the file containing its bytecode, and the time when it will expire. */
 message ContractGetInfoQuery {

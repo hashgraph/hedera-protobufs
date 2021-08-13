@@ -25,8 +25,8 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "Duration.proto";
+import "basic_types.proto";
+import "duration.proto";
 
 // See [ConsensusService.createTopic()](#proto.ConsensusService)
 message ConsensusCreateTopicTransactionBody {

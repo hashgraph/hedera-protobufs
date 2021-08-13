@@ -25,10 +25,10 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "TokenGetNftInfo.proto";
-import "QueryHeader.proto";
-import "ResponseHeader.proto";
+import "basic_types.proto";
+import "token_get_nft_info.proto";
+import "query_header.proto";
+import "response_header.proto";
 
 /* Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M owned by the specified accountId.
  * Example: If Account A owns 5 NFTs (might be of different Token Entity), having start=0 and end=5 will return all of the NFTs

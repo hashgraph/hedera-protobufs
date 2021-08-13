@@ -25,10 +25,10 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "QueryHeader.proto";
-import "ResponseHeader.proto";
-import "CryptoAddLiveHash.proto";
+import "basic_types.proto";
+import "query_header.proto";
+import "response_header.proto";
+import "crypto_add_live_hash.proto";
 
 /* Requests a livehash associated to an account. */
 message CryptoGetLiveHashQuery {

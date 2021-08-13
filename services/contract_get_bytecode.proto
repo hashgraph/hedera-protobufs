@@ -25,9 +25,9 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
-import "QueryHeader.proto";
-import "ResponseHeader.proto";
+import "basic_types.proto";
+import "query_header.proto";
+import "response_header.proto";
 
 /* Get the bytecode for a smart contract instance */
 message ContractGetBytecodeQuery {

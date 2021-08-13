@@ -26,9 +26,9 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 import "google/protobuf/wrappers.proto";
-import "BasicTypes.proto";
-import "Duration.proto";
-import "Timestamp.proto";
+import "basic_types.proto";
+import "duration.proto";
+import "timestamp.proto";
 
 // All fields left null will not be updated.
 // See [ConsensusService.updateTopic()](#proto.ConsensusService)

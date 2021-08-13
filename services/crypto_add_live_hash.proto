@@ -26,8 +26,8 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 
-import "BasicTypes.proto";
-import "Duration.proto";
+import "basic_types.proto";
+import "duration.proto";
 
 /* A hash---presumably of some kind of credential or certificate---along with a list of keys, each of which may be either a primitive or a threshold key. */
 message LiveHash {

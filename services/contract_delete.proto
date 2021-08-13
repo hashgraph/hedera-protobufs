@@ -24,7 +24,7 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "BasicTypes.proto";
+import "basic_types.proto";
 
 /*
 At consensus, marks a contract as deleted and transfers its remaining hBars, if any, to a designated receiver. After a contract is deleted, it can no longer be called.

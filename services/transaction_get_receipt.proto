@@ -25,10 +25,10 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "TransactionReceipt.proto";
-import "BasicTypes.proto";
-import "QueryHeader.proto";
-import "ResponseHeader.proto";
+import "transaction_receipt.proto";
+import "basic_types.proto";
+import "query_header.proto";
+import "response_header.proto";
 
 /* Get the receipt of a transaction, given its transaction ID. Once a transaction reaches consensus, then information about whether it succeeded or failed will be available until the end of the receipt period.  Before and after the receipt period, and for a transaction that was never submitted, the receipt is unknown.  This query is free (the payment field is left empty). No State proof is available for this response*/
 message TransactionGetReceiptQuery {

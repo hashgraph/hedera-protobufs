@@ -24,7 +24,7 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "Timestamp.proto";
+import "timestamp.proto";
 
 
 /*
