@@ -140,6 +140,7 @@ message ContractID {
  * effect faster, if any given node might be slow. However, the full
  * transaction fee is charged for each transaction, so the total fee is N times
  * as much if the transaction is sent to N nodes.
+ *
  * Applicable to Scheduled Transactions:
  *  - The ID of a Scheduled Transaction has transactionValidStart and accountIDs
  *    inherited from the ScheduleCreate transaction that created it. That is to say
@@ -330,6 +331,7 @@ enum TokenType {
      * represented as a balance or quantity to a given Hedera account.
      */
     FUNGIBLE_COMMON = 0;
+
     /**
      * Unique, not interchangeable with other tokens of the same type as they
      * typically have different values.
@@ -400,8 +402,19 @@ enum TokenSupplyType {
  * CryptoGetInfoResponse in TokenRelationship
  */
 enum TokenFreezeStatus {
+    /**
+     * UNDOCUMENTED
+     */
     FreezeNotApplicable = 0;
+
+    /**
+     * UNDOCUMENTED
+     */
     Frozen = 1;
+
+    /**
+     * UNDOCUMENTED
+     */
     Unfrozen = 2;
 }
 
@@ -409,8 +422,19 @@ enum TokenFreezeStatus {
  * Possible KYC statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship
  */
 enum TokenKycStatus {
+    /**
+     * UNDOCUMENTED
+     */
     KycNotApplicable = 0;
+
+    /**
+     * UNDOCUMENTED
+     */
     Granted = 1;
+
+    /**
+     * UNDOCUMENTED
+     */
     Revoked = 2;
 }
 
@@ -556,6 +580,7 @@ message KeyList {
  */
 message Signature {
     option deprecated = true;
+
     oneof signature {
         /**
          * smart contract virtual signature (always length zero)
@@ -587,9 +612,7 @@ message Signature {
          * A list of M signatures, each corresponding to a Key in a KeyList of the same length.
          */
         SignatureList signatureList = 6;
-
-    
-}
+    }
 }
 
 /**
@@ -599,6 +622,7 @@ message Signature {
  */
 message ThresholdSignature {
     option deprecated = true;
+
     /**
      * for an N-of-M threshold key, this is a list of M signatures, at least N
      * of which must be non-null
@@ -612,6 +636,7 @@ message ThresholdSignature {
  */
 message SignatureList {
     option deprecated = true;
+
     /**
      * each signature corresponds to a Key in the KeyList
      */
@@ -995,7 +1020,8 @@ enum HederaFunctionality {
  * constants involved in fee calculations.
  * Nodes multiply the amount of resources consumed by a transaction or query by
  * the corresponding price to calculate the appropriate fee. Units are
- * one-thousandth of a tinyCent.*/
+ * one-thousandth of a tinyCent.
+ */
 message FeeComponents {
     /**
      * A minimum, the calculated fee must be greater than this value
