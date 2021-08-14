@@ -29,19 +29,51 @@ import "basic_types.proto";
 import "timestamp.proto";
 
 message TokenUnitBalance {
-    TokenID tokenId = 1; // A unique token id
-    uint64 balance = 2; // Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON - balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account
+    /**
+     * A unique token id
+     */
+    TokenID tokenId = 1;
+
+    /**
+     * Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON -
+     * balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of
+     * NFTs held by the account
+     */
+    uint64 balance = 2;
 }
 
-/* Includes all currency balances (both hbar and token) of a single account in the ledger. */
+/**
+ * Includes all currency balances (both hbar and token) of a single account in the ledger.
+ */
 message SingleAccountBalances {
-    AccountID accountID = 1; // The account
-    uint64 hbarBalance = 2; // The account's hbar balance
-    repeated TokenUnitBalance tokenUnitBalances = 3; // The list of the account's token balances
+    /**
+     * The account
+     */
+    AccountID accountID = 1;
+
+    /**
+     * The account's hbar balance
+     */
+    uint64 hbarBalance = 2;
+
+    /**
+     * The list of the account's token balances
+     */
+    repeated TokenUnitBalance tokenUnitBalances = 3;
 }
 
-/* Includes all currency balances (both hbar and token) of all accounts in the ledger. */
+/**
+ * Includes all currency balances (both hbar and token) of all accounts in the ledger.
+ */
 message AllAccountBalances {
-    Timestamp consensusTimestamp = 1; // An instant in consensus time 
-    repeated SingleAccountBalances allAccounts = 2; // The list of account balances for all accounts, after handling all transactions with consensus timestamp up to and including the above instant
+    /**
+     * An instant in consensus time 
+     */
+    Timestamp consensusTimestamp = 1;
+
+    /**
+     * The list of account balances for all accounts, after handling all transactions with consensus
+     * timestamp up to and including the above instant
+     */
+    repeated SingleAccountBalances allAccounts = 2;
 }
