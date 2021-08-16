@@ -15,5 +15,5 @@ import "Transaction.proto";
  * and one for node 4.
  */
 message TransactionList {
-    repeated Transaction transactionList = 1;
+    repeated Transaction transaction_list = 1;
 }
