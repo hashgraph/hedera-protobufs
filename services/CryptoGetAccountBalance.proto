@@ -36,7 +36,7 @@ message CryptoGetAccountBalanceQuery {
     QueryHeader header = 1; // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
     oneof balanceSource {
     	AccountID accountID = 2; // The account ID for which information is requested
-    	ContractID contractID = 3; // The account ID for which information is requested
+    	ContractID contractID = 3; // The contract ID for which information is requested
     }
 }
 
