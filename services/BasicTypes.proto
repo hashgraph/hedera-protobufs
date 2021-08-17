@@ -465,6 +465,7 @@ message TokenRelationship {
     TokenKycStatus kycStatus = 4; // The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned
     TokenFreezeStatus freezeStatus = 5; // The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned
     uint32 decimals = 6; // Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
+    bool automatic_association = 7; // Specifies if the relationship is created implicitly. False : explicitly associated, True : implicitly associated.
 }
 
 /* A number of <i>transferable units</i> of a certain token.
