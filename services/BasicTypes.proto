@@ -482,3 +482,9 @@ message TokenBalance {
 message TokenBalances {
     repeated TokenBalance tokenBalances = 1;
 }
+
+/* A token - account association */
+message TokenAssociation {
+    TokenID token_id = 1;  // The token involved in the association
+    AccountID account_id = 2; // The account involved in the association
+}
