@@ -47,4 +47,5 @@ message CryptoCreateTransactionBody {
     RealmID realmID = 11; // The realm in which this account is created (leave this null to create a new realm)
     Key newRealmAdminKey = 12; // If realmID is null, then this the admin key for the new realm that will be created
     string memo = 13; // The memo associated with the account (UTF-8 encoding max 100 bytes)
+    uint32 max_automatic_token_associations = 14; // The maximum number of tokens that an Account can be implicitly associated with. Defaults to 0 and up to a maximum value of 1000.
 }
