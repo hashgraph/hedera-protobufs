@@ -873,6 +873,10 @@
                   <a href="#proto.FractionalFee"><span class="badge">M</span>FractionalFee</a>
                 </li>
               
+                <li>
+                  <a href="#proto.RoyaltyFee"><span class="badge">M</span>RoyaltyFee</a>
+                </li>
+              
               
               
               
@@ -6730,6 +6734,13 @@ If unspecified, no change. </p></td>
                   <td><p>The account to receive the assessed fee </p></td>
                 </tr>
               
+                <tr>
+                  <td>effective_payer_account_id</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td>repeated</td>
+                  <td><p>The account(s) whose final balances would have been higher in the absence of this assessed fee </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -6759,6 +6770,13 @@ If unspecified, no change. </p></td>
                   <td><a href="#proto.FractionalFee">FractionalFee</a></td>
                   <td></td>
                   <td><p>Fractional fee to be charged </p></td>
+                </tr>
+              
+                <tr>
+                  <td>royalty_fee</td>
+                  <td><a href="#proto.RoyaltyFee">RoyaltyFee</a></td>
+                  <td></td>
+                  <td><p>Royalty fee to be charged </p></td>
                 </tr>
               
                 <tr>
@@ -6835,6 +6853,44 @@ If unspecified, no change. </p></td>
                   <td><a href="#int64">int64</a></td>
                   <td></td>
                   <td><p>The maximum amount to assess (zero implies no maximum) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>net_of_transfers</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>If true, assesses the fee to the sender, so the receiver gets the full amount from the token transfer list, and the sender is charged an additional fee; if false, the receiver does NOT get the full amount, but only what is left over after paying the fractional fee </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.RoyaltyFee">RoyaltyFee</h3>
+        <p>A fee to assess during a CryptoTransfer that changes ownership of an NFT. Defines</p><p>the fraction of the fungible value exchanged for an NFT that the ledger should collect</p><p>as a royalty. ("Fungible value" includes both ℏ and units of fungible HTS tokens.) When</p><p>the NFT sender does not receive any fungible value, the ledger will assess the fallback</p><p>fee, if present, to the new NFT owner. Royalty fees can only be added to tokens of type</p><p>type NON_FUNGIBLE_UNIQUE.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>exchange_value_fraction</td>
+                  <td><a href="#proto.Fraction">Fraction</a></td>
+                  <td></td>
+                  <td><p>The fraction of fungible value exchanged for an NFT to collect as royalty </p></td>
+                </tr>
+              
+                <tr>
+                  <td>fallback_fee</td>
+                  <td><a href="#proto.FixedFee">FixedFee</a></td>
+                  <td></td>
+                  <td><p>If present, the fixed fee to assess to the NFT receiver when no fungible value is exchanged with the sender </p></td>
                 </tr>
               
             </tbody>
@@ -7533,7 +7589,7 @@ If unspecified, no change. </p></td>
 
       
         <h3 id="proto.FreezeTransactionBody">FreezeTransactionBody</h3>
-        <p>Set the freezing period in which the platform will stop creating events and accepting transactions. This is used before safely shut down the platform for maintenance.</p>
+        <p>At consensus, sets the consensus time at which the platform should stop creating events and accepting transactions, and enter a maintenance window.</p>
 
         
           <table class="field-table">
@@ -7571,22 +7627,65 @@ If unspecified, no change. </p></td>
                 </tr>
               
                 <tr>
-                  <td>updateFile</td>
+                  <td>update_file</td>
                   <td><a href="#proto.FileID">FileID</a></td>
                   <td></td>
-                  <td><p>The ID of the file needs to be updated during a freeze transaction </p></td>
+                  <td><p>If set, the file whose contents should be used for a network software update during the maintenance window </p></td>
                 </tr>
               
                 <tr>
-                  <td>fileHash</td>
+                  <td>file_hash</td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
-                  <td><p>The hash value of the file, used to verify file content before performing freeze and update </p></td>
+                  <td><p>If set, the expected hash of the contents of the update file (used to verify the update) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>start_time</td>
+                  <td><a href="#proto.Timestamp">Timestamp</a></td>
+                  <td></td>
+                  <td><p>The consensus time at which the maintenance window should begin </p></td>
                 </tr>
               
             </tbody>
           </table>
 
+          
+            
+            
+            <h4>Fields with deprecated option</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Option</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>startHour</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+                <tr>
+                  <td>startMin</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+                <tr>
+                  <td>endHour</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+                <tr>
+                  <td>endMin</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
           
 
         
@@ -9642,9 +9741,9 @@ by HAPI.</p></td>
               </tr>
             
               <tr>
-                <td>INVALID_CUSTOM_FRACTIONAL_FEES_SUM</td>
+                <td>ROYALTY_FRACTION_CANNOT_EXCEED_ONE</td>
                 <td>242</td>
-                <td><p>The sum of all custom fractional fees must be strictly less than 1</p></td>
+                <td><p>A royalty cannot exceed the total fungible value exchanged for an NFT</p></td>
               </tr>
             
               <tr>
@@ -9741,6 +9840,24 @@ by HAPI.</p></td>
                 <td>CUSTOM_FEE_CHARGING_EXCEEDED_MAX_ACCOUNT_AMOUNTS</td>
                 <td>258</td>
                 <td><p>More than 20 balance adjustments were to satisfy a CryptoTransfer and its implied custom fee payments</p></td>
+              </tr>
+            
+              <tr>
+                <td>INSUFFICIENT_SENDER_ACCOUNT_BALANCE_FOR_CUSTOM_FEE</td>
+                <td>259</td>
+                <td><p>The sender account in the token transfer transaction could not afford a custom fee</p></td>
+              </tr>
+            
+              <tr>
+                <td>SERIAL_NUMBER_LIMIT_REACHED</td>
+                <td>260</td>
+                <td><p>Currently no more than 4,294,967,295 NFTs may be minted for a given unique token type</p></td>
+              </tr>
+            
+              <tr>
+                <td>CUSTOM_ROYALTY_FEE_ONLY_ALLOWED_FOR_NON_FUNGIBLE_UNIQUE</td>
+                <td>261</td>
+                <td><p>Only tokens of type NON_FUNGIBLE_UNIQUE can have royalty fees</p></td>
               </tr>
             
           </tbody>
