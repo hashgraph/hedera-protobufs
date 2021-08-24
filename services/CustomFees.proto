@@ -72,5 +72,5 @@ message AssessedCustomFee {
   int64 amount = 1; // The number of units assessed for the fee
   TokenID token_id = 2; // The denomination of the fee; taken as hbar if left unset
   AccountID fee_collector_account_id = 3; // The account to receive the assessed fee
-  repeated AccountID effective_payer_account_id = 4; // The account(s) whose final balances would have been higher in the absence of this assessed fee
+  repeated AccountID effective_payer_account_id = 4; // // The sender or receiver account(s) that were charged the custom fees
 }
