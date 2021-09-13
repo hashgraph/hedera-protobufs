@@ -1005,7 +1005,18 @@ enum ResponseCodeEnum {
   EXISTING_AUTOMATIC_ASSOCIATIONS_EXCEED_GIVEN_LIMIT = 263;
 
   /**
-   * Cannot set the number of automatic associations for an account more than the maximum allowed token associations <tt>tokens.maxPerAccount</tt>
+   * Cannot set the number of automatic associations for an account more than the maximum allowed 
+   * token associations <tt>tokens.maxPerAccount</tt>.
    */
   REQUESTED_NUM_AUTOMATIC_ASSOCIATIONS_EXCEEDS_ASSOCIATION_LIMIT = 264;
+
+  /** 
+   * The update file in a freeze transaction body must exist.
+   */
+  FREEZE_UPDATE_FILE_DOES_NOT_EXIST = 265;
+
+  /** 
+   * The hash of the update file in a freeze transaction body must match the in-memory hash.
+   */
+  FREEZE_UPDATE_FILE_HASH_DOES_NOT_MATCH = 266;
 }
