@@ -36,6 +36,30 @@ import "freeze_type.proto";
  */
 message FreezeTransactionBody {
     /**
+     * !! DEPRECATED and REJECTED by nodes
+     * The start hour (in UTC time), a value between 0 and 23
+     */
+    int32 startHour = 1 [deprecated=true];
+
+    /**
+     * !! DEPRECATED and REJECTED by nodes
+     * The start minute (in UTC time), a value between 0 and 59
+     */
+    int32 startMin = 2 [deprecated=true];
+
+    /**
+     * !! DEPRECATED and REJECTED by nodes
+     * The end hour (in UTC time), a value between 0 and 23
+     */
+    int32 endHour = 3 [deprecated=true];
+
+    /**
+     * !! DEPRECATED and REJECTED by nodes
+     * The end minute (in UTC time), a value between 0 and 59
+     */
+    int32 endMin = 4 [deprecated=true];
+
+    /**
      * If set, the file whose contents should be used for a network software update during the
      * maintenance window.
      */
@@ -55,14 +79,4 @@ message FreezeTransactionBody {
      * The type of network freeze or upgrade operation to perform.
      */
     FreezeType freeze_type = 8;
-
-    /**
-     * Reserve deleted field identifiers to prevent reuse.
-     */
-    reserved 1, 2, 3, 4;
-
-    /**
-     * Reserve deleted field names to prevent reuse.
-     */ 
-    reserved "startHour", "startMin", "endHour", "endMin";
 }
