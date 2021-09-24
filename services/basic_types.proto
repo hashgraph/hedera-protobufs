@@ -1180,8 +1180,8 @@ message NodeAddress {
 
     /**
      * Hex encoding of the node's X509 RSA public key used to sign stream files (e.g., record 
-     * stream files). That is, this field is a string of hexadecimal characters which, translated 
-     * to binary, are the public key's DER encoding.  
+     * stream files). Specifically, this field is a string of hexadecimal characters which, 
+     * translated to binary, are the public key's DER encoding.  
      */
     string RSA_PubKey = 4;
 
