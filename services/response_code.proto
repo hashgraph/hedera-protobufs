@@ -63,7 +63,7 @@ enum ResponseCodeEnum {
 
   /**
    * The given transactionValidDuration was either non-positive, or greater than the maximum 
-   * valid duration of 180 secs (set by Services property hedera.transaction.maxValidDuration).
+   * valid duration of 180 secs.
    * 
    */
   INVALID_TRANSACTION_DURATION = 6;
