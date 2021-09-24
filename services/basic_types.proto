@@ -1179,7 +1179,9 @@ message NodeAddress {
     bytes memo = 3 [deprecated=true];
 
     /**
-     * The node's hex-encoded X509 RSA public key
+     * Hex encoding of the node's X509 RSA public key used to sign stream files (e.g., record 
+     * stream files). That is, this field is a string of hexadecimal characters which, translated 
+     * to binary, are the public key's DER encoding.  
      */
     string RSA_PubKey = 4;
 
@@ -1194,7 +1196,10 @@ message NodeAddress {
     AccountID nodeAccountId = 6;
 
     /**
-     * # The hex-encoded SHA-384 hash of the X509 cert used to encrypt gRPC traffic to the node
+     * # Hex encoding of the SHA-384 hash of the TLS cert the node uses to encrypt gRPC 
+     * traffic (in UTF-8 NKFD). Specifically, this field is a string of hexadecimal characters 
+     * which, translated to binary, are the SHA-384 hash of the UTF-8 NKFD representation of 
+     * the node's TLS cert in PEM format.
      */
     bytes nodeCertHash = 7;
 
