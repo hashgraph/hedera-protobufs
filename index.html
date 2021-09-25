@@ -2613,7 +2613,9 @@ Usage is deprecated, nodeAccountId is preferred to retrieve a node&#39;s account
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p>
-The node&#39;s hex-encoded X509 RSA public key </p></td>
+The node&#39;s X509 RSA public key used to sign stream files (e.g., record stream 
+files). Precisely, this field is a string of hexadecimal characters which, 
+translated to binary, are the public key&#39;s DER encoding. </p></td>
                 </tr>
               
                 <tr>
@@ -2637,7 +2639,10 @@ The node&#39;s hex-encoded X509 RSA public key </p></td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
                   <td><p>
-# The hex-encoded SHA-384 hash of the X509 cert used to encrypt gRPC traffic to the node </p></td>
+# Hash of the node&#39;s TLS certificate. Precisely, this field is a string of 
+hexadecimal characters which, translated to binary, are the SHA-384 hash of 
+the UTF-8 NFKD encoding of the node&#39;s TLS cert in PEM format. Its value can be 
+used to verify the node&#39;s certificate it presents during TLS negotiations. </p></td>
                 </tr>
               
                 <tr>
@@ -9463,7 +9468,8 @@ Transaction start time is greater than current consensus time</p></td>
                 <td>INVALID_TRANSACTION_DURATION</td>
                 <td>6</td>
                 <td><p>
-valid transaction duration is a positive non zero number that does not exceed 120 seconds</p></td>
+The given transactionValidDuration was either non-positive, or greater than the maximum 
+valid duration of 180 secs.</p></td>
               </tr>
             
               <tr>
@@ -13616,7 +13622,7 @@ Retrieves the metadata of a token</p></td>
                 <td><a href="#proto.Query">Query</a></td>
                 <td><a href="#proto.Response">Response</a></td>
                 <td><p>
-Gets info on NFTs N through M on the list of NFTs associated with a given account</p></td>
+(DEPRECATED) Gets info on NFTs N through M on the list of NFTs associated with a given account</p></td>
               </tr>
             
               <tr>
@@ -13632,12 +13638,38 @@ Retrieves the metadata of an NFT by TokenID and serial number</p></td>
                 <td><a href="#proto.Query">Query</a></td>
                 <td><a href="#proto.Response">Response</a></td>
                 <td><p>
-Gets info on NFTs N through M on the list of NFTs associated with a given Token of type NON_FUNGIBLE</p></td>
+(DEPRECATED) Gets info on NFTs N through M on the list of NFTs associated with a given Token of type NON_FUNGIBLE</p></td>
               </tr>
             
           </tbody>
         </table>
 
+        
+          
+          
+          <h4>Methods with deprecated option</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Option</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              <tr>
+                <td>getAccountNftInfos</td>
+                <td><p>true</p></td>
+              </tr>
+            
+              <tr>
+                <td>getTokenNftInfos</td>
+                <td><p>true</p></td>
+              </tr>
+            
+            </tbody>
+          </table>
+          
         
     
       
