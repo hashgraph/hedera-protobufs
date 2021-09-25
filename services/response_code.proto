@@ -62,7 +62,9 @@ enum ResponseCodeEnum {
   INVALID_TRANSACTION_START = 5;
 
   /**
-   * valid transaction duration is a positive non zero number that does not exceed 120 seconds
+   * The given transactionValidDuration was either non-positive, or greater than the maximum 
+   * valid duration of 180 secs.
+   * 
    */
   INVALID_TRANSACTION_DURATION = 6;
 
