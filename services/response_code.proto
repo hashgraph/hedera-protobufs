@@ -1040,4 +1040,10 @@ enum ResponseCodeEnum {
    * The given freeze start time was in the (consensus) past.
    */
   FREEZE_START_TIME_MUST_BE_FUTURE = 270;
+
+  /** 
+   * The prepared update file cannot be updated or appended util either the upgrade has
+   * been completed, or a FREEZE_ABORT has been handled.
+   */
+  PREPARED_UPDATE_FILE_IS_IMMUTABLE = 271;
 }
