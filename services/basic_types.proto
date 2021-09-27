@@ -431,17 +431,17 @@ enum TokenKycStatus {
  */
 enum TokenPauseStatus {
     /**
-     * UNDOCUMENTED
+     * Indicates that a Token has no pauseKey
      */
     PauseNotApplicable = 0;
 
     /**
-     * UNDOCUMENTED
+     * Indicates that a Token is Paused
      */
     Paused = 1;
 
     /**
-     * UNDOCUMENTED
+     * Indicates that a Token is Unpaused.
      */
     Unpaused = 2;
 }
