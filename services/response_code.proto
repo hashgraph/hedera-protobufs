@@ -1046,4 +1046,16 @@ enum ResponseCodeEnum {
    * been completed, or a FREEZE_ABORT has been handled.
    */
   PREPARED_UPDATE_FILE_IS_IMMUTABLE = 271;
+
+  /** 
+   * Once a freeze is scheduled, it must be aborted before any other type of freeze can
+   * can be performed.
+   */
+  FREEZE_ALREADY_SCHEDULED = 272;
+
+  /** 
+   * If an NMT upgrade has been prepared, the following operation must be a FREEZE_UPGRADE.
+   * (To issue a FREEZE_ONLY, submit a FREEZE_ABORT first.)
+   */
+  FREEZE_UPGRADE_IN_PROGRESS = 273;
 }
