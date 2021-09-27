@@ -1014,7 +1014,7 @@ enum HederaFunctionality {
     TokenPause = 79;
 
     /**
-     * UnPause the Token
+     * Unpause the Token
      */
     TokenUnpause = 80;
 }
