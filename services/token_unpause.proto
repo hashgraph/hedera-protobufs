@@ -36,8 +36,7 @@ import "basic_types.proto";
  */
 message TokenUnPauseTransactionBody {
   /**
-   * The token to be paused. If token does not exist, transaction
-   * results in INVALID_TOKEN_ID
+   * The token to be paused.
    */
   TokenID token = 1;
 }
