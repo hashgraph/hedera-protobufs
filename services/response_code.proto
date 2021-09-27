@@ -1012,27 +1012,17 @@ enum ResponseCodeEnum {
   REQUESTED_NUM_AUTOMATIC_ASSOCIATIONS_EXCEEDS_ASSOCIATION_LIMIT = 264;
 
   /**
-   * PauseTransactionBody is invalid
-   */
-  INVALID_PAUSE_TRANSACTION_BODY = 265;
-
-  /**
-   * FreezeTransactionBody does not exist
-   */
-  PAUSE_TRANSACTION_BODY_NOT_FOUND = 266;
-
-  /**
    * Token is paused. This Token cannot be a part of any kind of Transaction until unpaused.
    */
-  TOKEN_IS_PAUSED = 267;
+  TOKEN_IS_PAUSED = 265;
 
   /**
    * Pause key is not set on token
    */
-  TOKEN_HAS_NO_PAUSE_KEY = 268;
+  TOKEN_HAS_NO_PAUSE_KEY = 266;
 
   /**
    * The provided pause key was invalid
    */
-  INVALID_PAUSE_KEY = 269;
+  INVALID_PAUSE_KEY = 267;
 }
