@@ -35,7 +35,7 @@ import "basic_types.proto";
  * Once executed the Token is marked as Unpaused and can be used in Transactions.
  * The operation is idempotent - becomes a no-op if the Token is already unpaused.
  */
-message TokenUnPauseTransactionBody {
+message TokenUnpauseTransactionBody {
   /**
    * The token to be unpaused.
    */
