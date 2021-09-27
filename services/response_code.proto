@@ -1010,4 +1010,29 @@ enum ResponseCodeEnum {
    * Cannot set the number of automatic associations for an account more than the maximum allowed token associations <tt>tokens.maxPerAccount</tt>
    */
   REQUESTED_NUM_AUTOMATIC_ASSOCIATIONS_EXCEEDS_ASSOCIATION_LIMIT = 264;
+
+  /**
+   * PauseTransactionBody is invalid
+   */
+  INVALID_PAUSE_TRANSACTION_BODY = 265;
+
+  /**
+   * FreezeTransactionBody does not exist
+   */
+  PAUSE_TRANSACTION_BODY_NOT_FOUND = 266;
+
+  /**
+   * Token is paused. This Token cannot be a part of any kind of Transaction until unpaused.
+   */
+  TOKEN_IS_PAUSED = 267;
+
+  /**
+   * Pause key is not set on token
+   */
+  TOKEN_HAS_NO_PAUSE_KEY = 268;
+
+  /**
+   * The provided pause key was invalid
+   */
+  INVALID_PAUSE_KEY = 269;
 }

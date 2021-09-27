@@ -986,6 +986,16 @@ enum HederaFunctionality {
      * Get execution time(s) by TransactionID, if available
      */
     NetworkGetExecutionTime = 78;
+
+    /**
+     * Pause the Token
+     */
+    TokenPause = 79;
+
+    /**
+     * UnPause the Token
+     */
+    TokenUnPause = 80;
 }
 
 /**
