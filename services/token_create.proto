@@ -193,7 +193,7 @@ message TokenCreateTransactionBody {
     repeated CustomFee custom_fees = 21;
 
     /**
-     * The Key which can pause and unpause the Token. If Empty the token is unPaused by default.
+     * The Key which can pause and unpause the Token. If Empty the token is unpaused by default.
      */
     Key pauseKey = 22;
 }
