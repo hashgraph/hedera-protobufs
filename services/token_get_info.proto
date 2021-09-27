@@ -191,7 +191,7 @@ message TokenInfo {
     /**
      * Specifies whether the token is paused or not. PauseNotApplicable is returned if pauseKey is not set.
      */
-    TokenPauseStatus paused = 25;
+    TokenPauseStatus pauseStatus = 25;
 }
 
 /**
