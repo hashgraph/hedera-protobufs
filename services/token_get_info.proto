@@ -184,7 +184,7 @@ message TokenInfo {
     repeated CustomFee custom_fees = 23;
 
     /**
-     * The Key which can pause and unpause the Token. If Empty the token is unPaused by default.
+     * The Key which can pause and unpause the Token.
      */
     Key pauseKey = 24;
 
