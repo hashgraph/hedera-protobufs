@@ -1019,4 +1019,25 @@ enum ResponseCodeEnum {
    * The hash of the update file in a freeze transaction body must match the in-memory hash.
    */
   FREEZE_UPDATE_FILE_HASH_DOES_NOT_MATCH = 266;
+
+  /** 
+   * A FREEZE_UPGRADE transaction was handled with no previous update prepared.
+   */
+  NO_UPGRADE_HAS_BEEN_PREPARED = 267;
+
+  /** 
+   * A FREEZE_ABORT transaction was handled with no scheduled freeze.
+   */
+  NO_FREEZE_IS_SCHEDULED = 268;
+
+  /** 
+   * The update file hash when handling a FREEZE_UPGRADE transaction differs from the file
+   * hash at the time of handling the PREPARE_UPGRADE transaction.
+   */
+  UPDATE_FILE_HASH_CHANGED_SINCE_PREPARE_UPGRADE = 269;
+
+  /** 
+   * The given freeze start time was in the (consensus) past.
+   */
+  FREEZE_START_TIME_MUST_BE_FUTURE = 270;
 }
