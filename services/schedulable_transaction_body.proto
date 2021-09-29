@@ -242,6 +242,16 @@ message SchedulableTransactionBody {
     TokenDissociateTransactionBody tokenDissociate = 33;
 
     /**
+     * Pauses the Token
+     */
+    TokenPauseTransactionBody tokenPause = 35;
+
+    /**
+     * Unpauses the Token
+     */
+    TokenUnpauseTransactionBody tokenUnpause = 36;
+
+    /**
      * Marks a schedule in the network's action queue as deleted, preventing it from executing
      */
     ScheduleDeleteTransactionBody scheduleDelete = 34;
