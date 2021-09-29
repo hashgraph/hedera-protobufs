@@ -186,12 +186,12 @@ message TokenInfo {
     /**
      * The Key which can pause and unpause the Token.
      */
-    Key pauseKey = 24;
+    Key pause_key = 24;
 
     /**
      * Specifies whether the token is paused or not. PauseNotApplicable is returned if pauseKey is not set.
      */
-    TokenPauseStatus pauseStatus = 25;
+    TokenPauseStatus pause_status = 25;
 }
 
 /**

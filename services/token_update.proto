@@ -140,5 +140,5 @@ message TokenUpdateTransactionBody {
      * The Key which can pause and unpause the Token. If the Token does not currently have a pause key,
      * transaction will resolve to TOKEN_HAS_NO_PAUSE_KEY
      */
-    Key pauseKey = 15;
+    Key pause_key = 15;
 }
