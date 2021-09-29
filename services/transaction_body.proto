@@ -293,12 +293,12 @@ message TransactionBody {
     /**
      * Pauses the Token
      */
-    TokenPauseTransactionBody tokenPause = 46;
+    TokenPauseTransactionBody token_pause = 46;
 
     /**
      * Unpauses the Token
      */
-    TokenUnpauseTransactionBody tokenUnpause = 47;
+    TokenUnpauseTransactionBody token_unpause = 47;
 
     /**
      * Creates a schedule in the network's action queue

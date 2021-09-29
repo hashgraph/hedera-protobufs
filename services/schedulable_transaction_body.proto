@@ -244,12 +244,12 @@ message SchedulableTransactionBody {
     /**
      * Pauses the Token
      */
-    TokenPauseTransactionBody tokenPause = 35;
+    TokenPauseTransactionBody token_pause = 35;
 
     /**
      * Unpauses the Token
      */
-    TokenUnpauseTransactionBody tokenUnpause = 36;
+    TokenUnpauseTransactionBody token_unpause = 36;
 
     /**
      * Marks a schedule in the network's action queue as deleted, preventing it from executing
