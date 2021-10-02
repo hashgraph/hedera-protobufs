@@ -34,7 +34,7 @@ enum FreezeType {
      * An (invalid) default value for this enum, to ensure the client explicitly sets 
      * the intended type of freeze transaction.
      */
-    UNKNOWN = 0;
+    UNKNOWN_FREEZE_TYPE = 0;
 
     /**
      * Freezes the network at the specified time. The start_time field must be provided and 
