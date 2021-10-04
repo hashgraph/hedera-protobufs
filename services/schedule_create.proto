@@ -90,4 +90,13 @@ message ScheduleCreateTransactionBody {
    * given
    */
   AccountID payerAccountID = 4;
+
+  /**
+   * Controls how the network will behave when there is an identical transaction already scheduled (but not yet executed).
+   *
+   * If true, this ScheduleCreate will resolve to SUCCESS, and the existing schedule entity will receives any signatures from this transaction.
+   *
+   * If false, this ScheduleCreate will resolve to IDENTICAL_SCHEDULE_ALREADY_CREATED, and the receipt will contain the id of the existing schedule entity.
+   */
+  bool merge_with_identical_schedule = 5;
 }
