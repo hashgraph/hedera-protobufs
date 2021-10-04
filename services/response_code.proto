@@ -738,6 +738,7 @@ enum ResponseCodeEnum {
 
   /**
    * A schedule already exists with the same identifying fields of an attempted ScheduleCreate (that is, all fields other than scheduledPayerAccountID)
+   * and the merge_with_identical_schedule field of the schedule is set to false.
    */
   IDENTICAL_SCHEDULE_ALREADY_CREATED = 210;
 
@@ -1025,4 +1026,9 @@ enum ResponseCodeEnum {
    * The provided pause key was invalid
    */
   INVALID_PAUSE_KEY = 267;
+
+  /**
+   * A schedule already exists with the same identifying fields of an attempted ScheduleCreate except for its payerAccountID
+   */
+  IDENTICAL_SCHEDULE_ALREADY_EXISTS_WITH_DIFFERENT_PAYER = 268;
 }
