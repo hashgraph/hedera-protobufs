@@ -1075,4 +1075,16 @@ enum ResponseCodeEnum {
    * (To issue a FREEZE_ONLY, submit a FREEZE_ABORT first.)
    */
   FREEZE_UPGRADE_IN_PROGRESS = 276;
+
+  /** 
+   * If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must 
+   * confirm the id of the to be used in the upgrade.
+   */
+  UPDATE_FILE_ID_DOES_NOT_MATCH_PREPARED = 277;
+
+  /** 
+   * If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must 
+   * confirm the hash of the file to be used in the upgrade.
+   */
+  UPDATE_FILE_HASH_DOES_NOT_MATCH_PREPARED = 278;
 }
