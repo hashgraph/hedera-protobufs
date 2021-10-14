@@ -1059,7 +1059,7 @@ enum ResponseCodeEnum {
   FREEZE_START_TIME_MUST_BE_FUTURE = 273;
 
   /** 
-   * The prepared update file cannot be updated or appended util either the upgrade has
+   * The prepared update file cannot be updated or appended until either the upgrade has
    * been completed, or a FREEZE_ABORT has been handled.
    */
   PREPARED_UPDATE_FILE_IS_IMMUTABLE = 274;
@@ -1078,7 +1078,7 @@ enum ResponseCodeEnum {
 
   /** 
    * If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must 
-   * confirm the id of the to be used in the upgrade.
+   * confirm the id of the file to be used in the upgrade.
    */
   UPDATE_FILE_ID_DOES_NOT_MATCH_PREPARED = 277;
 
