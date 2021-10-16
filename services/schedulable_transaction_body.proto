@@ -255,5 +255,10 @@ message SchedulableTransactionBody {
      * Marks a schedule in the network's action queue as deleted, preventing it from executing
      */
     ScheduleDeleteTransactionBody scheduleDelete = 34;
+
+    /**
+     * Returns the token
+     */
+    ReturnTokenTransactionBody returnToken = 37;
   }
 }
