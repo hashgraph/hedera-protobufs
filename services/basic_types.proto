@@ -1021,7 +1021,7 @@ enum HederaFunctionality {
     /**
      * Return the Token
      */
-    ReturnToken = 81;
+    TokenReturn = 81;
 }
 
 /**

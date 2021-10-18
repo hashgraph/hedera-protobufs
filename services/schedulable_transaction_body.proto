@@ -64,7 +64,7 @@ import "token_associate.proto";
 import "token_dissociate.proto";
 import "token_pause.proto";
 import "token_unpause.proto";
-import "return_token.proto";
+import "token_return.proto";
 
 import "schedule_delete.proto";
 
@@ -260,6 +260,6 @@ message SchedulableTransactionBody {
     /**
      * Returns the token
      */
-    ReturnTokenTransactionBody returnToken = 37;
+    TokenReturnTransactionBody tokenReturn = 37;
   }
 }

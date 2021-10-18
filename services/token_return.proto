@@ -37,7 +37,7 @@ import "basic_types.proto";
  * If the provided token has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.
  * If the provided token is not associated with the provided account, the transaction will resolve to TOKEN_NOT_ASSOCIATED_TO_ACCOUNT.
  */
-message ReturnTokenTransactionBody {
+message TokenReturnTransactionBody {
   /**
    * The token to be returned.
    */
