@@ -59,4 +59,9 @@ message ContractCallTransactionBody {
      * which function to call, and the parameters to pass to the function
      */
     bytes functionParameters = 4;
+
+    /**
+     * List with accounts or smart contracts and storage keys that should be "warmed up"/loaded in the EVM
+     */
+    repeated AccessListEntry accessList = 5;
 }

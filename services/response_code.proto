@@ -1087,4 +1087,9 @@ enum ResponseCodeEnum {
    * confirm the hash of the file to be used in the upgrade.
    */
   UPDATE_FILE_HASH_DOES_NOT_MATCH_PREPARED = 278;
+
+  /**
+   * This response code is related to a pre check for storage keys which should not be larger than 32 bytes each
+   */
+  INVALID_STORAGE_ACCESS_KEY = 279;
 }

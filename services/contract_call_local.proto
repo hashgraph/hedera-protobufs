@@ -134,6 +134,11 @@ message ContractCallLocalQuery {
      * max number of bytes that the result might include. The run will fail if it would have returned more than this number of bytes.
      */
     int64 maxResultSize = 5 [deprecated=true];
+
+    /**
+     * List with accounts or smart contracts and storage keys that should be "warmed up"/loaded in the EVM
+     */
+    repeated AccessListEntry accessList = 6;
 }
 
 /**
