@@ -147,4 +147,9 @@ message ContractCreateTransactionBody {
      * the memo that was submitted as part of the contract (max 100 bytes)
      */
     string memo = 13;
+
+    /**
+     * List with accounts or smart contracts and storage keys that should be "warmed up"/loaded in the EVM
+     */
+    repeated AccessListEntry accessList = 14;
 }
