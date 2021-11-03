@@ -1420,23 +1420,15 @@ message TokenAssociation {
  * Related to EIP-2929 and EIP-2930 addresses can be provided for "warm up" in EVM before the execution of the
  * transaction in order to save gas.
  */
-message AccessListEntry {
+message ContractAccessEntry {
 
-    oneof entity {
+  /**
+   * The address of the smart contract that should be "warmed up"/loaded in the EVM
+   */
+  ContractID contractID = 1;
 
-        /**
-         * The address of the account that should be "warmed up"/loaded in the EVM
-         */
-        AccountID accountID = 1;
-
-        /**
-         * The address of the smart contract that should be "warmed up"/loaded in the EVM
-         */
-        ContractID contractID = 2;
-    }
-
-    /**
-     * The storage keys of the smart contract that should be "warmed up"/loaded in the EVM
-     */
-    repeated bytes storageKeys = 3;
+  /**
+   * The storage keys of the smart contract that should be "warmed up"/loaded in the EVM
+   */
+  repeated bytes storageKeys = 2;
 }

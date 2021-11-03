@@ -136,9 +136,14 @@ message ContractCallLocalQuery {
     int64 maxResultSize = 5 [deprecated=true];
 
     /**
-     * List with accounts or smart contracts and storage keys that should be "warmed up"/loaded in the EVM
+     * List with smart contracts and storage keys that should be "warmed up"/loaded in the EVM
      */
-    repeated AccessListEntry accessList = 6;
+    repeated AccountID accountAccess = 6;
+
+    /**
+     * List with smart contracts and storage keys that should be "warmed up"/loaded in the EVM
+     */
+    repeated ContractAccessEntry contractAccess = 7;
 }
 
 /**
