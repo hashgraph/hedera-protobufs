@@ -61,7 +61,7 @@ message ContractCallTransactionBody {
     bytes functionParameters = 4;
 
     /**
-     * List with smart contracts and storage keys that should be "warmed up"/loaded in the EVM
+     * List with accounts that should be "warmed up"/loaded in the EVM
      */
     repeated AccountID accountAccess = 5;
 
