@@ -1425,10 +1425,10 @@ message ContractAccessEntry {
   /**
    * The address of the smart contract that should be "warmed up"/loaded in the EVM
    */
-  ContractID contractID = 1;
+  ContractID contract_ID = 1;
 
   /**
    * The storage keys of the smart contract that should be "warmed up"/loaded in the EVM
    */
-  repeated bytes storageKeys = 2;
+  repeated bytes storage_keys = 2;
 }

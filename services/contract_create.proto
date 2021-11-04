@@ -151,10 +151,10 @@ message ContractCreateTransactionBody {
     /**
      * List with accounts that should be "warmed up"/loaded in the EVM
      */
-    repeated AccountID accountAccess = 14;
+    repeated AccountID account_access = 14;
 
     /**
      * List with smart contracts and storage keys that should be "warmed up"/loaded in the EVM
      */
-    repeated ContractAccessEntry contractAccess = 15;
+    repeated ContractAccessEntry contract_access = 15;
 }

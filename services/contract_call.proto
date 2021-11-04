@@ -63,10 +63,10 @@ message ContractCallTransactionBody {
     /**
      * List with accounts that should be "warmed up"/loaded in the EVM
      */
-    repeated AccountID accountAccess = 5;
+    repeated AccountID account_access = 5;
 
     /**
      * List with smart contracts and storage keys that should be "warmed up"/loaded in the EVM
      */
-    repeated ContractAccessEntry contractAccess = 6;
+    repeated ContractAccessEntry contract_access = 6;
 }
