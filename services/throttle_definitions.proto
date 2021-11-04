@@ -82,6 +82,4 @@ message ThrottleBucket {
  */
 message ThrottleDefinitions {
   repeated ThrottleBucket throttleBuckets = 1;
-  uint64 totalAllowedGasPerSecFrontend = 2;
-  uint64 totalAllowedGasPerSecConsensus = 3;
 }
