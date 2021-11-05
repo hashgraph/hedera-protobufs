@@ -367,6 +367,10 @@
                 </li>
               
                 <li>
+                  <a href="#proto.TokenPauseStatus"><span class="badge">E</span>TokenPauseStatus</a>
+                </li>
+              
+                <li>
                   <a href="#proto.TokenSupplyType"><span class="badge">E</span>TokenSupplyType</a>
                 </li>
               
@@ -1074,6 +1078,21 @@
         
           
           <li>
+            <a href="#freeze_type.proto">freeze_type.proto</a>
+            <ul>
+              
+              
+                <li>
+                  <a href="#proto.FreezeType"><span class="badge">E</span>FreezeType</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#get_by_key.proto">get_by_key.proto</a>
             <ul>
               
@@ -1656,6 +1675,21 @@
         
           
           <li>
+            <a href="#token_pause.proto">token_pause.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.TokenPauseTransactionBody"><span class="badge">M</span>TokenPauseTransactionBody</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#token_revoke_kyc.proto">token_revoke_kyc.proto</a>
             <ul>
               
@@ -1691,6 +1725,21 @@
               
                 <li>
                   <a href="#proto.TokenUnfreezeAccountTransactionBody"><span class="badge">M</span>TokenUnfreezeAccountTransactionBody</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#token_unpause.proto">token_unpause.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.TokenUnpauseTransactionBody"><span class="badge">M</span>TokenUnpauseTransactionBody</a>
                 </li>
               
               
@@ -4119,6 +4168,20 @@ Update a token&#39;s custom fee schedule, if permissible</p></td>
 Get execution time(s) by TransactionID, if available</p></td>
               </tr>
             
+              <tr>
+                <td>TokenPause</td>
+                <td>79</td>
+                <td><p>
+Pause the Token</p></td>
+              </tr>
+            
+              <tr>
+                <td>TokenUnpause</td>
+                <td>80</td>
+                <td><p>
+Unpause the Token</p></td>
+              </tr>
+            
           </tbody>
         </table>
       
@@ -4229,6 +4292,38 @@ UNDOCUMENTED</p></td>
                 <td>2</td>
                 <td><p>
 UNDOCUMENTED</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="proto.TokenPauseStatus">TokenPauseStatus</h3>
+        <p></p><p>Possible Pause statuses returned on TokenGetInfoQuery</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>PauseNotApplicable</td>
+                <td>0</td>
+                <td><p>
+Indicates that a Token has no pauseKey</p></td>
+              </tr>
+            
+              <tr>
+                <td>Paused</td>
+                <td>1</td>
+                <td><p>
+Indicates that a Token is Paused</p></td>
+              </tr>
+            
+              <tr>
+                <td>Unpaused</td>
+                <td>2</td>
+                <td><p>
+Indicates that a Token is Unpaused.</p></td>
               </tr>
             
           </tbody>
@@ -5018,6 +5113,27 @@ max number of bytes that the result might include. The run will fail if it would
             </tbody>
           </table>
 
+          
+            
+            
+            <h4>Fields with deprecated option</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Option</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>maxResultSize</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
           
 
         
@@ -5836,6 +5952,11 @@ If set, the new memo to be associated with the account (UTF-8 encoding max 100 b
                 </tr>
               </thead>
               <tbody>
+              
+                <tr>
+                  <td>fileID</td>
+                  <td><p>true</p></td>
+                </tr>
               
                 <tr>
                   <td>memo</td>
@@ -8282,6 +8403,7 @@ If set, the new memo to be associated with the file (UTF-8 encoding max 100 byte
                   <td><a href="#int32">int32</a></td>
                   <td></td>
                   <td><p>
+!! DEPRECATED and REJECTED by nodes
 The start hour (in UTC time), a value between 0 and 23 </p></td>
                 </tr>
               
@@ -8290,6 +8412,7 @@ The start hour (in UTC time), a value between 0 and 23 </p></td>
                   <td><a href="#int32">int32</a></td>
                   <td></td>
                   <td><p>
+!! DEPRECATED and REJECTED by nodes
 The start minute (in UTC time), a value between 0 and 59 </p></td>
                 </tr>
               
@@ -8298,6 +8421,7 @@ The start minute (in UTC time), a value between 0 and 59 </p></td>
                   <td><a href="#int32">int32</a></td>
                   <td></td>
                   <td><p>
+!! DEPRECATED and REJECTED by nodes
 The end hour (in UTC time), a value between 0 and 23 </p></td>
                 </tr>
               
@@ -8306,6 +8430,7 @@ The end hour (in UTC time), a value between 0 and 23 </p></td>
                   <td><a href="#int32">int32</a></td>
                   <td></td>
                   <td><p>
+!! DEPRECATED and REJECTED by nodes
 The end minute (in UTC time), a value between 0 and 59 </p></td>
                 </tr>
               
@@ -8315,7 +8440,7 @@ The end minute (in UTC time), a value between 0 and 59 </p></td>
                   <td></td>
                   <td><p>
 If set, the file whose contents should be used for a network software update during the
-maintenance window </p></td>
+maintenance window. </p></td>
                 </tr>
               
                 <tr>
@@ -8323,7 +8448,7 @@ maintenance window </p></td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
                   <td><p>
-If set, the expected hash of the contents of the update file (used to verify the update) </p></td>
+If set, the expected hash of the contents of the update file (used to verify the update). </p></td>
                 </tr>
               
                 <tr>
@@ -8331,7 +8456,15 @@ If set, the expected hash of the contents of the update file (used to verify the
                   <td><a href="#proto.Timestamp">Timestamp</a></td>
                   <td></td>
                   <td><p>
-The consensus time at which the maintenance window should begin </p></td>
+The consensus time at which the maintenance window should begin. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>freeze_type</td>
+                  <td><a href="#proto.FreezeType">FreezeType</a></td>
+                  <td></td>
+                  <td><p>
+The type of network freeze or upgrade operation to perform. </p></td>
                 </tr>
               
             </tbody>
@@ -8418,6 +8551,81 @@ TransactionResponse</p></td>
         </table>
 
         
+    
+      
+      <div class="file-heading">
+        <h2 id="freeze_type.proto">freeze_type.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+
+      
+        <h3 id="proto.FreezeType">FreezeType</h3>
+        <p></p><p>The type of network freeze or upgrade operation to be performed. This type dictates which </p><p>fields are required.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>UNKNOWN_FREEZE_TYPE</td>
+                <td>0</td>
+                <td><p>
+An (invalid) default value for this enum, to ensure the client explicitly sets 
+the intended type of freeze transaction.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_ONLY</td>
+                <td>1</td>
+                <td><p>
+Freezes the network at the specified time. The start_time field must be provided and 
+must reference a future time. Any values specified for the update_file and file_hash 
+fields will be ignored. This transaction does not perform any network changes or 
+upgrades and requires manual intervention to restart the network.</p></td>
+              </tr>
+            
+              <tr>
+                <td>PREPARE_UPGRADE</td>
+                <td>2</td>
+                <td><p>
+A non-freezing operation that initiates network wide preparation in advance of a 
+scheduled freeze upgrade. The update_file and file_hash fields must be provided and 
+valid. The start_time field may be omitted and any value present will be ignored.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_UPGRADE</td>
+                <td>3</td>
+                <td><p>
+Freezes the network at the specified time and performs the previously prepared 
+automatic upgrade across the entire network.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_ABORT</td>
+                <td>4</td>
+                <td><p>
+Aborts a pending network freeze operation.</p></td>
+              </tr>
+            
+              <tr>
+                <td>TELEMETRY_UPGRADE</td>
+                <td>5</td>
+                <td><p>
+Performs an immediate upgrade on auxilary services and containers providing 
+telemetry/metrics. Does not impact network operations.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
     
       
       <div class="file-heading">
@@ -10960,7 +11168,120 @@ Already existing automatic associations are more than the new maximum automatic 
                 <td>REQUESTED_NUM_AUTOMATIC_ASSOCIATIONS_EXCEEDS_ASSOCIATION_LIMIT</td>
                 <td>264</td>
                 <td><p>
-Cannot set the number of automatic associations for an account more than the maximum allowed token associations &lt;tt&gt;tokens.maxPerAccount&lt;/tt&gt;</p></td>
+Cannot set the number of automatic associations for an account more than the maximum allowed 
+token associations &lt;tt&gt;tokens.maxPerAccount&lt;/tt&gt;.</p></td>
+              </tr>
+            
+              <tr>
+                <td>TOKEN_IS_PAUSED</td>
+                <td>265</td>
+                <td><p>
+Token is paused. This Token cannot be a part of any kind of Transaction until unpaused.</p></td>
+              </tr>
+            
+              <tr>
+                <td>TOKEN_HAS_NO_PAUSE_KEY</td>
+                <td>266</td>
+                <td><p>
+Pause key is not set on token</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_PAUSE_KEY</td>
+                <td>267</td>
+                <td><p>
+The provided pause key was invalid</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_UPDATE_FILE_DOES_NOT_EXIST</td>
+                <td>268</td>
+                <td><p>
+The update file in a freeze transaction body must exist.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_UPDATE_FILE_HASH_DOES_NOT_MATCH</td>
+                <td>269</td>
+                <td><p>
+The hash of the update file in a freeze transaction body must match the in-memory hash.</p></td>
+              </tr>
+            
+              <tr>
+                <td>NO_UPGRADE_HAS_BEEN_PREPARED</td>
+                <td>270</td>
+                <td><p>
+A FREEZE_UPGRADE transaction was handled with no previous update prepared.</p></td>
+              </tr>
+            
+              <tr>
+                <td>NO_FREEZE_IS_SCHEDULED</td>
+                <td>271</td>
+                <td><p>
+A FREEZE_ABORT transaction was handled with no scheduled freeze.</p></td>
+              </tr>
+            
+              <tr>
+                <td>UPDATE_FILE_HASH_CHANGED_SINCE_PREPARE_UPGRADE</td>
+                <td>272</td>
+                <td><p>
+The update file hash when handling a FREEZE_UPGRADE transaction differs from the file
+hash at the time of handling the PREPARE_UPGRADE transaction.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_START_TIME_MUST_BE_FUTURE</td>
+                <td>273</td>
+                <td><p>
+The given freeze start time was in the (consensus) past.</p></td>
+              </tr>
+            
+              <tr>
+                <td>PREPARED_UPDATE_FILE_IS_IMMUTABLE</td>
+                <td>274</td>
+                <td><p>
+The prepared update file cannot be updated or appended until either the upgrade has
+been completed, or a FREEZE_ABORT has been handled.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_ALREADY_SCHEDULED</td>
+                <td>275</td>
+                <td><p>
+Once a freeze is scheduled, it must be aborted before any other type of freeze can
+can be performed.</p></td>
+              </tr>
+            
+              <tr>
+                <td>FREEZE_UPGRADE_IN_PROGRESS</td>
+                <td>276</td>
+                <td><p>
+If an NMT upgrade has been prepared, the following operation must be a FREEZE_UPGRADE.
+(To issue a FREEZE_ONLY, submit a FREEZE_ABORT first.)</p></td>
+              </tr>
+            
+              <tr>
+                <td>UPDATE_FILE_ID_DOES_NOT_MATCH_PREPARED</td>
+                <td>277</td>
+                <td><p>
+If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must 
+confirm the id of the file to be used in the upgrade.</p></td>
+              </tr>
+            
+              <tr>
+                <td>UPDATE_FILE_HASH_DOES_NOT_MATCH_PREPARED</td>
+                <td>278</td>
+                <td><p>
+If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must 
+confirm the hash of the file to be used in the upgrade.</p></td>
+              </tr>
+            
+              <tr>
+                <td>CONSENSUS_GAS_EXHAUSTED</td>
+                <td>279</td>
+                <td><p>
+Consensus throttle did not allow execution of this transaction. System is throttled at
+consensus level.</p></td>
               </tr>
             
           </tbody>
@@ -11317,6 +11638,22 @@ Associate tokens to an account </p></td>
                   <td></td>
                   <td><p>
 Dissociate tokens from an account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>token_pause</td>
+                  <td><a href="#proto.TokenPauseTransactionBody">TokenPauseTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Pauses the Token </p></td>
+                </tr>
+              
+                <tr>
+                  <td>token_unpause</td>
+                  <td><a href="#proto.TokenUnpauseTransactionBody">TokenUnpauseTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Unpauses the Token </p></td>
                 </tr>
               
                 <tr>
@@ -12462,6 +12799,15 @@ transaction </p></td>
 The custom fees to be assessed during a CryptoTransfer that transfers units of this token </p></td>
                 </tr>
               
+                <tr>
+                  <td>pause_key</td>
+                  <td><a href="#proto.Key">Key</a></td>
+                  <td></td>
+                  <td><p>
+The Key which can pause and unpause the Token.
+If Empty the token pause status defaults to PauseNotApplicable, otherwise Unpaused. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -13043,6 +13389,22 @@ is immutable </p></td>
 The custom fees to be assessed during a CryptoTransfer that transfers units of this token </p></td>
                 </tr>
               
+                <tr>
+                  <td>pause_key</td>
+                  <td><a href="#proto.Key">Key</a></td>
+                  <td></td>
+                  <td><p>
+The Key which can pause and unpause the Token. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pause_status</td>
+                  <td><a href="#proto.TokenPauseStatus">TokenPauseStatus</a></td>
+                  <td></td>
+                  <td><p>
+Specifies whether the token is paused or not. PauseNotApplicable is returned if pauseKey is not set. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -13438,6 +13800,45 @@ Maximum allowed size of each metadata is 100 bytes </p></td>
     
       
       <div class="file-heading">
+        <h2 id="token_pause.proto">token_pause.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.TokenPauseTransactionBody">TokenPauseTransactionBody</h3>
+        <p></p><p>Pauses the Token from being involved in any kind of Transaction until it is unpaused.</p><p>Must be signed with the Token's pause key.</p><p>If the provided token is not found, the transaction will resolve to INVALID_TOKEN_ID.</p><p>If the provided token has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If no Pause Key is defined, the transaction will resolve to TOKEN_HAS_NO_PAUSE_KEY.</p><p>Once executed the Token is marked as paused and will be not able to be a part of any transaction.</p><p>The operation is idempotent - becomes a no-op if the Token is already Paused.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>token</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>
+The token to be paused. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
         <h2 id="token_revoke_kyc.proto">token_revoke_kyc.proto</h2><a href="#title">Top</a>
       </div>
       <p></p>
@@ -13641,6 +14042,20 @@ Retrieves the metadata of an NFT by TokenID and serial number</p></td>
 (DEPRECATED) Gets info on NFTs N through M on the list of NFTs associated with a given Token of type NON_FUNGIBLE</p></td>
               </tr>
             
+              <tr>
+                <td>pauseToken</td>
+                <td><a href="#proto.Transaction">Transaction</a></td>
+                <td><a href="#proto.TransactionResponse">TransactionResponse</a></td>
+                <td><p>Pause the token</p></td>
+              </tr>
+            
+              <tr>
+                <td>unpauseToken</td>
+                <td><a href="#proto.Transaction">Transaction</a></td>
+                <td><a href="#proto.TransactionResponse">TransactionResponse</a></td>
+                <td><p>Unpause the token</p></td>
+              </tr>
+            
           </tbody>
         </table>
 
@@ -13704,6 +14119,45 @@ results in INVALID_TOKEN_ID </p></td>
                   <td></td>
                   <td><p>
 The account to be unfrozen </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="token_unpause.proto">token_unpause.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.TokenUnpauseTransactionBody">TokenUnpauseTransactionBody</h3>
+        <p></p><p>Unpauses the Token. Must be signed with the Token's pause key.</p><p>If the provided token is not found, the transaction will resolve to INVALID_TOKEN_ID.</p><p>If the provided token has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If no Pause Key is defined, the transaction will resolve to TOKEN_HAS_NO_PAUSE_KEY.</p><p>Once executed the Token is marked as Unpaused and can be used in Transactions.</p><p>The operation is idempotent - becomes a no-op if the Token is already unpaused.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>token</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>
+The token to be unpaused. </p></td>
                 </tr>
               
             </tbody>
@@ -13861,6 +14315,15 @@ If set, the new memo to be associated with the token (UTF-8 encoding max 100 byt
                   <td><p>
 If set, the new key to use to update the token&#39;s custom fee schedule; if the token does not
 currently have this key, transaction will resolve to TOKEN_HAS_NO_FEE_SCHEDULE_KEY </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pause_key</td>
+                  <td><a href="#proto.Key">Key</a></td>
+                  <td></td>
+                  <td><p>
+The Key which can pause and unpause the Token. If the Token does not currently have a pause key,
+transaction will resolve to TOKEN_HAS_NO_PAUSE_KEY </p></td>
                 </tr>
               
             </tbody>
@@ -14398,6 +14861,22 @@ Dissociate tokens from an account </p></td>
                   <td></td>
                   <td><p>
 Updates a token&#39;s custom fee schedule </p></td>
+                </tr>
+              
+                <tr>
+                  <td>token_pause</td>
+                  <td><a href="#proto.TokenPauseTransactionBody">TokenPauseTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Pauses the Token </p></td>
+                </tr>
+              
+                <tr>
+                  <td>token_unpause</td>
+                  <td><a href="#proto.TokenUnpauseTransactionBody">TokenUnpauseTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Unpauses the Token </p></td>
                 </tr>
               
                 <tr>
