@@ -505,6 +505,11 @@ message Key {
         bytes ECDSA_384 = 4;
 
         /**
+         * smart contract instance that is authorized as if it had signed with a key and is coming through an EVM delegated call
+         */
+        ContractID delegatable_contract_id = 7;
+
+        /**
          * a threshold N followed by a list of M keys, any N of which are required to form a valid
          * signature
          */
