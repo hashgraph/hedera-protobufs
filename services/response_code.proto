@@ -1093,4 +1093,9 @@ enum ResponseCodeEnum {
    * consensus level.
    */
   CONSENSUS_GAS_EXHAUSTED = 279;
+
+  /**
+   * The provided BLS phase duration was not adequate for the protocol.
+   */
+  INSUFFICIENT_BLS_PHASE_DURATION = 280;
 }

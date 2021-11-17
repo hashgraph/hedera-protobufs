@@ -314,5 +314,10 @@ message TransactionBody {
      * Adds one or more Ed25519 keys to the affirmed signers of a scheduled transaction
      */
     ScheduleSignTransactionBody scheduleSign = 44;
+
+    /**
+     * Initiates a given type BLS protocol
+     */
+    InitiateBlsProtocolBody initiateBlsProtocol = 45;
   }
 }
