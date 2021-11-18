@@ -166,7 +166,7 @@ message TransactionReceipt {
 
     /**
      * In the receipt of a CryptoTransfer transaction used to auto create accounts by transferring to alias
-     * public keys, the serial numbers of the newly created accounts
+     * public keys, the ids of newly created accounts
      */
     repeated AccountID autoCreatedAccounts = 15;
 }
