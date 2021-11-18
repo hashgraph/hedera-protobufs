@@ -47,6 +47,12 @@ service NetworkService {
     rpc getExecutionTime (Query) returns (Response);
 
     /**
+     * Initiates a given stage of the BLS protocol. Transaction payer must have superuser 
+     * privileges (account 0.0.2 or 0.0.50).
+     */
+    rpc initiateBlsProtocol (Transaction) returns (TransactionResponse);
+
+    /**
      * Submits a "wrapped" transaction to the network, skipping its standard prechecks. (Note that
      * the "wrapper" <tt>UncheckedSubmit</tt> transaction is still subject to normal prechecks,
      * including an authorization requirement that its payer be either the treasury or system admin
