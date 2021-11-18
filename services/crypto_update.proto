@@ -129,4 +129,9 @@ message CryptoUpdateTransactionBody {
      * including implicit and explicit associations.
      */
     google.protobuf.Int32Value max_automatic_token_associations = 15;
+    /**
+     * The new alias public key that can be set for an AccountID. Once an alias is set on an AccountID
+     * it is immutable.
+     */
+    Key new_permanent_alias = 16;
 }

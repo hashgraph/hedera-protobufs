@@ -79,9 +79,16 @@ message AccountID {
     int64 realmNum = 2;
 
     /**
-     * A nonnegative account number unique within its realm
+     * An account number unique within its realm which can be either a non-negative integer or an alias public key.
+     * ThresholdKey and KeyList are not supported for alias and only a primitive key type is supported.
+     * Alias public key is used for auto account creation using a crypto transfer. Once an alias key is set for an
+     * account it is immutable.
      */
-    int64 accountNum = 3;
+    oneof account {
+        int64 accountNum = 3;
+        Key alias = 4;
+    }
+
 }
 
 /**
