@@ -129,9 +129,14 @@ message CryptoUpdateTransactionBody {
      * including implicit and explicit associations.
      */
     google.protobuf.Int32Value max_automatic_token_associations = 15;
+
     /**
-     * The new alias public key that can be set for an AccountID. Once an alias is set on an AccountID
-     * it is immutable.
+     * The new alias public key that can be set for an AccountID. For existing accounts alias key can
+     * be updated by providing a primitive key or a file ID. If a fileID is provided, its hash is used as alias.
+     * Once an alias is set on an AccountID it is immutable.
      */
-    Key new_permanent_alias = 16;
+    oneof new_permanent_alias {
+        Key key_alias = 16;
+        FileID hash_alias_file_id = 17;
+    }
 }
