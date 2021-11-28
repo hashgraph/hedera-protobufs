@@ -136,7 +136,15 @@ message CryptoUpdateTransactionBody {
      * Once an alias is set on an AccountID it is immutable.
      */
     oneof new_permanent_alias {
+
+        /**
+         * The new base64 primitive public key that will be updated for alias
+         */
         Key key_alias = 16;
+
+        /**
+         * The FileID of the file whose hash will be updated for alias
+         */
         FileID hash_alias_file_id = 17;
     }
 }
