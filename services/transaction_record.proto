@@ -110,4 +110,9 @@ message TransactionRecord {
      * All token associations implicitly created while handling this transaction
      */
     repeated TokenAssociation automatic_token_associations = 14;
+
+    /**
+     * In the record of a "child" transaction, the consensus timestamp of its parent.
+     */
+    Timestamp parent_consensus_timestamp = 15;
 }
