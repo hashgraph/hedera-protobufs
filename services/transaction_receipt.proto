@@ -163,11 +163,4 @@ message TransactionReceipt {
      * the newly created NFTs
      */
     repeated int64 serialNumbers = 14;
-
-    /**
-     * In the receipt of a CryptoTransfer transaction used to auto create accounts by transferring to alias
-     * public keys, the ids of newly created accounts. These AccountIDs will have the accountNum values set
-     * instead of the alias
-     */
-    repeated AccountID auto_created_account_ids = 15;
 }
