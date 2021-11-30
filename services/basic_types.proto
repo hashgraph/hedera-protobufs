@@ -80,6 +80,8 @@ message AccountID {
 
     /**
      * The account number unique within its realm which can be either a non-negative integer or an alias public key.
+     * For any AccountID fields in the query response, transaction record or transaction receipt only accountNum will
+     * be populated.
      */
     oneof account {
 
@@ -89,13 +91,12 @@ message AccountID {
         int64 accountNum = 3;
 
         /**
-         * An alias base64 single public key. Only a primitive key is supported as an alias Key (ThresholdKey and KeyList
-         * are not supported).
+         * A public key to be used as the account's alias. Only a primitive key is supported as an alias Key
+         * (ThresholdKey and KeyList are not supported).
          *
          * At most one account can ever have a given alias and it is used for account creation if it
          * was automatically created using a crypto transfer. It will be null if an account is created normally.
-         * Existing accounts without the alias can set it using an update transaction, and it is immutable once it is
-         * set for an account.
+         * It is immutable once it is set for an account.
          *
          * If a transaction auto-creates the account, any further transfers to that alias will simply be deposited
          * in that account, without creating anything, and with no creation fee being charged.
