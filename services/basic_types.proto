@@ -92,7 +92,7 @@ message AccountID {
 
         /**
          * A public key to be used as the account's alias. Only a primitive key is supported as an alias Key
-         * (ThresholdKey and KeyList are not supported).
+         * (ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported).
          *
          * At most one account can ever have a given alias and it is used for account creation if it
          * was automatically created using a crypto transfer. It will be null if an account is created normally.
