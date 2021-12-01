@@ -1454,7 +1454,7 @@ message AccountAlias {
     Key alias = 1;
 
     /**
-     * Account auto-created because of a CryptoTransfer to the alias
+     * AccountID of the auto-created account triggered due to a CryptoTransfer to the alias
      */
-    AccountID account = 2;
+    AccountID accountID = 2;
 }
