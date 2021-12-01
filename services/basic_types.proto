@@ -79,9 +79,31 @@ message AccountID {
     int64 realmNum = 2;
 
     /**
-     * A nonnegative account number unique within its realm
+     * The account number unique within its realm which can be either a non-negative integer or an alias public key.
+     * For any AccountID fields in the query response, transaction record or transaction receipt only accountNum will
+     * be populated.
      */
-    int64 accountNum = 3;
+    oneof account {
+
+        /**
+         * A non-negative account number unique within its realm
+         */
+        int64 accountNum = 3;
+
+        /**
+         * A public key to be used as the account's alias. Only a primitive key is supported as an alias Key
+         * (ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported).
+         *
+         * At most one account can ever have a given alias and it is used for account creation if it
+         * was automatically created using a crypto transfer. It will be null if an account is created normally.
+         * It is immutable once it is set for an account.
+         *
+         * If a transaction auto-creates the account, any further transfers to that alias will simply be deposited
+         * in that account, without creating anything, and with no creation fee being charged.
+         */
+        Key alias = 4;
+    }
+
 }
 
 /**
@@ -1442,4 +1464,19 @@ message TokenBalances {
 message TokenAssociation {
     TokenID token_id = 1;  // The token involved in the association
     AccountID account_id = 2; // The account involved in the association
+}
+
+/**
+ * An account and its corresponding alias
+ */
+message AccountAlias {
+    /**
+     * Alias for given account
+     */
+    Key alias = 1;
+
+    /**
+     * AccountID of the auto-created account triggered due to a CryptoTransfer to the alias
+     */
+    AccountID accountID = 2;
 }
