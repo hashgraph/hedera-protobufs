@@ -1443,3 +1443,18 @@ message TokenAssociation {
     TokenID token_id = 1;  // The token involved in the association
     AccountID account_id = 2; // The account involved in the association
 }
+
+/**
+ * An account and its corresponding alias
+ */
+message AccountAlias {
+    /**
+     * Alias for given account
+     */
+    Key alias = 1;
+
+    /**
+     * Account created by transferring to the alias
+     */
+    AccountID account = 2;
+}
