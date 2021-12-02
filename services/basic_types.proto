@@ -91,8 +91,9 @@ message AccountID {
         int64 accountNum = 3;
 
         /**
-         * The public key bytes to be used as the account's alias. Currently only primitive key bytes are supported as
-         * an alias (Bytes of ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported).
+         * The public key bytes to be used as the account's alias. The public key bytes are the result of serializing
+         * a protobuf Key message for any primitive key type. Currently only primitive key bytes are supported as an alias
+         * (ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported)
          *
          * At most one account can ever have a given alias and it is used for account creation if it
          * was automatically created using a crypto transfer. It will be null if an account is created normally.
