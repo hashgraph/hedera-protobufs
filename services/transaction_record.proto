@@ -116,9 +116,4 @@ message TransactionRecord {
      * transaction that spawned it.
      */
     Timestamp parent_consensus_timestamp = 15;
-
-    /**
-     * All accounts auto-created because of a CryptoTransfer transaction to the corresponding alias
-     */
-    repeated AccountAlias new_account_aliases = 16;
 }
