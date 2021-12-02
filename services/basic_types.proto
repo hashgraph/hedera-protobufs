@@ -91,8 +91,9 @@ message AccountID {
         int64 accountNum = 3;
 
         /**
-         * A public key to be used as the account's alias. Only a primitive key is supported as an alias Key
-         * (ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported).
+         * The public key bytes to be used as the account's alias. The public key bytes are the result of serializing
+         * a protobuf Key message for any primitive key type. Currently only primitive key bytes are supported as an alias
+         * (ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported)
          *
          * At most one account can ever have a given alias and it is used for account creation if it
          * was automatically created using a crypto transfer. It will be null if an account is created normally.
@@ -101,7 +102,7 @@ message AccountID {
          * If a transaction auto-creates the account, any further transfers to that alias will simply be deposited
          * in that account, without creating anything, and with no creation fee being charged.
          */
-        Key alias = 4;
+        bytes alias = 4;
     }
 
 }
@@ -1464,19 +1465,4 @@ message TokenBalances {
 message TokenAssociation {
     TokenID token_id = 1;  // The token involved in the association
     AccountID account_id = 2; // The account involved in the association
-}
-
-/**
- * An account and its corresponding alias
- */
-message AccountAlias {
-    /**
-     * Alias for given account
-     */
-    Key alias = 1;
-
-    /**
-     * AccountID of the auto-created account triggered due to a CryptoTransfer to the alias
-     */
-    AccountID accountID = 2;
 }
