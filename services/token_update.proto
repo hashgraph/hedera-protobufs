@@ -58,13 +58,15 @@ message TokenUpdateTransactionBody {
     TokenID token = 1;
 
     /**
-     * The new publicly visible Token symbol, limited to a UTF-8 encoding of length
+     * The new publicly visible Token symbol. The token name is specified as a string of UTF-8 characters in Unicode. 
+     * UTF-8 encoding of this Unicode cannot contain the 0 byte (NUL).
      * <tt>tokens.maxTokenNameUtf8Bytes</tt>.
      */
     string symbol = 2;
 
     /**
-     * The new publicly visible name of the Token, limited to a UTF-8 encoding of length
+     * The new publicly visible name of the Token. The token symbol is specified as a string of UTF-8 characters in Unicode. 
+     * UTF-8 encoding of this Unicode cannot contain the 0 byte (NUL).
      * <tt>tokens.maxSymbolUtf8Bytes</tt>.
      */
     string name = 3;
