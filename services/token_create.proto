@@ -80,7 +80,7 @@ message TokenCreateTransactionBody {
     string name = 1;
 
     /**
-     * The publicly visible token symbol.The token symbol is specified as a Unicode string. 
+     * The publicly visible token symbol. The token symbol is specified as a Unicode string. 
      * Its UTF-8 encoding cannot exceed 100 bytes, and cannot contain the 0 byte (NUL).
      * <tt>tokens.maxTokenNameUtf8Bytes</tt>.
      */
