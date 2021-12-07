@@ -116,4 +116,10 @@ message TransactionRecord {
      * transaction that spawned it.
      */
     Timestamp parent_consensus_timestamp = 15;
+
+    /**
+     * In the record of an internal CryptoCreate transaction triggered by a user 
+     * transaction with a (previously unused) alias, the new account's alias. 
+     */
+     bytes alias = 16;
 }

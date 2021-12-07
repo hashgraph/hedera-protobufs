@@ -1103,4 +1103,11 @@ enum ResponseCodeEnum {
    * All contract storage allocated to the current price regime has been consumed.
    */
   MAX_STORAGE_IN_PRICE_REGIME_HAS_BEEN_USED = 281;
+
+  /**
+   * An alias used in a CryptoTransfer transaction is not the serialization of a primitive Key
+   * message--that is, a Key with a single Ed25519 or ECDSA(secp256k1) public key and no 
+   * unknown protobuf fields.
+   */
+  INVALID_ALIAS_KEY = 282;
 }
