@@ -118,8 +118,8 @@ message TransactionRecord {
     Timestamp parent_consensus_timestamp = 15;
 
     /**
-     * In the record of an internal CryptoCreate transaction triggered by a CryptoTransfer to the alias,
-     * decoded alias of the auto created account
+     * In the record of an internal CryptoCreate transaction triggered by a CryptoTransfer 
+     * to a (previously unsed) alias, the new account's alias. 
      */
      bytes alias = 16;
 }
