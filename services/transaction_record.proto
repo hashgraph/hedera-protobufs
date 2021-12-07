@@ -119,7 +119,7 @@ message TransactionRecord {
 
     /**
      * In the record of an internal CryptoCreate transaction triggered by a user 
-     * transaction to a (previously unused) alias, the new account's alias. 
+     * transaction with a (previously unused) alias, the new account's alias. 
      */
      bytes alias = 16;
 }
