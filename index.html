@@ -2142,7 +2142,24 @@ The realm number (nonnegative) </p></td>
                   <td><a href="#int64">int64</a></td>
                   <td></td>
                   <td><p>
-A nonnegative account number unique within its realm </p></td>
+A non-negative account number unique within its realm </p></td>
+                </tr>
+              
+                <tr>
+                  <td>alias</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The public key bytes to be used as the account&#39;s alias. The public key bytes are the result of serializing
+a protobuf Key message for any primitive key type. Currently only primitive key bytes are supported as an alias
+(ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported)
+
+At most one account can ever have a given alias and it is used for account creation if it
+was automatically created using a crypto transfer. It will be null if an account is created normally.
+It is immutable once it is set for an account.
+
+If a transaction auto-creates the account, any further transfers to that alias will simply be deposited
+in that account, without creating anything, and with no creation fee being charged. </p></td>
                 </tr>
               
             </tbody>
@@ -2490,7 +2507,7 @@ The rational&#39;s denominator; a zero value will result in FRACTION_DIVIDES_BY_
         
       
         <h3 id="proto.Key">Key</h3>
-        <p></p><p>A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with</p><p>p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had</p><p>a key. If an account has an ed25519 key associated with it, then the corresponding private key</p><p>must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.</p><p>A Key can be a smart contract ID, which means that smart contract is to authorize operations as</p><p>if it had signed with a key that it owned. The smart contract doesn't actually have a key, and</p><p>doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the</p><p>smart contract signed it with a private key.</p><p>A Key can be a "threshold key", which means a list of M keys, any N of which must sign in order</p><p>for the threshold signature to be considered valid. The keys within a threshold signature may</p><p>themselves be threshold signatures, to allow complex signature requirements.</p><p>A Key can be a "key list" where all keys in the list must sign unless specified otherwise in the</p><p>documentation for a specific transaction type (e.g.  FileDeleteTransactionBody).  Their use is</p><p>dependent on context. For example, a Hedera file is created with a list of keys, where all of</p><p>them must sign a transaction to create or modify the file, but only one of them is needed to sign</p><p>a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold</p><p>key, and sometimes acts as an M-of-M threshold key.  A key list is always an M-of-M, unless</p><p>specified otherwise in documentation. A key list can have nested key lists or threshold keys.</p><p>Nested key lists are always M-of-M. A key list can have repeated Ed25519 public keys, but all</p><p>repeated keys are only required to sign once.</p><p>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual</p><p>recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive</p><p>keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains</p><p>several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of</p><p>nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -></p><p>KeyList -> Key.</p><p>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys.</p><p>Only ed25519 primitive keys are currently supported.</p>
+        <p></p><p>A Key can be a public key from either the Ed25519 or ECDSA(secp256k1) signature schemes, where</p><p>in the ECDSA(secp256k1) case we require the 33-byte compressed form of the public key. We call</p><p>these public keys <b>primitive keys</b>.</p><p>If an account has primitive key associated to it, then the corresponding private key must sign </p><p>any transaction to transfer cryptocurrency out of it. </p><p>A Key can also be the ID of a smart contract instance, which is then authorized to perform any </p><p>precompiled contract action that requires this key to sign. </p><p>Note that when a Key is a smart contract ID, it <i>doesn't</i> mean the contract with that ID </p><p>will actually create a cryptographic signature. It only means that when the contract calls a </p><p>precompiled contract, the resulting "child transaction" will be authorized to perform any action</p><p>controlled by the Key.</p><p>A Key can be a "threshold key", which means a list of M keys, any N of which must sign in order</p><p>for the threshold signature to be considered valid. The keys within a threshold signature may</p><p>themselves be threshold signatures, to allow complex signature requirements.</p><p>A Key can be a "key list" where all keys in the list must sign unless specified otherwise in the</p><p>documentation for a specific transaction type (e.g.  FileDeleteTransactionBody).  Their use is</p><p>dependent on context. For example, a Hedera file is created with a list of keys, where all of</p><p>them must sign a transaction to create or modify the file, but only one of them is needed to sign</p><p>a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold</p><p>key, and sometimes acts as an M-of-M threshold key.  A key list is always an M-of-M, unless</p><p>specified otherwise in documentation. A key list can have nested key lists or threshold keys.</p><p>Nested key lists are always M-of-M. A key list can have repeated primitive public keys, but all</p><p>repeated keys are only required to sign once.</p><p>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual</p><p>recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive</p><p>keys has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive</p><p>keys has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels:</p><p>Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.</p><p>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys.</p>
 
         
           <table class="field-table">
@@ -2512,7 +2529,7 @@ smart contract instance that is authorized as if it had signed with a key </p></
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
                   <td><p>
-ed25519 public key bytes </p></td>
+Ed25519 public key bytes </p></td>
                 </tr>
               
                 <tr>
@@ -2520,7 +2537,7 @@ ed25519 public key bytes </p></td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
                   <td><p>
-RSA-3072 public key bytes </p></td>
+(NOT SUPPORTED) RSA-3072 public key bytes </p></td>
                 </tr>
               
                 <tr>
@@ -2528,7 +2545,7 @@ RSA-3072 public key bytes </p></td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
                   <td><p>
-ECDSA with the p-384 curve public key bytes </p></td>
+(NOT SUPPORTED) ECDSA with the p-384 curve public key bytes </p></td>
                 </tr>
               
                 <tr>
@@ -2546,6 +2563,27 @@ signature </p></td>
                   <td></td>
                   <td><p>
 A list of Keys of the Key type. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ECDSA_secp256k1</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+Compressed ECDSA(secp256k1) public key bytes </p></td>
+                </tr>
+              
+                <tr>
+                  <td>delegatable_contract_id</td>
+                  <td><a href="#proto.ContractID">ContractID</a></td>
+                  <td></td>
+                  <td><p>
+A smart contract that, if the recipient of the active message frame, should be treated
+as having signed. (Note this does not mean the &lt;i&gt;code being executed in the frame&lt;/i&gt; 
+will belong to the given contract, since it could be running another contract&#39;s code via 
+&lt;tt&gt;delegatecall&lt;/tt&gt;. So setting this key is a more permissive version of setting the
+contractID key, which also requires the code in the active message frame belong to the
+the contract with the given id.) </p></td>
                 </tr>
               
             </tbody>
@@ -3043,7 +3081,7 @@ the shard number (nonnegative) </p></td>
         
       
         <h3 id="proto.Signature">Signature</h3>
-        <p></p><p>A Signature corresponding to a Key. It is a sequence of bytes holding a public key signature from</p><p>one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be a list of</p><p>signatures corresponding to a single threshold key. Or, it can be the ID of a smart contract</p><p>instance, which is authorized to act as if it had a key. If an account has an ed25519 key</p><p>associated with it, then the corresponding private key must sign any transaction to transfer</p><p>cryptocurrency out of it.  If it has a smart contract ID associated with it, then that smart</p><p>contract is allowed to transfer cryptocurrency out of it. The smart contract doesn't actually</p><p>have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were</p><p>created, and the smart contract signed it with a private key. A key can also be a "threshold</p><p>key", which means a list of M keys, any N of which must sign in order for the threshold signature</p><p>to be considered valid. The keys within a threshold signature may themselves be threshold</p><p>signatures, to allow complex signature requirements (this nesting is not supported in the</p><p>currently, but will be supported in a future version of API). If a Signature message is missing</p><p>the "signature" field, then this is considered to be a null signature. That is useful in cases</p><p>such as threshold signatures, where some of the signatures can be null.  The definition of Key</p><p>uses mutual recursion, so it allows nesting that is arbitrarily deep. But the current API only</p><p>accepts Key messages up to 3 levels deep, such as a list of threshold keys, each of which is a</p><p>list of primitive keys. Therefore, the matching Signature will have the same limitation. This</p><p>restriction may be relaxed in future versions of the API, to allow deeper nesting.</p><p>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.</p>
+        <p></p><p>This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained </p><p>here only for historical reasons.</p><p>Please use the SignaturePair and SignatureMap messages.</p>
 
         
           <table class="field-table">
@@ -3109,7 +3147,7 @@ A list of M signatures, each corresponding to a Key in a KeyList of the same len
         
       
         <h3 id="proto.SignatureList">SignatureList</h3>
-        <p></p><p>The signatures corresponding to a KeyList of the same length.  This message is deprecated and</p><p>succeeded by SignaturePair and SignatureMap messages.</p>
+        <p></p><p>This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained </p><p>here only for historical reasons.</p><p>Please use the SignaturePair and SignatureMap messages.</p>
 
         
           <table class="field-table">
@@ -3159,7 +3197,7 @@ Each signature pair corresponds to a unique Key required to sign the transaction
         
       
         <h3 id="proto.SignaturePair">SignaturePair</h3>
-        <p></p><p>The client may use any number of bytes from 0 to the whole length of the public key for</p><p>pubKeyPrefix.  If 0 bytes is used, then it is assumed that only one public key is used to sign.</p><p>Only ed25519 keys and hence signatures are currently supported.</p>
+        <p></p><p>The client may use any number of bytes from zero to the whole length of the public key for</p><p>pubKeyPrefix. If zero bytes are used, then it must be that only one primitive key is required</p><p>to sign the linked transaction; it will surely resolve to <tt>INVALID_SIGNATURE</tt> otherwise. </p><p><b>IMPORTANT:</b> In the special case that a signature is being provided for a key used to </p><p>authorize a precompiled contract, the <tt>pubKeyPrefix</tt> must contain the <b>entire public </p><p>key</b>! That is, if the key is a Ed25519 key, the <tt>pubKeyPrefix</tt> should be 32 bytes </p><p>long. If the key is a ECDSA(secp256k1) key, the <tt>pubKeyPrefix</tt> should be 33 bytes long, </p><p>since we require the compressed form of the public key. </p><p>Only Ed25519 and ECDSA(secp256k1) keys and hence signatures are currently supported.</p>
 
         
           <table class="field-table">
@@ -3208,6 +3246,14 @@ RSA-3072 signature </p></td>
 ECDSA p-384 signature </p></td>
                 </tr>
               
+                <tr>
+                  <td>ECDSA_secp256k1</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+ECDSA(secp256k1) signature </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -3249,7 +3295,7 @@ List of all the keys that can sign </p></td>
         
       
         <h3 id="proto.ThresholdSignature">ThresholdSignature</h3>
-        <p></p><p>A signature corresponding to a ThresholdKey. For an N-of-M threshold key, this is a list of M</p><p>signatures, at least N of which must be non-null.  This message is deprecated and succeeded by</p><p>SignaturePair and SignatureMap messages.</p>
+        <p></p><p>This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained </p><p>here only for historical reasons.</p><p>Please use the SignaturePair and SignatureMap messages.</p>
 
         
           <table class="field-table">
@@ -3668,6 +3714,21 @@ The Account ID that paid for this transaction </p></td>
                   <td></td>
                   <td><p>
 Whether the Transaction is of type Scheduled or no </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nonce</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>
+The identifier for an internal transaction that was spawned as part 
+of handling a user transaction. (These internal transactions share the 
+transactionValidStart and accountID of the user transaction, so a
+nonce is necessary to give them a unique TransactionID.)
+
+An example is when a &#34;parent&#34; ContractCreate or ContractCall transaction 
+calls one or more HTS precompiled contracts; each of the &#34;child&#34; 
+transactions spawned for a precompile has a id with a different nonce. </p></td>
                 </tr>
               
             </tbody>
@@ -6749,6 +6810,14 @@ The number of NFTs owned by this account </p></td>
                   <td></td>
                   <td><p>
 The maximum number of tokens that an Account can be implicitly associated with. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>alias</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The alias of this account </p></td>
                 </tr>
               
             </tbody>
@@ -11284,6 +11353,29 @@ Consensus throttle did not allow execution of this transaction. System is thrott
 consensus level.</p></td>
               </tr>
             
+              <tr>
+                <td>REVERTED_SUCCESS</td>
+                <td>280</td>
+                <td><p>
+A precompiled contract succeeded, but was later reverted.</p></td>
+              </tr>
+            
+              <tr>
+                <td>MAX_STORAGE_IN_PRICE_REGIME_HAS_BEEN_USED</td>
+                <td>281</td>
+                <td><p>
+All contract storage allocated to the current price regime has been consumed.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_ALIAS_KEY</td>
+                <td>282</td>
+                <td><p>
+An alias used in a CryptoTransfer transaction is not the serialization of a primitive Key
+message--that is, a Key with a single Ed25519 or ECDSA(secp256k1) public key and no 
+unknown protobuf fields.</p></td>
+              </tr>
+            
           </tbody>
         </table>
       
@@ -15110,7 +15202,16 @@ Whether receipts of processing duplicate transactions should be returned along w
 receipt of processing the first consensus transaction with the given id whose status was
 neither &lt;tt&gt;INVALID_NODE_ACCOUNT&lt;/tt&gt; nor &lt;tt&gt;INVALID_PAYER_SIGNATURE&lt;/tt&gt;; &lt;b&gt;or&lt;/b&gt;, if no
 such receipt exists, the receipt of processing the first transaction to reach consensus with
-the given transaction id.. </p></td>
+the given transaction id. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>include_child_receipts</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>
+Whether the response should include the receipts of any child transactions spawned by the 
+top-level transaction with the given transactionID. </p></td>
                 </tr>
               
             </tbody>
@@ -15155,8 +15256,16 @@ reach consensus with the given transaction id. </p></td>
                   <td><a href="#proto.TransactionReceipt">TransactionReceipt</a></td>
                   <td>repeated</td>
                   <td><p>
-The receipts of processing all consensus transaction with the same id as the distinguished
-receipt above, in chronological order. </p></td>
+The receipts of processing all transactions with the given id, in consensus time order. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>child_transaction_receipts</td>
+                  <td><a href="#proto.TransactionReceipt">TransactionReceipt</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The receipts (if any) of all child transactions spawned by the transaction with the 
+given top-level id, in consensus order. Always empty if the top-level status is UNKNOWN. </p></td>
                 </tr>
               
             </tbody>
@@ -15219,6 +15328,15 @@ record exists, the record of processing the first transaction to reach consensus
 given transaction id.. </p></td>
                 </tr>
               
+                <tr>
+                  <td>include_child_records</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>
+Whether the response should include the records of any child transactions spawned by the 
+top-level transaction with the given transactionID. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -15263,6 +15381,15 @@ consensus with the given transaction id. </p></td>
                   <td><p>
 The records of processing all consensus transaction with the same id as the distinguished
 record above, in chronological order. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>child_transaction_records</td>
+                  <td><a href="#proto.TransactionRecord">TransactionRecord</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The records of processing all child transaction spawned by the transaction with the given 
+top-level id, in consensus order. Always empty if the top-level status is UNKNOWN. </p></td>
                 </tr>
               
             </tbody>
@@ -15609,6 +15736,24 @@ transaction status resolved to SUCCESS </p></td>
                   <td>repeated</td>
                   <td><p>
 All token associations implicitly created while handling this transaction </p></td>
+                </tr>
+              
+                <tr>
+                  <td>parent_consensus_timestamp</td>
+                  <td><a href="#proto.Timestamp">Timestamp</a></td>
+                  <td></td>
+                  <td><p>
+In the record of an internal transaction, the consensus timestamp of the user
+transaction that spawned it. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>alias</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+In the record of an internal CryptoCreate transaction triggered by a user 
+transaction with a (previously unused) alias, the new account&#39;s alias. </p></td>
                 </tr>
               
             </tbody>
