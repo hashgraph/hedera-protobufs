@@ -34,9 +34,18 @@ import "transaction.proto";
  */
 service NetworkService {
     /**
-     * Retrieves the active versions of Hedera Services and HAPI proto
+     * Retrieves the active versions of Hedera Services and HAPI proto. Not a free query.
      */
     rpc getVersionInfo (Query) returns (Response);
+
+    /**
+     * Retrieves free metadata about the network, most importantly its <i>address book</i>. 
+     * The address book includes not just the IP addresses of the network nodes, but also the 
+     * the cryptographic keys they use to sign transactions and do TLS. Please see the
+     * <a href="https://hashgraph.github.io/hedera-protobufs/#proto.NodeAddress"><tt>NodeAddress</tt></a>
+     * type for more details.
+     */
+    rpc getNetworkInfo (Query) returns (Response);
 
     /**
      * Retrieves the time in nanoseconds spent in <tt>handleTransaction</tt> for one or more 

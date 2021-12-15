@@ -1068,6 +1068,11 @@ enum HederaFunctionality {
      * Unpause the Token
      */
     TokenUnpause = 80;
+
+    /**
+     * Get freely available network info, especially the address book
+     */
+    NetworkGetInfo = 81;
 }
 
 /**
