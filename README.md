@@ -33,7 +33,7 @@ privileged accounts to suspend network operations during a maintenance window.
 It is important to note that most network services are gated by fees which 
 must be paid in ℏ from a cryptocurrency account. The payer authorizes a
 fee by signing an appropriate transaction with a sufficient subset of the 
-Ed25519/ECDSA_SECP256K1 key(s) associated to their account.
+Ed25519/ECDSA(secp256k1) key(s) associated to their account.
 
 # Branching
 This repository uses a simple branching model with only two distinguished branches:
