@@ -29,6 +29,8 @@ import "basic_types.proto";
 import "query_header.proto";
 import "response_header.proto";
 
+import "google/protobuf/wrappers.proto";
+
 /**
  * The log information for an event returned by a smart contract function call. One function call
  * may return several such events.
@@ -190,17 +192,11 @@ message StorageChange {
     bytes valueRead = 2;
 
     /**
-     * What the write mode is, either a read-only access or the updated value.
+     * The new value written to the slot.  Up to 32 bytes, big-endian, zero bytes left trimmed.
+     *
+     * If a value of zero is written the valueWritten will be present but the inner value will be absent.
+     *
+     * If a value was read and not written this value will not be present.
      */
-    oneof writeMode {
-        /**
-         * The new value written to the slot.  Up to 32 bytes, big-endian, zero bytes left trimmed.
-         */
-        bytes valueWritten = 3;
-
-        /**
-         * If the value was only read this will be true, in lieu of valueWritten.
-         */
-        bool readOnly = 4;
-    }
+    google.protobuf.BytesValue valueWritten = 3;
 }
