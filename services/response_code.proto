@@ -1131,9 +1131,4 @@ enum ResponseCodeEnum {
    * The fee collector account id in TokenFeeScheduleUpdate is invalid or does not exist.
    */
   INVALID_FEE_COLLECTOR_ACCOUNT_ID = 286;
-
-  /**
-   * The auto renew account id is invalid or does not exist.
-   */
-  INVALID_AUTORENEW_ACCOUNT_ID = 287;
 }
