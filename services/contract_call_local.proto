@@ -131,7 +131,11 @@ message ContractCallLocalQuery {
         ContractID contractID = 2;
 
         /**
-        * The 20-byte Solidity address of the contract to call
+        * The 20-byte Solidity address of the contract to call. Note 
+        * that if the target contract was created via CREATE2, its 
+        * address will have been derived from the 
+        * <a href="https://eips.ethereum.org/EIPS/eip-1014">EIP-1014</a>
+        * specification, and will not have a simple relation to a 0.0.X id.
         */
         bytes solidity_address = 6;
     }
