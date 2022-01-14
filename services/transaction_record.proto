@@ -125,10 +125,4 @@ message TransactionRecord {
      * transaction, the new contract's Solidity address.
      */
      bytes alias = 16;
-
-    /**
-     * In the record of an ContractCreate transaction (whether an internal transaction
-     * or a user-submitted transaction), the new contract's Solidity address.
-     */
-     bytes solidity_address = 17;
 }

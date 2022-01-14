@@ -102,6 +102,12 @@ message ContractFunctionResult {
      * and its Solidity address.)
      */
     repeated ContractID createdContractIDs = 7 [deprecated=true];
+
+    /**
+     * The new contract's Solidity address. Only populated after release 0.23, where 
+     * each created contract will have its own record.
+     */
+     bytes solidity_address = 8;
 }
 
 /**
