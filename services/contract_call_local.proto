@@ -93,9 +93,15 @@ message ContractFunctionResult {
     repeated ContractLoginfo logInfo = 6;
 
     /**
-     * the list of smart contracts that were created by the function call
+     * [DEPRECATED] the list of smart contracts that were created by the function call.
+     * 
+     * The created ids will now _also_ be externalized through internal transaction 
+     * records, where each record has its alias field populated with the new contract's 
+     * Solidity address. (This is needed for contracts created with CREATE2, since 
+     * there is no longer a simple relationship between the new contract's 0.0.X id 
+     * and its Solidity address.)
      */
-    repeated ContractID createdContractIDs = 7;
+    repeated ContractID createdContractIDs = 7 [deprecated=true];
 }
 
 /**
@@ -116,9 +122,19 @@ message ContractCallLocalQuery {
     QueryHeader header = 1;
 
     /**
-     * the contract instance to call, in the format used in transactions
+     * The contract to make a static call against
      */
-    ContractID contractID = 2;
+    oneof contract {
+        /**
+        * The <shard>.<realm>.<num> identifier of the contract to call
+        */
+        ContractID contractID = 2;
+
+        /**
+        * The 20-byte Solidity address of the contract to call
+        */
+        bytes solidity_address = 6;
+    }
 
     /**
      * The amount of gas to use for the call; all of the gas offered will be used and charged a corresponding fee

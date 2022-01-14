@@ -41,9 +41,19 @@ import "basic_types.proto";
  */
 message ContractCallTransactionBody {
     /**
-     * the contract instance to call, in the format used in transactions
+     * The contract to call
      */
-    ContractID contractID = 1;
+    oneof contract {
+        /**
+        * The <shard>.<realm>.<num> identifier of the contract to call
+        */
+        ContractID contractID = 1;
+
+        /**
+        * The 20-byte Solidity address of the contract to call
+        */
+        bytes solidity_address = 5;
+    }
 
     /**
      * the maximum amount of gas to use for the call
