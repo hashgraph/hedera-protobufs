@@ -97,17 +97,17 @@ message ContractFunctionResult {
      * 
      * The created ids will now _also_ be externalized through internal transaction 
      * records, where each record has its alias field populated with the new contract's 
-     * Solidity address. (This is needed for contracts created with CREATE2, since 
+     * EVM address. (This is needed for contracts created with CREATE2, since 
      * there is no longer a simple relationship between the new contract's 0.0.X id 
      * and its Solidity address.)
      */
     repeated ContractID createdContractIDs = 7 [deprecated=true];
 
     /**
-     * The new contract's Solidity address. Only populated after release 0.23, where 
+     * The new contract's EVM address. Only populated after release 0.23, where 
      * each created contract will have its own record.
      */
-     bytes solidity_address = 8;
+     bytes evm_address = 8;
 }
 
 /**
@@ -130,21 +130,7 @@ message ContractCallLocalQuery {
     /**
      * The contract to make a static call against
      */
-    oneof contract {
-        /**
-        * The <shard>.<realm>.<num> identifier of the contract to call
-        */
-        ContractID contractID = 2;
-
-        /**
-        * The 20-byte Solidity address of the contract to call. Note 
-        * that if the target contract was created via CREATE2, its 
-        * address will have been derived from the 
-        * <a href="https://eips.ethereum.org/EIPS/eip-1014">EIP-1014</a>
-        * specification, and will not have a simple relation to a 0.0.X id.
-        */
-        bytes solidity_address = 6;
-    }
+    ContractID contractID = 2;
 
     /**
      * The amount of gas to use for the call; all of the gas offered will be used and charged a corresponding fee
