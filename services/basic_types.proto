@@ -142,7 +142,7 @@ message ContractID {
 
     oneof contract {
         /**
-        * A nonnegative number unique within its realm
+        * A nonnegative number unique within a given shard and realm
         */
         int64 contractNum = 3;
 
