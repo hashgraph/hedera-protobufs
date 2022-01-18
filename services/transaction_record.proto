@@ -120,9 +120,6 @@ message TransactionRecord {
     /**
      * In the record of an internal CryptoCreate transaction triggered by a user 
      * transaction with a (previously unused) alias, the new account's alias. 
-     * 
-     * In the record of an internal ContractCreate transaction triggered by a user
-     * transaction, the new contract's Solidity address.
      */
      bytes alias = 16;
 }

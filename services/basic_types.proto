@@ -147,10 +147,19 @@ message ContractID {
         int64 contractNum = 3;
 
         /**
-        * The 20-byte EVM address of the contract to call. Note that if the 
-        * target contract was created via CREATE2, its address will have 
-        * been derived from the <a href="https://eips.ethereum.org/EIPS/eip-1014">EIP-1014</a>
-        * specification, and will not have a simple relation to a 0.0.X id.
+        * The 20-byte EVM address of the contract to call. 
+        * 
+        * Every contract has an EVM address determined by its <tt>shard.realm.num</tt> id.
+        * This address is as follows:
+        *   <ol>
+        *     <li>The first 4 bytes are the big-endian representation of the shard.</li>
+        *     <li>The next 8 bytes are the big-endian representation of the realm.</li>
+        *     <li>The final 8 bytes are the big-endian representation of the number.</li>
+        *   </ol>  
+        * 
+        * Contracts created via CREATE2 have an additional, primary address that is derived 
+        * from the <a href="https://eips.ethereum.org/EIPS/eip-1014">EIP-1014</a> specification, 
+        * and does not have a simple relation to a <tt>shard.realm.num</tt> id.
         */
         bytes evm_address = 4;
     }
