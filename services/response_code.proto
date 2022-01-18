@@ -1131,4 +1131,9 @@ enum ResponseCodeEnum {
    * The fee collector account id in TokenFeeScheduleUpdate is invalid or does not exist.
    */
   INVALID_FEE_COLLECTOR_ACCOUNT_ID = 286;
+
+  /**
+   * The alias already set on an account cannot be updated using CryptoUpdate transaction.
+   */
+  ALIAS_IS_IMMUTABLE = 287;
 }
