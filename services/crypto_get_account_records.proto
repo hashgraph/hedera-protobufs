@@ -43,6 +43,25 @@ message CryptoGetAccountRecordsQuery {
      * The account ID for which the records should be retrieved
      */
     AccountID accountID = 2;
+
+    /**
+     * If set, a restriction on the first payer record to be returned. The queried node will 
+     * return this record (assuming one qualifies), and up to to the next 179 records, in 
+     * chronological order of consensus time.
+     *
+     * Without a restriction, the node will return the most recent payer records (in
+     * chronological order, up to a maximum of 180 records).
+     */
+    oneof starting_at {
+        /**
+        * The transaction id of the first record to return.
+        */
+        TransactionID transaction_id = 3;
+        /**
+        * The earliest consensus time of the first record to return.
+        */
+        Timestamp earliest_consensus_time = 4;
+    }
 }
 
 /**
