@@ -37,6 +37,8 @@ import "crypto_create.proto";
 import "crypto_delete.proto";
 import "crypto_transfer.proto";
 import "crypto_update.proto";
+import "crypto_approve_allowance.proto";
+import "crypto_adjust_allowance.proto";
 
 import "file_append.proto";
 import "file_create.proto";
@@ -255,5 +257,15 @@ message SchedulableTransactionBody {
      * Marks a schedule in the network's action queue as deleted, preventing it from executing
      */
     ScheduleDeleteTransactionBody scheduleDelete = 34;
+
+    /**
+     * Adds one or more approved allowances for spenders to transfer the paying account's hbar or tokens.
+     */
+    CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 37;
+
+    /**
+     * Adjusts the approved allowance for a spender to transfer the paying account's hbar or tokens.
+     */
+    CryptoAdjustAllowanceTransactionBody cryptoAdjustAllowance = 38;
   }
 }
