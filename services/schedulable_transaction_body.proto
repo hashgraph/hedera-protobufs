@@ -87,6 +87,9 @@ message SchedulableTransactionBody {
    */
   string memo = 2;
 
+  /**
+   * The choices here are arranged by service in roughly lexicographical order. The field ordinals are non-sequential, and a result of the historical order of implementation.
+   */
   oneof data {
     /**
      * Calls a function of a contract instance
@@ -107,6 +110,16 @@ message SchedulableTransactionBody {
      * Delete contract and transfer remaining balance into specified account
      */
     ContractDeleteTransactionBody contractDeleteInstance = 6;
+
+    /**
+     * Adjusts the approved allowance for a spender to transfer the paying account's hbar or tokens.
+     */
+    CryptoAdjustAllowanceTransactionBody cryptoAdjustAllowance = 37;
+
+    /**
+     * Adds one or more approved allowances for spenders to transfer the paying account's hbar or tokens.
+     */
+    CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 38;
 
     /**
      * Create a new cryptocurrency account
@@ -244,6 +257,11 @@ message SchedulableTransactionBody {
     TokenDissociateTransactionBody tokenDissociate = 33;
 
     /**
+     * Updates a token's custom fee schedule
+     */
+    TokenFeeScheduleUpdateTransactionBody token_fee_schedule_update = 39;
+
+    /**
      * Pauses the Token
      */
     TokenPauseTransactionBody token_pause = 35;
@@ -257,20 +275,5 @@ message SchedulableTransactionBody {
      * Marks a schedule in the network's action queue as deleted, preventing it from executing
      */
     ScheduleDeleteTransactionBody scheduleDelete = 34;
-
-    /**
-     * Adds one or more approved allowances for spenders to transfer the paying account's hbar or tokens.
-     */
-    CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 37;
-
-    /**
-     * Adjusts the approved allowance for a spender to transfer the paying account's hbar or tokens.
-     */
-    CryptoAdjustAllowanceTransactionBody cryptoAdjustAllowance = 38;
-
-    /**
-     * Updates a token's custom fee schedule
-     */
-    TokenFeeScheduleUpdateTransactionBody token_fee_schedule_update = 39;
   }
 }
