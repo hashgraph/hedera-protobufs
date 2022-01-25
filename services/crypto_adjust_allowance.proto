@@ -28,13 +28,19 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * Modify an existing hbar/token allowance for a spender. If an allowance for the spender
- * does not currently exist, this transaction will behave like an allowance approval.
+ * Modifies or creates the hbar/token allowance for a spender <b>relative to the payer account
+ * of this transaction</b>. 
+ *
+ * (So if account <tt>0.0.X</tt> pays for this transaction, then at consensus the spender 
+ * account will have new allowances to spend hbar or tokens from <tt>0.0.X</tt>). 
+ * 
+ * <b>IMPORTANT</b>: If an allowance for the spender does not currently exist, this transaction 
+ * behaves like an allowance approval.
  */
 message CryptoAdjustAllowanceTransactionBody {
     /**
      * The token that the allowance pertains to. If this field is omitted, the adjustment
-     * will be made against the spender's hbar allowance with the account owner.
+     * will be made against the spender's hbar allowance with the payer account.
      */
     TokenID token = 1;
 
