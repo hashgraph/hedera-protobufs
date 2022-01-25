@@ -1153,4 +1153,10 @@ enum ResponseCodeEnum {
    * The payer account of an approveAllowances or adjustAllowance transaction is attempting to go beyond the maximum allowed number of allowances.
    */
   MAX_ALLOWANCES_EXCEEDED = 290;
+
+  /**
+   * Multiple spender approvals for same token have been specified in a single approval or
+   * adjustment transaction.
+   */
+  MULTIPLE_SPENDER_APPROVALS = 291;
 }
