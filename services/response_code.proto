@@ -1148,4 +1148,9 @@ enum ResponseCodeEnum {
    * The transfer amount exceeds the current approved allowance for the spender account.
    */
   AMOUNT_EXCEEDS_ALLOWANCE = 289;
+
+  /**
+   * The payer account of an approveAllowances or adjustAllowance transaction is attempting to go beyond the maximum allowed number of allowances.
+   */
+  MAX_ALLOWANCES_EXCEEDED = 290;
 }
