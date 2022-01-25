@@ -47,11 +47,15 @@ message CryptoGetAccountRecordsQuery {
 
     /**
      * If set, a restriction on the first payer record to be returned. The queried node will 
-     * return this record (assuming one qualifies), and up to to the next 179 records, in 
-     * chronological order of consensus time.
+     * return the first qualifying record and its successors---up to a total of 
+     * <a href="https://github.com/hashgraph/hedera-services/blob/master/hedera-node/src/main/resources/bootstrap.properties#L83">
+     * <tt>ledger.records.maxQueryableByAccount=180</tt></a> records---in chronological order 
+     * of consensus time. (When there is no qualifying record, the queried node will return
+     * an empty list.)
      *
-     * Without a restriction, the node will return the most recent payer records (in
-     * chronological order, up to a maximum of 180 records).
+     * Without a restriction, the node will return the most recent payer records in
+     * chronological order, up to a maximum of <tt>ledger.records.maxQueryableByAccount=180</tt> 
+     * records as above.
      */
     oneof starting_at {
         /**
