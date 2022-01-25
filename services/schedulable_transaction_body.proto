@@ -267,5 +267,10 @@ message SchedulableTransactionBody {
      * Adjusts the approved allowance for a spender to transfer the paying account's hbar or tokens.
      */
     CryptoAdjustAllowanceTransactionBody cryptoAdjustAllowance = 38;
+
+    /**
+     * Updates a token's custom fee schedule
+     */
+    TokenFeeScheduleUpdateTransactionBody token_fee_schedule_update = 39;
   }
 }
