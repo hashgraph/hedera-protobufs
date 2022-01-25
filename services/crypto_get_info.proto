@@ -69,7 +69,7 @@ message CryptoGetInfoResponse {
         /**
          * The current balance of the spender's allowance in tinybars.
          */
-        int64 allowance = 2;
+        int64 amount = 2;
     }
 
     message TokenAllowance {
@@ -86,7 +86,7 @@ message CryptoGetInfoResponse {
         /**
          * The current balance of the spender's token allowance.
          */
-        google.protobuf.Int64Value allowance = 3;
+        google.protobuf.Int64Value amount = 3;
 
         /**
          * The number of decimal places the token allowance value is divisible by.
@@ -97,7 +97,7 @@ message CryptoGetInfoResponse {
          * If true, the spender has access to all of the account owner's NFT instances (currently
          * owned and any in the future).
          */
-        google.protobuf.BoolValue approvedForAll = 5;
+        bool approvedForAll = 5;
     }
 
     message AccountInfo {
@@ -209,19 +209,14 @@ message CryptoGetInfoResponse {
         bytes ledger_id = 20;
 
         /**
-         * The total number of allowances created across hbar and tokens (fungible and non-fungible).
-         */
-        int32 totalAllowances = 21;
-
-        /**
          * All of the hbar allowances approved by the account owner.
          */
-        repeated CryptoAllowance allowances = 22;
+        repeated CryptoAllowance allowances = 21;
 
         /**
          * All of the token (fungible and non-fungible) allowances approved by the account owner.
          */
-        repeated TokenAllowance tokenAllowances = 23;
+        repeated TokenAllowance tokenAllowances = 22;
     }
 
     /**
