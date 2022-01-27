@@ -216,7 +216,7 @@ message CryptoGetInfoResponse {
         /**
          * All of the token (fungible and non-fungible) allowances approved by the account owner.
          */
-        repeated TokenAllowance tokenAllowances = 22;
+        repeated TokenAllowance token_allowances = 22;
     }
 
     /**
