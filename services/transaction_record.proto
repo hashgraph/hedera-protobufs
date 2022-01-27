@@ -122,4 +122,16 @@ message TransactionRecord {
      * transaction with a (previously unused) alias, the new account's alias. 
      */
      bytes alias = 16;
+
+     /**
+      * The current balances of any adjusted crypto allowances as a result of this
+      * transaction.
+      */
+    repeated CryptoApproval cryptoAdjustments = 17;
+
+    /**
+     * The current balances of any adjusted token allowances as a result of this
+     * transaction.
+     */
+    repeated TokenApproval tokenAdjustments = 18;
 }
