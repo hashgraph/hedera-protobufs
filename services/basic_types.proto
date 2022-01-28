@@ -229,6 +229,12 @@ message AccountAmount {
      * receives(positive)
      */
     sint64 amount = 2;
+
+    /**
+     * If true then the transfer is expected to be an approved allowance and the
+     * accountID is expected to be the owner. The default is false (omitted).
+     */
+    bool is_approval = 3;
 }
 
 /**
@@ -262,6 +268,12 @@ message NftTransfer {
      * The serial number of the NFT
      */
     int64 serialNumber = 3;
+
+    /**
+     * If true then the transfer is expected to be an approved allowance and the
+     * senderAccountID is expected to be the owner. The default is false (omitted).
+     */
+    bool is_approval = 4;
 }
 
 /**
