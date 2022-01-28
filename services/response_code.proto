@@ -1170,7 +1170,13 @@ enum ResponseCodeEnum {
   AMOUNT_EXCEEDS_ALLOWANCE = 293;
 
   /**
-   * The payer account of an approveAllowances or adjustAllowance transaction is attempting to go beyond the maximum allowed number of allowances.
+   * The payer account of an approveAllowances or adjustAllowance transaction is attempting
+   * to go beyond the maximum allowed number of allowances.
    */
   MAX_ALLOWANCES_EXCEEDED = 294;
+
+  /**
+   * No allowances have been specified in the approval/adjust transaction.
+   */
+  EMPTY_ALLOWANCES = 295;
 }
