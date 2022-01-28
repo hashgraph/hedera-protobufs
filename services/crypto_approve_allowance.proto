@@ -39,15 +39,15 @@ message CryptoApproveAllowanceTransactionBody {
     /**
      * List of hbar allowances approved by the account owner.
      */
-    repeated CryptoApproval cryptoApprovals = 1;
+    repeated CryptoAllowance cryptoAllowances = 1;
 
     /**
-     * List of token fungible allowances approved by the account owner.
+     * List of non-fungible token allowances approved by the account owner.
      */
-    repeated TokenApproval tokenApprovals = 2;
+    repeated NftAllowance nftAllowances = 2;
 
     /**
-     * List of token non-fungible allowances approved by the account owner.
+     * List of fungible token allowances approved by the account owner.
      */
-    repeated NftApproval nftApprovals = 3;
+    repeated TokenAllowance tokenAllowances = 3;
 }

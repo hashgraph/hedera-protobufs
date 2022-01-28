@@ -1495,9 +1495,9 @@ message TokenAssociation {
 }
 
 /**
- * An approved allowance for hbar transfers for a spender.
+ * An approved allowance of hbar transfers for a spender.
  */
-message CryptoApproval {
+message CryptoAllowance {
     /**
      * The account ID of the spender of the hbar allowance.
      */
@@ -1510,9 +1510,36 @@ message CryptoApproval {
 }
 
 /**
- * An approved allowance for fungible token transfers for a spender.
+ * An approved allowance of non-fungible token transfers for a spender.
  */
-message TokenApproval {
+message NftAllowance {
+    /**
+     * The token that the allowance pertains to.
+     */
+    TokenID tokenId = 1;
+
+    /**
+     * The account ID of the token allowance spender.
+     */
+    AccountID spender = 2;
+
+    /**
+     * The list of serial numbers that the spender is permitted to transfer.
+     */
+    repeated int64 serialNumbers = 3;
+
+    /**
+     * If true, the spender has access to all of the account owner's NFT instances (currently
+     * owned and any in the future). If this field is set to true the serialNumbers field
+     * should be empty.
+     */
+    google.protobuf.BoolValue approvedForAll = 4;
+}
+
+/**
+ * An approved allowance of fungible token transfers for a spender.
+ */
+message TokenAllowance {
     /**
      * The token that the allowance pertains to.
      */
@@ -1529,31 +1556,4 @@ message TokenApproval {
     int64 amount = 3;
 }
 
-/**
- * An approved allowance for non-fungible token transfers for a spender.
- */
-message NftApproval {
-    /**
-     * The token that the allowance pertains to.
-     */
-    TokenID tokenId = 1;
-
-    /**
-     * The account ID of the token allowance spender.
-     */
-    AccountID spender = 2;
-
-    oneof allowance {
-        /**
-         * The list of serial numbers that the spender is permitted to transfer.
-         */
-        repeated int64 serialNumbers = 3 [packed = true];
-
-        /**
-         * If true, the spender has access to all of the account owner's NFT instances (currently
-         * owned and any in the future).
-         */
-        bool approvedForAll = 4;
-    }
-}
 

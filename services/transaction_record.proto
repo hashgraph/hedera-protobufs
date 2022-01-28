@@ -125,19 +125,19 @@ message TransactionRecord {
 
      /**
       * The current balances of any adjusted crypto allowances as a result of this
-      * transaction.
+      * transaction. This field will only be populated for CryptoAdjustAllowanceTransaction.
       */
-    repeated CryptoApproval crypto_adjustments = 17;
-
-    /**
-     * The current balances of any adjusted fungible token allowances as a result of this
-     * transaction.
-     */
-    repeated TokenApproval token_adjustments = 18;
+    repeated CryptoAllowance crypto_adjustments = 17;
 
     /**
      * The current balances of any adjusted non-fungible token allowances as a result of this
-     * transaction.
+     * transaction. This field will only be populated for CryptoAdjustAllowanceTransaction.
      */
-    repeated NftApproval nft_adjustments = 19;
+    repeated NftAllowance nft_adjustments = 18;
+
+    /**
+     * The current balances of any adjusted fungible token allowances as a result of this
+     * transaction. This field will only be populated for CryptoAdjustAllowanceTransaction.
+     */
+    repeated TokenAllowance token_adjustments = 19;
 }
