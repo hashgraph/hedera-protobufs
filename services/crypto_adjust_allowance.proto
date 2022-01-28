@@ -55,4 +55,9 @@ message CryptoAdjustAllowanceTransactionBody {
      * List of token (fungible or non-fungible) allowances approved by the account owner.
      */
     repeated TokenApproval tokenApproval = 2;
+
+    /**
+     * List of token non-fungible allowances approved by the account owner.
+     */
+    repeated NftApproval nftApprovals = 3;
 }

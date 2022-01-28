@@ -86,18 +86,37 @@ message CryptoGetInfoResponse {
         /**
          * The current balance of the spender's token allowance.
          */
-        google.protobuf.Int64Value amount = 3;
+        int64 amount = 3;
 
         /**
          * The number of decimal places the token allowance value is divisible by.
          */
         int32 decimals = 4;
+    }
+
+    message NftAllowance {
+        /**
+         * The token that the allowance pertains to.
+         */
+        TokenID tokenId = 1;
 
         /**
-         * If true, the spender has access to all of the account owner's NFT instances (currently
-         * owned and any in the future).
+         * The account ID of the token allowance spender.
          */
-        bool approvedForAll = 5;
+        AccountID spender = 2;
+
+        oneof allowance {
+            /**
+             * List of serial numbers that the spender is permitted to transfer.
+             */
+            repeated int64 serialNumbers = 3 [packed = true];
+
+            /**
+             * If true, the spender has access to all of the account owner's NFT instances (currently
+             * owned and any in the future).
+             */
+            bool approvedForAll = 4;
+        }
     }
 
     message AccountInfo {
@@ -214,9 +233,14 @@ message CryptoGetInfoResponse {
         repeated CryptoAllowance allowances = 21;
 
         /**
-         * All of the token (fungible and non-fungible) allowances approved by the account owner.
+         * All of the fungible token allowances approved by the account owner.
          */
         repeated TokenAllowance token_allowances = 22;
+
+        /**
+         * All of the non-fungible token allowances approved by the account owner.
+         */
+        repeated NftAllowance nft_allowances = 23;
     }
 
     /**

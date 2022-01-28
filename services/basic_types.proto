@@ -1510,7 +1510,7 @@ message CryptoApproval {
 }
 
 /**
- * An approved allowance for token transfers (fungible and non-fungible) for a spender.
+ * An approved allowance for fungible token transfers for a spender.
  */
 message TokenApproval {
     /**
@@ -1523,11 +1523,31 @@ message TokenApproval {
      */
     AccountID spender = 2;
 
+    /**
+     * The amount of the spender's token allowance.
+     */
+    int64 amount = 3;
+}
+
+/**
+ * An approved allowance for non-fungible token transfers for a spender.
+ */
+message NftApproval {
+    /**
+     * The token that the allowance pertains to.
+     */
+    TokenID tokenId = 1;
+
+    /**
+     * The account ID of the token allowance spender.
+     */
+    AccountID spender = 2;
+
     oneof allowance {
         /**
-         * The amount of the spender's token allowance.
+         * The list of serial numbers that the spender is permitted to transfer.
          */
-        int64 amount = 3;
+        repeated int64 serialNumbers = 3 [packed = true];
 
         /**
          * If true, the spender has access to all of the account owner's NFT instances (currently
