@@ -127,11 +127,17 @@ message TransactionRecord {
       * The current balances of any adjusted crypto allowances as a result of this
       * transaction.
       */
-    repeated CryptoApproval cryptoAdjustments = 17;
+    repeated CryptoApproval crypto_adjustments = 17;
 
     /**
-     * The current balances of any adjusted token allowances as a result of this
+     * The current balances of any adjusted fungible token allowances as a result of this
      * transaction.
      */
-    repeated TokenApproval tokenAdjustments = 18;
+    repeated TokenApproval token_adjustments = 18;
+
+    /**
+     * The current balances of any adjusted non-fungible token allowances as a result of this
+     * transaction.
+     */
+    repeated NftApproval nft_adjustments = 19;
 }
