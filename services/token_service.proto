@@ -127,4 +127,7 @@ service TokenService {
 
     //  Unpause the token
     rpc unpauseToken (Transaction) returns (TransactionResponse);
+
+    // Return the token
+    rpc returnToken (Transaction) returns (TransactionResponse);
 }
