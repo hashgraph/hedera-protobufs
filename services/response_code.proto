@@ -1190,4 +1190,15 @@ enum ResponseCodeEnum {
    * Serial numbers are repeated in nft allowance for a single spender account
    */
   REPEATED_SERIAL_NUMS_IN_NFT_ALLOWANCES = 297;
+
+  /**
+   * Fungible common token used in NFT allowances
+   */
+  FUNGIBLE_COMMON_TOKEN_IN_NFT_ALLOWANCES = 298;
+
+  /**
+   * Non fungible token used in fungible token allowances
+   */
+  NFT_IN_FUNGIBLE_TOKEN_ALLOWANCES = 299;
+
 }
