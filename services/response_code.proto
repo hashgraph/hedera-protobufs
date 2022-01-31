@@ -1179,4 +1179,10 @@ enum ResponseCodeEnum {
    * No allowances have been specified in the approval/adjust transaction.
    */
   EMPTY_ALLOWANCES = 295;
+
+  /**
+   * Spender is repeated more than once in any one of the allowance lists in a
+   * CryptoApproveAllowance or CryptoAdjustAllowance single transaction.
+   */
+  SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES = 296;
 }
