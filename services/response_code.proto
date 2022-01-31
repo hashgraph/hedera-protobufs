@@ -1194,7 +1194,7 @@ enum ResponseCodeEnum {
   /**
    * Fungible common token used in NFT allowances
    */
-  FUNGIBLE_COMMON_TOKEN_IN_NFT_ALLOWANCES = 298;
+  FUNGIBLE_TOKEN_IN_NFT_ALLOWANCES = 298;
 
   /**
    * Non fungible token used in fungible token allowances
