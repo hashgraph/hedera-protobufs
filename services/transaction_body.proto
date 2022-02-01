@@ -31,6 +31,7 @@ import "freeze.proto";
 
 import "contract_call.proto";
 import "contract_create.proto";
+import "contract_wrapped_call.proto";
 import "contract_update.proto";
 
 import "crypto_add_live_hash.proto";
@@ -124,6 +125,11 @@ message TransactionBody {
      * Calls a function of a contract instance
      */
     ContractCallTransactionBody contractCall = 7;
+
+    /**
+     * Calls a function of a contract instance, wrapping a foreign transaction encoding
+     */
+    ContractWrappedCallTransactionBody contractWrappedCall = 50;
 
     /**
      * Creates a contract instance

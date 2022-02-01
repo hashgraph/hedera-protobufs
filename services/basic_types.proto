@@ -1117,6 +1117,17 @@ enum HederaFunctionality {
      * Adjust allowances for a spender relative to the payer account
      */
     CryptoAdjustAllowance = 82;
+
+    /**
+     * Smart Contract Call of a Wrapped External Format
+     */
+    ContractWrappedCall = 83;
+
+    /**
+     * Smart Contract Create Contract of a Wrapped External Format
+     */
+    ContractWrappedCreate = 84;
+
 }
 
 /**
