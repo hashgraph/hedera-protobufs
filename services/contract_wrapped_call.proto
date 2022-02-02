@@ -59,25 +59,30 @@ message ContractWrappedCallTransactionBody {
      */
     bytes foreign_transaction_bytes = 2;
 
-    int64 nonce = 3;
-
-    int32 function_parameter_start = 4;
-    int32 function_parameter_length = 5;
-
-    /**
-     * the contract instance to call, in the format used in transactions
-     */
-    ContractID contract_id = 6;
+    int64 nonce = 3; //FIXME this is the wrong place, should go in transaction ID
 
     /**
      * the maximum amount of gas to use for the call
      */
-    int64 gas = 7;
+    int64 gas = 4;
+
+    /**
+     * the contract instance to call, in the format used in transactions
+     */
+    ContractID contractID = 5;
 
     /**
      * number of tinybars sent (the function must be payable if this is nonzero)
      */
-    int64 amount = 8;
+    int64 amount = 6;
+
+    int32 function_parameter_start = 7;
+    int32 function_parameter_length = 8;
+
+    /**
+     * The caller
+     */
+    AccountID senderID = 9;
 
     // unextracted non-signature params
     // Type  0 -

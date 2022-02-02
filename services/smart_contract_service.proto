@@ -38,6 +38,11 @@ service SmartContractService {
     rpc createContract (Transaction) returns (TransactionResponse);
 
     /**
+     * Creates a contract via a wrapped transaction
+     */
+    rpc createContractWrapped (Transaction) returns (TransactionResponse);
+
+    /**
      * Updates a contract with the content
      */
     rpc updateContract (Transaction) returns (TransactionResponse);
@@ -46,6 +51,11 @@ service SmartContractService {
      * Calls a contract
      */
     rpc contractCallMethod (Transaction) returns (TransactionResponse);
+
+    /**
+     * Calls a contract via a wrapped transaction
+     */
+    rpc contractWrappedCallMethod (Transaction) returns (TransactionResponse);
 
     /**
      * Retrieves the contract information
