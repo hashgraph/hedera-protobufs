@@ -1,9 +1,7 @@
 #! /bin/sh
-mkdir hedera
-cp -r mirror/* services/* streams/* hedera
-DIR=${1:-'hedera'}
+DIR=${1:-'services'}
 case $DIR in
-  hedera)
+  services)
     cd $DIR
     ;;
   *)
@@ -16,6 +14,3 @@ docker run --rm \
   -v $(pwd):/protos \
   pseudomuto/protoc-gen-doc
 mv index.html ../
-
-cd -
-rm -rf hedera

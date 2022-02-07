@@ -175,29 +175,6 @@
         
           
           <li>
-            <a href="#account_balance_file.proto">account_balance_file.proto</a>
-            <ul>
-              
-                <li>
-                  <a href="#proto.AllAccountBalances"><span class="badge">M</span>AllAccountBalances</a>
-                </li>
-              
-                <li>
-                  <a href="#proto.SingleAccountBalances"><span class="badge">M</span>SingleAccountBalances</a>
-                </li>
-              
-                <li>
-                  <a href="#proto.TokenUnitBalance"><span class="badge">M</span>TokenUnitBalance</a>
-                </li>
-              
-              
-              
-              
-            </ul>
-          </li>
-        
-          
-          <li>
             <a href="#basic_types.proto">basic_types.proto</a>
             <ul>
               
@@ -211,6 +188,10 @@
               
                 <li>
                   <a href="#proto.ContractID"><span class="badge">M</span>ContractID</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.CryptoAllowance"><span class="badge">M</span>CryptoAllowance</a>
                 </li>
               
                 <li>
@@ -243,6 +224,10 @@
               
                 <li>
                   <a href="#proto.KeyList"><span class="badge">M</span>KeyList</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.NftAllowance"><span class="badge">M</span>NftAllowance</a>
                 </li>
               
                 <li>
@@ -307,6 +292,10 @@
               
                 <li>
                   <a href="#proto.ThresholdSignature"><span class="badge">M</span>ThresholdSignature</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.TokenAllowance"><span class="badge">M</span>TokenAllowance</a>
                 </li>
               
                 <li>
@@ -532,6 +521,14 @@
                   <a href="#proto.ContractLoginfo"><span class="badge">M</span>ContractLoginfo</a>
                 </li>
               
+                <li>
+                  <a href="#proto.ContractStateChange"><span class="badge">M</span>ContractStateChange</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.StorageChange"><span class="badge">M</span>StorageChange</a>
+                </li>
+              
               
               
               
@@ -655,6 +652,36 @@
               
                 <li>
                   <a href="#proto.LiveHash"><span class="badge">M</span>LiveHash</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#crypto_adjust_allowance.proto">crypto_adjust_allowance.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.CryptoAdjustAllowanceTransactionBody"><span class="badge">M</span>CryptoAdjustAllowanceTransactionBody</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#crypto_approve_allowance.proto">crypto_approve_allowance.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.CryptoApproveAllowanceTransactionBody"><span class="badge">M</span>CryptoApproveAllowanceTransactionBody</a>
                 </li>
               
               
@@ -1947,130 +1974,6 @@
     
       
       <div class="file-heading">
-        <h2 id="account_balance_file.proto">account_balance_file.proto</h2><a href="#title">Top</a>
-      </div>
-      <p></p>
-
-      
-        <h3 id="proto.AllAccountBalances">AllAccountBalances</h3>
-        <p></p><p>Includes all currency balances (both hbar and token) of all accounts in the ledger.</p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>consensusTimestamp</td>
-                  <td><a href="#proto.Timestamp">Timestamp</a></td>
-                  <td></td>
-                  <td><p>
-An instant in consensus time </p></td>
-                </tr>
-              
-                <tr>
-                  <td>allAccounts</td>
-                  <td><a href="#proto.SingleAccountBalances">SingleAccountBalances</a></td>
-                  <td>repeated</td>
-                  <td><p>
-The list of account balances for all accounts, after handling all transactions with consensus
-timestamp up to and including the above instant </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="proto.SingleAccountBalances">SingleAccountBalances</h3>
-        <p></p><p>Includes all currency balances (both hbar and token) of a single account in the ledger.</p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>accountID</td>
-                  <td><a href="#proto.AccountID">AccountID</a></td>
-                  <td></td>
-                  <td><p>
-The account </p></td>
-                </tr>
-              
-                <tr>
-                  <td>hbarBalance</td>
-                  <td><a href="#uint64">uint64</a></td>
-                  <td></td>
-                  <td><p>
-The account&#39;s hbar balance </p></td>
-                </tr>
-              
-                <tr>
-                  <td>tokenUnitBalances</td>
-                  <td><a href="#proto.TokenUnitBalance">TokenUnitBalance</a></td>
-                  <td>repeated</td>
-                  <td><p>
-The list of the account&#39;s token balances </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="proto.TokenUnitBalance">TokenUnitBalance</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>tokenId</td>
-                  <td><a href="#proto.TokenID">TokenID</a></td>
-                  <td></td>
-                  <td><p>
-A unique token id </p></td>
-                </tr>
-              
-                <tr>
-                  <td>balance</td>
-                  <td><a href="#uint64">uint64</a></td>
-                  <td></td>
-                  <td><p>
-Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON -
-balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of
-NFTs held by the account </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-
-      
-
-      
-
-      
-    
-      
-      <div class="file-heading">
         <h2 id="basic_types.proto">basic_types.proto</h2><a href="#title">Top</a>
       </div>
       <p></p>
@@ -2102,6 +2005,15 @@ The Account ID that sends/receives cryptocurrency or tokens </p></td>
 The amount of tinybars (for Crypto transfers) or in the lowest
 denomination (for Token transfers) that the account sends(negative) or
 receives(positive) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>is_approval</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>
+If true then the transfer is expected to be an approved allowance and the
+accountID is expected to be the owner. The default is false (omitted). </p></td>
                 </tr>
               
             </tbody>
@@ -2200,7 +2112,71 @@ The realm number (nonnegative) </p></td>
                   <td><a href="#int64">int64</a></td>
                   <td></td>
                   <td><p>
-A nonnegative number unique within its realm </p></td>
+A nonnegative number unique within a given shard and realm </p></td>
+                </tr>
+              
+                <tr>
+                  <td>evm_address</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The 20-byte EVM address of the contract to call. 
+
+Every contract has an EVM address determined by its &lt;tt&gt;shard.realm.num&lt;/tt&gt; id.
+This address is as follows:
+  &lt;ol&gt;
+    &lt;li&gt;The first 4 bytes are the big-endian representation of the shard.&lt;/li&gt;
+    &lt;li&gt;The next 8 bytes are the big-endian representation of the realm.&lt;/li&gt;
+    &lt;li&gt;The final 8 bytes are the big-endian representation of the number.&lt;/li&gt;
+  &lt;/ol&gt;  
+
+Contracts created via CREATE2 have an &lt;b&gt;additional, primary address&lt;/b&gt; that is 
+derived from the &lt;a href=&#34;https://eips.ethereum.org/EIPS/eip-1014&#34;&gt;EIP-1014&lt;/a&gt; 
+specification, and does not have a simple relation to a &lt;tt&gt;shard.realm.num&lt;/tt&gt; id. 
+
+(Please do note that CREATE2 contracts can also be referenced by the three-part 
+EVM address described above.) </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.CryptoAllowance">CryptoAllowance</h3>
+        <p></p><p>An approved allowance of hbar transfers for a spender.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>owner</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the hbar owner (ie. the grantor of the allowance). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>spender</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the spender of the hbar allowance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>amount</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The amount of the spender&#39;s allowance in tinybars. </p></td>
                 </tr>
               
             </tbody>
@@ -2618,6 +2594,65 @@ list of keys </p></td>
 
         
       
+        <h3 id="proto.NftAllowance">NftAllowance</h3>
+        <p></p><p>An approved allowance of non-fungible token transfers for a spender.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tokenId</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>
+The token that the allowance pertains to. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>owner</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the token owner (ie. the grantor of the allowance). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>spender</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the token allowance spender. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serialNumbers</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The list of serial numbers that the spender is permitted to transfer. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>approvedForAll</td>
+                  <td><a href="#google.protobuf.BoolValue">google.protobuf.BoolValue</a></td>
+                  <td></td>
+                  <td><p>
+If true, the spender has access to all of the account owner&#39;s NFT instances (currently
+owned and any in the future). If this field is set to true the serialNumbers field
+should be empty. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="proto.NftTransfer">NftTransfer</h3>
         <p></p><p>A sender account, a receiver account, and the serial number of an NFT of a Token with</p><p>NON_FUNGIBLE_UNIQUE type. When minting NFTs the sender will be the default AccountID instance</p><p>(0.0.0) and when burning NFTs, the receiver will be the default AccountID instance.</p>
 
@@ -2650,6 +2685,15 @@ The accountID of the receiver </p></td>
                   <td></td>
                   <td><p>
 The serial number of the NFT </p></td>
+                </tr>
+              
+                <tr>
+                  <td>is_approval</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>
+If true then the transfer is expected to be an approved allowance and the
+senderAccountID is expected to be the owner. The default is false (omitted). </p></td>
                 </tr>
               
             </tbody>
@@ -3320,6 +3364,55 @@ non-null </p></td>
 
         
       
+        <h3 id="proto.TokenAllowance">TokenAllowance</h3>
+        <p></p><p>An approved allowance of fungible token transfers for a spender.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>tokenId</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>
+The token that the allowance pertains to. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>owner</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the token owner (ie. the grantor of the allowance). </p></td>
+                </tr>
+              
+                <tr>
+                  <td>spender</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the token allowance spender. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>amount</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The amount of the spender&#39;s token allowance. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="proto.TokenAssociation">TokenAssociation</h3>
         <p>A token - account association</p>
 
@@ -3570,6 +3663,15 @@ has an account and amount </p></td>
                   <td><p>
 Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NftTransfers, each of
 which has a sender and receiver account, including the serial number of the NFT </p></td>
+                </tr>
+              
+                <tr>
+                  <td>expected_decimals</td>
+                  <td><a href="#google.protobuf.UInt32Value">google.protobuf.UInt32Value</a></td>
+                  <td></td>
+                  <td><p>
+If present, the number of decimals this fungible token type is expected to have. The transfer
+will fail with UNEXPECTED_TOKEN_DECIMALS if the actual decimals differ. </p></td>
                 </tr>
               
             </tbody>
@@ -4241,6 +4343,20 @@ Pause the Token</p></td>
                 <td>80</td>
                 <td><p>
 Unpause the Token</p></td>
+              </tr>
+            
+              <tr>
+                <td>CryptoApproveAllowance</td>
+                <td>81</td>
+                <td><p>
+Approve allowance for a spender relative to the payer account</p></td>
+              </tr>
+            
+              <tr>
+                <td>CryptoAdjustAllowance</td>
+                <td>82</td>
+                <td><p>
+Adjust allowances for a spender relative to the payer account</p></td>
               </tr>
             
           </tbody>
@@ -4934,6 +5050,14 @@ auto-renew account has no funds at all, the topic will be deleted instead. </p><
 The account, if any, to charge for automatic renewal of the topic&#39;s lifetime upon expiry. </p></td>
                 </tr>
               
+                <tr>
+                  <td>ledger_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -5073,7 +5197,7 @@ If unspecified, no change. </p></td>
                   <td><a href="#proto.ContractID">ContractID</a></td>
                   <td></td>
                   <td><p>
-the contract instance to call, in the format used in transactions </p></td>
+The contract to call </p></td>
                 </tr>
               
                 <tr>
@@ -5144,7 +5268,7 @@ standard info sent from client to node, including the signed payment, and what k
                   <td><a href="#proto.ContractID">ContractID</a></td>
                   <td></td>
                   <td><p>
-the contract instance to call, in the format used in transactions </p></td>
+The contract to make a static call against </p></td>
                 </tr>
               
                 <tr>
@@ -5295,12 +5419,73 @@ the log info for events returned by the function </p></td>
                   <td><a href="#proto.ContractID">ContractID</a></td>
                   <td>repeated</td>
                   <td><p>
-the list of smart contracts that were created by the function call </p></td>
+[DEPRECATED] the list of smart contracts that were created by the function call.
+
+The created ids will now _also_ be externalized through internal transaction 
+records, where each record has its alias field populated with the new contract&#39;s 
+EVM address. (This is needed for contracts created with CREATE2, since 
+there is no longer a simple relationship between the new contract&#39;s 0.0.X id 
+and its Solidity address.) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>state_changes</td>
+                  <td><a href="#proto.ContractStateChange">ContractStateChange</a></td>
+                  <td>repeated</td>
+                  <td><p>
+the list of state reads and changes caused by this function call </p></td>
+                </tr>
+              
+                <tr>
+                  <td>evm_address</td>
+                  <td><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></td>
+                  <td></td>
+                  <td><p>
+The new contract&#39;s 20-byte EVM address. Only populated after release 0.23, 
+where each created contract will have its own record. (This is an important 
+point--the field is not &lt;tt&gt;repeated&lt;/tt&gt; because there will be a separate 
+child record for each created contract.)
+
+Every contract has an EVM address determined by its &lt;tt&gt;shard.realm.num&lt;/tt&gt; id.
+This address is as follows:
+  &lt;ol&gt;
+    &lt;li&gt;The first 4 bytes are the big-endian representation of the shard.&lt;/li&gt;
+    &lt;li&gt;The next 8 bytes are the big-endian representation of the realm.&lt;/li&gt;
+    &lt;li&gt;The final 8 bytes are the big-endian representation of the number.&lt;/li&gt;
+  &lt;/ol&gt;  
+
+Contracts created via CREATE2 have an &lt;b&gt;additional, primary address&lt;/b&gt; that is 
+derived from the &lt;a href=&#34;https://eips.ethereum.org/EIPS/eip-1014&#34;&gt;EIP-1014&lt;/a&gt; 
+specification, and does not have a simple relation to a &lt;tt&gt;shard.realm.num&lt;/tt&gt; id. 
+
+(Please do note that CREATE2 contracts can also be referenced by the three-part 
+EVM address described above.) </p></td>
                 </tr>
               
             </tbody>
           </table>
 
+          
+            
+            
+            <h4>Fields with deprecated option</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Name</td>
+                  <td>Option</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>createdContractIDs</td>
+                  <td><p>true</p></td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
           
 
         
@@ -5345,6 +5530,86 @@ topics of a particular event </p></td>
                   <td></td>
                   <td><p>
 event data </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.ContractStateChange">ContractStateChange</h3>
+        <p></p><p>The storage changes to a smart contract's storage as a side effect of the function call.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>contractID</td>
+                  <td><a href="#proto.ContractID">ContractID</a></td>
+                  <td></td>
+                  <td><p>
+The contract to which the storage changes apply to </p></td>
+                </tr>
+              
+                <tr>
+                  <td>storageChanges</td>
+                  <td><a href="#proto.StorageChange">StorageChange</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The list of storage changes. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.StorageChange">StorageChange</h3>
+        <p></p><p>A storage slot change description.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>slot</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The storage slot changed.  Up to 32 bytes, big-endian, zero bytes left trimmed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>valueRead</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The value read from the storage slot.  Up to 32 bytes, big-endian, zero bytes left trimmed.
+
+Because of the way SSTORE operations are charged the slot is always read before being written to. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>valueWritten</td>
+                  <td><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></td>
+                  <td></td>
+                  <td><p>
+The new value written to the slot.  Up to 32 bytes, big-endian, zero bytes left trimmed.
+
+If a value of zero is written the valueWritten will be present but the inner value will be absent.
+
+If a value was read and not written this value will not be present. </p></td>
                 </tr>
               
             </tbody>
@@ -5811,6 +6076,14 @@ Whether the contract has been deleted </p></td>
 The tokens associated to the contract </p></td>
                 </tr>
               
+                <tr>
+                  <td>ledger_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -6110,6 +6383,116 @@ A list of keys (primitive or threshold), all of which must sign to attach the li
                   <td></td>
                   <td><p>
 The duration for which the livehash will remain valid </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="crypto_adjust_allowance.proto">crypto_adjust_allowance.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.CryptoAdjustAllowanceTransactionBody">CryptoAdjustAllowanceTransactionBody</h3>
+        <p></p><p>Modifies or creates an hbar/token allowance for a spender <b>relative to the payer account</p><p>of this transaction</b>.</p><p>(So if account <tt>0.0.X</tt> pays for this transaction, then at consensus the spender</p><p>account will have new allowances to spend hbar or tokens from <tt>0.0.X</tt>).</p><p>If the allowance already exists, the hbar/token amount will be used to adjust the current</p><p>allowance balance. If this value is negative the approved allowance will be decreased.</p><p>The adjusted allowance balance cannot exceed the total supply of the token nor can it</p><p>be negative.</p><p>If the allowance does not exist, it will be created with the hbar/token amount being used</p><p>as the allowance balance.</p><p><b>IMPORTANT</b>: If an allowance for the spender does not currently exist, this transaction</p><p>behaves like an allowance approval.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>cryptoAllowances</td>
+                  <td><a href="#proto.CryptoAllowance">CryptoAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+List of hbar allowances approved by the account owner. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nftAllowances</td>
+                  <td><a href="#proto.NftAllowance">NftAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+List of non-fungible token allowances approved by the account owner. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenAllowances</td>
+                  <td><a href="#proto.TokenAllowance">TokenAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+List of fungible token allowances approved by the account owner. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="crypto_approve_allowance.proto">crypto_approve_allowance.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.CryptoApproveAllowanceTransactionBody">CryptoApproveAllowanceTransactionBody</h3>
+        <p></p><p>Creates one or more hbar/token approved allowances <b>relative to the payer account of this</p><p>transaction</b>. Each allowance grants a spender the right to transfer a pre-determined </p><p>amount of the payer's hbar/token to any other account of the spender's choice. </p><p>(So if account <tt>0.0.X</tt> pays for this transaction, then at consensus each spender </p><p>account will have new allowances to spend hbar or tokens from <tt>0.0.X</tt>).</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>cryptoAllowances</td>
+                  <td><a href="#proto.CryptoAllowance">CryptoAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+List of hbar allowances approved by the account owner. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nftAllowances</td>
+                  <td><a href="#proto.NftAllowance">NftAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+List of non-fungible token allowances approved by the account owner. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tokenAllowances</td>
+                  <td><a href="#proto.TokenAllowance">TokenAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+List of fungible token allowances approved by the account owner. </p></td>
                 </tr>
               
             </tbody>
@@ -6820,6 +7203,38 @@ The maximum number of tokens that an Account can be implicitly associated with. 
 The alias of this account </p></td>
                 </tr>
               
+                <tr>
+                  <td>ledger_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>crypto_allowances</td>
+                  <td><a href="#proto.CryptoAllowance">CryptoAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+All of the hbar allowances approved by the account owner. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nft_allowances</td>
+                  <td><a href="#proto.NftAllowance">NftAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+All of the non-fungible token allowances approved by the account owner. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>token_allowances</td>
+                  <td><a href="#proto.TokenAllowance">TokenAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+All of the fungible token allowances approved by the account owner. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -7153,6 +7568,22 @@ Deletes and account by submitting the transaction</p></td>
               </tr>
             
               <tr>
+                <td>approveAllowances</td>
+                <td><a href="#proto.Transaction">Transaction</a></td>
+                <td><a href="#proto.TransactionResponse">TransactionResponse</a></td>
+                <td><p>
+Adds one or more approved allowances for spenders to transfer the paying account&#39;s hbar or tokens.</p></td>
+              </tr>
+            
+              <tr>
+                <td>adjustAllowance</td>
+                <td><a href="#proto.Transaction">Transaction</a></td>
+                <td><a href="#proto.TransactionResponse">TransactionResponse</a></td>
+                <td><p>
+Adjusts the approved allowance for a spender to transfer the paying account&#39;s hbar or tokens.</p></td>
+              </tr>
+            
+              <tr>
                 <td>addLiveHash</td>
                 <td><a href="#proto.Transaction">Transaction</a></td>
                 <td><a href="#proto.TransactionResponse">TransactionResponse</a></td>
@@ -7432,6 +7863,17 @@ If set, the new memo to be associated with the account (UTF-8 encoding max 100 b
                   <td><p>
 The maximum number of tokens that an Account can be implicitly associated with. Up to a 1000
 including implicit and explicit associations. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>alias</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+If set, the new public key bytes to be used as the account&#39;s alias. Alias can be updated
+only on accounts that does not have it set previously. It will be immutable once it is
+set on an account. For successful update of alias, the corresponding alias private key
+should sign the transaction. </p></td>
                 </tr>
               
             </tbody>
@@ -8273,6 +8715,14 @@ One of these keys must sign in order to modify or delete the file </p></td>
                   <td></td>
                   <td><p>
 The memo associated with the file </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ledger_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
                 </tr>
               
             </tbody>
@@ -11376,6 +11826,138 @@ message--that is, a Key with a single Ed25519 or ECDSA(secp256k1) public key and
 unknown protobuf fields.</p></td>
               </tr>
             
+              <tr>
+                <td>UNEXPECTED_TOKEN_DECIMALS</td>
+                <td>283</td>
+                <td><p>
+A fungible token transfer expected a different number of decimals than the involved 
+type actually has.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_PROXY_ACCOUNT_ID</td>
+                <td>284</td>
+                <td><p>
+The proxy account id is invalid or does not exist.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_TRANSFER_ACCOUNT_ID</td>
+                <td>285</td>
+                <td><p>
+The transfer account id in CryptoDelete transaction is invalid or does not exist.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_FEE_COLLECTOR_ACCOUNT_ID</td>
+                <td>286</td>
+                <td><p>
+The fee collector account id in TokenFeeScheduleUpdate is invalid or does not exist.</p></td>
+              </tr>
+            
+              <tr>
+                <td>ALIAS_IS_IMMUTABLE</td>
+                <td>287</td>
+                <td><p>
+The alias already set on an account cannot be updated using CryptoUpdate transaction.</p></td>
+              </tr>
+            
+              <tr>
+                <td>SPENDER_ACCOUNT_SAME_AS_OWNER</td>
+                <td>288</td>
+                <td><p>
+An approved allowance specifies a spender account that is the same as the hbar/token
+owner account.</p></td>
+              </tr>
+            
+              <tr>
+                <td>AMOUNT_EXCEEDS_TOKEN_MAX_SUPPLY</td>
+                <td>289</td>
+                <td><p>
+The establishment or adjustment of an approved allowance cause the token allowance
+to exceed the token maximum supply.</p></td>
+              </tr>
+            
+              <tr>
+                <td>NEGATIVE_ALLOWANCE_AMOUNT</td>
+                <td>290</td>
+                <td><p>
+The specified amount for an approved allowance cannot be negative.</p></td>
+              </tr>
+            
+              <tr>
+                <td>CANNOT_APPROVE_FOR_ALL_FUNGIBLE_COMMON</td>
+                <td>291</td>
+                <td><p>
+The approveForAll flag cannot be set for a fungible token.</p></td>
+              </tr>
+            
+              <tr>
+                <td>SPENDER_DOES_NOT_HAVE_ALLOWANCE</td>
+                <td>292</td>
+                <td><p>
+The spender does not have an existing approved allowance with the hbar/token owner.</p></td>
+              </tr>
+            
+              <tr>
+                <td>AMOUNT_EXCEEDS_ALLOWANCE</td>
+                <td>293</td>
+                <td><p>
+The transfer amount exceeds the current approved allowance for the spender account.</p></td>
+              </tr>
+            
+              <tr>
+                <td>MAX_ALLOWANCES_EXCEEDED</td>
+                <td>294</td>
+                <td><p>
+The payer account of an approveAllowances or adjustAllowance transaction is attempting
+to go beyond the maximum allowed number of allowances.</p></td>
+              </tr>
+            
+              <tr>
+                <td>EMPTY_ALLOWANCES</td>
+                <td>295</td>
+                <td><p>
+No allowances have been specified in the approval/adjust transaction.</p></td>
+              </tr>
+            
+              <tr>
+                <td>SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES</td>
+                <td>296</td>
+                <td><p>
+Spender is repeated more than once in Crypto or Token or NFT allowance lists in a single
+CryptoApproveAllowance or CryptoAdjustAllowance transaction.</p></td>
+              </tr>
+            
+              <tr>
+                <td>REPEATED_SERIAL_NUMS_IN_NFT_ALLOWANCES</td>
+                <td>297</td>
+                <td><p>
+Serial numbers are repeated in nft allowance for a single spender account</p></td>
+              </tr>
+            
+              <tr>
+                <td>FUNGIBLE_TOKEN_IN_NFT_ALLOWANCES</td>
+                <td>298</td>
+                <td><p>
+Fungible common token used in NFT allowances</p></td>
+              </tr>
+            
+              <tr>
+                <td>NFT_IN_FUNGIBLE_TOKEN_ALLOWANCES</td>
+                <td>299</td>
+                <td><p>
+Non fungible token used in fungible token allowances</p></td>
+              </tr>
+            
+              <tr>
+                <td>PAYER_AND_OWNER_NOT_EQUAL</td>
+                <td>300</td>
+                <td><p>
+An approval/adjustment transaction was submitted where the payer and owner account are
+not the same. Currently only the owner is permitted to perform these operations.</p></td>
+              </tr>
+            
           </tbody>
         </table>
       
@@ -11514,6 +12096,22 @@ Updates a contract </p></td>
                   <td></td>
                   <td><p>
 Delete contract and transfer remaining balance into specified account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoAdjustAllowance</td>
+                  <td><a href="#proto.CryptoAdjustAllowanceTransactionBody">CryptoAdjustAllowanceTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Adjusts the approved allowance for a spender to transfer the paying account&#39;s hbar or tokens. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoApproveAllowance</td>
+                  <td><a href="#proto.CryptoApproveAllowanceTransactionBody">CryptoApproveAllowanceTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Adds one or more approved allowances for spenders to transfer the paying account&#39;s hbar or tokens. </p></td>
                 </tr>
               
                 <tr>
@@ -11730,6 +12328,14 @@ Associate tokens to an account </p></td>
                   <td></td>
                   <td><p>
 Dissociate tokens from an account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>token_fee_schedule_update</td>
+                  <td><a href="#proto.TokenFeeScheduleUpdateTransactionBody">TokenFeeScheduleUpdateTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Updates a token&#39;s custom fee schedule </p></td>
                 </tr>
               
                 <tr>
@@ -12047,6 +12653,14 @@ The id of the account responsible for the service fee of the scheduled transacti
                   <td><p>
 The transaction id that will be used in the record of the scheduled transaction (if it
 executes) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ledger_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
                 </tr>
               
             </tbody>
@@ -12716,8 +13330,8 @@ Applicable to tokens of type NON_FUNGIBLE_UNIQUE. The list of serial numbers to 
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p>
-The publicly visible name of the token, limited to a UTF-8 encoding of
-length &lt;tt&gt;tokens.maxSymbolUtf8Bytes&lt;/tt&gt;. </p></td>
+The publicly visible name of the token. The token name is specified as a Unicode string. 
+Its UTF-8 encoding cannot exceed 100 bytes, and cannot contain the 0 byte (NUL). </p></td>
                 </tr>
               
                 <tr>
@@ -12725,8 +13339,8 @@ length &lt;tt&gt;tokens.maxSymbolUtf8Bytes&lt;/tt&gt;. </p></td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p>
-The publicly visible token symbol, limited to a UTF-8 encoding of length
-&lt;tt&gt;tokens.maxTokenNameUtf8Bytes&lt;/tt&gt;. </p></td>
+The publicly visible token symbol. The token symbol is specified as a Unicode string. 
+Its UTF-8 encoding cannot exceed 100 bytes, and cannot contain the 0 byte (NUL). </p></td>
                 </tr>
               
                 <tr>
@@ -13497,6 +14111,14 @@ The Key which can pause and unpause the Token. </p></td>
 Specifies whether the token is paused or not. PauseNotApplicable is returned if pauseKey is not set. </p></td>
                 </tr>
               
+                <tr>
+                  <td>ledger_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -13659,6 +14281,14 @@ The effective consensus timestamp at which the NFT was minted </p></td>
                   <td></td>
                   <td><p>
 Represents the unique metadata of the NFT </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ledger_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>
+The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
                 </tr>
               
             </tbody>
@@ -14296,8 +14926,8 @@ The Token to be updated </p></td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p>
-The new publicly visible Token symbol, limited to a UTF-8 encoding of length
-&lt;tt&gt;tokens.maxTokenNameUtf8Bytes&lt;/tt&gt;. </p></td>
+The new publicly visible token symbol. The token symbol is specified as a Unicode string. 
+Its UTF-8 encoding cannot exceed 100 bytes, and cannot contain the 0 byte (NUL). </p></td>
                 </tr>
               
                 <tr>
@@ -14305,8 +14935,8 @@ The new publicly visible Token symbol, limited to a UTF-8 encoding of length
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p>
-The new publicly visible name of the Token, limited to a UTF-8 encoding of length
-&lt;tt&gt;tokens.maxSymbolUtf8Bytes&lt;/tt&gt;. </p></td>
+The new publicly visible name of the token. The token name is specified as a Unicode string. 
+Its UTF-8 encoding cannot exceed 100 bytes, and cannot contain the 0 byte (NUL). </p></td>
                 </tr>
               
                 <tr>
@@ -14713,6 +15343,22 @@ Delete contract and transfer remaining balance into specified account </p></td>
                   <td></td>
                   <td><p>
 Attach a new livehash to an account </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoAdjustAllowance</td>
+                  <td><a href="#proto.CryptoAdjustAllowanceTransactionBody">CryptoAdjustAllowanceTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Adjusts the approved allowance for a spender to transfer the paying account&#39;s hbar or tokens. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>cryptoApproveAllowance</td>
+                  <td><a href="#proto.CryptoApproveAllowanceTransactionBody">CryptoApproveAllowanceTransactionBody</a></td>
+                  <td></td>
+                  <td><p>
+Adds one or more approved allowances for spenders to transfer the paying account&#39;s hbar or tokens. </p></td>
                 </tr>
               
                 <tr>
@@ -15754,6 +16400,33 @@ transaction that spawned it. </p></td>
                   <td><p>
 In the record of an internal CryptoCreate transaction triggered by a user 
 transaction with a (previously unused) alias, the new account&#39;s alias. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>crypto_adjustments</td>
+                  <td><a href="#proto.CryptoAllowance">CryptoAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The current balances of any adjusted crypto allowances as a result of this
+transaction. This field will only be populated for CryptoAdjustAllowanceTransaction. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>nft_adjustments</td>
+                  <td><a href="#proto.NftAllowance">NftAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The current balances of any adjusted non-fungible token allowances as a result of this
+transaction. This field will only be populated for CryptoAdjustAllowanceTransaction. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>token_adjustments</td>
+                  <td><a href="#proto.TokenAllowance">TokenAllowance</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The current balances of any adjusted fungible token allowances as a result of this
+transaction. This field will only be populated for CryptoAdjustAllowanceTransaction. </p></td>
                 </tr>
               
             </tbody>
