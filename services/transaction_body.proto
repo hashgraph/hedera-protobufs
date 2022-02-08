@@ -25,12 +25,15 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
+import "foreign_transaction_data.proto";
+
 import "system_delete.proto";
 import "system_undelete.proto";
 import "freeze.proto";
 
 import "contract_call.proto";
 import "contract_create.proto";
+import "contract_delete.proto";
 import "contract_update.proto";
 
 import "crypto_add_live_hash.proto";
@@ -49,7 +52,6 @@ import "file_update.proto";
 
 import "duration.proto";
 import "basic_types.proto";
-import "contract_delete.proto";
 
 import "consensus_create_topic.proto";
 import "consensus_update_topic.proto";
@@ -115,6 +117,11 @@ message TransactionBody {
    * Any notes or descriptions that should be put into the record (max length 100)
    */
   string memo = 6;
+ 
+  /**
+   * The foreign transaction that authorization may depend on. Empty if HAPI-only.
+   */
+  ForeignTransactionData foreign_transaction_data = 50;
 
   /**
    * The choices here are arranged by service in roughly lexicographical order. The field ordinals are non-sequential, and a result of the historical order of implementation.

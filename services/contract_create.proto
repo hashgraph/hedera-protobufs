@@ -83,6 +83,13 @@ import "duration.proto";
  */
 message ContractCreateTransactionBody {
     /**
+     * The account that is the "sender." If not present it is the accountId from the transactionId.
+     * Typically a different value than specified in the transactionId requires a valid signature 
+     * over either the hedera transaction or foreign transaction data.
+     */
+    AccountID senderID = 14;
+
+    /**
      * the file containing the smart contract byte code. A copy will be made and held by the
      * contract instance, and have the same expiration time as the instance. The file is referenced
      * one of two ways:

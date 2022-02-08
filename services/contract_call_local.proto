@@ -65,6 +65,12 @@ message ContractLoginfo {
  */
 message ContractFunctionResult {
     /**
+     * The account that is the "sender." If not present it is the accountId from the transactionId.
+     * This would only be populated if different from the transactionId's value.
+     */
+    AccountID senderID = 10;
+
+    /**
      * the smart contract instance whose function was called
      */
     ContractID contractID = 1;
@@ -150,6 +156,13 @@ message ContractCallLocalQuery {
      * standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). The payment must cover the fees and all of the gas offered.
      */
     QueryHeader header = 1;
+
+    /**
+     * The account that is the "sender." If not present it is the accountId from the transactionId.
+     * Typically a different value than specified in the transactionId requires a valid signature 
+     * over either the hedera transaction or foreign transaction data.
+     */
+    AccountID senderID = 6;
 
     /**
      * The contract to make a static call against

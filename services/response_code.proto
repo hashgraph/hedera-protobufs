@@ -1206,4 +1206,55 @@ enum ResponseCodeEnum {
    * not the same. Currently only the owner is permitted to perform these operations.
    */
   PAYER_AND_OWNER_NOT_EQUAL = 300;
+
+  /**
+   * Hedera encountered a correctness error when parsing the wrapped transaction
+   */
+  FOREIGN_TRANSACTION_FORMAT_ERROR = 301;
+
+  /**
+   * The nonce does not match the foreign transaction's nonce.
+   */
+  FOREIGN_TRANSACTION_INCORRECT_CHAIN_ID = 302;
+
+  /**
+   * The nonce does not match the foreign transaction's nonce.
+   */
+  FOREIGN_TRANSACTION_INCORRECT_NONCE = 303;
+
+  /**
+   * The gas limit does not match the foreign transaction's gas limit.
+   */
+  FOREIGN_TRANSACTION_INCORRECT_GAS_LIMIT = 304;
+
+  /**
+   * The fee limit is less than the wrapped transactions charged fees.
+   */
+  FOREIGN_TRANSACTION_INSUFFICIENT_FEE_LIMIT = 305;
+
+  /**
+   * The receiver address does not match the foreign transaction's to.
+   */
+  FOREIGN_TRANSACTION_INCORRECT_RECEIVER_ADDRESS = 306;
+
+  /**
+   * The amount does not match the foreign transaction's value.
+   */
+  FOREIGN_TRANSACTION_INCORRECT_AMOUNT = 307;
+
+  /**
+   * The data offset or size field does not correspond to the foreign transaction's data.
+   */
+  FOREIGN_TRANSACTION_INCORRECT_DATA = 308;
+
+  /**
+   * The sender address does not match the extracted signature address.
+   */
+  FOREIGN_TRANSACTION_INCORRECT_SENDER_ADDRESS = 309;
+
+  /**
+   * The foreign transaction has an invalid signature
+   */
+  FOREIGN_TRANSACTION_INVALID_SIGNATURE = 310;
+
 }
