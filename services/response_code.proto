@@ -1200,4 +1200,14 @@ enum ResponseCodeEnum {
    * Non fungible token used in fungible token allowances
    */
   NFT_IN_FUNGIBLE_TOKEN_ALLOWANCES = 299;
+
+  /**
+   * The account id specified as the owner is invalid or does not exist.
+   */
+  INVALID_OWNER_ID = 300;
+
+  /**
+   * The account id specified as the spender is invalid or does not exist.
+   */
+  INVALID_SPENDER_ID = 301;
 }
