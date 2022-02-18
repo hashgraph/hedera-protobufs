@@ -1632,7 +1632,7 @@ message GrantedNftAllowance {
      * owned and any in the future). If this field is set to true the serialNumbers field
      * should be empty.
      */
-    google.protobuf.BoolValue approvedForAll = 4;
+    bool approvedForAll = 4;
 }
 
 /**
