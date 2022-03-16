@@ -134,7 +134,7 @@ message ContractFunctionResult {
      google.protobuf.BytesValue evm_address = 9;
 
     /**
-     * The amount of gas that was used for this call. 
+     * The amount of gas available for the call, aka the gasLimit. 
      *
      * This field should only be populated when the paired TransactionBody in the record stream is not a
      * ContractCreateTransactionBody or a ContractCallTransactionBody.     
