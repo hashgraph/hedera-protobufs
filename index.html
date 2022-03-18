@@ -219,6 +219,18 @@
                 </li>
               
                 <li>
+                  <a href="#proto.GrantedCryptoAllowance"><span class="badge">M</span>GrantedCryptoAllowance</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.GrantedNftAllowance"><span class="badge">M</span>GrantedNftAllowance</a>
+                </li>
+              
+                <li>
+                  <a href="#proto.GrantedTokenAllowance"><span class="badge">M</span>GrantedTokenAllowance</a>
+                </li>
+              
+                <li>
                   <a href="#proto.Key"><span class="badge">M</span>Key</a>
                 </li>
               
@@ -2473,6 +2485,131 @@ The rational&#39;s numerator </p></td>
                   <td></td>
                   <td><p>
 The rational&#39;s denominator; a zero value will result in FRACTION_DIVIDES_BY_ZERO </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.GrantedCryptoAllowance">GrantedCryptoAllowance</h3>
+        <p></p><p>A granted allowance of hbar transfers for a spender relative to the owner account.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>spender</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the spender of the hbar allowance. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>amount</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The amount of the spender&#39;s allowance in tinybars. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.GrantedNftAllowance">GrantedNftAllowance</h3>
+        <p></p><p>A granted allowance of non-fungible token transfers for a spender relative to the owner account.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>token_id</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>
+The token that the allowance pertains to. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>spender</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the token allowance spender. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>serial_numbers</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td>repeated</td>
+                  <td><p>
+The list of serial numbers that the spender is permitted to transfer. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>approved_for_all</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>
+If true, the spender has access to all of the account owner&#39;s NFT instances (currently
+owned and any in the future). If this field is set to true the serialNumbers field
+should be empty. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.GrantedTokenAllowance">GrantedTokenAllowance</h3>
+        <p></p><p>A granted allowance of fungible token transfers for a spender relative to the owner account.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>token_id</td>
+                  <td><a href="#proto.TokenID">TokenID</a></td>
+                  <td></td>
+                  <td><p>
+The token that the allowance pertains to. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>spender</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>
+The account ID of the token allowance spender. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>amount</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The amount of the spender&#39;s token allowance. </p></td>
                 </tr>
               
             </tbody>
@@ -7212,24 +7349,24 @@ The ledger ID the response was returned from; please see &lt;a href=&#34;https:/
                 </tr>
               
                 <tr>
-                  <td>crypto_allowances</td>
-                  <td><a href="#proto.CryptoAllowance">CryptoAllowance</a></td>
+                  <td>granted_crypto_allowances</td>
+                  <td><a href="#proto.GrantedCryptoAllowance">GrantedCryptoAllowance</a></td>
                   <td>repeated</td>
                   <td><p>
 All of the hbar allowances approved by the account owner. </p></td>
                 </tr>
               
                 <tr>
-                  <td>nft_allowances</td>
-                  <td><a href="#proto.NftAllowance">NftAllowance</a></td>
+                  <td>granted_nft_allowances</td>
+                  <td><a href="#proto.GrantedNftAllowance">GrantedNftAllowance</a></td>
                   <td>repeated</td>
                   <td><p>
 All of the non-fungible token allowances approved by the account owner. </p></td>
                 </tr>
               
                 <tr>
-                  <td>token_allowances</td>
-                  <td><a href="#proto.TokenAllowance">TokenAllowance</a></td>
+                  <td>granted_token_allowances</td>
+                  <td><a href="#proto.GrantedTokenAllowance">GrantedTokenAllowance</a></td>
                   <td>repeated</td>
                   <td><p>
 All of the fungible token allowances approved by the account owner. </p></td>
@@ -7863,17 +8000,6 @@ If set, the new memo to be associated with the account (UTF-8 encoding max 100 b
                   <td><p>
 The maximum number of tokens that an Account can be implicitly associated with. Up to a 1000
 including implicit and explicit associations. </p></td>
-                </tr>
-              
-                <tr>
-                  <td>alias</td>
-                  <td><a href="#bytes">bytes</a></td>
-                  <td></td>
-                  <td><p>
-If set, the new public key bytes to be used as the account&#39;s alias. Alias can be updated
-only on accounts that does not have it set previously. It will be immutable once it is
-set on an account. For successful update of alias, the corresponding alias private key
-should sign the transaction. </p></td>
                 </tr>
               
             </tbody>
@@ -11951,11 +12077,17 @@ Non fungible token used in fungible token allowances</p></td>
               </tr>
             
               <tr>
-                <td>PAYER_AND_OWNER_NOT_EQUAL</td>
+                <td>INVALID_ALLOWANCE_OWNER_ID</td>
                 <td>300</td>
                 <td><p>
-An approval/adjustment transaction was submitted where the payer and owner account are
-not the same. Currently only the owner is permitted to perform these operations.</p></td>
+The account id specified as the owner is invalid or does not exist.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_ALLOWANCE_SPENDER_ID</td>
+                <td>301</td>
+                <td><p>
+The account id specified as the spender is invalid or does not exist.</p></td>
               </tr>
             
           </tbody>
