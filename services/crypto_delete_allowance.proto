@@ -49,6 +49,9 @@ message CryptoDeleteAllowanceTransactionBody {
     repeated TokenDeleteAllowance tokenAllowances = 3;
 }
 
+/**
+ * Hbar allowances to be deleted on an owner account
+ */
 message CryptoDeleteAllowance {
     /**
      * The account ID of the hbar owner (ie. the grantor of the allowance).
@@ -56,6 +59,9 @@ message CryptoDeleteAllowance {
     AccountID owner = 1;
 }
 
+/**
+ * Nft allowances to be deleted on an owner account
+ */
 message NftDeleteAllowance {
     /**
      * The token that the allowance pertains to.
@@ -73,6 +79,9 @@ message NftDeleteAllowance {
     repeated int64 serial_numbers = 3;
 }
 
+/**
+ * Token allowances to be deleted on an owner account
+ */
 message TokenDeleteAllowance {
     /**
      * The token that the allowance pertains to.

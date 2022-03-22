@@ -123,6 +123,11 @@ message SchedulableTransactionBody {
     CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 38;
 
     /**
+     * Deletes one or more approved hbar or token allowances from an owner's account
+     */
+    CryptoDeleteAllowanceTransactionBody cryptoDeleteAllowance = 50;
+
+    /**
      * Create a new cryptocurrency account
      */
     CryptoCreateTransactionBody cryptoCreateAccount = 7;
