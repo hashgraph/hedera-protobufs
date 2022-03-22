@@ -39,6 +39,7 @@ import "crypto_transfer.proto";
 import "crypto_update.proto";
 import "crypto_approve_allowance.proto";
 import "crypto_adjust_allowance.proto";
+import "crypto_delete_allowance.proto";
 
 import "file_append.proto";
 import "file_create.proto";

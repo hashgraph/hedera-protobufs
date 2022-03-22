@@ -94,7 +94,7 @@ message TokenNftInfo {
     /**
      * If an allowance is granted for the NFT, its corresponding spender account
      */
-    AccountID spender_id = 2;
+    AccountID spender_id = 6;
 }
 
 /**

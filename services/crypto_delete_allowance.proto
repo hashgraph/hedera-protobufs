@@ -36,23 +36,23 @@ message CryptoDeleteAllowanceTransactionBody {
     /**
      * List of hbar allowances to remove.
      */
-    repeated CryptoDeleteAllowance cryptoAllowances = 1;
+    repeated CryptoWipeAllowance cryptoAllowances = 1;
 
     /**
      * List of non-fungible token allowances to remove.
      */
-    repeated NftDeleteAllowance nftAllowances = 2;
+    repeated NftWipeAllowance nftAllowances = 2;
 
     /**
      * List of fungible token allowances to remove.
      */
-    repeated TokenDeleteAllowance tokenAllowances = 3;
+    repeated TokenWipeAllowance tokenAllowances = 3;
 }
 
 /**
- * Hbar allowances to be deleted on an owner account
+ * Hbar allowances to be removed on an owner account
  */
-message CryptoDeleteAllowance {
+message CryptoWipeAllowance {
     /**
      * The account ID of the hbar owner (ie. the grantor of the allowance).
      */
@@ -60,9 +60,9 @@ message CryptoDeleteAllowance {
 }
 
 /**
- * Nft allowances to be deleted on an owner account
+ * Nft allowances to be removed on an owner account
  */
-message NftDeleteAllowance {
+message NftWipeAllowance {
     /**
      * The token that the allowance pertains to.
      */
@@ -80,9 +80,9 @@ message NftDeleteAllowance {
 }
 
 /**
- * Token allowances to be deleted on an owner account
+ * Token allowances to be removed on an owner account
  */
-message TokenDeleteAllowance {
+message TokenWipeAllowance {
     /**
      * The token that the allowance pertains to.
      */
