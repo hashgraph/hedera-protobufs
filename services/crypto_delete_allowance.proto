@@ -33,54 +33,63 @@ import "basic_types.proto";
  * fungible token and/or a specific non-fungible token serial number.
  */
 message CryptoDeleteAllowanceTransactionBody {
-    message CryptoDeleteAllowance {
-        /**
-         * The account ID of the hbar owner (ie. the grantor of the allowance).
-         */
-        AccountID owner = 1;
-    }
-
-    message NftDeleteAllowance {
-        /**
-         * The token that the allowance pertains to.
-         */
-        TokenID tokenId = 1;
-
-        /**
-         * The account ID of the token owner (ie. the grantor of the allowance).
-         */
-        AccountID owner = 2;
-
-        /**
-         * The list of serial numbers to remove allowances from.
-         */
-        repeated int64 serialNumbers = 3;
-    }
-
-    message TokenDeleteAllowance {
-        /**
-         * The token that the allowance pertains to.
-         */
-        TokenID tokenId = 1;
-
-        /**
-         * The account ID of the token owner (ie. the grantor of the allowance).
-         */
-        AccountID owner = 2;
-    }
-
     /**
      * List of hbar allowances to remove.
      */
-    repeated CryptoDeleteAllowance cryptoAllowances = 1;
+    repeated CryptoWipeAllowance cryptoAllowances = 1;
 
     /**
      * List of non-fungible token allowances to remove.
      */
-    repeated NftDeleteAllowance nftAllowances = 2;
+    repeated NftWipeAllowance nftAllowances = 2;
 
     /**
      * List of fungible token allowances to remove.
      */
-    repeated TokenDeleteAllowance tokenAllowances = 3;
+    repeated TokenWipeAllowance tokenAllowances = 3;
+}
+
+/**
+ * Hbar allowances to be removed on an owner account
+ */
+message CryptoWipeAllowance {
+    /**
+     * The account ID of the hbar owner (ie. the grantor of the allowance).
+     */
+    AccountID owner = 1;
+}
+
+/**
+ * Nft allowances to be removed on an owner account
+ */
+message NftWipeAllowance {
+    /**
+     * The token that the allowance pertains to.
+     */
+    TokenID token_id = 1;
+
+    /**
+     * The account ID of the token owner (ie. the grantor of the allowance).
+     */
+    AccountID owner = 2;
+
+    /**
+     * The list of serial numbers to remove allowances from.
+     */
+    repeated int64 serial_numbers = 3;
+}
+
+/**
+ * Token allowances to be removed on an owner account
+ */
+message TokenWipeAllowance {
+    /**
+     * The token that the allowance pertains to.
+     */
+    TokenID token_id = 1;
+
+    /**
+     * The account ID of the token owner (ie. the grantor of the allowance).
+     */
+    AccountID owner = 2;
 }
