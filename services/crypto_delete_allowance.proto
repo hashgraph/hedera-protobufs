@@ -30,7 +30,8 @@ import "basic_types.proto";
 /**
  * Deletes one or more hbar/token approved allowances from an owner's account. This operation
  * will remove the allowances granted to <b>all</b> spenders of an owner's hbar, a specific
- * fungible token and/or a specific non-fungible token serial number.
+ * fungible token and/or a specific non-fungible token serial number. Each owner account
+ * listed as wiping an allowance must sign the transaction.
  */
 message CryptoDeleteAllowanceTransactionBody {
     /**
