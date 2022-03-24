@@ -1614,7 +1614,7 @@ message GrantedCryptoAllowance {
 }
 
 /**
- * A granted allowance of non-fungible token transfers for a spender relative to the owner account.
+ * A granted allowance for all the NFTs of a token for a spender relative to the owner account.
  */
 message GrantedNftAllowance {
     /**
@@ -1623,21 +1623,9 @@ message GrantedNftAllowance {
     TokenID token_id = 1;
 
     /**
-     * The account ID of the token allowance spender.
+     * The account ID of the spender that has been granted access to all NFTs of the owner
      */
     AccountID spender = 2;
-
-    /**
-     * The list of serial numbers that the spender is permitted to transfer.
-     */
-    repeated int64 serial_numbers = 3;
-
-    /**
-     * If true, the spender has access to all of the account owner's NFT instances (currently
-     * owned and any in the future). If this field is set to true the serialNumbers field
-     * should be empty.
-     */
-    bool approved_for_all = 4;
 }
 
 /**
