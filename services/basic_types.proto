@@ -1571,6 +1571,12 @@ message NftAllowance {
      * should be empty.
      */
     google.protobuf.BoolValue approvedForAll = 5;
+
+    /**
+     * The account ID of the spender who is granted approvedForAll allowance and granting
+     * approval on an NFT serial to another spender.
+     */
+    AccountID delegatingSpender = 6;
 }
 
 /**
