@@ -1563,20 +1563,20 @@ message NftAllowance {
     /**
      * The list of serial numbers that the spender is permitted to transfer.
      */
-    repeated int64 serialNumbers = 4;
+    repeated int64 serial_numbers = 4;
 
     /**
      * If true, the spender has access to all of the account owner's NFT instances (currently
      * owned and any in the future). If this field is set to true the serialNumbers field
      * should be empty.
      */
-    google.protobuf.BoolValue approvedForAll = 5;
+    google.protobuf.BoolValue approved_for_all = 5;
 
     /**
      * The account ID of the spender who is granted approvedForAll allowance and granting
      * approval on an NFT serial to another spender.
      */
-    AccountID delegatingSpender = 6;
+    AccountID delegating_spender = 6;
 }
 
 /**
