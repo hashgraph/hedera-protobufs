@@ -89,4 +89,9 @@ service SmartContractService {
      * Undeletes a contract if the submitting account has network admin privileges
      */
     rpc systemUndelete (Transaction) returns (TransactionResponse);
+
+    /**
+     * Ethereum transaction
+     */
+    rpc contractCallEthereum (Transaction) returns (TransactionResponse);
 }

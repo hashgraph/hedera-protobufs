@@ -1122,6 +1122,11 @@ enum HederaFunctionality {
      * Deletes granted allowances on owner account
      */
     CryptoDeleteAllowance = 83;
+
+    /**
+     * Ethereum Transaction
+     */
+    EthereumTransaction = 84;
 }
 
 /**

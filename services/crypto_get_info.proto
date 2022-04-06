@@ -182,6 +182,11 @@ message CryptoGetInfoResponse {
          * All of the fungible token allowances approved by the account owner.
          */
         repeated GrantedTokenAllowance granted_token_allowances = 23;
+        
+        /**
+         * The ethereum transaction nonce associated with this account.
+         */
+        int64 ethereumNonce = 24;
     }
 
     /**

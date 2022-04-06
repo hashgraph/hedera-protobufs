@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+option java_package = "com.hederahashgraph.api.proto.java";
+option java_multiple_files = true;
+
+import "basic_types.proto";
+
+message EthereumTransactionBody {
+
+  /**
+   * The raw Ethereum transaction (RLP encoded type 0, 1, and 2). Complete 
+   * unless the callData field is set.
+   */
+  bytes ethereumData = 1;
+
+  /**
+   * For large transactions (for example contract create) this is the callData
+   * of the ethereumData. The data in the ethereumData will be re-written with 
+   * the callData element as a zero length string with the original contents in 
+   * the referenced file at time of execution. The ethereumData will need to be 
+   * "rehydrated" with the callData for signature validation to pass.
+   */
+  FileID callData = 2;
+
+}

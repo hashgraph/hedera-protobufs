@@ -43,6 +43,8 @@ import "crypto_approve_allowance.proto";
 import "crypto_adjust_allowance.proto";
 import "crypto_delete_allowance.proto";
 
+import "ethereum_transaction.proto";
+
 import "file_append.proto";
 import "file_create.proto";
 import "file_delete.proto";
@@ -185,6 +187,11 @@ message TransactionBody {
      * Modify information such as the expiration date for an account
      */
     CryptoUpdateTransactionBody cryptoUpdateAccount = 15;
+
+    /**
+     * An Ethereum encoded transaction.
+     */
+    EthereumTransactionBody ethereumTransaction = 51;
 
     /**
      * Add bytes to the end of the contents of a file

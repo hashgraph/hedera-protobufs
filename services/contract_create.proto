@@ -82,12 +82,21 @@ import "duration.proto";
  *    If there are no admin keys, then it cannot be changed after the smart contract is created.
  */
 message ContractCreateTransactionBody {
-    /**
-     * the file containing the smart contract byte code. A copy will be made and held by the
-     * contract instance, and have the same expiration time as the instance. The file is referenced
-     * one of two ways:
-     */
-    FileID fileID = 1;
+
+    oneof initcodeSource {
+        /**
+         * the file containing the smart contract byte code. A copy will be made and held by the
+         * contract instance, and have the same expiration time as the instance. The file is referenced
+         * one of two ways:
+         */
+        FileID fileID = 1;
+
+        /**
+         * the bytes of the smart contract byte code. This is only useful if the smart contract bytecode
+         * is less than the hedera transaction limit. In those cases fileID must be used.
+         */
+        bytes initcodeBytes = 7;
+    }
 
     /**
      * the state of the instance and its fields can be modified arbitrarily if this key signs a
