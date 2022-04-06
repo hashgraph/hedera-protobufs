@@ -1114,14 +1114,9 @@ enum HederaFunctionality {
     CryptoApproveAllowance = 81;
 
     /**
-     * Adjust allowances for a spender relative to the owner account
-     */
-    CryptoAdjustAllowance = 82;
-
-    /**
      * Deletes granted allowances on owner account
      */
-    CryptoDeleteAllowance = 83;
+    CryptoDeleteAllowance = 82;
 }
 
 /**

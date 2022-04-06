@@ -1182,7 +1182,7 @@ enum ResponseCodeEnum {
 
   /**
    * Spender is repeated more than once in Crypto or Token or NFT allowance lists in a single
-   * CryptoApproveAllowance or CryptoAdjustAllowance transaction.
+   * CryptoApproveAllowance transaction.
    */
   SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES = 296;
 
