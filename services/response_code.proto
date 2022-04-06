@@ -1176,7 +1176,7 @@ enum ResponseCodeEnum {
   MAX_ALLOWANCES_EXCEEDED = 294;
 
   /**
-   * No allowances have been specified in the approval/adjust transaction.
+   * No allowances have been specified in the approval transaction.
    */
   EMPTY_ALLOWANCES = 295;
 
