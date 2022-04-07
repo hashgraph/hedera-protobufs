@@ -1117,6 +1117,12 @@ enum HederaFunctionality {
      * Deletes granted allowances on owner account
      */
     CryptoDeleteAllowance = 82;
+
+    /**
+     * Gets all the information about an account, including balance and allowances. This does not get the list of
+     * account records.
+     */
+    GetAccountDetails = 83;
 }
 
 /**
