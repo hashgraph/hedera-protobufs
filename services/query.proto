@@ -195,6 +195,6 @@ message Query {
         /**
          * Gets all information about an account including allowances granted by the account
          */
-        GetAccountDetailsQuery getAccountDetails = 58;
+        GetAccountDetailsQuery accountDetails = 58;
     }
 }

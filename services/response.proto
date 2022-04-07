@@ -189,6 +189,6 @@ message Response {
         /**
          * Gets all information about an account including allowances granted by the account
          */
-        GetAccountDetailsResponse getAccountDetails = 158;
+        GetAccountDetailsResponse accountDetails = 158;
     }
 }
