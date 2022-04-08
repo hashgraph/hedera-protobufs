@@ -104,7 +104,7 @@ service TokenService {
     rpc getTokenInfo (Query) returns (Response);
 
     /**
-     * (PERMANENTLY DISABLED) Please use Mirror Node APIs to query for account NFT ownership 
+     * (DEPRECATED) Gets info on NFTs N through M on the list of NFTs associated with a given account
      */
     rpc getAccountNftInfos (Query) returns (Response) {
          option deprecated = true;
@@ -116,7 +116,7 @@ service TokenService {
     rpc getTokenNftInfo (Query) returns (Response);
 
     /**
-     * (PERMANENTLY DISABLED) Please use Mirror Node APIs to query for NFT mint information
+     * (DEPRECATED) Gets info on NFTs N through M on the list of NFTs associated with a given Token of type NON_FUNGIBLE
      */
     rpc getTokenNftInfos (Query) returns (Response) {
          option deprecated = true;
