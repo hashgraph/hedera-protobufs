@@ -1231,4 +1231,20 @@ enum ResponseCodeEnum {
    * granted on token-owner.
    */
   DELEGATING_SPENDER_DOES_NOT_HAVE_APPROVE_FOR_ALL = 305;
+
+  /**
+   * If using selfdestruct or ContractDelete targeting a contract that is a token treasury
+   */
+  CONTRACT_IS_TOKEN_TREASURY = 306;
+
+  /**
+   * If using selfdestruct or ContractDelete targeting a contract that holds non-zero NFT balance
+   */
+  CONTRACT_STILL_OWNS_NFTS = 307;
+
+  /**
+   * The transaction references a contract which has passed its expiration without renewal funds 
+   * available, and only remains in the ledger because of the expired entities grace period 
+   */
+  CONTRACT_EXPIRED_AND_PENDING_REMOVAL = 308;
 }

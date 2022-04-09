@@ -107,6 +107,13 @@ message AccountID {
 }
 
 /**
+* A wrapper for an AccountID; useful for explicitly removing an AccountID in an update transaction.
+*/
+message AccountIDValue {
+    AccountID account_id = 1;
+}
+
+/**
  * The ID for a file 
  */
 message FileID {

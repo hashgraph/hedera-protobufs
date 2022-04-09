@@ -46,6 +46,7 @@ import "google/protobuf/wrappers.proto";
  *    it is exactly an empty <tt>KeyList</tt>. This special sentinel key removes the existing admin
  *    key and causes the contract to become immutable. (Other <tt>Key</tt> structures without a
  *    constituent <tt>Ed25519</tt> key will be rejected with <tt>INVALID_ADMIN_KEY</tt>.)
+ * 4. If the update transaction sets a new auto-renew account id, that account's key must also sign.
  */
 message ContractUpdateTransactionBody {
     /**
@@ -96,5 +97,12 @@ message ContractUpdateTransactionBody {
        */
       google.protobuf.StringValue memoWrapper = 10;
     }
+
+    /**
+     * A wrapper around the new id of the account responsible for paying this contract's renewal 
+     * fees for this contract; if this wrapper field is set, but does not contain an AccountID,
+     * then the contract's auto-renew account will be removed.
+     */
+    AccountIDValue auto_renew_account_id = 15;
 }
 

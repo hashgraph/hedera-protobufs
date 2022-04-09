@@ -147,4 +147,11 @@ message ContractCreateTransactionBody {
      * the memo that was submitted as part of the contract (max 100 bytes)
      */
     string memo = 13;
+
+    /**
+     * The id of the account responsible for paying renewal fees for this contract; if this 
+     * id is not set (or refers to a missing or insolvent account), the hbar balance of the 
+     * contract itself is used to pay renewal fees
+     */
+    AccountID auto_renew_account_id = 14;
 }
