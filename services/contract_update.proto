@@ -76,8 +76,7 @@ message ContractUpdateTransactionBody {
     Duration autoRenewPeriod = 7;
 
     /**
-     * The new id of the file asserted to contain the bytecode of the Solidity transaction that
-     * created this contract
+     * This field is unused and will have no impact on the specified smart contract.
      */
     FileID fileID = 8 [deprecated = true];
 
