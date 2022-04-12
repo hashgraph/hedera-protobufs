@@ -41,8 +41,8 @@ import "transaction.proto";
  *
  * Scheduled Transactions are executed in two different modes.
  *
- * 1. If Long Term Scheduled Transactions are enabled and <tt>waitForExpiry</tt> was set to <tt>true</tt> on the
- *    <tt>ScheduleCreate</tt>, then the transaction will be executed at the <tt>expirationTime</tt> specified on the
+ * 1. If Long Term Scheduled Transactions are enabled and <tt>wait_for_expiry</tt> was set to <tt>true</tt> on the
+ *    <tt>ScheduleCreate</tt>, then the transaction will be executed at the <tt>expiration_time</tt> specified on the
  *    <tt>ScheduleCreate</tt>.
  *
  * 2. Otherwise Scheduled Transactions are executed once all required signatures are collected and witnessed.
@@ -58,7 +58,7 @@ import "transaction.proto";
  *
  * A particularly noteworthy case is if Long Term Scheduled Transactions are enabled and signature requirements for a Scheduled
  * Transaction change such that existing signatures become sufficient to allow the transaction to go through. In this case the transaction
- * will execute at expirationTime unless a ScheduleSign comes in to push it through.
+ * will execute at expiration_time unless a ScheduleSign comes in to push it through.
  *
  * Transaction Record:
  *
@@ -78,8 +78,8 @@ import "transaction.proto";
  *
  * Expiry:
  *
- * The expiration time of a schedule is controlled by it's <tt>expirationTime</tt>. If Long Term Scheduled Transactions are disabled,
- * the <tt>expirationTime</tt> is always 30 minutes in the future.
+ * The expiration time of a schedule is controlled by it's <tt>expiration_time</tt>. If Long Term Scheduled Transactions are disabled,
+ * the <tt>expiration_time</tt> is always 30 minutes in the future.
  *
  * Once a given Scheduled Transaction expires, it will be removed from the ledger and any upcoming
  * operation referring the ScheduleID will resolve to INVALID_SCHEDULE_ID.

@@ -36,8 +36,8 @@ import "schedulable_transaction_body.proto";
  * When the schedule has collected enough signing Ed25519 keys to satisfy the schedule's signing
  * requirements, the schedule can be executed.
  *
- * If Long Term Scheduled Transactions are enabled and <tt>waitForExpiry</tt> is set to <tt>true</tt>, then the schedule
- * will execute at it's <tt>expirationTime</tt>.
+ * If Long Term Scheduled Transactions are enabled and <tt>wait_for_expiry</tt> is set to <tt>true</tt>, then the schedule
+ * will execute at it's <tt>expiration_time</tt>.
  *
  * Otherwise it will execute immediately after the transaction that provided enough Ed25519 keys, a <tt>ScheduleCreate</tt>
  * or <tt>ScheduleSign</tt>.
@@ -45,9 +45,9 @@ import "schedulable_transaction_body.proto";
  * Upon `SUCCESS`, the receipt also includes the <tt>scheduledTransactionID</tt> to
  * use to query for the record of the scheduled transaction's execution (if it occurs). 
  * 
- * The expiration time of a schedule is controlled by it's <tt>expirationTime</tt>. It remains in state and can be queried
+ * The expiration time of a schedule is controlled by it's <tt>expiration_time</tt>. It remains in state and can be queried
  * using <tt>GetScheduleInfo</tt> until expiration, no matter if the scheduled transaction has
- * executed or marked deleted. If Long Term Scheduled Transactions are disabled, the <tt>expirationTime</tt> is always
+ * executed or marked deleted. If Long Term Scheduled Transactions are disabled, the <tt>expiration_time</tt> is always
  * 30 minutes in the future.
  * 
  * If the <tt>adminKey</tt> field is omitted, the resulting schedule is immutable. If the
@@ -108,25 +108,25 @@ message ScheduleCreateTransactionBody {
    * Note: This field is unused and forced to be unset until Long Term Scheduled Transactions are enabled - Transactions will always
    *       expire in 30 minutes if Long Term Scheduled Transactions are not enabled.
    */
-  Timestamp expirationTime = 5;
+  Timestamp expiration_time = 5;
 
   /**
-   * When set to true, the transaction will be evaluated for execution at expirationTime instead
+   * When set to true, the transaction will be evaluated for execution at expiration_time instead
    * of when all required signatures are received.
    * When set to false, the transaction will execute immediately after sufficient signatures are received
    * to sign the contained transaction. During the initial ScheduleCreate transaction or via ScheduleSign transactions.
    *
    * Defaults to false.
    *
-   * Setting this to false does not necessarily mean that the transaction will never execute at expirationTime.
+   * Setting this to false does not necessarily mean that the transaction will never execute at expiration_time.
    *  For Example - If the signature requirements for a Scheduled Transaction change via external means (e.g. CryptoUpdate)
-   *  such that the Scheduled Transaction would be allowed to execute, it will do so autonomously at expirationTime, unless a
+   *  such that the Scheduled Transaction would be allowed to execute, it will do so autonomously at expiration_time, unless a
    *  ScheduleSign comes in to “poke” it and force it to go through immediately.
    *
    * Note: This field is unused and forced to be unset until Long Term Scheduled Transactions are enabled. Before Long Term
    *       Scheduled Transactions are enabled, Scheduled Transactions will _never_ execute at expiration  - they will _only_
    *       execute during the initial ScheduleCreate transaction or via ScheduleSign transactions and will _always_
-   *       expire at expirationTime.
+   *       expire at expiration_time.
    */
-  bool waitForExpiry = 13;
+  bool wait_for_expiry = 13;
 }

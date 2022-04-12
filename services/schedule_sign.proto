@@ -30,8 +30,8 @@ import "basic_types.proto";
 /**
  * Adds zero or more signing keys to a schedule.
  *
- * If Long Term Scheduled Transactions are enabled and <tt>waitForExpiry</tt> was set to <tt>true</tt> on the
- * <tt>ScheduleCreate</tt> then the transaction will always wait till it's `expirationTime` to execute.
+ * If Long Term Scheduled Transactions are enabled and <tt>wait_for_expiry</tt> was set to <tt>true</tt> on the
+ * <tt>ScheduleCreate</tt> then the transaction will always wait till it's `expiration_time` to execute.
  *
  * Otherwise, if the resulting set of signing keys satisfy the
  * scheduled transaction's signing requirements, it will be executed immediately after the
