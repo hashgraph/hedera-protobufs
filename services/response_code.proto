@@ -1176,13 +1176,13 @@ enum ResponseCodeEnum {
   MAX_ALLOWANCES_EXCEEDED = 294;
 
   /**
-   * No allowances have been specified in the approval/adjust transaction.
+   * No allowances have been specified in the approval transaction.
    */
   EMPTY_ALLOWANCES = 295;
 
   /**
    * Spender is repeated more than once in Crypto or Token or NFT allowance lists in a single
-   * CryptoApproveAllowance or CryptoAdjustAllowance transaction.
+   * CryptoApproveAllowance transaction.
    */
   SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES = 296;
 
