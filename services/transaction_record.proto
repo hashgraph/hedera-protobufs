@@ -134,4 +134,10 @@ message TransactionRecord {
      * transaction. This field will only be populated for CryptoAdjustAllowanceTransaction.
      */
     repeated TokenAllowance token_adjustments = 18;
+    
+    /**
+     * The keccak256 hash of the ethereumData. This field will only be populated for 
+     * EthereumTransaction.
+     */
+    bytes ethereum_hash = 19;
 }
