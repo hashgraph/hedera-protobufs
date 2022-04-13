@@ -72,8 +72,8 @@ import "schedule_delete.proto";
 
 /**
  * A schedulable transaction. Note that the global/dynamic system property
- * <tt>scheduling.whitelist</tt> controls which transaction types may be scheduled.  In Hedera
- * Services 0.13.0, it will include only <tt>CryptoTransfer</tt> and <tt>ConsensusSubmitMessage</tt>
+ * <tt>scheduling.whitelist</tt> controls which transaction types may be scheduled. As of Hedera
+ * Services 0.24.0 this list includes <tt>ConsensusSubmitMessage</tt>, <tt>CryptoTransfer</tt>, <tt>TokenMint</tt>, and <tt>TokenBurn</tt>
  * functions.
  */
 message SchedulableTransactionBody {
