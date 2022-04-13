@@ -33,7 +33,7 @@ message EthereumTransactionBody {
    * The raw Ethereum transaction (RLP encoded type 0, 1, and 2). Complete 
    * unless the callData field is set.
    */
-  bytes ethereumData = 1;
+  bytes ethereum_data = 1;
 
   /**
    * For large transactions (for example contract create) this is the callData
@@ -42,6 +42,6 @@ message EthereumTransactionBody {
    * the referenced file at time of execution. The ethereumData will need to be 
    * "rehydrated" with the callData for signature validation to pass.
    */
-  FileID callData = 2;
+  FileID call_data = 2;
 
 }

@@ -164,7 +164,7 @@ message ContractFunctionResult {
      * This field should only be populated when the paired TransactionBody in the record stream is not a
      * ContractCreateTransactionBody or a ContractCallTransactionBody.     
      */
-    AccountID senderID = 13;
+    AccountID sender_id = 13;
 }
 
 /**
@@ -210,7 +210,7 @@ message ContractCallLocalQuery {
      * Typically a different value than specified in the transactionId requires a valid signature 
      * over either the hedera transaction or foreign transaction data.
      */
-    AccountID senderID = 6;
+    AccountID sender_id = 6;
 }
 
 /**
