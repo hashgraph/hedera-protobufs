@@ -1231,4 +1231,24 @@ enum ResponseCodeEnum {
    * granted on token-owner.
    */
   DELEGATING_SPENDER_DOES_NOT_HAVE_APPROVE_FOR_ALL = 305;
+
+  /**
+   * The scheduled transaction could not be created because it's expiration_time was too far in the future.
+   */
+  SCHEDULE_EXPIRATION_TIME_TOO_FAR_IN_FUTURE = 306;
+
+  /**
+   * The scheduled transaction could not be created because it's expiration_time was less than or equal to the consensus time.
+   */
+  SCHEDULE_EXPIRATION_TIME_MUST_BE_HIGHER_THAN_CONSENSUS_TIME = 307;
+
+  /**
+   * The scheduled transaction could not be created because it would cause throttles to be violated on the specified expiration_time.
+   */
+  SCHEDULE_FUTURE_THROTTLE_EXCEEDED = 308;
+
+  /**
+   * The scheduled transaction could not be created because it would cause the gas limit to be violated on the specified expiration_time.
+   */
+  SCHEDULE_FUTURE_GAS_LIMIT_EXCEEDED = 309;
 }
