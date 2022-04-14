@@ -93,5 +93,5 @@ service SmartContractService {
     /**
      * Ethereum transaction
      */
-    rpc contractCallEthereum (Transaction) returns (TransactionResponse);
+    rpc callEthereum (Transaction) returns (TransactionResponse);
 }
