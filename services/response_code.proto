@@ -1251,4 +1251,24 @@ enum ResponseCodeEnum {
    * The scheduled transaction could not be created because it would cause the gas limit to be violated on the specified expiration_time.
    */
   SCHEDULE_FUTURE_GAS_LIMIT_EXCEEDED = 309;
+
+  /**
+   * The ethereum transaction either failed parsing or failed signature validation, or some other EthereumTransaction error not covered by another response code.
+   */
+  INVALID_ETHEREUM_TRANSACTION = 310;
+
+  /**
+   * EthereumTransaction was signed against a chainId that this network does not support.
+   */
+  WRONG_CHAIN_ID = 311;
+  
+  /**
+   * This transaction specified an ethereumNonce that is not the current ethereumNonce of the account.
+   */
+  WRONG_NONCE = 312;
+  
+  /**
+   * The ethereum transaction specified an access list, which the network does not support.
+   */
+  ACCESS_LIST_UNSUPPORTED = 313;
 }

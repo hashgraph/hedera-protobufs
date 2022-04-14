@@ -31,8 +31,8 @@ import "duration.proto";
 /**
  * Start a new smart contract instance. After the instance is created, the ContractID for it is in
  * the receipt, and can be retrieved by the Record or with a GetByKey query. The instance will run
- * the bytecode stored in a previously created file, referenced either by FileID or by the
- * transaction ID of the transaction that created the file
+ * the bytecode, either stored in a previously created file or in the transaction body itself for 
+ * small contracts.
  * 
  * 
  * The constructor will be executed using the given amount of gas, and any unspent gas will be
@@ -82,12 +82,26 @@ import "duration.proto";
  *    If there are no admin keys, then it cannot be changed after the smart contract is created.
  */
 message ContractCreateTransactionBody {
+
     /**
-     * the file containing the smart contract byte code. A copy will be made and held by the
-     * contract instance, and have the same expiration time as the instance. The file is referenced
-     * one of two ways:
+     * There are two ways to specify the initcode of a ContractCreateTransction. If the initcode is 
+     * large (> 5K) then it must be stored in a file as hex encoded ascii. If it is small then it may 
+     * either be stored as a hex encoded file or as a binary encoded field as part of the transaciton.
+     * 
      */
-    FileID fileID = 1;
+    oneof initcodeSource {
+        /**
+         * The file containing the smart contract initcode. A copy will be made and held by the
+         * contract instance, and have the same expiration time as the instance.
+         */
+        FileID fileID = 1;
+
+        /**
+         * The bytes of the smart contract initcode. This is only useful if the smart contract init
+         * is less than the hedera transaction limit. In those cases fileID must be used.
+         */
+        bytes initcode = 7;
+    }
 
     /**
      * the state of the instance and its fields can be modified arbitrarily if this key signs a

@@ -868,7 +868,7 @@ enum HederaFunctionality {
     ContractGetInfo = 17;
 
     /**
-     * Smart Contract, get the byte code
+     * Smart Contract, get the runtime code
      */
     ContractGetBytecode = 18;
 
@@ -1123,6 +1123,11 @@ enum HederaFunctionality {
      * account records.
      */
     GetAccountDetails = 83;
+
+    /**
+     * Ethereum Transaction
+     */
+    EthereumTransaction = 84;
 }
 
 /**
