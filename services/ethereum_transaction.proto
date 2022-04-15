@@ -58,5 +58,5 @@ message EthereumTransactionBody {
    * price in the transaction was set to zero then the payer will be assessed 
    * the entire fee.
    */
-  int64 maxGasAllowance = 3;
+  int64 max_gas_allowance = 3;
 }
