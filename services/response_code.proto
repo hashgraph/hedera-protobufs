@@ -1271,4 +1271,9 @@ enum ResponseCodeEnum {
    * The ethereum transaction specified an access list, which the network does not support.
    */
   ACCESS_LIST_UNSUPPORTED = 313;
+
+  /**
+   * A schedule being signed or deleted has passed it's expiration date and is pending execution if needed and then expiration.
+   */
+  SCHEDULE_PENDING_EXPIRATION = 314;
 }
