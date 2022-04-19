@@ -107,6 +107,16 @@ message AccountID {
 }
 
 /**
+ * A com.google.protobuf-style wrapper for an AccountID.
+ */
+message AccountIDValue {
+    /**
+     * If set, the id of a cryptocurrency account.
+     */
+    AccountID value = 1;
+}
+
+/**
  * The ID for a file 
  */
 message FileID {

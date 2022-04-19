@@ -54,4 +54,10 @@ message ContractDeleteTransactionBody {
          */
 	    ContractID transferContractID = 3;
     }
+
+    /**
+     * If set to true, means this is a "synthetic" system transaction being used to 
+     * alert mirror nodes that the contract is being permanently removed from the ledger.
+     */
+    bool permanent_removal = 4;
 }
