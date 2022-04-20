@@ -103,17 +103,13 @@ message AccountID {
          * in that account, without creating anything, and with no creation fee being charged.
          */
         bytes alias = 4;
-    }
-}
 
-/**
- * A com.google.protobuf-style wrapper for an AccountID.
- */
-message AccountIDValue {
+    }
+
     /**
-     * If set, the id of a cryptocurrency account.
-     */
-    AccountID value = 1;
+     * If set in an *UpdateTransactionBody, clears the target account ID. Not usable outside an update transaction.
+    */
+    bool clear = 5;
 }
 
 /**

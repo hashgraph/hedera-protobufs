@@ -109,7 +109,7 @@ message ContractUpdateTransactionBody {
 
     /**
      * If set, either gives the value of the new auto-renew account id for this contract; or if 
-     * set without any inner value, removes the existing auto-renew account of the contract.
+     * set with clear=true, removes the existing auto-renew account of the contract.
      */
-    AccountIDValue auto_renew_account_id = 12;
+    AccountID auto_renew_account_id = 12;
 }
