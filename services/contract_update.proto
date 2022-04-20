@@ -49,7 +49,7 @@ import "google/protobuf/wrappers.proto";
  * 4. If the update transaction sets the AccountIDValue auto_renew_account_id wrapper field, 
  *    then there are two possibilities. First, if the wrapper is set but does not contain an value,
  *    the contract's auto-renew account is <b>removed</b> and no additional signature is required. 
- *    Second, if the wrapper is set with new auto-renew account id, then the key of that account 
+ *    Second, if the wrapper is set with a new auto-renew account ID, then the key of that account 
  *    must sign.
  */
 message ContractUpdateTransactionBody {
