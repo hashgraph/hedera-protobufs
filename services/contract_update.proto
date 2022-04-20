@@ -108,8 +108,8 @@ message ContractUpdateTransactionBody {
     google.protobuf.Int32Value max_automatic_token_associations = 11;
 
     /**
-     * If set, either gives the value of the new auto-renew account id for this contract; or if 
-     * set with clear=true, removes the existing auto-renew account of the contract.
+     * If set to the sentinel <tt>0.0.0</tt> AccountID, this field removes the contract's auto-renew 
+     * account. Otherwise it updates the contract's auto-renew account to the referenced account.
      */
     AccountID auto_renew_account_id = 12;
 }

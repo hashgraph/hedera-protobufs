@@ -1303,10 +1303,4 @@ enum ResponseCodeEnum {
    * A delete transaction submitted via HAPI set permanent_removal=true 
    */
   PERMANENT_REMOVAL_REQUIRES_SYSTEM_INITIATION = 319;
-
-  /**
-   * An AccountID with clear=true only makes sense in an update transaction (for example,
-   * when removing the auto-renew account from a contract)
-   */
-  ACCOUNT_ID_CAN_ONLY_BE_CLEARED_IN_UPDATE_TRANSACTION = 320;
 }

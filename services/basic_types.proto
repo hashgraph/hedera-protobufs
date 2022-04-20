@@ -105,11 +105,6 @@ message AccountID {
         bytes alias = 4;
 
     }
-
-    /**
-     * If set in an *UpdateTransactionBody, clears the target account ID. Not usable outside an update transaction.
-    */
-    bool clear = 5;
 }
 
 /**
