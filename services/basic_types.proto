@@ -103,6 +103,7 @@ message AccountID {
          * in that account, without creating anything, and with no creation fee being charged.
          */
         bytes alias = 4;
+
     }
 }
 

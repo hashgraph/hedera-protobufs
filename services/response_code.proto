@@ -1276,4 +1276,31 @@ enum ResponseCodeEnum {
    * A schedule being signed or deleted has passed it's expiration date and is pending execution if needed and then expiration.
    */
   SCHEDULE_PENDING_EXPIRATION = 314;
+
+  /**
+   * A selfdestruct or ContractDelete targeted a contract that is a token treasury.
+   */
+  CONTRACT_IS_TOKEN_TREASURY = 315;
+
+  /**
+   * A selfdestruct or ContractDelete targeted a contract with non-zero token balances.
+   */
+  CONTRACT_HAS_NON_ZERO_TOKEN_BALANCES = 316;  
+
+  /**
+   * A contract referenced by a transaction is "detached"; that is, expired and lacking any
+   * hbar funds for auto-renewal payment---but still within its post-expiry grace period.
+   */
+  CONTRACT_EXPIRED_AND_PENDING_REMOVAL = 317;
+
+  /**
+   * A ContractUpdate requested removal of a contract's auto-renew account, but that contract has  
+   * no auto-renew account.
+   */
+  CONTRACT_HAS_NO_AUTO_RENEW_ACCOUNT = 318;
+
+  /**
+   * A delete transaction submitted via HAPI set permanent_removal=true 
+   */
+  PERMANENT_REMOVAL_REQUIRES_SYSTEM_INITIATION = 319;
 }
