@@ -143,6 +143,11 @@ message TransactionBody {
     ContractDeleteTransactionBody contractDeleteInstance = 22;
 
     /**
+     * An Ethereum encoded transaction.
+     */
+    EthereumTransactionBody ethereumTransaction = 50;
+
+    /**
      * Attach a new livehash to an account
      */
     CryptoAddLiveHashTransactionBody cryptoAddLiveHash = 10;
@@ -181,11 +186,6 @@ message TransactionBody {
      * Modify information such as the expiration date for an account
      */
     CryptoUpdateTransactionBody cryptoUpdateAccount = 15;
-
-    /**
-     * An Ethereum encoded transaction.
-     */
-    EthereumTransactionBody ethereumTransaction = 51;
 
     /**
      * Add bytes to the end of the contents of a file

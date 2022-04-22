@@ -103,7 +103,7 @@ message ContractCreateTransactionBody {
          * The bytes of the smart contract initcode. This is only useful if the smart contract init
          * is less than the hedera transaction limit. In those cases fileID must be used.
          */
-        bytes initcode = 7;
+        bytes initcode = 16;
     }
 
     /**
