@@ -129,7 +129,7 @@ message ContractGetInfoResponse {
          */
         bytes ledger_id = 12;
         /**
-         * An account to charge for auto-renewal of this contract. If not set, or set to an account with zero hbar
+         * ID of the an account to charge for auto-renewal of this contract. If not set, or set to an account with zero hbar
          * balance, the contract's own hbar balance will be used to cover auto-renewal fees.
          */
         AccountID auto_renew_account_id = 13;
