@@ -1312,5 +1312,5 @@ enum ResponseCodeEnum {
   /**
    * An account set the staked_account_id to itself in CryptoUpdate or ContractUpdate transactions.
    */
-  SELF_STAKING_NOT_ALLOWED = 321;
+  SELF_STAKING_IS_NOT_ALLOWED = 321;
 }
