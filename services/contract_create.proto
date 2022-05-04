@@ -27,6 +27,7 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 import "duration.proto";
+import "google/protobuf/wrappers.proto";
 
 /**
  * Start a new smart contract instance. After the instance is created, the ContractID for it is in
@@ -181,10 +182,10 @@ message ContractCreateTransactionBody {
     /**
      * ID of the new account to which this contract is staking. If not staked to an account, the value is null. The default value is null.
      */
-    AccountID staked_account_id = 16;
+    AccountID staked_account_id = 17;
 
     /**
      * If true, the contract declines receiving a staking reward. The default value is false.
      */
-    google.protobuf.BoolValue decline_reward = 17;
+    google.protobuf.BoolValue decline_reward = 18;
 }
