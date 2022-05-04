@@ -72,13 +72,13 @@ message CryptoCreateTransactionBody {
     uint64 initialBalance = 2;
 
     /**
-     * ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an
+     * [Deprecated] ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an
      * invalid account, or is an account that isn't a node, then this account is automatically proxy
      * staked to a node chosen by the network, but without earning payments. If the proxyAccountID
      * account refuses to accept proxy staking , or if it is not currently running a node, then it
      * will behave as if proxyAccountID was null.
      */
-    AccountID proxyAccountID = 3;
+    AccountID proxyAccountID = 3 [deprecated = true];
 
     /**
      * [Deprecated]. The threshold amount (in tinybars) for which an account record is created for

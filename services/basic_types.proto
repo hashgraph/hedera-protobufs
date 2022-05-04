@@ -1362,9 +1362,9 @@ message NodeAddress {
     string description = 9;
 
     /**
-     * The amount of tinybars staked to the node
+     * [Deprecated] The amount of tinybars staked to the node
      */
-    int64 stake = 10;
+    int64 stake = 10 [deprecated = true];
 }
 
 /**

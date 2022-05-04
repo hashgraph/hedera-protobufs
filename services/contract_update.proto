@@ -67,9 +67,9 @@ message ContractUpdateTransactionBody {
     Key adminKey = 3;
 
     /**
-     * (NOT YET IMPLEMENTED) The new id of the account to which the contract is proxy staked
+     * [Deprecated] The new id of the account to which the contract is proxy staked
      */
-    AccountID proxyAccountID = 6;
+    AccountID proxyAccountID = 6 [deprecated = true];
 
     /**
      * (NOT YET IMPLEMENTED) The new interval at which the contract will pay to extend its expiry
