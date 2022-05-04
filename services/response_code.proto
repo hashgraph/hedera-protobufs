@@ -1303,8 +1303,14 @@ enum ResponseCodeEnum {
    * A delete transaction submitted via HAPI set permanent_removal=true 
    */
   PERMANENT_REMOVAL_REQUIRES_SYSTEM_INITIATION = 319;
+
   /*
    * A CryptoCreate or ContractCreate used the deprecated proxyAccountID field.
    */
   PROXY_ACCOUNT_ID_FIELD_IS_DEPRECATED = 320;
+
+  /**
+   * An account set the staked_account_id to itself in CryptoUpdate or ContractUpdate transactions.
+   */
+  SELF_STAKING_NOT_ALLOWED = 321;
 }
