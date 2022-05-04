@@ -139,6 +139,11 @@ message ContractGetInfoResponse {
          * The maximum number of tokens that a contract can be implicitly associated with.
          */
         int32 max_automatic_token_associations = 14;
+
+        /**
+         * Staking metadata for this contract.
+         */
+        StakingInfo staking_info = 15;
     }
 
     /**

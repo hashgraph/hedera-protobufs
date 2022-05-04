@@ -130,4 +130,14 @@ message CryptoCreateTransactionBody {
      * and up to a maximum value of 1000.
      */
     int32 max_automatic_token_associations = 14;
+
+    /**
+     * ID of the account to which this account is staking. If not staked to an account, the value is null. The default value is null.
+     */
+    AccountID staked_account_id = 15;
+
+    /**
+     * If true, the account declines receiving a staking reward. The default value is false.
+     */
+    google.protobuf.BoolValue decline_reward = 16;
 }

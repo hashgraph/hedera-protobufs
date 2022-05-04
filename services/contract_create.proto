@@ -177,4 +177,14 @@ message ContractCreateTransactionBody {
      * cover auto-renewal fees.
      */
     AccountID auto_renew_account_id = 15;
+
+    /**
+     * ID of the new account to which this contract is staking. If not staked to an account, the value is null. The default value is null.
+     */
+    AccountID staked_account_id = 16;
+
+    /**
+     * If true, the contract declines receiving a staking reward. The default value is false.
+     */
+    google.protobuf.BoolValue decline_reward = 17;
 }

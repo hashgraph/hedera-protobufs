@@ -129,4 +129,14 @@ message CryptoUpdateTransactionBody {
      * including implicit and explicit associations.
      */
     google.protobuf.Int32Value max_automatic_token_associations = 15;
+
+    /**
+     * ID of the new account to which this account is staking. If not staked to an account, the value is null. The default value is null.
+     */
+    AccountID staked_account_id = 16;
+
+    /**
+     * If true, the account declines receiving a staking reward. The default value is false.
+     */
+    google.protobuf.BoolValue decline_reward = 17;
 }
