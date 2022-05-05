@@ -117,7 +117,7 @@ message ContractUpdateTransactionBody {
 
         /**
          * ID of the new account to which this contract is staking. If set to the sentinel <tt>0.0.0</tt> AccountID,
-         * this field removes the contract's staked account.
+         * this field removes the contract's staked account ID.
          */
         AccountID staked_account_id = 13;
 

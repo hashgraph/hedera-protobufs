@@ -137,7 +137,7 @@ message CryptoUpdateTransactionBody {
 
         /**
          * ID of the new account to which this account is staking. If set to the sentinel <tt>0.0.0</tt> AccountID,
-         * this field removes this account's staked account.
+         * this field removes this account's staked account ID.
          */
         AccountID staked_account_id = 16;
 
