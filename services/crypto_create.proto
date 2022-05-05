@@ -138,13 +138,12 @@ message CryptoCreateTransactionBody {
     oneof staked_id {
 
         /**
-         * ID of the account to which this account is staking. If not staked to an account, the value is null.
-         * The default value is null.
+         * ID of the account to which this account is staking. The default value is null.
          */
         AccountID staked_account_id = 15;
 
         /**
-         * ID of the node this account is staked to. If not staked to a node, the value is -1. The default value is -1.
+         * ID of the node this account is staked to. The default value is -1.
          */
         int64 staked_node_id = 16;
     }

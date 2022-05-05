@@ -117,13 +117,12 @@ message ContractUpdateTransactionBody {
     oneof staked_id {
 
         /**
-         * ID of the new account to which this contract is staking. If not staked to an account, the value is null.
-         * The default value is null.
+         * ID of the new account to which this contract is staking. The default value is null.
          */
         AccountID staked_account_id = 13;
 
         /**
-         * ID of the new node this contract is staked to. If not staked to a node, the value is -1. The default value is -1.
+         * ID of the new node this contract is staked to. The default value is -1.
          */
         google.protobuf.Int64Value staked_node_id = 14;
     }
