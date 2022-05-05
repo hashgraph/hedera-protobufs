@@ -27,7 +27,6 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 import "duration.proto";
-import "google/protobuf/wrappers.proto";
 
 /*
  * Create a new account. After the account is created, the AccountID for it is in the receipt. It
@@ -133,12 +132,25 @@ message CryptoCreateTransactionBody {
     int32 max_automatic_token_associations = 14;
 
     /**
-     * ID of the account to which this account is staking. If not staked to an account, the value is null. The default value is null.
+     * ID of the account or node to which this account is staking. It can never happen that staked_account_id is non-null
+     * and staked_node_id is non-negative at the same time.
      */
-    AccountID staked_account_id = 15;
+    oneof staked_id {
+
+        /**
+         * ID of the account to which this account is staking. If not staked to an account, the value is null.
+         * The default value is null.
+         */
+        AccountID staked_account_id = 15;
+
+        /**
+         * ID of the node this account is staked to. If not staked to a node, the value is -1. The default value is -1.
+         */
+        int64 staked_node_id = 16;
+    }
 
     /**
      * If true, the account declines receiving a staking reward. The default value is false.
      */
-    google.protobuf.BoolValue decline_reward = 16;
+    bool decline_reward = 17;
 }

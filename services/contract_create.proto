@@ -27,7 +27,6 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 import "duration.proto";
-import "google/protobuf/wrappers.proto";
 
 /**
  * Start a new smart contract instance. After the instance is created, the ContractID for it is in
@@ -88,10 +87,10 @@ import "google/protobuf/wrappers.proto";
 message ContractCreateTransactionBody {
 
     /**
-     * There are two ways to specify the initcode of a ContractCreateTransction. If the initcode is 
-     * large (> 5K) then it must be stored in a file as hex encoded ascii. If it is small then it may 
+     * There are two ways to specify the initcode of a ContractCreateTransction. If the initcode is
+     * large (> 5K) then it must be stored in a file as hex encoded ascii. If it is small then it may
      * either be stored as a hex encoded file or as a binary encoded field as part of the transaciton.
-     * 
+     *
      */
     oneof initcodeSource {
         /**
@@ -167,25 +166,38 @@ message ContractCreateTransactionBody {
     string memo = 13;
 
     /**
-     * The maximum number of tokens that this contract can be automatically associated 
+     * The maximum number of tokens that this contract can be automatically associated
      * with (i.e., receive air-drops from).
      */
     int32 max_automatic_token_associations = 14;
 
     /**
-     * An account to charge for auto-renewal of this contract. If not set, or set to an 
-     * account with zero hbar balance, the contract's own hbar balance will be used to 
+     * An account to charge for auto-renewal of this contract. If not set, or set to an
+     * account with zero hbar balance, the contract's own hbar balance will be used to
      * cover auto-renewal fees.
      */
     AccountID auto_renew_account_id = 15;
 
     /**
-     * ID of the new account to which this contract is staking. If not staked to an account, the value is null. The default value is null.
+     * ID of the new account or node to which this contract is staking. It can never happen that staked_account_id is
+     * non-null and staked_node_id is non-negative at the same time.
      */
-    AccountID staked_account_id = 17;
+    oneof staked_id {
+
+        /**
+         * ID of the account to which this contract is staking. If not staked to an account, the value is null.
+         * The default value is null.
+         */
+        AccountID staked_account_id = 17;
+
+        /**
+         * ID of the node this contract is staked to. If not staked to a node, the value is -1. The default value is -1.
+         */
+        int64 staked_node_id = 18;
+    }
 
     /**
      * If true, the contract declines receiving a staking reward. The default value is false.
      */
-    google.protobuf.BoolValue decline_reward = 18;
+    bool decline_reward = 19;
 }
