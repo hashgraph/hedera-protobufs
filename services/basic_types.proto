@@ -1561,18 +1561,17 @@ message StakingInfo {
     int64 staked_to_me = 4;
 
     /**
-     * ID of the account or node to which this account or contract is staking. It can never happen that staked_account_id is
-     * non-null and staked_node_id is non-negative at the same time.
+     * ID of the account or node to which this account or contract is staking.
      */
     oneof staked_id {
 
         /**
-         * The account to which this account or contract is staking.The default value is null.
+         * The account to which this account or contract is staking.
          */
         AccountID staked_account_id = 5;
 
         /**
-         * The ID of the node this account or contract is staked to. The default value is -1.
+         * The ID of the node this account or contract is staked to.
          */
         int64 staked_node_id = 6;
     }

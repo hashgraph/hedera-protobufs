@@ -185,12 +185,12 @@ message ContractCreateTransactionBody {
     oneof staked_id {
 
         /**
-         * ID of the account to which this contract is staking. The default value is null.
+         * ID of the account to which this contract is staking.
          */
         AccountID staked_account_id = 17;
 
         /**
-         * ID of the node this contract is staked to. The default value is -1.
+         * ID of the node this contract is staked to.
          */
         int64 staked_node_id = 18;
     }
