@@ -179,8 +179,7 @@ message ContractCreateTransactionBody {
     AccountID auto_renew_account_id = 15;
 
     /**
-     * ID of the new account or node to which this contract is staking. It can never happen that staked_account_id is
-     * non-null and staked_node_id is non-negative at the same time.
+     * ID of the new account or node to which this contract is staking.
      */
     oneof staked_id {
 

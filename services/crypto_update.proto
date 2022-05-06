@@ -145,7 +145,7 @@ message CryptoUpdateTransactionBody {
          * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
          * removes this account's staked node ID.
          */
-        google.protobuf.Int64Value staked_node_id = 17;
+        int64 staked_node_id = 17;
     }
 
     /**
