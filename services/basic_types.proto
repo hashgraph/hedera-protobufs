@@ -1546,7 +1546,7 @@ message StakingInfo {
     /**
      * The staking period during which either the staking settings for this account or contract changed (such as starting
      * staking or changing staked_node_id) or the most recent reward was earned, whichever is later. If this account or contract
-     * is not currently staked to a node, then the value is -1.
+     * is not currently staked to a node, then this field is not set.
      */
     Timestamp stake_period_start = 2;
 
