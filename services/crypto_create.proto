@@ -145,7 +145,7 @@ message CryptoCreateTransactionBody {
         /**
          * ID of the node this account is staked to.
          */
-        Int64Value staked_node_id = 16;
+        google.protobuf.Int64Value staked_node_id = 16;
     }
 
     /**

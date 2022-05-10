@@ -192,7 +192,7 @@ message ContractCreateTransactionBody {
         /**
          * ID of the node this contract is staked to.
          */
-        Int64Value staked_node_id = 18;
+        google.protobuf.Int64Value staked_node_id = 18;
     }
 
     /**

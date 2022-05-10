@@ -1573,6 +1573,6 @@ message StakingInfo {
         /**
          * The ID of the node this account or contract is staked to.
          */
-        Int64Value staked_node_id = 6;
+        google.protobuf.Int64Value staked_node_id = 6;
     }
 }
