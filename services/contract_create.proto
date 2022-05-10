@@ -191,7 +191,7 @@ message ContractCreateTransactionBody {
         /**
          * ID of the node this contract is staked to.
          */
-        int64 staked_node_id = 18;
+        Int64Value staked_node_id = 18;
     }
 
     /**

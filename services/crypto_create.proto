@@ -144,7 +144,7 @@ message CryptoCreateTransactionBody {
         /**
          * ID of the node this account is staked to.
          */
-        int64 staked_node_id = 16;
+        Int64Value staked_node_id = 16;
     }
 
     /**

@@ -125,7 +125,7 @@ message ContractUpdateTransactionBody {
          * ID of the new node this contract is staked to. If set to the sentinel <tt>-1</tt>, this field
          * removes the contract's staked node ID.
          */
-        int64 staked_node_id = 14;
+        Int64Value staked_node_id = 14;
     }
 
     /**
