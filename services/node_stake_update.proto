@@ -29,7 +29,7 @@ import "basic_types.proto";
 import "timestamp.proto";
 
 /**
- * The staking update transaction sent at the end of staking period to indicate new staking period has started.
+ * Updates the staking info at the end of staking period to indicate new staking period has started.
  */
 message NodeStakeUpdateTransactionBody {
   /**

@@ -340,7 +340,7 @@ message TransactionBody {
     ScheduleSignTransactionBody scheduleSign = 44;
 
     /**
-     * The staking update transaction sent at the end of staking period to indicate new staking period has started.
+     * Updates the staking info at the end of staking period to indicate new staking period has started.
      */
     NodeStakeUpdateTransactionBody node_stake_update = 52;
   }
