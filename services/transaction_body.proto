@@ -342,6 +342,6 @@ message TransactionBody {
     /**
      * The staking update transaction sent at the end of staking period to indicate new staking period has started.
      */
-    NodeStakeUpdateTransactionBody node_stake_update = 45;
+    NodeStakeUpdateTransactionBody node_stake_update = 52;
   }
 }
