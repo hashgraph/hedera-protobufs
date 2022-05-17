@@ -40,7 +40,7 @@ message NodeStakeUpdateTransactionBody {
   /**
    * Number of rounds during the staking period that is ending
    */
-  uint64 num_staking_rounds = 2;
+  uint32 num_staking_rounds = 2;
 
   /**
    * Staking info of each node at the beginning of the new staking period
