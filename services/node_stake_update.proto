@@ -38,14 +38,9 @@ message NodeStakeUpdateTransactionBody {
   Timestamp end_of_staking_period = 1;
 
   /**
-   * Number of rounds during the staking period that is ending
-   */
-  uint32 num_staking_rounds = 2;
-
-  /**
    * Staking info of each node at the beginning of the new staking period
    */
-  repeated NodeStake node_stake = 3;
+  repeated NodeStake node_stake = 2;
 }
 
 /**
@@ -56,20 +51,20 @@ message NodeStake {
   /**
    * Node id of this node
    */
-  uint64 node_id = 1;
+  int64 node_id = 1;
 
   /**
    * Consensus weight for this node, at the end of current staking period.
    */
-  uint64 stake = 2;
+  int64 stake = 2;
 
   /**
    * Total of balance of all accounts staked to this node that have declineReward set to false, at the end of staking period.
    */
-  uint64 stake_rewarded = 3;
+  int64 stake_rewarded = 3;
 
   /**
    * Number of rounds in which it created a famous witness or judge
    */
-  uint32 num_rounds_with_judge = 4;
+  int32 num_rounds_with_judge = 4;
 }
