@@ -45,13 +45,13 @@ message NodeStakeUpdateTransactionBody {
   /**
    * Staking info of each node at the beginning of the new staking period
    */
-  repeated StakingNodeInfo staking_node_info = 3;
+  repeated NodeStake node_stake = 3;
 }
 
 /**
  * Staking info for each node for the staking period that is ending
  */
-message StakingNodeInfo {
+message NodeStake {
 
   /**
    * Node id of this node
@@ -66,7 +66,7 @@ message StakingNodeInfo {
   /**
    * Total of balance of all accounts staked to this node that have declineReward set to false, at the end of staking period.
    */
-  uint64 stake_rewarded_start = 3;
+  uint64 stake_rewarded = 3;
 
   /**
    * Number of rounds in which it created a famous witness or judge
