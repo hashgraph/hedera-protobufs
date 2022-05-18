@@ -62,9 +62,4 @@ message NodeStake {
    * Total of balance of all accounts staked to this node that have declineReward set to false, at the end of staking period.
    */
   int64 stake_rewarded = 3;
-
-  /**
-   * Number of rounds in which it created a famous witness or judge
-   */
-  int32 num_rounds_with_judge = 4;
 }
