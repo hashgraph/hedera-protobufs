@@ -1134,6 +1134,11 @@ enum HederaFunctionality {
      * Ethereum Transaction
      */
     EthereumTransaction = 84;
+
+    /**
+     * Updates the staking info at the end of staking period to indicate new staking period has started.
+     */
+    NodeStakeUpdate = 85;
 }
 
 /**
