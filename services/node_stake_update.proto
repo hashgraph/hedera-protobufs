@@ -53,12 +53,12 @@ message NodeStake {
   int64 node_id = 1;
 
   /**
-   * Consensus weight for this node, at the end of current staking period.
+   * Consensus weight of this node for the new staking period.
    */
   int64 stake = 2;
 
   /**
-   * Total of balance of all accounts staked to this node that have declineReward set to false, at the end of staking period.
+   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=false, at the beginning of the new staking period.
    */
   int64 stake_rewarded = 3;
 
