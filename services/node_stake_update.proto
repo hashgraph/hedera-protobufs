@@ -38,21 +38,15 @@ message NodeStakeUpdateTransactionBody {
   Timestamp end_of_staking_period = 1;
 
   /**
-   * The daily reward rate for this staking period in tinybars
-   */
-  int64 reward_rate = 2;
-
-  /**
    * Staking info of each node at the beginning of the new staking period
    */
-  repeated NodeStake node_stake = 3;
+  repeated NodeStake node_stake = 2;
 }
 
 /**
  * Staking info for each node for the staking period that is ending
  */
 message NodeStake {
-
   /**
    * Node id of this node
    */
@@ -67,4 +61,19 @@ message NodeStake {
    * Total of balance of all accounts staked to this node that have declineReward set to false, at the end of staking period.
    */
   int64 stake_rewarded = 3;
+
+  /**
+   * The reward rate _per whole hbar_ that was staked to this node with declineReward=false from the start of 
+   * the staking period that is ending. 
+   * 
+   * There are three main cases to consider:
+   *   1. The reward rate is zero because the node's starting stake was below its minStake.
+   *   2. The node's stake was in the range [minStake, maxStake], and this is the "base" reward rate; namely,
+   *           baseRewardRate = totalRewardRate / (totalStakeRewardStart / 100_000_000)
+   *   3. The node's stake exceeded its maxStake, so this is a down-scaling of the base rate:
+   *           scaledRewardRate = (baseRewardRate * stakeToReward) / maxStake
+   * 
+   * (In the degenerate case the node had zero stakeRewardStart, the reward rate is of course also zero.)
+   */
+  int64 reward_rate = 4;
 }
