@@ -53,27 +53,19 @@ message NodeStake {
   int64 node_id = 1;
 
   /**
-   * Consensus weight of this node for the new staking period.
-   */
-  int64 stake = 2;
-
-  /**
-   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=false, at the beginning of the new staking period.
-   */
-  int64 stake_rewarded = 3;
-
-  /**
    * The reward rate _per whole hbar_ that was staked to this node with declineReward=false from the start of 
    * the staking period that is ending. 
-   * 
-   * There are three main cases to consider:
-   *   1. The reward rate is zero because the node's starting stake was below its minStake.
-   *   2. The node's stake was in the range [minStake, maxStake], and this is the "base" reward rate; namely,
-   *           baseRewardRate = totalRewardRate / (totalStakeRewardStart / 100_000_000)
-   *   3. The node's stake exceeded its maxStake, so this is a down-scaling of the base rate:
-   *           scaledRewardRate = (baseRewardRate * stakeToReward) / maxStake
-   * 
-   * (In the degenerate case the node had zero stakeRewardStart, the reward rate is of course also zero.)
    */
-  int64 reward_rate = 4;
+  int64 reward_rate = 2;
+
+  /**
+   * Consensus weight of this node for the new staking period.
+   */
+  int64 stake = 3;
+
+  /**
+   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=false, at the 
+   * beginning of the new staking period.
+   */
+  int64 stake_rewarded = 4;
 }
