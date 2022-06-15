@@ -44,28 +44,48 @@ message NodeStakeUpdateTransactionBody {
 }
 
 /**
- * Staking info for each node for the staking period that is ending
+ * Staking info for each node at the end of a staking period.
  */
 message NodeStake {
   /**
-   * Node id of this node
+   * The maximum stake (rewarded or not rewarded) this node can have as consensus weight. If its stake to
+   * reward is above this maximum at the start of a period, then accounts staking to the node in that 
+   * period will be rewarded at a lower rate scaled by (maxStake / stakeRewardStart).
    */
-  int64 node_id = 1;
+  int64 max_stake = 1;
+
+  /**
+   * The minimum stake (rewarded or not rewarded) this node must reach before having non-zero consensus weight.
+   * If its total stake is below this minimum at the start of a period, then accounts staking to the node in 
+   * that period will receive no rewards.
+   */
+  int64 min_stake = 2;
+
+  /**
+   * The id of this node.
+   */
+  int64 node_id = 3;
 
   /**
    * The reward rate _per whole hbar_ that was staked to this node with declineReward=false from the start of 
    * the staking period that is ending. 
    */
-  int64 reward_rate = 2;
+  int64 reward_rate = 4;
 
   /**
    * Consensus weight of this node for the new staking period.
    */
-  int64 stake = 3;
+  int64 stake = 5;
+
+  /**
+   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=true, at the 
+   * beginning of the new staking period.
+   */
+  int64 stake_not_rewarded = 6;
 
   /**
    * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=false, at the 
    * beginning of the new staking period.
    */
-  int64 stake_rewarded = 4;
+  int64 stake_rewarded = 7;
 }
