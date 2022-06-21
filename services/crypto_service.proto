@@ -63,7 +63,7 @@ service CryptoService {
     rpc deleteAllowances (Transaction) returns (TransactionResponse);
 
     /**
-     * Generates a pseudorandom number for use by both smart contracts and users.
+     * Generates a pseudorandom number.
      */
     rpc randomGenerate (Transaction) returns (TransactionResponse);
 

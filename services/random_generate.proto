@@ -26,11 +26,11 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * Generates a pseudorandom number for use by both smart contracts and users.
+ * Generates a pseudorandom number
  */
 message RandomGenerateTransactionBody {
   /**
-   * If a positive number is set, the transaction record will return a 32 bit pseudorandom number in the given range.
+   * If provided and is positive, returns a 32-bit pseudorandom number from the given range in the transaction record.
    * If not set, will return a 256-bit pseudorandom number in the record.
    */
   int32 range = 1;
