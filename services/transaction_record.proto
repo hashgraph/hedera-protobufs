@@ -133,4 +133,10 @@ message TransactionRecord {
      * List of accounts with the corresponding staking rewards paid as a result of a transaction.
      */
     repeated AccountAmount paid_staking_rewards = 18;
+
+    /**
+     * An array of 384-bit pseudorandom bytes in the record of RandomGenerate transaction.
+     * It will be a 32-bit pseudorandom integer if a positive range is provided in the transaction.
+     */
+    bytes pseudo_random_number = 19;
 }
