@@ -281,6 +281,6 @@ message SchedulableTransactionBody {
     /**
      * Generates a pseudorandom number.
      */
-    RandomGenerateTransactionBody randomGenerate = 40;
+    RandomGenerateTransactionBody random_generate = 40;
   }
 }

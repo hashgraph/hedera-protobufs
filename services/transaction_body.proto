@@ -348,6 +348,6 @@ message TransactionBody {
     /**
      * Generates a pseudorandom number.
      */
-    RandomGenerateTransactionBody randomGenerate = 52;
+    RandomGenerateTransactionBody random_generate = 52;
   }
 }
