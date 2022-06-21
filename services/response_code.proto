@@ -1318,4 +1318,9 @@ enum ResponseCodeEnum {
    * The staking account id or staking node id given is invalid or does not exist.
    */
   INVALID_STAKING_ID = 322;
+
+  /**
+   * Native staking, while implemented, has not yet enabled by the council.
+   */
+  STAKING_NOT_ENABLED = 323;
 }
