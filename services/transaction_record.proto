@@ -138,5 +138,5 @@ message TransactionRecord {
      * An array of 384-bit pseudorandom bytes in the record of RandomGenerate transaction.
      * It will be a 32-bit pseudorandom integer if a positive range is provided in the transaction.
      */
-    bytes pseudo_random_number = 19;
+    bytes random_generated_number = 19;
 }
