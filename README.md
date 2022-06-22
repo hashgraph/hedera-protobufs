@@ -22,13 +22,14 @@ execution of Solidity contract creations and calls; contract may both possess
 retrieval of opaque binary data.
 5. The [token service](services/TokenService.proto), for token related operations such as create, update, mint, burn, transfer etc.
 
-There are also three secondary service families:
+There are also four secondary service families:
 1. The [network service](hedera/NetworkService.proto), for operations scoped
 to the network or its constituent nodes rather user-controlled entities as above.
 2. The [scheduling service](services/ScheduleService.proto), for scheduling a transaction to 
 be executed when the ledger has received enough prequisite signatures. 
 3. The [freeze service](hedera/FreezeService.proto), for use by 
 privileged accounts to suspend network operations during a maintenance window.
+4. The [util service](hedera/UtilService.proto), for utility operations on the network.
 
 It is important to note that most network services are gated by fees which 
 must be paid in ℏ from a cryptocurrency account. The payer authorizes a
