@@ -103,4 +103,6 @@ message SidecarMetadata {
 enum SidecarType {
   SIDECAR_TYPE_UNKNOWN = 0;
   CONTRACT_STATE_CHANGE = 1;
+  CONTRACT_ACTION = 2;
+  CONTRACT_BYTECODE = 3;
 }
