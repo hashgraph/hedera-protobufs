@@ -1323,4 +1323,9 @@ enum ResponseCodeEnum {
    * Native staking, while implemented, has not yet enabled by the council.
    */
   STAKING_NOT_ENABLED = 323;
+
+  /**
+   * The range provided in RandomGenerate transaction is negative.
+   */
+  INVALID_RANDOM_GENERATE_RANGE = 324;
 }

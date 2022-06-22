@@ -63,11 +63,6 @@ service CryptoService {
     rpc deleteAllowances (Transaction) returns (TransactionResponse);
 
     /**
-     * Generates a pseudorandom number.
-     */
-    rpc randomGenerate (Transaction) returns (TransactionResponse);
-
-    /**
      * (NOT CURRENTLY SUPPORTED) Adds a livehash
      */
     rpc addLiveHash (Transaction) returns (TransactionResponse);

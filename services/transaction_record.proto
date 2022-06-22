@@ -135,8 +135,8 @@ message TransactionRecord {
     repeated AccountAmount paid_staking_rewards = 18;
 
     /**
-     * An array of 384-bit pseudorandom bytes in the record of RandomGenerate transaction.
+     * An array of 384-bit pseudorandom data in the record of RandomGenerate transaction.
      * It will be a 32-bit pseudorandom integer if a positive range is provided in the transaction.
      */
-    bytes random_generated_number = 19;
+    bytes pseudorandom_bytes = 19;
 }
