@@ -27,7 +27,9 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 import "timestamp.proto";
-import "contract_call_local.proto";
+import "contract_state_change.proto";
+import "contract_action.proto";
+import "contract_bytecode.proto";
 
 /**
  * A SidecarFile contains a list of TransactionSidecarRecords that are all created
@@ -53,15 +55,18 @@ message TransactionSidecarRecord {
    */
   Timestamp consensus_timestamp = 1;
 
+  /**
+  * Whether sidecar is from migration.
+   */
+  bool migration = 2;
+
   /*
   * List of sidecar types.
   * In future there will be other categories.
   */
   oneof sidecar_records {
-    ContractStateChanges state_changes = 2;
+    ContractStateChanges state_changes = 3;
+    ContractActions actions = 4;
+    ContractBytecode bytecode = 5;
   }
-}
-
-message ContractStateChanges {
-  repeated ContractStateChange contract_state_changes = 1;
 }
