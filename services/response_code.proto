@@ -1328,4 +1328,34 @@ enum ResponseCodeEnum {
    * The range provided in RandomGenerate transaction is negative.
    */
   INVALID_RANDOM_GENERATE_RANGE = 324;
+
+  /**
+ * The full prefix signature for transfer precompile is not valid
+ */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_TRANSFER_PRECOMPILE = 325;
+
+  /**
+   * The full prefix signature for associate precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_ASSOCIATE_PRECOMPILE = 326;
+
+  /**
+   * The full prefix signature for dissociate precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_DISSOCIATE_PRECOMPILE = 327;
+
+  /**
+   * The full prefix signature for burn precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_BURN_PRECOMPILE = 328;
+
+  /**
+   * The full prefix signature for mint precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_MINT_PRECOMPILE = 329;
+
+  /**
+   * The full prefix signature for token create precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_TOKEN_CREATE_PRECOMPILE = 330;
 }
