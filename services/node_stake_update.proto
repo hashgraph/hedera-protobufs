@@ -76,6 +76,11 @@ message NodeStakeUpdateTransactionBody {
    * The minimum balance of staking reward account 0.0.800 required to active rewards.
    */
   int64 start_threshold = 8;
+
+  /**
+   * The total number of tinybars to be distributed as staking rewards each period.
+   */
+  int64 total_rewards_per_period = 9;
 }
 
 /**
