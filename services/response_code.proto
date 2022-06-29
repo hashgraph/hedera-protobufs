@@ -1328,4 +1328,9 @@ enum ResponseCodeEnum {
    * The range provided in RandomGenerate transaction is negative.
    */
   INVALID_RANDOM_GENERATE_RANGE = 324;
+
+  /**
+   * The maximum number of entities allowed in the current price regime have been created.
+   */
+  MAX_ENTITIES_IN_PRICE_REGIME_HAVE_BEEN_CREATED = 325;
 }
