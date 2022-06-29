@@ -1332,5 +1332,5 @@ enum ResponseCodeEnum {
   /**
  * The full prefix signature for precompile is not valid
  */
-  INVALID_FULL_PREFIX_SIGNATURE_FOR_TRANSFER_PRECOMPILE = 325;
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_PRECOMPILE = 325;
 }
