@@ -1325,7 +1325,7 @@ enum ResponseCodeEnum {
   STAKING_NOT_ENABLED = 323;
 
   /**
-   * The range provided in RandomGenerate transaction is negative.
+   * The range provided in PrngGenerate transaction is negative.
    */
   INVALID_RANDOM_GENERATE_RANGE = 324;
 
