@@ -138,11 +138,11 @@ message TransactionRecord {
         /**
          * In the record of a PrngGenerate transaction with no output range, a pseudorandom 384-bit string.
          */
-        bytes pseudorandom_bytes = 19;
+        bytes prng_bytes = 19;
 
         /**
          * In the record of a PrngGenerate transaction with an output range, the output of a PRNG whose input was a 384-bit string.
          */
-        int32 pseudorandom_number = 20;
+        int32 prng_number = 20;
     }
 }

@@ -1327,7 +1327,7 @@ enum ResponseCodeEnum {
   /**
    * The range provided in PrngGenerate transaction is negative.
    */
-  INVALID_RANDOM_GENERATE_RANGE = 324;
+  INVALID_PSEUDORANDOM_GENERATE_RANGE = 324;
 
   /**
    * The maximum number of entities allowed in the current price regime have been created.
