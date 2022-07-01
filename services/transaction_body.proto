@@ -348,6 +348,6 @@ message TransactionBody {
     /**
      * Generates a pseudorandom number.
      */
-    PRNGTransactionBody prng = 52;
+    PrngTransactionBody prng = 52;
   }
 }

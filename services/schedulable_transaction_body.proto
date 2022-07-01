@@ -281,6 +281,6 @@ message SchedulableTransactionBody {
     /**
      * Generates a pseudorandom number.
      */
-    PRNGTransactionBody prng = 40;
+    PrngTransactionBody prng = 40;
   }
 }
