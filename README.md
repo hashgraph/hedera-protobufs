@@ -1,4 +1,6 @@
 # Hedera protobufs
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs?ref=badge_shield)
+
 The authoritative repository of [protocol buffers](https://developers.google.com/protocol-buffers) 
 used by the Hedera Hashgraph public network, especially to define its gRPC API. Other repositories 
 are used to deploy language-specific libraries generated 
@@ -42,3 +44,7 @@ This repository uses a simple branching model with only two distinguished branch
 Tags such as `v0.12.0` mark commits used for testnet and mainnet deploys.
  2. The head of `develop` points to the latest candidate for the next tag in `main`. 
 Tags suffixed with `-alpha.x` mark commits used for previewnet deploys. 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs?ref=badge_large)
