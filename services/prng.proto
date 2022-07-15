@@ -6,7 +6,7 @@ package proto;
  * ‌
  * Hedera Network Services Protobuf
  * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
+ * Copyright (C) 2018 - 2022 Hedera Hashgraph, LLC
  * ​
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,21 +25,13 @@ package proto;
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "basic_types.proto";
-
 /**
- * Marks a schedule in the network's action queue as deleted. Must be signed by the admin key of the
- * target schedule.  A deleted schedule cannot receive any additional signing keys, nor will it be
- * executed.
- *
- * Other notable response codes include, <tt>INVALID_SCHEDULE_ID</tt>, <tt>SCHEDULE_PENDING_EXPIRATION</tt>,
- * <tt>SCHEDULE_ALREADY_DELETED</tt>, <tt>SCHEDULE_ALREADY_EXECUTED</tt>, <tt>SCHEDULE_IS_IMMUTABLE</tt>.
- * For more information please see the section of this documentation on the <tt>ResponseCode</tt>
- * enum. 
-*/
-message ScheduleDeleteTransactionBody {
+ * Generates a pseudorandom number
+ */
+message PrngTransactionBody {
   /**
-   * The ID of the Scheduled Entity
+   * If provided and is positive, returns a 32-bit pseudorandom number from the given range in the transaction record.
+   * If not set or set to zero, will return a 384-bit pseudorandom number in the record.
    */
-  ScheduleID scheduleID = 1;
+  int32 range = 1;
 }

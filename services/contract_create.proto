@@ -31,8 +31,8 @@ import "duration.proto";
 /**
  * Start a new smart contract instance. After the instance is created, the ContractID for it is in
  * the receipt, and can be retrieved by the Record or with a GetByKey query. The instance will run
- * the bytecode stored in a previously created file, referenced either by FileID or by the
- * transaction ID of the transaction that created the file
+ * the bytecode, either stored in a previously created file or in the transaction body itself for 
+ * small contracts.
  * 
  * 
  * The constructor will be executed using the given amount of gas, and any unspent gas will be
@@ -80,14 +80,31 @@ import "duration.proto";
  *    guide their decisions during a binding arbitration tribunal, convened to consider any changes
  *    to the smart contract in the future. The memo field can only be changed using the admin keys.
  *    If there are no admin keys, then it cannot be changed after the smart contract is created.
+ *
+ * <b>Signing requirements:</b> If an admin key is set, it must sign the transaction. If an 
+ * auto-renew account is set, its key must sign the transaction.
  */
 message ContractCreateTransactionBody {
+
     /**
-     * the file containing the smart contract byte code. A copy will be made and held by the
-     * contract instance, and have the same expiration time as the instance. The file is referenced
-     * one of two ways:
+     * There are two ways to specify the initcode of a ContractCreateTransction. If the initcode is
+     * large (> 5K) then it must be stored in a file as hex encoded ascii. If it is small then it may
+     * either be stored as a hex encoded file or as a binary encoded field as part of the transaciton.
+     *
      */
-    FileID fileID = 1;
+    oneof initcodeSource {
+        /**
+         * The file containing the smart contract initcode. A copy will be made and held by the
+         * contract instance, and have the same expiration time as the instance.
+         */
+        FileID fileID = 1;
+
+        /**
+         * The bytes of the smart contract initcode. This is only useful if the smart contract init
+         * is less than the hedera transaction limit. In those cases fileID must be used.
+         */
+        bytes initcode = 16;
+    }
 
     /**
      * the state of the instance and its fields can be modified arbitrarily if this key signs a
@@ -110,13 +127,13 @@ message ContractCreateTransactionBody {
     int64 initialBalance = 5;
 
     /**
-     * ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an
+     * [Deprecated] ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an
      * invalid account, or is an account that isn't a node, then this account is automatically proxy
      * staked to a node chosen by the network, but without earning payments. If the proxyAccountID
      * account refuses to accept proxy staking , or if it is not currently running a node, then it
      * will behave as if  proxyAccountID was null.
      */
-    AccountID proxyAccountID = 6;
+    AccountID proxyAccountID = 6 [deprecated = true];
 
     /**
      * the instance will charge its account every this many seconds to renew for this long
@@ -147,4 +164,38 @@ message ContractCreateTransactionBody {
      * the memo that was submitted as part of the contract (max 100 bytes)
      */
     string memo = 13;
+
+    /**
+     * The maximum number of tokens that this contract can be automatically associated
+     * with (i.e., receive air-drops from).
+     */
+    int32 max_automatic_token_associations = 14;
+
+    /**
+     * An account to charge for auto-renewal of this contract. If not set, or set to an
+     * account with zero hbar balance, the contract's own hbar balance will be used to
+     * cover auto-renewal fees.
+     */
+    AccountID auto_renew_account_id = 15;
+
+    /**
+     * ID of the new account or node to which this contract is staking.
+     */
+    oneof staked_id {
+
+        /**
+         * ID of the account to which this contract is staking.
+         */
+        AccountID staked_account_id = 17;
+
+        /**
+         * ID of the node this contract is staked to.
+         */
+        int64 staked_node_id = 18;
+    }
+
+    /**
+     * If true, the contract declines receiving a staking reward. The default value is false.
+     */
+    bool decline_reward = 19;
 }

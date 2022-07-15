@@ -122,4 +122,27 @@ message TransactionRecord {
      * transaction with a (previously unused) alias, the new account's alias. 
      */
      bytes alias = 16;
+
+    /**
+     * The keccak256 hash of the ethereumData. This field will only be populated for 
+     * EthereumTransaction.
+     */
+    bytes ethereum_hash = 17;
+
+    /**
+     * List of accounts with the corresponding staking rewards paid as a result of a transaction.
+     */
+    repeated AccountAmount paid_staking_rewards = 18;
+
+    oneof entropy {
+        /**
+         * In the record of a PRNG transaction with no output range, a pseudorandom 384-bit string.
+         */
+        bytes prng_bytes = 19;
+
+        /**
+         * In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit string.
+         */
+        int32 prng_number = 20;
+    }
 }

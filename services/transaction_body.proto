@@ -42,6 +42,8 @@ import "crypto_update.proto";
 import "crypto_approve_allowance.proto";
 import "crypto_delete_allowance.proto";
 
+import "ethereum_transaction.proto";
+
 import "file_append.proto";
 import "file_create.proto";
 import "file_delete.proto";
@@ -77,6 +79,9 @@ import "token_unpause.proto";
 import "schedule_create.proto";
 import "schedule_delete.proto";
 import "schedule_sign.proto";
+
+import "node_stake_update.proto";
+import "prng.proto";
 
 /**
  * A single transaction. All transaction types are possible here.
@@ -141,6 +146,11 @@ message TransactionBody {
     ContractDeleteTransactionBody contractDeleteInstance = 22;
 
     /**
+     * An Ethereum encoded transaction.
+     */
+    EthereumTransactionBody ethereumTransaction = 50;
+
+    /**
      * Attach a new livehash to an account
      */
     CryptoAddLiveHashTransactionBody cryptoAddLiveHash = 10;
@@ -151,7 +161,7 @@ message TransactionBody {
     CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 48;
 
     /**
-     * Deletes one or more approved hbar or token allowances from an owner's account
+     * Deletes one or more of the specific approved NFT serial numbers on an owner account.
      */
     CryptoDeleteAllowanceTransactionBody cryptoDeleteAllowance = 49;
 
@@ -329,5 +339,15 @@ message TransactionBody {
      * Adds one or more Ed25519 keys to the affirmed signers of a scheduled transaction
      */
     ScheduleSignTransactionBody scheduleSign = 44;
+
+    /**
+     * Updates the staking info at the end of staking period to indicate new staking period has started.
+     */
+    NodeStakeUpdateTransactionBody node_stake_update = 51;
+
+    /**
+     * Generates a pseudorandom number.
+     */
+    PrngTransactionBody prng = 52;
   }
 }

@@ -1118,9 +1118,9 @@ enum ResponseCodeEnum {
   UNEXPECTED_TOKEN_DECIMALS = 283;
 
   /**
-   * The proxy account id is invalid or does not exist.
+   * [Deprecated] The proxy account id is invalid or does not exist.
    */
-  INVALID_PROXY_ACCOUNT_ID = 284;
+  INVALID_PROXY_ACCOUNT_ID = 284 [deprecated = true];
 
   /**
    * The transfer account id in CryptoDelete transaction is invalid or does not exist.
@@ -1155,9 +1155,9 @@ enum ResponseCodeEnum {
   NEGATIVE_ALLOWANCE_AMOUNT = 290;
 
   /**
-   * The approveForAll flag cannot be set for a fungible token.
+   * [Deprecated] The approveForAll flag cannot be set for a fungible token.
    */
-  CANNOT_APPROVE_FOR_ALL_FUNGIBLE_COMMON = 291;
+  CANNOT_APPROVE_FOR_ALL_FUNGIBLE_COMMON = 291 [deprecated = true];
 
   /**
    * The spender does not have an existing approved allowance with the hbar/token owner.
@@ -1181,15 +1181,15 @@ enum ResponseCodeEnum {
   EMPTY_ALLOWANCES = 295;
 
   /**
-   * Spender is repeated more than once in Crypto or Token or NFT allowance lists in a single
+   * [Deprecated] Spender is repeated more than once in Crypto or Token or NFT allowance lists in a single
    * CryptoApproveAllowance transaction.
    */
-  SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES = 296;
+  SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES = 296 [deprecated = true];
 
   /**
-   * Serial numbers are repeated in nft allowance for a single spender account
+   * [Deprecated] Serial numbers are repeated in nft allowance for a single spender account
    */
-  REPEATED_SERIAL_NUMS_IN_NFT_ALLOWANCES = 297;
+  REPEATED_SERIAL_NUMS_IN_NFT_ALLOWANCES = 297 [deprecated = true];
 
   /**
    * Fungible common token used in NFT allowances
@@ -1212,9 +1212,9 @@ enum ResponseCodeEnum {
   INVALID_ALLOWANCE_SPENDER_ID = 301;
 
   /**
-   * If the CryptoDeleteAllowance transaction has repeated crypto or token or Nft allowances to delete.
+   * [Deprecated] If the CryptoDeleteAllowance transaction has repeated crypto or token or Nft allowances to delete.
    */
-  REPEATED_ALLOWANCES_TO_DELETE = 302;
+  REPEATED_ALLOWANCES_TO_DELETE = 302 [deprecated = true];
 
   /**
    * If the account Id specified as the delegating spender is invalid or does not exist.
@@ -1231,4 +1231,106 @@ enum ResponseCodeEnum {
    * granted on token-owner.
    */
   DELEGATING_SPENDER_DOES_NOT_HAVE_APPROVE_FOR_ALL = 305;
+
+  /**
+   * The scheduled transaction could not be created because it's expiration_time was too far in the future.
+   */
+  SCHEDULE_EXPIRATION_TIME_TOO_FAR_IN_FUTURE = 306;
+
+  /**
+   * The scheduled transaction could not be created because it's expiration_time was less than or equal to the consensus time.
+   */
+  SCHEDULE_EXPIRATION_TIME_MUST_BE_HIGHER_THAN_CONSENSUS_TIME = 307;
+
+  /**
+   * The scheduled transaction could not be created because it would cause throttles to be violated on the specified expiration_time.
+   */
+  SCHEDULE_FUTURE_THROTTLE_EXCEEDED = 308;
+
+  /**
+   * The scheduled transaction could not be created because it would cause the gas limit to be violated on the specified expiration_time.
+   */
+  SCHEDULE_FUTURE_GAS_LIMIT_EXCEEDED = 309;
+
+  /**
+   * The ethereum transaction either failed parsing or failed signature validation, or some other EthereumTransaction error not covered by another response code.
+   */
+  INVALID_ETHEREUM_TRANSACTION = 310;
+
+  /**
+   * EthereumTransaction was signed against a chainId that this network does not support.
+   */
+  WRONG_CHAIN_ID = 311;
+  
+  /**
+   * This transaction specified an ethereumNonce that is not the current ethereumNonce of the account.
+   */
+  WRONG_NONCE = 312;
+  
+  /**
+   * The ethereum transaction specified an access list, which the network does not support.
+   */
+  ACCESS_LIST_UNSUPPORTED = 313;
+
+  /**
+   * A schedule being signed or deleted has passed it's expiration date and is pending execution if needed and then expiration.
+   */
+  SCHEDULE_PENDING_EXPIRATION = 314;
+
+  /**
+   * A selfdestruct or ContractDelete targeted a contract that is a token treasury.
+   */
+  CONTRACT_IS_TOKEN_TREASURY = 315;
+
+  /**
+   * A selfdestruct or ContractDelete targeted a contract with non-zero token balances.
+   */
+  CONTRACT_HAS_NON_ZERO_TOKEN_BALANCES = 316;  
+
+  /**
+   * A contract referenced by a transaction is "detached"; that is, expired and lacking any
+   * hbar funds for auto-renewal payment---but still within its post-expiry grace period.
+   */
+  CONTRACT_EXPIRED_AND_PENDING_REMOVAL = 317;
+
+  /**
+   * A ContractUpdate requested removal of a contract's auto-renew account, but that contract has  
+   * no auto-renew account.
+   */
+  CONTRACT_HAS_NO_AUTO_RENEW_ACCOUNT = 318;
+
+  /**
+   * A delete transaction submitted via HAPI set permanent_removal=true 
+   */
+  PERMANENT_REMOVAL_REQUIRES_SYSTEM_INITIATION = 319;
+
+  /*
+   * A CryptoCreate or ContractCreate used the deprecated proxyAccountID field.
+   */
+  PROXY_ACCOUNT_ID_FIELD_IS_DEPRECATED = 320;
+
+  /**
+   * An account set the staked_account_id to itself in CryptoUpdate or ContractUpdate transactions.
+   */
+  SELF_STAKING_IS_NOT_ALLOWED = 321;
+
+  /**
+   * The staking account id or staking node id given is invalid or does not exist.
+   */
+  INVALID_STAKING_ID = 322;
+
+  /**
+   * Native staking, while implemented, has not yet enabled by the council.
+   */
+  STAKING_NOT_ENABLED = 323;
+
+  /**
+   * The range provided in PRNG transaction is negative.
+   */
+  INVALID_PRNG_RANGE = 324;
+
+  /**
+   * The maximum number of entities allowed in the current price regime have been created.
+   */
+  MAX_ENTITIES_IN_PRICE_REGIME_HAVE_BEEN_CREATED = 325;
 }

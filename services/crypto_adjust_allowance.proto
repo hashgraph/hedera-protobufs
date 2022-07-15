@@ -26,6 +26,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 import "basic_types.proto";
+import "crypto_approve_allowance.proto";
 
 /**
  * Modifies or creates an hbar/token allowance for a spender <b>relative to the payer account
