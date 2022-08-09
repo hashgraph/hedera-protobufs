@@ -513,14 +513,6 @@
                   <a href="#proto.ContractLoginfo"><span class="badge">M</span>ContractLoginfo</a>
                 </li>
               
-                <li>
-                  <a href="#proto.ContractStateChange"><span class="badge">M</span>ContractStateChange</a>
-                </li>
-              
-                <li>
-                  <a href="#proto.StorageChange"><span class="badge">M</span>StorageChange</a>
-                </li>
-              
               
               
               
@@ -2066,6 +2058,21 @@
               
                 <li>
                   <a href="#proto.UncheckedSubmitBody"><span class="badge">M</span>UncheckedSubmitBody</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#util_prng.proto">util_prng.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#proto.UtilPrngTransactionBody"><span class="badge">M</span>UtilPrngTransactionBody</a>
                 </li>
               
               
@@ -4427,7 +4434,7 @@ Updates the staking info at the end of staking period to indicate new staking pe
               </tr>
             
               <tr>
-                <td>PRNG</td>
+                <td>UtilPrng</td>
                 <td>86</td>
                 <td><p>
 Generates a pseudorandom number.</p></td>
@@ -5520,14 +5527,6 @@ and its Solidity address.) </p></td>
                 </tr>
               
                 <tr>
-                  <td>state_changes</td>
-                  <td><a href="#proto.ContractStateChange">ContractStateChange</a></td>
-                  <td>repeated</td>
-                  <td><p>
-the list of state reads and changes caused by this function call </p></td>
-                </tr>
-              
-                <tr>
                   <td>evm_address</td>
                   <td><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></td>
                   <td></td>
@@ -5665,86 +5664,6 @@ topics of a particular event </p></td>
                   <td></td>
                   <td><p>
 event data </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="proto.ContractStateChange">ContractStateChange</h3>
-        <p></p><p>The storage changes to a smart contract's storage as a side effect of the function call.</p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>contractID</td>
-                  <td><a href="#proto.ContractID">ContractID</a></td>
-                  <td></td>
-                  <td><p>
-The contract to which the storage changes apply to </p></td>
-                </tr>
-              
-                <tr>
-                  <td>storageChanges</td>
-                  <td><a href="#proto.StorageChange">StorageChange</a></td>
-                  <td>repeated</td>
-                  <td><p>
-The list of storage changes. </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id="proto.StorageChange">StorageChange</h3>
-        <p></p><p>A storage slot change description.</p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>slot</td>
-                  <td><a href="#bytes">bytes</a></td>
-                  <td></td>
-                  <td><p>
-The storage slot changed.  Up to 32 bytes, big-endian, zero bytes left trimmed. </p></td>
-                </tr>
-              
-                <tr>
-                  <td>valueRead</td>
-                  <td><a href="#bytes">bytes</a></td>
-                  <td></td>
-                  <td><p>
-The value read from the storage slot.  Up to 32 bytes, big-endian, zero bytes left trimmed.
-
-Because of the way SSTORE operations are charged the slot is always read before being written to. </p></td>
-                </tr>
-              
-                <tr>
-                  <td>valueWritten</td>
-                  <td><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></td>
-                  <td></td>
-                  <td><p>
-The new value written to the slot.  Up to 32 bytes, big-endian, zero bytes left trimmed.
-
-If a value of zero is written the valueWritten will be present but the inner value will be absent.
-
-If a value was read and not written this value will not be present. </p></td>
                 </tr>
               
             </tbody>
@@ -10753,6 +10672,65 @@ Time and date of the end of the staking period that is ending </p></td>
 Staking info of each node at the beginning of the new staking period </p></td>
                 </tr>
               
+                <tr>
+                  <td>max_staking_reward_rate_per_hbar</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The maximum reward rate, in tinybars per whole hbar, that any account can receive in a day. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>node_reward_fee_fraction</td>
+                  <td><a href="#proto.Fraction">Fraction</a></td>
+                  <td></td>
+                  <td><p>
+The fraction of the network and service fees paid to the node reward account 0.0.801. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>staking_periods_stored</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The maximum number of trailing periods for which a user can collect rewards. For example, if this
+is 365 with a UTC calendar day period, then users must collect rewards at least once per calendar
+year to avoid missing any value. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>staking_period</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The number of minutes in a staking period. Note for the special case of 1440 minutes, periods are 
+treated as UTC calendar days, rather than repeating 1440 minute periods left-aligned at the epoch. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>staking_reward_fee_fraction</td>
+                  <td><a href="#proto.Fraction">Fraction</a></td>
+                  <td></td>
+                  <td><p>
+The fraction of the network and service fees paid to the staking reward account 0.0.800. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>staking_start_threshold</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The minimum balance of staking reward account 0.0.800 required to active rewards. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>staking_reward_rate</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>
+The total number of tinybars to be distributed as staking rewards each period. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -13351,7 +13329,7 @@ Native staking, while implemented, has not yet enabled by the council.</p></td>
                 <td>INVALID_PRNG_RANGE</td>
                 <td>324</td>
                 <td><p>
-The range provided in PRNG transaction is negative.</p></td>
+The range provided in UtilPrng transaction is negative.</p></td>
               </tr>
             
               <tr>
@@ -13359,6 +13337,13 @@ The range provided in PRNG transaction is negative.</p></td>
                 <td>325</td>
                 <td><p>
 The maximum number of entities allowed in the current price regime have been created.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INVALID_FULL_PREFIX_SIGNATURE_FOR_PRECOMPILE</td>
+                <td>326</td>
+                <td><p>
+The full prefix signature for precompile is not valid</p></td>
               </tr>
             
           </tbody>
@@ -13766,8 +13751,8 @@ Marks a schedule in the network&#39;s action queue as deleted, preventing it fro
                 </tr>
               
                 <tr>
-                  <td>prng</td>
-                  <td><a href="#proto.PrngTransactionBody">PrngTransactionBody</a></td>
+                  <td>util_prng</td>
+                  <td><a href="#proto.UtilPrngTransactionBody">UtilPrngTransactionBody</a></td>
                   <td></td>
                   <td><p>
 Generates a pseudorandom number. </p></td>
@@ -17137,8 +17122,8 @@ Updates the staking info at the end of staking period to indicate new staking pe
                 </tr>
               
                 <tr>
-                  <td>prng</td>
-                  <td><a href="#proto.PrngTransactionBody">PrngTransactionBody</a></td>
+                  <td>util_prng</td>
+                  <td><a href="#proto.UtilPrngTransactionBody">UtilPrngTransactionBody</a></td>
                   <td></td>
                   <td><p>
 Generates a pseudorandom number. </p></td>
@@ -17927,7 +17912,7 @@ List of accounts with the corresponding staking rewards paid as a result of a tr
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
                   <td><p>
-In the record of a PRNG transaction with no output range, a pseudorandom 384-bit string. </p></td>
+In the record of a UtilPrng transaction with no output range, a pseudorandom 384-bit string. </p></td>
                 </tr>
               
                 <tr>
@@ -18023,6 +18008,46 @@ required to execute the transaction. </p></td>
                   <td></td>
                   <td><p>
 The serialized bytes of the Transaction to be submitted without prechecks </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="util_prng.proto">util_prng.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="proto.UtilPrngTransactionBody">UtilPrngTransactionBody</h3>
+        <p></p><p>Generates a pseudorandom number</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>range</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>
+If provided and is positive, returns a 32-bit pseudorandom number from the given range in the transaction record.
+If not set or set to zero, will return a 384-bit pseudorandom number in the record. </p></td>
                 </tr>
               
             </tbody>
