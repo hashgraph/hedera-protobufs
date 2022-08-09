@@ -1335,7 +1335,13 @@ enum ResponseCodeEnum {
   MAX_ENTITIES_IN_PRICE_REGIME_HAVE_BEEN_CREATED = 325;
 
   /**
- * The full prefix signature for precompile is not valid
- */
+   * The full prefix signature for precompile is not valid
+   */
   INVALID_FULL_PREFIX_SIGNATURE_FOR_PRECOMPILE = 326;
+
+  /**
+   * The combined balances of a contract and its auto-renew account (if any) do not cover the
+   * prorated storage rent due at the end of an EVM transaction.
+   */
+  INSUFFICIENT_BALANCES_FOR_STORAGE_RENT = 327;
 }
