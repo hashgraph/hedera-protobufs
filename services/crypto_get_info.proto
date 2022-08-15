@@ -141,7 +141,7 @@ message CryptoGetInfoResponse {
         /**
          * All tokens related to this account
          */
-        repeated TokenRelationship tokenRelationships = 15;
+        repeated TokenRelationship tokenRelationships = 15 [deprecated = true];
 
         /**
          * The memo associated with the account

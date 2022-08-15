@@ -78,5 +78,5 @@ message CryptoGetAccountBalanceResponse {
     /**
      * The token balances possessed by the target account.
      */
-    repeated TokenBalance tokenBalances = 4;
+    repeated TokenBalance tokenBalances = 4 [deprecated = true];
 }
