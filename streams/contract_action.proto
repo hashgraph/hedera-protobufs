@@ -65,6 +65,48 @@ enum ContractActionType {
 }
 
 /**
+ * The specific operation type of a call. The OP prefix has been added to avoid name collisions for
+ * the CALL and CREATE operation types since both ContractActionType and CallOperationType enums are
+ * used in ContractAction
+ */
+enum CallOperationType {
+  /**
+   * default operation type is UNKNOWN
+   */
+  OP_UNKNOWN = 0;
+
+  /**
+   * CALL operation type.
+   */
+  OP_CALL = 1;
+
+  /**
+   * CALLCODE operation type
+   */
+  OP_CALLCODE = 2;
+
+  /**
+   * DELEGATECALL operation type
+   */
+  OP_DELEGATECALL = 3;
+
+  /**
+   * STATICCALL operation type
+   */
+  OP_STATICCALL = 4;
+
+  /**
+   * CREATE operation type
+   */
+  OP_CREATE = 5;
+
+  /**
+   * CREATE2 operation type
+   */
+  OP_CREATE2 = 6;
+}
+
+/**
  * A finer grained action with a function result. Sometimes called "internal transactions." The function call itself
  * will be the first action in a list, followed by sub-action in the order they were executed.
  */
@@ -157,4 +199,9 @@ message ContractAction {
    * The nesting depth of this call. The original action is at depth=0.
    */
   int32 call_depth = 14;
+
+  /**
+   * The call operation type
+   */
+  CallOperationType call_operation_type = 15;
 }
