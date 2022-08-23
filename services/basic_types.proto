@@ -95,12 +95,17 @@ message AccountID {
          * a protobuf Key message for any primitive key type. Currently only primitive key bytes are supported as an alias
          * (ThresholdKey, KeyList, ContractID, and delegatable_contract_id are not supported)
          *
+         * May also be the ethereum account 20-byte EVM address to be used initially in place of the public key bytes.
+         *
          * At most one account can ever have a given alias and it is used for account creation if it
          * was automatically created using a crypto transfer. It will be null if an account is created normally.
          * It is immutable once it is set for an account.
          *
          * If a transaction auto-creates the account, any further transfers to that alias will simply be deposited
          * in that account, without creating anything, and with no creation fee being charged.
+         *
+         * If a transaction lazy-create this account, a susequent transaction will be required containing the public key bytes 
+         * that map to the ethereum account address bytes. The provided public key bytes will then serve as the final alias bytes.
          */
         bytes alias = 4;
 
