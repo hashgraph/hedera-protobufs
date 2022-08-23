@@ -164,5 +164,5 @@ message CryptoCreateTransactionBody {
      * If a transaction creates an account using an alias, any further crypto transfers to that alias will simply be deposited
      * in that account, without creating anything, and with no creation fee being charged.
      */
-	bytes alias = 18;
+     bytes alias = 18;
 }
