@@ -65,7 +65,7 @@ enum ContractActionType {
 }
 
 /**
- * The specific operation type of a call. The OP prefix added to avoid name collisions for
+ * The specific operation type of a call. The OP prefix has been added to avoid name collisions for
  * the CALL and CREATE operation types.
  */
 enum CallOperationType {
