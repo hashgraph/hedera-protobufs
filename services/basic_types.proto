@@ -104,8 +104,8 @@ message AccountID {
          * If a transaction auto-creates the account, any further transfers to that alias will simply be deposited
          * in that account, without creating anything, and with no creation fee being charged.
          *
-         * If a transaction lazy-create this account, a susequent transaction will be required containing the public key bytes 
-         * that map to the ethereum account address bytes. The provided public key bytes will then serve as the final alias bytes.
+         * If a transaction lazily-creates this account, a subsequent transaction will be required containing the public key bytes 
+         * that map to the EVM address bytes. The provided public key bytes will then serve as the final alias bytes.
          */
         bytes alias = 4;
 
