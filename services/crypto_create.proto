@@ -160,7 +160,8 @@ message CryptoCreateTransactionBody {
      * supported as the key for an account with an alias. ThresholdKey, KeyList, ContractID, and
      * delegatable_contract_id are not supported.
      *
-     * At most only one account can ever have a given alias on the network.
+     * A given alias can map to at most one account on the network at a time. This uniqueness will be enforced
+     * relative to aliases currently on the network at alias assignment.
      *
      * If a transaction creates an account using an alias, any further crypto transfers to that alias will 
      * simply be deposited in that account, without creating anything, and with no creation fee being charged.
