@@ -82,7 +82,7 @@ message FixedFee {
  *
  * **IMPORTANT:** Users must understand that native royalty fees are _strictly_ a convenience feature, 
  * and that the network cannot enforce inescapable royalties on the exchange of a non-fractional NFT. 
- * For example, if the countparties agree to split their value transfer and NFT exchange into separate 
+ * For example, if the counterparties agree to split their value transfer and NFT exchange into separate 
  * transactions, the network cannot possibly intervene. (And note the counterparties could use a smart 
  * contract to make this split transaction atomic if they do not trust each other.)
  * 
