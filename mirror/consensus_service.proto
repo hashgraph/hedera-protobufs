@@ -55,7 +55,7 @@ message ConsensusTopicQuery {
      * The maximum number of messages to receive before stopping. If not set or set to zero it will
      * return messages indefinitely.
      */
-    uint64 limit = 4;
+    int64 limit = 4;
 }
 
 message ConsensusTopicResponse {
@@ -78,12 +78,12 @@ message ConsensusTopicResponse {
     /**
      * Starts at 1 for first submitted message. Incremented on each submitted message.
      */
-    uint64 sequenceNumber = 4;
+    int64 sequenceNumber = 4;
 
     /**
      * Version of the SHA-384 digest used to update the running hash.
      */
-    uint64 runningHashVersion = 5;
+    int64 runningHashVersion = 5;
 
     /**
      * Optional information of the current chunk in a fragmented message.
