@@ -69,7 +69,7 @@ message TransactionReceipt {
      * In the receipt of a ConsensusSubmitMessage, the new sequence number of the topic that
      * received the message
      */
-    uint64 topicSequenceNumber = 7;
+    int64 topicSequenceNumber = 7;
 
     /**
      * In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received
@@ -132,7 +132,7 @@ message TransactionReceipt {
      * In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update
      * the running hash.
      */
-    uint64 topicRunningHashVersion = 9;
+    int64 topicRunningHashVersion = 9;
 
     /**
      * In the receipt of a CreateToken, the id of the newly created token
@@ -144,7 +144,7 @@ message TransactionReceipt {
      * supply of this token. For non fungible tokens - the total number of NFTs issued for a given
      * tokenID
      */
-    uint64 newTotalSupply = 11;
+    int64 newTotalSupply = 11;
 
     /**
      * In the receipt of a ScheduleCreate, the id of the newly created Scheduled Entity

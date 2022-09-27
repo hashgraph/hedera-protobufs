@@ -56,7 +56,7 @@ message TokenMintTransactionBody {
      * Amount must be a positive non-zero number represented in the lowest denomination of the
      * token. The new supply must be lower than 2^63.
      */
-    uint64 amount = 2;
+    int64 amount = 2;
 
     /**
      * Applicable to tokens of type NON_FUNGIBLE_UNIQUE. A list of metadata that are being created.

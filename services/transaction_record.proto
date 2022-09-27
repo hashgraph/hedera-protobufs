@@ -67,7 +67,7 @@ message TransactionRecord {
      * The actual transaction fee charged, not the original transactionFee value from
      * TransactionBody
      */
-    uint64 transactionFee = 6;
+    int64 transactionFee = 6;
 
     oneof body {
         /**

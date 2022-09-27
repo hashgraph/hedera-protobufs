@@ -309,7 +309,7 @@ message TokenTransferList {
      * If present, the number of decimals this fungible token type is expected to have. The transfer
      * will fail with UNEXPECTED_TOKEN_DECIMALS if the actual decimals differ.
      */
-    google.protobuf.UInt32Value expected_decimals = 4;
+    google.protobuf.Int32Value expected_decimals = 4;
 }
 
 /**
@@ -631,7 +631,7 @@ message ThresholdKey {
     /**
      * A valid signature set must have at least this many signatures
      */
-    uint32 threshold = 1;
+    int32 threshold = 1;
 
     /**
      * List of all the keys that can sign
@@ -1480,7 +1480,7 @@ message TokenRelationship {
      * For token of type FUNGIBLE_COMMON - the balance that the Account holds in the smallest
      * denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account
      */
-    uint64 balance = 3;
+    int64 balance = 3;
 
     /**
      * The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not
@@ -1497,7 +1497,7 @@ message TokenRelationship {
     /**
      * Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
      */
-    uint32 decimals = 6;
+    int32 decimals = 6;
 
     /**
      * Specifies if the relationship is created implicitly. False : explicitly associated, True :
@@ -1528,12 +1528,12 @@ message TokenBalance {
      * balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of
      * NFTs held by the account
      */
-    uint64 balance = 2;
+    int64 balance = 2;
 
     /**
      * Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
      */
-    uint32 decimals = 3;
+    int32 decimals = 3;
 }
 
 /**

@@ -101,7 +101,7 @@ message CryptoGetInfoResponse {
         /**
          * The current balance of account in tinybars
          */
-        uint64 balance = 8;
+        int64 balance = 8;
 
         /**
          * [Deprecated]. The threshold amount, in tinybars, at which a record is created of any

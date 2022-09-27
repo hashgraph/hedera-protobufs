@@ -63,5 +63,5 @@ message NetworkGetExecutionTimeResponse {
     /**
      * The execution time(s) of the requested TransactionIDs, if available
      */
-    repeated uint64 execution_times = 2;
+    repeated int64 execution_times = 2;
 }

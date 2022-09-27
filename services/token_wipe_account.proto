@@ -72,7 +72,7 @@ message TokenWipeAccountTransactionBody {
      * account. Amount must be a positive non-zero number in the lowest denomination possible, not
      * bigger than the token balance of the account (0; balance]
      */
-    uint64 amount = 3;
+    int64 amount = 3;
 
     /**
      * Applicable to tokens of type NON_FUNGIBLE_UNIQUE. The list of serial numbers to be wiped.

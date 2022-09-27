@@ -101,7 +101,7 @@ message GetAccountDetailsResponse {
         /**
          * The current balance of account in tinybars
          */
-        uint64 balance = 7;
+        int64 balance = 7;
 
         /**
          * If true, no transaction can transfer to this account unless signed by this account's key

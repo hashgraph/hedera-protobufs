@@ -47,7 +47,7 @@ message ThrottleGroup {
    * second for each node), set milliOpsPerSec = 3000. And to choose 3.6 ops per second, use
    * milliOpsPerSec = 3600. Minimum allowed value is 1, and maximum allowed value is 9223372.
    */
-  uint64 milliOpsPerSec = 2;
+  int32 milliOpsPerSec = 2;
 }
 
 /**
@@ -64,7 +64,7 @@ message ThrottleBucket {
    * of this number and the least common multiple of the milliOpsPerSec values in this bucket must
    * not exceed 9223372036.
    */
-  uint64 burstPeriodMs = 2;
+  int64 burstPeriodMs = 2;
 
   /**
    * The throttle groups competing for this bucket

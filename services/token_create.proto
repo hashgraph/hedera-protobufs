@@ -89,7 +89,7 @@ message TokenCreateTransactionBody {
      * token is divisible by. For tokens of type NON_FUNGIBLE_UNIQUE - value
      * must be 0
      */
-    uint32 decimals = 3;
+    int32 decimals = 3;
 
     /**
      * Specifies the initial supply of tokens to be put in circulation. The
@@ -97,7 +97,7 @@ message TokenCreateTransactionBody {
      * lowest denomination possible. In the case for NON_FUNGIBLE_UNIQUE Type
      * the value must be 0
      */
-    uint64 initialSupply = 4;
+    int64 initialSupply = 4;
 
     /**
      * The account which will act as a treasury for the token. This account

@@ -87,7 +87,7 @@ message ContractFunctionResult {
     /**
      * units of gas used to execute contract
      */
-    uint64 gasUsed = 5;
+    int64 gasUsed = 5;
 
     /**
      * the log info for events returned by the function

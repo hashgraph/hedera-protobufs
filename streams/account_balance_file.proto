@@ -39,7 +39,7 @@ message TokenUnitBalance {
      * balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of
      * NFTs held by the account
      */
-    uint64 balance = 2;
+    int64 balance = 2;
 }
 
 /**
@@ -54,7 +54,7 @@ message SingleAccountBalances {
     /**
      * The account's hbar balance
      */
-    uint64 hbarBalance = 2;
+    int64 hbarBalance = 2;
 
     /**
      * The list of the account's token balances

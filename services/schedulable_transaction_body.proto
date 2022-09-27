@@ -81,7 +81,7 @@ message SchedulableTransactionBody {
   /**
    * The maximum transaction fee the client is willing to pay
    */
-  uint64 transactionFee = 1;
+  int64 transactionFee = 1;
 
   /**
    * A memo to include the execution record; the UTF-8 encoding may be up to 100 bytes and must not

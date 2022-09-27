@@ -112,7 +112,7 @@ message ContractGetInfoResponse {
         /**
          * The current balance, in tinybars
          */
-        uint64 balance = 9;
+        int64 balance = 9;
 
         /**
          * Whether the contract has been deleted

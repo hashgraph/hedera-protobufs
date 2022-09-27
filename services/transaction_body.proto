@@ -102,7 +102,7 @@ message TransactionBody {
   /**
    * The maximum transaction fee the client is willing to pay
    */
-  uint64 transactionFee = 3;
+  int64 transactionFee = 3;
 
   /**
    * The transaction is invalid if consensusTimestamp > transactionID.transactionValidStart +

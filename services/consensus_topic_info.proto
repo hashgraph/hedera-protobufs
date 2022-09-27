@@ -52,7 +52,7 @@ message ConsensusTopicInfo {
     /**
      * Sequence number (starting at 1 for the first submitMessage) of messages on the topic.
      */
-    uint64 sequenceNumber = 3;
+    int64 sequenceNumber = 3;
 
     /**
      * Effective consensus timestamp at (and after) which submitMessage calls will no longer succeed on the topic

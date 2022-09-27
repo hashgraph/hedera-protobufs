@@ -72,14 +72,14 @@ message TokenInfo {
      * The number of decimal places a token is divisible by. Always 0 for tokens of type
      * NON_FUNGIBLE_UNIQUE
      */
-    uint32 decimals = 4;
+    int32 decimals = 4;
 
     /**
      * For tokens of type FUNGIBLE_COMMON - the total supply of tokens that are currently in
      * circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the number of NFTs created of this
      * token instance
      */
-    uint64 totalSupply = 5;
+    int64 totalSupply = 5;
 
     /**
      * The ID of the account which is set as Treasury

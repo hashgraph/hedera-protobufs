@@ -73,7 +73,7 @@ message CryptoGetAccountBalanceResponse {
     /**
      * The current balance, in tinybars.
      */
-    uint64 balance = 3;
+    int64 balance = 3;
 
     /**
      * [DEPRECATED] The balances of the tokens associated to the account. This field was 

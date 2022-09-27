@@ -45,5 +45,5 @@ message TransactionResponse {
      * If the response code was INSUFFICIENT_TX_FEE, the actual transaction fee that would be
      * required to execute the transaction.
 	 */
-	uint64 cost = 2;
+	int64 cost = 2;
 }

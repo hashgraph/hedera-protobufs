@@ -69,7 +69,7 @@ message CryptoCreateTransactionBody {
     /**
      * The initial number of tinybars to put into the account
      */
-    uint64 initialBalance = 2;
+    int64 initialBalance = 2;
 
     /**
      * [Deprecated] ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an
