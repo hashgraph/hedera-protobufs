@@ -43,7 +43,7 @@ message ContractFunctionResult {
     bytes contractCallResult = 2; // the result returned by the function
     string errorMessage = 3; // message In case there was an error during smart contract execution
     bytes bloom = 4; // bloom filter for record
-    uint64 gasUsed = 5; // units of gas used to execute contract
+    int64 gasUsed = 5; // units of gas used to execute contract
     repeated ContractLoginfo logInfo = 6; // the log info for events returned by the function
     repeated ContractID createdContractIDs = 7; // the list of smart contracts that were created by the function call
 }
