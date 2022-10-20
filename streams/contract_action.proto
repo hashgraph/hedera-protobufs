@@ -159,9 +159,13 @@ message ContractAction {
     ContractID recipient_contract = 7;
 
     /**
-     * If the action was directed at an invalid solidity address, what that address was.
+     * The bytes of the targeted by the action address.
+     * Only set on failed executions. If set, denotes that the address did not
+     * correspond to any account or contract at the time of finalization of
+     * this action.
+     * An example would be a failed lazy create as per HIP-583.
      */
-    bytes invalid_solidity_address = 8;
+    bytes targeted_address = 8;
   }
 
   /**
