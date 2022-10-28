@@ -187,7 +187,7 @@ message CryptoGetInfoResponse {
          * or set to an account with zero hbar balance, the account's own hbar balance will be used to
          * cover auto-renewal fees.
          */
-        AccountID auto_renew_account_id = 23;
+        AccountID auto_renew_account = 23;
     }
 
     /**
