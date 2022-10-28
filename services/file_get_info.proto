@@ -100,7 +100,7 @@ message FileGetInfoResponse {
         /**
          * If set, the account that is used to pay for auto-renewal of the file.
          */
-        AccountID auto_renew_account_id = 8;
+        AccountID auto_renew_account = 8;
     }
 
     /**

@@ -176,7 +176,7 @@ message ContractCreateTransactionBody {
      * account with zero hbar balance, the contract's own hbar balance will be used to
      * cover auto-renewal fees.
      */
-    AccountID auto_renew_account_id = 15;
+    AccountID auto_renew_account = 15;
 
     /**
      * ID of the new account or node to which this contract is staking.

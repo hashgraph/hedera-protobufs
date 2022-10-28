@@ -68,5 +68,5 @@ message FileUpdateTransactionBody {
      * If set to the sentinel <tt>0.0.0</tt> AccountID, this field removes the file's auto-renew 
      * account. Otherwise it updates the file's auto-renew account to the referenced account.
      */
-    AccountID auto_renew_account_id = 6;
+    AccountID auto_renew_account = 6;
 }
