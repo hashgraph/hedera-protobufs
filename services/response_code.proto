@@ -616,7 +616,7 @@ enum ResponseCodeEnum {
   INVALID_TOPIC_ID = 150;
 
   /**
-   * A provided admin key was invalid.
+   * A provided admin key was invalid. An Admin key on the account is its own key.
    */
   INVALID_ADMIN_KEY = 155;
 
