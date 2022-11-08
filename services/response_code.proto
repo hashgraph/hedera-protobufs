@@ -1356,4 +1356,10 @@ enum ResponseCodeEnum {
   * the auto-renewal fees in a transaction.
   */
   INSUFFICIENT_BALANCES_FOR_RENEWAL_FEES = 329;
+
+  /**
+  * A transaction's protobuf message includes unknown fields; could mean that a client 
+  * expects not-yet-released functionality to be available.
+  */
+  TRANSACTION_HAS_UNKNOWN_FIELDS = 330;
 }
