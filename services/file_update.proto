@@ -26,6 +26,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 import "basic_types.proto";
+import "duration.proto";
 import "timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -69,4 +70,9 @@ message FileUpdateTransactionBody {
      * account. Otherwise it updates the file's auto-renew account to the referenced account.
      */
     AccountID auto_renew_account = 6;
+
+    /**
+     * If an auto-renew account is in use, the lifetime to be added by each auto-renewal.
+     */
+    Duration auto_renew_period = 7;
 }
