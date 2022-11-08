@@ -72,8 +72,7 @@ message ContractUpdateTransactionBody {
     AccountID proxyAccountID = 6 [deprecated = true];
 
     /**
-     * (NOT YET IMPLEMENTED) The new interval at which the contract will pay to extend its expiry
-     * (by the same interval)
+     * If an auto-renew account is in use, the lifetime to be added by each auto-renewal.
      */
     Duration autoRenewPeriod = 7;
 
