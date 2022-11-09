@@ -188,10 +188,26 @@ message CryptoGetInfoResponse {
          * cover auto-renewal fees.
          */
         AccountID auto_renew_account = 23;
+
+        repeated VirtualAddress virtualAddresses = 24;
+
+        bytes defaultVirtualAddress = 25;
     }
 
     /**
      * Info about the account (a state proof can be generated for this)
      */
     AccountInfo accountInfo = 2;
+}
+
+message VirtualAddress {
+    /**
+     * The 20-byte EVM address
+     */
+    bytes virtualAddress = 1;
+
+    /**
+     * The ethereum transaction nonce associated with this address.
+     */
+    int64 nonce = 2;
 }

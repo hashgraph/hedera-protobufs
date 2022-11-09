@@ -145,4 +145,28 @@ message TransactionRecord {
          */
         int32 prng_number = 20;
     }
+
+   /**
+    * Virtual address updated info. At most one update can be performed at a time.
+    */
+    VirtualAddressUpdate virtualAddressUpdate = 21;
+}
+
+message VirtualAddressUpdate {
+    /**
+     * A 20-byte EVM address account identifier. This is the keccak-256 hash of a ECDSA_SECP256K1 primitive key.
+     *
+     * At most one account can ever have a given evm address
+     */
+    bytes evmAddress = 1;
+
+    /**
+     * Flag if this address is being added
+     */
+    bool addition = 2;
+
+    /**
+     * Flag if this address should now be set or is the default address on the account
+     */
+    bool isDefaultAddress = 3;
 }

@@ -29,6 +29,7 @@ import "basic_types.proto";
 import "duration.proto";
 import "timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "transaction_record.proto";
 
 /**
  * Change properties for the given account. Any null field is ignored (left unchanged). This
@@ -160,4 +161,6 @@ message CryptoUpdateTransactionBody {
      * account. Otherwise it updates the account's auto-renew account to the referenced account.
      */
     AccountID auto_renew_account = 19;
+
+    VirtualAddressUpdate virtualAddressUpdate = 20;
 }
