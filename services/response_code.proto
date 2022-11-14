@@ -1366,5 +1366,5 @@ enum ResponseCodeEnum {
   /**
    * The account cannot be modified. Account's key is not set
    */
-  ACCOUNT_IS_IMMUTABLE = 361;
+  ACCOUNT_IS_IMMUTABLE = 331;
 }
