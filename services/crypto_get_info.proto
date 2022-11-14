@@ -190,8 +190,6 @@ message CryptoGetInfoResponse {
         AccountID auto_renew_account = 23;
 
         repeated VirtualAddress virtualAddresses = 24;
-
-        bytes defaultVirtualAddress = 25;
     }
 
     /**
@@ -210,4 +208,9 @@ message VirtualAddress {
      * The ethereum transaction nonce associated with this address.
      */
     int64 nonce = 2;
+
+    /**
+     * Flag if this address should now be set or is the default address on the account
+     */
+    bool isDefaultAddress = 3;
 }

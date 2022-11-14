@@ -175,4 +175,6 @@ message CryptoCreateTransactionBody {
      * cover auto-renewal fees.
      */
     AccountID auto_renew_account = 19;
+
+    bytes evmAddress = 20;
 }

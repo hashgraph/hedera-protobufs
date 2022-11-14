@@ -110,6 +110,7 @@ message AccountID {
          */
         bytes alias = 4;
 
+        bytes evmAddress = 5;
     }
 }
 
