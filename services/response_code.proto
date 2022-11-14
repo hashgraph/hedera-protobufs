@@ -1362,4 +1362,9 @@ enum ResponseCodeEnum {
   * expects not-yet-released functionality to be available.
   */
   TRANSACTION_HAS_UNKNOWN_FIELDS = 330;
+
+  /**
+   * The account cannot be modified. Account's key is not set
+   */
+  ACCOUNT_IS_IMMUTABLE = 331;
 }
