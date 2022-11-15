@@ -197,20 +197,3 @@ message CryptoGetInfoResponse {
      */
     AccountInfo accountInfo = 2;
 }
-
-message VirtualAddress {
-    /**
-     * The 20-byte EVM address
-     */
-    bytes address = 1;
-
-    /**
-     * The ethereum transaction nonce associated with this address.
-     */
-    int64 nonce = 2;
-
-    /**
-     * Flag if this address should now be set or is the default address on the account
-     */
-    bool isDefaultAddress = 3;
-}

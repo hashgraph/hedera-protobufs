@@ -152,15 +152,3 @@ message TransactionRecord {
      */
     VirtualAddressUpdate virtualAddressUpdate = 21;
 }
-
-message VirtualAddressUpdate {
-    /**
-     * An accounts 20-byte EVM address account identifier and nonce.
-     */
-    VirtualAddress virtualAddress = 1;
-
-    /**
-     * Flag if this address is being removed. If false virtual address is being added
-     */
-    BoolValue remove = 2;
-}
