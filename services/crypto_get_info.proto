@@ -202,7 +202,7 @@ message VirtualAddress {
     /**
      * The 20-byte EVM address
      */
-    bytes virtualAddress = 1;
+    bytes address = 1;
 
     /**
      * The ethereum transaction nonce associated with this address.
