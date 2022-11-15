@@ -162,5 +162,5 @@ message VirtualAddressUpdate {
     /**
      * Flag if this address is being removed. If false virtual address is being added
      */
-    bool removed = 2;
+    BoolValue remove = 2;
 }
