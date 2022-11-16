@@ -110,7 +110,7 @@ message AccountID {
          */
         bytes alias = 4;
 
-        bytes evmAddress = 5;
+        bytes evm_address = 5;
     }
 }
 
@@ -1596,7 +1596,7 @@ message StakingInfo {
 
 message VirtualAddress {
     /**
-     * The 20-byte EVM address
+     * The 20-byte EVM address.
      */
     bytes address = 1;
 
@@ -1606,19 +1606,19 @@ message VirtualAddress {
     int64 nonce = 2;
 
     /**
-     * Flag if this address should now be set or is the default address on the account
+     * Flag if this address should now be set or is the default address on the account.
      */
-    bool isDefaultAddress = 3;
+    bool is_default_address = 3;
 }
 
 message VirtualAddressUpdate {
     /**
      * An accounts 20-byte EVM address account identifier and nonce.
      */
-    VirtualAddress virtualAddress = 1;
+    VirtualAddress virtual_address = 1;
 
     /**
-     * Flag if this address is being removed. If false virtual address is being added
+     * Flag if this address is being removed. If false, the virtual address is being added.
      */
-    google.protobuf.BoolValue remove = 2;
+    google.protobuf.BoolValue removed = 2;
 }

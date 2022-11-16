@@ -176,5 +176,5 @@ message CryptoCreateTransactionBody {
      */
     AccountID auto_renew_account = 19;
 
-    bytes evmAddress = 20;
+    bytes evm_address = 20;
 }

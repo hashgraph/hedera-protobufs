@@ -189,7 +189,7 @@ message CryptoGetInfoResponse {
          */
         AccountID auto_renew_account = 23;
 
-        repeated VirtualAddress virtualAddresses = 24;
+        repeated VirtualAddress virtual_addresses = 24;
     }
 
     /**
