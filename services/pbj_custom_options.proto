@@ -19,3 +19,11 @@ extend google.protobuf.FileOptions {
 extend google.protobuf.MessageOptions {
   optional string message_java_package = 69878;
 }
+
+/*
+ * Custom Option for PBJ compiler to know the destination package for generated java model classes. This effects just
+ * the one enum it is on, and overrides the file level  "pbj_java_package" option.
+ */
+extend google.protobuf.EnumOptions {
+  optional string enum_java_package = 69879;
+}
