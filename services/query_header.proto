@@ -23,6 +23,7 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
+option pbj_java_package = "com.hedera.hapi.node.base";
 option java_multiple_files = true;
 
 import "transaction.proto";
