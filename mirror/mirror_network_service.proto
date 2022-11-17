@@ -25,9 +25,6 @@ package com.hedera.mirror.api.proto;
 option java_multiple_files = true; // Required for the reactor-grpc generator to work correctly
 option java_package = "com.hedera.mirror.api.proto";
 
-import "pbj_custom_options.proto";
-option (pbj.java_package) = "com.hedera.hapi.mirror";
-
 import "basic_types.proto";
 import "timestamp.proto";
 

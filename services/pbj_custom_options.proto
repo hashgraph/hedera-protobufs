@@ -11,6 +11,7 @@ import "google/protobuf/descriptor.proto";
 extend google.protobuf.FileOptions {
   optional string java_package = 69877;
 }
+
 /*
  * Custom Option for PBJ compiler to know the destination package for generated java model classes. This effects just
  * the one message it is on, and overrides the file level  "pbj_java_package" option.
