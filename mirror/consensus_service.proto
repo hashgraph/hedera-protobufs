@@ -21,6 +21,7 @@
 syntax = "proto3";
 
 package com.hedera.mirror.api.proto;
+option pbj_java_package = "com.hedera.hapi.mirror";
 
 /**
  * Required for the reactor-grpc generator to work correctly
