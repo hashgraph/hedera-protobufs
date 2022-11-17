@@ -51,7 +51,7 @@ Tags suffixed with `-alpha.x` mark commits used for previewnet deploys.
 
 ## PBJ Package Support
 Proto files in this repo are generated into two kinds of Java files, one using **protoc** and other using 
-[PBJ](https://github.com/hashgraph/pbj) a custom java code generation library for hedera. To support PBJ all proto files
+[PBJ](https://github.com/hashgraph/pbj) a custom java code generation library for Hedera. To support PBJ all proto files
 need to have a option of the form:
 ```
 import "pbj_custom_options.proto";
