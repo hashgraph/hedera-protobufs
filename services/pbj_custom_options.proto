@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package pbj;
 
 import "google/protobuf/descriptor.proto";
 
@@ -9,12 +9,12 @@ import "google/protobuf/descriptor.proto";
  * messages in the proto file, unless they are overridden by "pbj_message_java_package" option.
  */
 extend google.protobuf.FileOptions {
-  optional string pbj_java_package = 69877;
+  optional string java_package = 69877;
 }
 /*
  * Custom Option for PBJ compiler to know the destination package for generated java model classes. This effects just
  * the one message it is on, and overrides the file level  "pbj_java_package" option.
  */
 extend google.protobuf.MessageOptions {
-  optional string pbj_message_java_package = 69878;
+  optional string message_java_package = 69878;
 }

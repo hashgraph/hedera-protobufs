@@ -23,7 +23,9 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
-option pbj_java_package = "com.hedera.hapi.node.transaction";
+
+import "pbj_custom_options.proto";
+option (pbj.java_package) = "com.hedera.hapi.node.transaction";
 option java_multiple_files = true;
 
 import "transaction_receipt.proto";

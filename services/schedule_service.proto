@@ -23,7 +23,9 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.service.proto.java";
-option pbj_java_package = "com.hedera.hapi.node.scheduled";
+
+import "pbj_custom_options.proto";
+option (pbj.java_package) = "com.hedera.hapi.node.scheduled";
 
 import "query.proto";
 import "response.proto";
