@@ -176,5 +176,8 @@ message CryptoCreateTransactionBody {
      */
     AccountID auto_renew_account = 19;
 
+    /**
+     * EOA 20-byte address to create.
+     */
     bytes evm_address = 20;
 }

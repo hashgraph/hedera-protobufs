@@ -110,6 +110,9 @@ message AccountID {
          */
         bytes alias = 4;
 
+        /**
+         * The ethereum account 20-byte EVM address.
+         */
         bytes evm_address = 5;
     }
 }
@@ -1601,14 +1604,9 @@ message VirtualAddress {
     bytes address = 1;
 
     /**
-     * The ethereum transaction nonce associated with this address.
-     */
-    int64 nonce = 2;
-
-    /**
      * Flag if this address should now be set or is the default address on the account.
      */
-    bool is_default_address = 3;
+    bool is_default = 2;
 }
 
 message VirtualAddressUpdate {

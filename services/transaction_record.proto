@@ -147,7 +147,8 @@ message TransactionRecord {
     }
 
     /**
-     * Virtual address update info, if virtual address is specified in the CryptoUpdate transaction. At most one update can be performed at a time.
+     * The new default EVM address of the account created by this transaction.
+     * This field is populated only when the EVM address is not specified in the related transaction body.
      */
-    VirtualAddressUpdate virtual_address_update = 21;
+    bytes evm_address = 21;
 }
