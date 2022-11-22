@@ -1608,15 +1608,3 @@ message VirtualAddress {
      */
     bool is_default = 2;
 }
-
-message VirtualAddressUpdate {
-    /**
-     * An accounts 20-byte EVM address account identifier and nonce.
-     */
-    VirtualAddress virtual_address = 1;
-
-    /**
-     * Flag if this address is being removed. If false, the virtual address is being added.
-     */
-    google.protobuf.BoolValue removed = 2;
-}
