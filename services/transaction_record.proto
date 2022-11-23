@@ -145,4 +145,10 @@ message TransactionRecord {
          */
         int32 prng_number = 20;
     }
+
+    /**
+     * The new default EVM address of the account created by this transaction.
+     * This field is populated only when the EVM address is not specified in the related transaction body.
+     */
+    bytes evm_address = 21;
 }

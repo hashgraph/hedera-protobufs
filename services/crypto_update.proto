@@ -160,4 +160,16 @@ message CryptoUpdateTransactionBody {
      * account. Otherwise it updates the account's auto-renew account to the referenced account.
      */
     AccountID auto_renew_account = 19;
+
+    oneof virtual_address_update {
+        /**
+         * The virtual address to be added.
+         */
+        VirtualAddress add = 20;
+
+        /**
+         * The 20-byte EVM address of the virtual address that is being removed.
+         */
+        bytes remove = 21;
+    }
 }

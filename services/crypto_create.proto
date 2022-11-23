@@ -154,10 +154,8 @@ message CryptoCreateTransactionBody {
     bool decline_reward = 17;
 
     /**
-     * The bytes to be used as the account's alias. The bytes will be 1 of 2 options. It will be the 
-     * serialization of a protobuf Key message for an ED25519/ECDSA_SECP256K1 primitive key type. If the 
-     * account is ECDSA_SECP256K1 based it may also be the public address, calcluated as the last 20 bytes of
-     * the keccak-256 hash of the ECDSA_SECP256K1 primitive key. Currently only primitive key bytes are 
+     * The bytes to be used as the account's alias. It will be the
+     * serialization of a protobuf Key message for an ED25519/ECDSA_SECP256K1 primitive key type. Currently only primitive key bytes are
      * supported as the key for an account with an alias. ThresholdKey, KeyList, ContractID, and
      * delegatable_contract_id are not supported.
      *
@@ -175,4 +173,9 @@ message CryptoCreateTransactionBody {
      * cover auto-renewal fees.
      */
     AccountID auto_renew_account = 19;
+
+    /**
+     * EOA 20-byte address to create that is derived from the keccak-256 hash of a ECDSA_SECP256K1 primitive key.
+     */
+    bytes evm_address = 20;
 }

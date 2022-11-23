@@ -188,6 +188,11 @@ message CryptoGetInfoResponse {
          * cover auto-renewal fees.
          */
         AccountID auto_renew_account = 23;
+
+        /**
+         * List of virtual addresses each of which is an EVM address that maps to an ECDSA key pair a user must prove ownership of.
+         */
+        repeated VirtualAddress virtual_addresses = 24;
     }
 
     /**
