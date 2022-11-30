@@ -2,10 +2,14 @@
 The authoritative repository of [protocol buffers](https://developers.google.com/protocol-buffers) 
 used by the Hedera Hashgraph public network, especially to define its gRPC API. Other repositories 
 are used to deploy language-specific libraries generated 
-from the _*.proto_ files in this repository:
+from the _*.proto_ files in the following repositories:
  - [Java](https://github.com/hashgraph/hedera-protobufs-java)
+ - [Go](https://github.com/hashgraph/hedera-protobufs-go)
+ - [JS & Typescript](https://github.com/hashgraph/protobuf.js)
+ - [C++](https://github.com/hashgraph/hedera-protobufs-cpp)
+ - [Swift](https://github.com/hashgraph/hedera-protobufs-swift)
 
-# Overview of services
+## Overview of services
 
 There are five primary service families, which inter-operate on entities 
 controlled by one (or more) Ed25519 keypairs:
@@ -36,9 +40,22 @@ must be paid in ℏ from a cryptocurrency account. The payer authorizes a
 fee by signing an appropriate transaction with a sufficient subset of the 
 Ed25519 key(s) associated to their account.
 
-# Branching
+# For Developers
+
+## Branching
 This repository uses a simple branching model with only two distinguished branches:
  1. The head of `main` points to the latest protobufs blessed for deployment to mainnet. 
 Tags such as `v0.12.0` mark commits used for testnet and mainnet deploys.
  2. The head of `develop` points to the latest candidate for the next tag in `main`. 
 Tags suffixed with `-alpha.x` mark commits used for previewnet deploys. 
+
+## PBJ Package Support
+Proto files in this repo are generated into two kinds of Java files, one using **protoc** and other using 
+[PBJ](https://github.com/hashgraph/pbj) a custom java code generation library for Hedera. To support PBJ all proto files
+need to have an option of the form:
+```
+import "pbj_custom_options.proto";
+option (pbj.java_package) = "com.hedera.hapi.node.token";
+```
+To specify the Java package for PBJ generated model objects. This option is ignored by **protoc**. PBJ ignores the default 
+option `option java_package = "com.hederahashgraph.api.proto.java";` which is used by **protoc** to generate Java files.
