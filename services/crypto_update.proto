@@ -171,8 +171,13 @@ message CryptoUpdateTransactionBody {
         VirtualAddress add = 20;
 
         /**
-         * The 20-byte EVM address of the virtual address that is being removed.
-         */
-        bytes remove = 21;
+        * The 20-byte EVM address of the virtual address that is being disabled and therefore removed from active use on the account.
+        */
+        bytes disable = 21;
+        
+        /**
+        * The 20-byte EVM address of the virtual address that is being removed from the account.
+        */
+        bytes remove = 22;
     }
 }
