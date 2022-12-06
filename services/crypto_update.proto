@@ -167,7 +167,7 @@ message CryptoUpdateTransactionBody {
     oneof virtual_address_update {
         /**
          * The virtual address to be added.
-         * The address one successfully addition becomes par tof the accounts ACTIVE virtual addresses
+         * The address one successfully addition becomes part of the accounts ACTIVE virtual addresses
          */
         VirtualAddress add = 20;
     }
