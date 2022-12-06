@@ -167,17 +167,8 @@ message CryptoUpdateTransactionBody {
     oneof virtual_address_update {
         /**
          * The virtual address to be added.
+         * The address one successfully addition becomes par tof the accounts ACTIVE virtual addresses
          */
         VirtualAddress add = 20;
-
-        /**
-        * The 20-byte EVM address of the virtual address that is being disabled and therefore removed from active use on the account.
-        */
-        bytes disable = 21;
-        
-        /**
-        * The 20-byte EVM address of the virtual address that is being removed from the account.
-        */
-        bytes remove = 22;
     }
 }
