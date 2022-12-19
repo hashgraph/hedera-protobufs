@@ -330,6 +330,10 @@
                   <a href="#proto.TransferList"><span class="badge">M</span>TransferList</a>
                 </li>
               
+                <li>
+                  <a href="#proto.VirtualAddress"><span class="badge">M</span>VirtualAddress</a>
+                </li>
+              
               
                 <li>
                   <a href="#proto.HederaFunctionality"><span class="badge">E</span>HederaFunctionality</a>
@@ -1299,6 +1303,29 @@
         
           
           <li>
+            <a href="#pbj_custom_options.proto">pbj_custom_options.proto</a>
+            <ul>
+              
+              
+              
+                <li>
+                  <a href="#pbj_custom_options.proto-extensions"><span class="badge">X</span>File-level Extensions</a>
+                </li>
+              
+                <li>
+                  <a href="#pbj_custom_options.proto-extensions"><span class="badge">X</span>File-level Extensions</a>
+                </li>
+              
+                <li>
+                  <a href="#pbj_custom_options.proto-extensions"><span class="badge">X</span>File-level Extensions</a>
+                </li>
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#prng.proto">prng.proto</a>
             <ul>
               
@@ -2194,6 +2221,17 @@ It is immutable once it is set for an account.
 
 If a transaction auto-creates the account, any further transfers to that alias will simply be deposited
 in that account, without creating anything, and with no creation fee being charged. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>evm_address</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>The ethereum account 20-byte EVM address to be used initially in place of the public key bytes. This EVM
+address may be either the encoded form of the shard.realm.num or the keccak-256 hash of a ECDSA_SECP256K1 primitive key.
+
+If a transaction lazily-creates this account, a subsequent transaction will be required containing the public key bytes
+that map to the EVM address bytes. Lazy account creates will only support the keccak-256 hash of a ECDSA_SECP256K1 primitive key form. </p></td>
                 </tr>
               
             </tbody>
@@ -3782,6 +3820,37 @@ transactions spawned for a precompile has a id with a different nonce. </p></td>
                   <td>repeated</td>
                   <td><p>Multiple list of AccountAmount pairs, each of which has an account and
 an amount to transfer into it (positive) or out of it (negative) </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="proto.VirtualAddress">VirtualAddress</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>address</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>The 20-byte EVM address that is derived from the keccak-256 hash of a ECDSA_SECP256K1 primitive key. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>is_default</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Flag if this address should now be set or is the default address on the account. </p></td>
                 </tr>
               
             </tbody>
@@ -6092,8 +6161,7 @@ EXPIRATION_REDUCTION_NOT_ALLOWED otherwise) </p></td>
                   <td>autoRenewPeriod</td>
                   <td><a href="#proto.Duration">Duration</a></td>
                   <td></td>
-                  <td><p>(NOT YET IMPLEMENTED) The new interval at which the contract will pay to extend its expiry
-(by the same interval) </p></td>
+                  <td><p>If an auto-renew account is in use, the lifetime to be added by each auto-renewal. </p></td>
                 </tr>
               
                 <tr>
@@ -6541,7 +6609,7 @@ approval on an NFT serial to another spender. </p></td>
 
       
         <h3 id="proto.CryptoCreateTransactionBody">CryptoCreateTransactionBody</h3>
-        <p>Create a new account. After the account is created, the AccountID for it is in the receipt. It</p><p>can also be retrieved with a GetByKey query. Threshold values can be defined, and records are</p><p>generated and stored for 25 hours for any transfer that exceeds the thresholds. This account is</p><p>charged for each record generated, so the thresholds are useful for limiting record generation to</p><p>happen only for large transactions.</p><p>The Key field is the key used to sign transactions for this account. If the account has</p><p>receiverSigRequired set to true, then all cryptocurrency transfers must be signed by this</p><p>account's key, both for transfers in and out. If it is false, then only transfers out have to be</p><p>signed by it. When the account is created, the payer account is charged enough hbars so that the</p><p>new account will not expire for the next autoRenewPeriod seconds. When it reaches the expiration</p><p>time, the new account will then be automatically charged to renew for another autoRenewPeriod</p><p>seconds. If it does not have enough hbars to renew for that long, then the remaining hbars are</p><p>used to extend its expiration as long as possible. If it is has a zero balance when it expires,</p><p>then it is deleted. This transaction must be signed by the payer account. If receiverSigRequired</p><p>is false, then the transaction does not have to be signed by the keys in the keys field. If it is</p><p>true, then it must be signed by them, in addition to the keys of the payer account.</p><p>An entity (account, file, or smart contract instance) must be created in a particular realm. If</p><p>the realmID is left null, then a new realm will be created with the given admin key. If a new</p><p>realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an</p><p>admin key is given, then any transaction to create/modify/delete an entity in that realm must be</p><p>signed by that key, though anyone can still call functions on smart contract instances that exist</p><p>in that realm. A realm ceases to exist when everything within it has expired and no longer</p><p>exists.</p><p>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0</p><p>and realm 0, with a null key. Future versions of the API will support multiple realms and</p><p>multiple shards.</p>
+        <p>Create a new account. After the account is created, the AccountID for it is in the receipt. It</p><p>can also be retrieved with a GetByKey query. Threshold values can be defined, and records are</p><p>generated and stored for 25 hours for any transfer that exceeds the thresholds. This account is</p><p>charged for each record generated, so the thresholds are useful for limiting record generation to</p><p>happen only for large transactions.</p><p>The Key field is the key used to sign transactions for this account. If the account has</p><p>receiverSigRequired set to true, then all cryptocurrency transfers must be signed by this</p><p>account's key, both for transfers in and out. If it is false, then only transfers out have to be</p><p>signed by it. When the account is created, the payer account is charged enough hbars so that the</p><p>new account will not expire for the next autoRenewPeriod seconds. When it reaches the expiration</p><p>time, the new account will then be automatically charged to renew for another autoRenewPeriod</p><p>seconds. If it does not have enough hbars to renew for that long, then the remaining hbars are</p><p>used to extend its expiration as long as possible. If it is has a zero balance when it expires,</p><p>then it is deleted. This transaction must be signed by the payer account. If receiverSigRequired</p><p>is false, then the transaction does not have to be signed by the keys in the keys field. If it is</p><p>true, then it must be signed by them, in addition to the keys of the payer account. If the </p><p>auto_renew_account field is set, the key of the referenced account must sign.</p><p>An entity (account, file, or smart contract instance) must be created in a particular realm. If</p><p>the realmID is left null, then a new realm will be created with the given admin key. If a new</p><p>realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an</p><p>admin key is given, then any transaction to create/modify/delete an entity in that realm must be</p><p>signed by that key, though anyone can still call functions on smart contract instances that exist</p><p>in that realm. A realm ceases to exist when everything within it has expired and no longer</p><p>exists.</p><p>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0</p><p>and realm 0, with a null key. Future versions of the API will support multiple realms and</p><p>multiple shards.</p>
 
         
           <table class="field-table">
@@ -6664,6 +6732,38 @@ and up to a maximum value of 1000. </p></td>
                   <td><a href="#bool">bool</a></td>
                   <td></td>
                   <td><p>If true, the account declines receiving a staking reward. The default value is false. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>alias</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>The bytes to be used as the account&#39;s alias. It will be the
+serialization of a protobuf Key message for an ED25519/ECDSA_SECP256K1 primitive key type. Currently only primitive key bytes are
+supported as the key for an account with an alias. ThresholdKey, KeyList, ContractID, and
+delegatable_contract_id are not supported.
+
+A given alias can map to at most one account on the network at a time. This uniqueness will be enforced
+relative to aliases currently on the network at alias assignment.
+
+If a transaction creates an account using an alias, any further crypto transfers to that alias will 
+simply be deposited in that account, without creating anything, and with no creation fee being charged. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>auto_renew_account</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>An account to charge for auto-renewal of this account . If not set, or set to an
+account with zero hbar balance, the account&#39;s own hbar balance will be used to
+cover auto-renewal fees. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>evm_address</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>EOA 20-byte address to create that is derived from the keccak-256 hash of a ECDSA_SECP256K1 primitive key. </p></td>
                 </tr>
               
             </tbody>
@@ -7327,6 +7427,22 @@ efficient for users to consult mirror nodes to review their token associations. 
                   <td><p>Staking metadata for this account. </p></td>
                 </tr>
               
+                <tr>
+                  <td>auto_renew_account</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>If present, the account that will be charged for auto-renewal of this account. If not set, 
+or set to an account with zero hbar balance, the account&#39;s own hbar balance will be used to
+cover auto-renewal fees. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>virtual_addresses</td>
+                  <td><a href="#proto.VirtualAddress">VirtualAddress</a></td>
+                  <td>repeated</td>
+                  <td><p>List of virtual addresses each of which is an EVM address that maps to an ECDSA key pair a user must prove ownership of. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -7800,7 +7916,7 @@ INSUFFICIENT_PAYER_BALANCE_FOR_CUSTOM_FEE if this is not possible </p></td>
 
       
         <h3 id="proto.CryptoUpdateTransactionBody">CryptoUpdateTransactionBody</h3>
-        <p>Change properties for the given account. Any null field is ignored (left unchanged). This</p><p>transaction must be signed by the existing key for this account. If the transaction is changing</p><p>the key field, then the transaction must be signed by both the old key (from before the change)</p><p>and the new key. The old key must sign for security. The new key must sign as a safeguard to</p><p>avoid accidentally changing to an invalid key, and then having no way to recover.</p>
+        <p>Change properties for the given account. Any null field is ignored (left unchanged). This</p><p>transaction must be signed by the existing key for this account. If the transaction is changing</p><p>the key field, then the transaction must be signed by both the old key (from before the change)</p><p>and the new key. The old key must sign for security. The new key must sign as a safeguard to</p><p>avoid accidentally changing to an invalid key, and then having no way to recover. </p><p>If the update transaction sets the <tt>auto_renew_account</tt> field to anything other </p><p>than the sentinel <tt>0.0.0</tt>, the key of the referenced account must sign.</p>
 
         
           <table class="field-table">
@@ -7943,6 +8059,28 @@ removes this account&#39;s staked node ID. </p></td>
                   <td><a href="#google.protobuf.BoolValue">google.protobuf.BoolValue</a></td>
                   <td></td>
                   <td><p>If true, the account declines receiving a staking reward. The default value is false. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>auto_renew_account</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>If set to the sentinel &lt;tt&gt;0.0.0&lt;/tt&gt; AccountID, this field removes the account&#39;s auto-renew 
+account. Otherwise it updates the account&#39;s auto-renew account to the referenced account. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>add</td>
+                  <td><a href="#proto.VirtualAddress">VirtualAddress</a></td>
+                  <td></td>
+                  <td><p>The virtual address to be added. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>remove</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>The 20-byte EVM address of the virtual address that is being removed. </p></td>
                 </tr>
               
             </tbody>
@@ -8100,6 +8238,16 @@ removes this account&#39;s staked node ID. </p></td>
                   <td><p>The account to receive the custom fee </p></td>
                 </tr>
               
+                <tr>
+                  <td>all_collectors_are_exempt</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>If true, exempts all the token&#39;s fee collection accounts from this fee.
+(The token&#39;s treasury and the above fee_collector_account_id will always
+be exempt. Please see &lt;a href=&#34;https://hips.hedera.com/hip/hip-573&#34;&gt;HIP-573&lt;/a&gt; 
+for details.) </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -8187,7 +8335,7 @@ the full amount, but only what is left over after paying the fractional fee </p>
         
       
         <h3 id="proto.RoyaltyFee">RoyaltyFee</h3>
-        <p>A fee to assess during a CryptoTransfer that changes ownership of an NFT. Defines the fraction of</p><p>the fungible value exchanged for an NFT that the ledger should collect as a royalty. ("Fungible</p><p>value" includes both ℏ and units of fungible HTS tokens.) When the NFT sender does not receive</p><p>any fungible value, the ledger will assess the fallback fee, if present, to the new NFT owner.</p><p>Royalty fees can only be added to tokens of type type NON_FUNGIBLE_UNIQUE.</p>
+        <p>A fee to assess during a CryptoTransfer that changes ownership of an NFT. Defines the fraction of</p><p>the fungible value exchanged for an NFT that the ledger should collect as a royalty. ("Fungible</p><p>value" includes both ℏ and units of fungible HTS tokens.) When the NFT sender does not receive</p><p>any fungible value, the ledger will assess the fallback fee, if present, to the new NFT owner.</p><p>Royalty fees can only be added to tokens of type type NON_FUNGIBLE_UNIQUE.</p><p>**IMPORTANT:** Users must understand that native royalty fees are _strictly_ a convenience feature, </p><p>and that the network cannot enforce inescapable royalties on the exchange of a non-fractional NFT. </p><p>For example, if the counterparties agree to split their value transfer and NFT exchange into separate </p><p>transactions, the network cannot possibly intervene. (And note the counterparties could use a smart </p><p>contract to make this split transaction atomic if they do not trust each other.)</p><p>Counterparties that _do_ wish to respect creator royalties should follow the pattern the network </p><p>recognizes: The NFT sender and receiver should both sign a single `CryptoTransfer` that credits </p><p>the sender with all the fungible value the receiver is exchanging for the NFT.</p><p>Similarly, a marketplace using an approved spender account for an escrow transaction should credit </p><p>the account selling the NFT in the same `CryptoTransfer` that deducts fungible value from the buying </p><p>account. </p><p>There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578)</p><p>that proposes to broaden the class of transactions for which the network automatically collects</p><p>royalties. If this interests or concerns you, please add your voice to that discussion.</p>
 
         
           <table class="field-table">
@@ -8467,7 +8615,7 @@ the entire fee. </p></td>
 
       
         <h3 id="proto.FileCreateTransactionBody">FileCreateTransactionBody</h3>
-        <p>Create a new file, containing the given contents.</p><p>After the file is created, the FileID for it can be found in the receipt, or record, or retrieved</p><p>with a GetByKey query.</p><p>The file contains the specified contents (possibly empty). The file will automatically disappear</p><p>at the expirationTime, unless its expiration is extended by another transaction before that time.</p><p>If the file is deleted, then its contents will become empty and it will be marked as deleted</p><p>until it expires, and then it will cease to exist.</p><p>The keys field is a list of keys. All keys within the top-level key list must sign (M-M) to</p><p>create or modify a file. However, to delete the file, only one key (1-M) is required to sign from</p><p>the top-level key list.  Each of those "keys" may itself be threshold key containing other keys</p><p>(including other threshold keys). In other words, the behavior is an AND for create/modify, OR</p><p>for delete. This is useful for acting as a revocation server. If it is desired to have the</p><p>behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single</p><p>Key, which is a threshold key, with N=1 for OR, N=M for AND.</p><p>If a file is created without ANY keys in the keys field, the file is immutable and ONLY the</p><p>expirationTime of the file can be changed with a FileUpdate transaction. The file contents or its</p><p>keys cannot be changed.</p><p>An entity (account, file, or smart contract instance) must be created in a particular realm. If</p><p>the realmID is left null, then a new realm will be created with the given admin key. If a new</p><p>realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an</p><p>admin key is given, then any transaction to create/modify/delete an entity in that realm must be</p><p>signed by that key, though anyone can still call functions on smart contract instances that exist</p><p>in that realm. A realm ceases to exist when everything within it has expired and no longer</p><p>exists.</p><p>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0</p><p>and realm 0, with a null key. Future versions of the API will support multiple realms and</p><p>multiple shards.</p>
+        <p>Create a new file, containing the given contents.</p><p>After the file is created, the FileID for it can be found in the receipt, or record, or retrieved</p><p>with a GetByKey query.</p><p>The file contains the specified contents (possibly empty). The file will automatically disappear</p><p>at the expirationTime, unless its expiration is extended by another transaction before that time.</p><p>If the file is deleted, then its contents will become empty and it will be marked as deleted</p><p>until it expires, and then it will cease to exist.</p><p>The keys field is a list of keys. All keys within the top-level key list must sign (M-M) to</p><p>create or modify a file. However, to delete the file, only one key (1-M) is required to sign from</p><p>the top-level key list.  Each of those "keys" may itself be threshold key containing other keys</p><p>(including other threshold keys). In other words, the behavior is an AND for create/modify, OR</p><p>for delete. This is useful for acting as a revocation server. If it is desired to have the</p><p>behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single</p><p>Key, which is a threshold key, with N=1 for OR, N=M for AND. If the auto_renew_account field </p><p>is set, the key of the referenced account must sign.</p><p>If a file is created without ANY keys in the keys field, the file is immutable and ONLY the</p><p>expirationTime of the file can be changed with a FileUpdate transaction. The file contents or its</p><p>keys cannot be changed.</p><p>An entity (account, file, or smart contract instance) must be created in a particular realm. If</p><p>the realmID is left null, then a new realm will be created with the given admin key. If a new</p><p>realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an</p><p>admin key is given, then any transaction to create/modify/delete an entity in that realm must be</p><p>signed by that key, though anyone can still call functions on smart contract instances that exist</p><p>in that realm. A realm ceases to exist when everything within it has expired and no longer</p><p>exists.</p><p>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0</p><p>and realm 0, with a null key. Future versions of the API will support multiple realms and</p><p>multiple shards.</p>
 
         
           <table class="field-table">
@@ -8525,6 +8673,27 @@ the keys at the top level key list can sign to delete the file. </p></td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p>The memo associated with the file (UTF-8 encoding max 100 bytes) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>auto_renew_account</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>An account to charge for auto-renewal of this file. If not set, or set to an
+account with zero hbar balance, the file&#39;s expiration must be manually extended
+using a FileUpdate transaction, since the network will not have authorization
+for any kind of auto-renewal fee collection. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>auto_renew_period</td>
+                  <td><a href="#proto.Duration">Duration</a></td>
+                  <td></td>
+                  <td><p>If an auto-renew account is in use, the lifetime to be added by each
+auto-renewal. When both auto-renew account and auto-renew period are
+set in the create transaction, the initial expiry of the file will be 
+the valid start of the create transaction plus the auto-renew period. 
+(I.e., the expirationTime field will be ignored.) </p></td>
                 </tr>
               
             </tbody>
@@ -8818,6 +8987,20 @@ or both, or neither </p></td>
                   <td><p>The ledger ID the response was returned from; please see &lt;a href=&#34;https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md&#34;&gt;HIP-198&lt;/a&gt; for the network-specific IDs. </p></td>
                 </tr>
               
+                <tr>
+                  <td>auto_renew_account</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>If set, the account that is used to pay for auto-renewal of the file. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>auto_renew_period</td>
+                  <td><a href="#proto.Duration">Duration</a></td>
+                  <td></td>
+                  <td><p>If an auto-renew account is in use, the added lifetime (in seconds) of each auto-renewal. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -8922,7 +9105,7 @@ or both, or neither </p></td>
 
       
         <h3 id="proto.FileUpdateTransactionBody">FileUpdateTransactionBody</h3>
-        <p>Modify the metadata and/or contents of a file. If a field is not set in the transaction body, the</p><p>corresponding file attribute will be unchanged. This transaction must be signed by all the keys</p><p>in the top level of a key list (M-of-M) of the file being updated. If the keys themselves are</p><p>being updated, then the transaction must also be signed by all the new keys. If the keys contain</p><p>additional KeyList or ThresholdKey then M-of-M secondary KeyList or ThresholdKey signing</p><p>requirements must be meet</p>
+        <p>Modify the metadata and/or contents of a file. If a field is not set in the transaction body, the</p><p>corresponding file attribute will be unchanged. This transaction must be signed by all the keys</p><p>in the top level of a key list (M-of-M) of the file being updated. If the keys themselves are</p><p>being updated, then the transaction must also be signed by all the new keys. If the keys contain</p><p>additional KeyList or ThresholdKey then M-of-M secondary KeyList or ThresholdKey signing</p><p>requirements must be meet If the update transaction sets the <tt>auto_renew_account_id</tt> field </p><p>to anything other than the sentinel <tt>0.0.0</tt>, the key of the referenced account must sign.</p>
 
         
           <table class="field-table">
@@ -8964,6 +9147,21 @@ or both, or neither </p></td>
                   <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
                   <td></td>
                   <td><p>If set, the new memo to be associated with the file (UTF-8 encoding max 100 bytes) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>auto_renew_account</td>
+                  <td><a href="#proto.AccountID">AccountID</a></td>
+                  <td></td>
+                  <td><p>If set to the sentinel &lt;tt&gt;0.0.0&lt;/tt&gt; AccountID, this field removes the file&#39;s auto-renew 
+account. Otherwise it updates the file&#39;s auto-renew account to the referenced account. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>auto_renew_period</td>
+                  <td><a href="#proto.Duration">Duration</a></td>
+                  <td></td>
+                  <td><p>If an auto-renew account is in use, the lifetime to be added by each auto-renewal. </p></td>
                 </tr>
               
             </tbody>
@@ -10168,6 +10366,54 @@ treated as UTC calendar days, rather than repeating 1440 minute periods left-ali
 
       
 
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="pbj_custom_options.proto">pbj_custom_options.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+
+      
+
+      
+        <h3 id="pbj_custom_options.proto-extensions">File-level Extensions</h3>
+        <table class="extension-table">
+          <thead>
+            <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>enum_java_package</td>
+                <td><a href="#string">string</a></td>
+                <td><a href="#google.protobuf.EnumOptions">.google.protobuf.EnumOptions</a></td>
+                <td>69879</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>java_package</td>
+                <td><a href="#string">string</a></td>
+                <td><a href="#google.protobuf.FileOptions">.google.protobuf.FileOptions</a></td>
+                <td>69877</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>message_java_package</td>
+                <td><a href="#string">string</a></td>
+                <td><a href="#google.protobuf.MessageOptions">.google.protobuf.MessageOptions</a></td>
+                <td>69878</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
       
 
       
@@ -11428,7 +11674,7 @@ ii) A/c 0.0.56 - Update Fee schedule (0.0.111), iii) A/c 0.0.57 - Update Exchang
               <tr>
                 <td>INVALID_ADMIN_KEY</td>
                 <td>155</td>
-                <td><p>A provided admin key was invalid.</p></td>
+                <td><p>A provided admin key was invalid. Verify the bytes for an Ed25519 public key are exactly 32 bytes; and the bytes for a compressed ECDSA(secp256k1) key are exactly 33 bytes, with the first byte either 0x02 or 0x03..</p></td>
               </tr>
             
               <tr>
@@ -12469,6 +12715,40 @@ no auto-renew account.</p></td>
                 <td>INVALID_FULL_PREFIX_SIGNATURE_FOR_PRECOMPILE</td>
                 <td>326</td>
                 <td><p>The full prefix signature for precompile is not valid</p></td>
+              </tr>
+            
+              <tr>
+                <td>INSUFFICIENT_BALANCES_FOR_STORAGE_RENT</td>
+                <td>327</td>
+                <td><p>The combined balances of a contract and its auto-renew account (if any) did not cover
+the rent charged for net new storage used in a transaction.</p></td>
+              </tr>
+            
+              <tr>
+                <td>MAX_CHILD_RECORDS_EXCEEDED</td>
+                <td>328</td>
+                <td><p>A contract transaction tried to use more than the allowed number of child records, via
+either system contract records or internal contract creations.</p></td>
+              </tr>
+            
+              <tr>
+                <td>INSUFFICIENT_BALANCES_FOR_RENEWAL_FEES</td>
+                <td>329</td>
+                <td><p>The combined balances of a contract and its auto-renew account (if any) or balance of an account did not cover
+the auto-renewal fees in a transaction.</p></td>
+              </tr>
+            
+              <tr>
+                <td>TRANSACTION_HAS_UNKNOWN_FIELDS</td>
+                <td>330</td>
+                <td><p>A transaction&#39;s protobuf message includes unknown fields; could mean that a client 
+expects not-yet-released functionality to be available.</p></td>
+              </tr>
+            
+              <tr>
+                <td>ACCOUNT_IS_IMMUTABLE</td>
+                <td>331</td>
+                <td><p>The account cannot be modified. Account&#39;s key is not set</p></td>
               </tr>
             
           </tbody>
@@ -13739,7 +14019,7 @@ token type </p></td>
 
       
         <h3 id="proto.TokenBurnTransactionBody">TokenBurnTransactionBody</h3>
-        <p>Burns tokens from the Token's treasury Account. If no Supply Key is defined, the transaction will</p><p>resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation decreases the Total Supply of the Token. Total supply cannot go below zero.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to burn 100 tokens, one must provide amount of 10000. In order</p><p>to burn 100.55 tokens, one must provide amount of 10055.</p><p>For non fungible tokens the transaction body accepts serialNumbers list of integers as a parameter.</p><p>If neither the amount nor the serialNumbers get filled, a INVALID_TOKEN_BURN_AMOUNT response code</p><p>will be returned.</p><p>If both amount and serialNumbers get filled, a INVALID_TRANSACTION_BODY response code will be</p><p>returned.</p><p>If the serialNumbers' list count is greater than the batch size limit global dynamic property, a</p><p>BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p><p>If the serialNumbers list contains a non-positive integer as a serial number, a INVALID_NFT_ID</p><p>response code will be returned.</p>
+        <p>Burns tokens from the Token's treasury Account. If no Supply Key is defined, the transaction will</p><p>resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation decreases the Total Supply of the Token. Total supply cannot go below zero.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to burn 100 tokens, one must provide amount of 10000. In order</p><p>to burn 100.55 tokens, one must provide amount of 10055.</p><p>For non fungible tokens the transaction body accepts serialNumbers list of integers as a parameter.</p><p>If the serialNumbers don't get filled for non-fungible token type, a INVALID_TOKEN_BURN_AMOUNT response</p><p>code will be returned.</p><p>If a zero amount is provided for a fungible token type, it will be treated as a regular transaction.</p><p>If both amount and serialNumbers get filled, a INVALID_TRANSACTION_BODY response code will be</p><p>returned.</p><p>If the serialNumbers' list count is greater than the batch size limit global dynamic property, a</p><p>BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p><p>If the serialNumbers list contains a non-positive integer as a serial number, a INVALID_NFT_ID</p><p>response code will be returned.</p>
 
         
           <table class="field-table">
@@ -14870,7 +15150,7 @@ results in INVALID_TOKEN_ID </p></td>
 
       
         <h3 id="proto.TokenMintTransactionBody">TokenMintTransactionBody</h3>
-        <p>Mints tokens to the Token's treasury Account. If no Supply Key is defined, the transaction will</p><p>resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation increases the Total Supply of the Token. The maximum total supply a token can have</p><p>is 2^63-1.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to mint 100 tokens, one must provide amount of 10000. In order</p><p>to mint 100.55 tokens, one must provide amount of 10055.</p><p>If both amount and metadata list get filled, a INVALID_TRANSACTION_BODY response code will be</p><p>returned.</p><p>If the metadata list contains metadata which is too large, a METADATA_TOO_LONG response code will</p><p>be returned.</p><p>If neither the amount nor the metadata list get filled, a INVALID_TOKEN_MINT_AMOUNT response code</p><p>will be returned.</p><p>If the metadata list count is greater than the batch size limit global dynamic property, a</p><p>BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p>
+        <p>Mints tokens to the Token's treasury Account. If no Supply Key is defined, the transaction will</p><p>resolve to TOKEN_HAS_NO_SUPPLY_KEY.</p><p>The operation increases the Total Supply of the Token. The maximum total supply a token can have</p><p>is 2^63-1.</p><p>The amount provided must be in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to mint 100 tokens, one must provide amount of 10000. In order</p><p>to mint 100.55 tokens, one must provide amount of 10055.</p><p>If both amount and metadata list get filled, a INVALID_TRANSACTION_BODY response code will be</p><p>returned.</p><p>If the metadata list contains metadata which is too large, a METADATA_TOO_LONG response code will</p><p>be returned.</p><p>If the metadata list is not filled for a non-fungible token type, a INVALID_TOKEN_MINT_AMOUNT response</p><p>code will be returned.</p><p>If a zero amount is provided for a fungible token type, it will be treated as a regular transaction.</p><p>If the metadata list count is greater than the batch size limit global dynamic property, a</p><p>BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p>
 
         
           <table class="field-table">
@@ -15430,7 +15710,7 @@ transaction will resolve to TOKEN_HAS_NO_PAUSE_KEY </p></td>
 
       
         <h3 id="proto.TokenWipeAccountTransactionBody">TokenWipeAccountTransactionBody</h3>
-        <p>Wipes the provided amount of tokens from the specified Account. Must be signed by the Token's</p><p>Wipe key.</p><p>If the provided account is not found, the transaction will resolve to INVALID_ACCOUNT_ID.</p><p>If the provided account has been deleted, the transaction will resolve to ACCOUNT_DELETED.</p><p>If the provided token is not found, the transaction will resolve to INVALID_TOKEN_ID.</p><p>If the provided token has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If an Association between the provided token and account is not found, the transaction will</p><p>resolve to TOKEN_NOT_ASSOCIATED_TO_ACCOUNT.</p><p>If Wipe Key is not present in the Token, transaction results in TOKEN_HAS_NO_WIPE_KEY.</p><p>If the provided account is the Token's Treasury Account, transaction results in</p><p>CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT</p><p>On success, tokens are removed from the account and the total supply of the token is decreased by</p><p>the wiped amount.</p><p>If both amount and serialNumbers get filled, a INVALID_TRANSACTION_BODY response code will be</p><p>returned.</p><p>If neither the amount nor the serialNumbers get filled, a INVALID_WIPING_AMOUNT response code</p><p>will be returned.</p><p>If the serialNumbers list contains a non-positive integer as a serial number, a INVALID_NFT_ID</p><p>response code will be returned.</p><p>If the serialNumbers' list count is greater than the batch size limit global dynamic property, a</p><p>BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p><p>The amount provided is in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to wipe 100 tokens from account, one must provide amount of</p><p>10000. In order to wipe 100.55 tokens, one must provide amount of 10055.</p>
+        <p>Wipes the provided amount of tokens from the specified Account. Must be signed by the Token's</p><p>Wipe key.</p><p>If the provided account is not found, the transaction will resolve to INVALID_ACCOUNT_ID.</p><p>If the provided account has been deleted, the transaction will resolve to ACCOUNT_DELETED.</p><p>If the provided token is not found, the transaction will resolve to INVALID_TOKEN_ID.</p><p>If the provided token has been deleted, the transaction will resolve to TOKEN_WAS_DELETED.</p><p>If an Association between the provided token and account is not found, the transaction will</p><p>resolve to TOKEN_NOT_ASSOCIATED_TO_ACCOUNT.</p><p>If Wipe Key is not present in the Token, transaction results in TOKEN_HAS_NO_WIPE_KEY.</p><p>If the provided account is the Token's Treasury Account, transaction results in</p><p>CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT</p><p>On success, tokens are removed from the account and the total supply of the token is decreased by</p><p>the wiped amount.</p><p>If both amount and serialNumbers get filled, a INVALID_TRANSACTION_BODY response code will be</p><p>returned.</p><p>If the serialNumbers don't get filled for a non-fungible token type, a INVALID_WIPING_AMOUNT response</p><p>code will be returned.</p><p>If a zero amount is provided for a fungible token type, it will be treated as a regular transaction.</p><p>If the serialNumbers list contains a non-positive integer as a serial number, a INVALID_NFT_ID</p><p>response code will be returned.</p><p>If the serialNumbers' list count is greater than the batch size limit global dynamic property, a</p><p>BATCH_SIZE_LIMIT_EXCEEDED response code will be returned.</p><p>The amount provided is in the lowest denomination possible. Example:</p><p>Token A has 2 decimals. In order to wipe 100 tokens from account, one must provide amount of</p><p>10000. In order to wipe 100.55 tokens, one must provide amount of 10055.</p>
 
         
           <table class="field-table">
@@ -16671,8 +16951,8 @@ transaction that spawned it. </p></td>
                   <td>alias</td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
-                  <td><p>In the record of an internal CryptoCreate transaction triggered by a user 
-transaction with a (previously unused) alias, the new account&#39;s alias. </p></td>
+                  <td><p>In the record of a CryptoCreate transaction triggered by a user transaction with a
+(previously unused) alias, the new account&#39;s alias. </p></td>
                 </tr>
               
                 <tr>
@@ -16702,6 +16982,14 @@ EthereumTransaction. </p></td>
                   <td><a href="#int32">int32</a></td>
                   <td></td>
                   <td><p>In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit string. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>evm_address</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>The new default EVM address of the account created by this transaction.
+This field is populated only when the EVM address is not specified in the related transaction body. </p></td>
                 </tr>
               
             </tbody>

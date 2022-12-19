@@ -23,6 +23,9 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
+
+import "pbj_custom_options.proto";
+option (pbj.java_package) = "com.hedera.hapi.node.scheduled";
 option java_multiple_files = true;
 
 import "system_delete.proto";

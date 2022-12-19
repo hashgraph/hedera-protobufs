@@ -23,6 +23,9 @@ package proto;
  */
 
 option java_package = "com.hedera.services.stream.proto";
+
+import "pbj_custom_options.proto";
+option (pbj.java_package) = "com.hedera.hapi.streams";
 option java_multiple_files = true;
 
 import "basic_types.proto";
@@ -62,6 +65,48 @@ enum ContractActionType {
    * Call, but to system contract like HTS or ERC20 facades over Token accounts
    */
   SYSTEM = 4;
+}
+
+/**
+ * The specific operation type of a call. The OP prefix has been added to avoid name collisions for
+ * the CALL and CREATE operation types since both ContractActionType and CallOperationType enums are
+ * used in ContractAction
+ */
+enum CallOperationType {
+  /**
+   * default operation type is UNKNOWN
+   */
+  OP_UNKNOWN = 0;
+
+  /**
+   * CALL operation type.
+   */
+  OP_CALL = 1;
+
+  /**
+   * CALLCODE operation type
+   */
+  OP_CALLCODE = 2;
+
+  /**
+   * DELEGATECALL operation type
+   */
+  OP_DELEGATECALL = 3;
+
+  /**
+   * STATICCALL operation type
+   */
+  OP_STATICCALL = 4;
+
+  /**
+   * CREATE operation type
+   */
+  OP_CREATE = 5;
+
+  /**
+   * CREATE2 operation type
+   */
+  OP_CREATE2 = 6;
 }
 
 /**
@@ -117,9 +162,13 @@ message ContractAction {
     ContractID recipient_contract = 7;
 
     /**
-     * If the action was directed at an invalid solidity address, what that address was.
+     * The bytes of the targeted by the action address.
+     * Only set on failed executions. If set, denotes that the address did not
+     * correspond to any account or contract at the time of finalization of
+     * this action.
+     * An example would be a failed lazy create as per HIP-583.
      */
-    bytes invalid_solidity_address = 8;
+    bytes targeted_address = 8;
   }
 
   /**
@@ -157,4 +206,9 @@ message ContractAction {
    * The nesting depth of this call. The original action is at depth=0.
    */
   int32 call_depth = 14;
+
+  /**
+   * The call operation type
+   */
+  CallOperationType call_operation_type = 15;
 }

@@ -23,6 +23,9 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
+
+import "pbj_custom_options.proto";
+option (pbj.java_package) = "com.hedera.hapi.node.base";
 option java_multiple_files = true;
 
 /**
@@ -616,7 +619,7 @@ enum ResponseCodeEnum {
   INVALID_TOPIC_ID = 150;
 
   /**
-   * A provided admin key was invalid.
+   * A provided admin key was invalid. Verify the bytes for an Ed25519 public key are exactly 32 bytes; and the bytes for a compressed ECDSA(secp256k1) key are exactly 33 bytes, with the first byte either 0x02 or 0x03..
    */
   INVALID_ADMIN_KEY = 155;
 
@@ -1335,7 +1338,36 @@ enum ResponseCodeEnum {
   MAX_ENTITIES_IN_PRICE_REGIME_HAVE_BEEN_CREATED = 325;
 
   /**
- * The full prefix signature for precompile is not valid
- */
+  * The full prefix signature for precompile is not valid
+  */
   INVALID_FULL_PREFIX_SIGNATURE_FOR_PRECOMPILE = 326;
+
+  /**
+  * The combined balances of a contract and its auto-renew account (if any) did not cover
+  * the rent charged for net new storage used in a transaction.
+  */
+  INSUFFICIENT_BALANCES_FOR_STORAGE_RENT = 327;
+
+  /**
+  * A contract transaction tried to use more than the allowed number of child records, via
+  * either system contract records or internal contract creations.
+  */
+  MAX_CHILD_RECORDS_EXCEEDED = 328;
+
+  /**
+  * The combined balances of a contract and its auto-renew account (if any) or balance of an account did not cover
+  * the auto-renewal fees in a transaction.
+  */
+  INSUFFICIENT_BALANCES_FOR_RENEWAL_FEES = 329;
+
+  /**
+  * A transaction's protobuf message includes unknown fields; could mean that a client 
+  * expects not-yet-released functionality to be available.
+  */
+  TRANSACTION_HAS_UNKNOWN_FIELDS = 330;
+
+  /**
+   * The account cannot be modified. Account's key is not set
+   */
+  ACCOUNT_IS_IMMUTABLE = 331;
 }

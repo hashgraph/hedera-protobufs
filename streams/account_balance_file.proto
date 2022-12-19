@@ -23,6 +23,9 @@ package proto;
  */
 
 option java_package = "com.hedera.services.stream.proto";
+
+import "pbj_custom_options.proto";
+option (pbj.java_package) = "com.hedera.hapi.streams";
 option java_multiple_files = true;
 
 import "basic_types.proto";
