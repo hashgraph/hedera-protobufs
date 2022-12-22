@@ -22,9 +22,7 @@ package proto;
  * ‍
  */
 option java_package = "com.hederahashgraph.service.proto.java";
-
-import "pbj_custom_options.proto";
-option (pbj.java_package) = "com.hedera.hapi.node.contract";
+// <<<pbj.java_package = "com.hedera.hapi.node.contract">>> This comment is special code for setting PBJ Compiler java package
 
 import "transaction_response.proto";
 import "query.proto";

@@ -54,8 +54,7 @@ Proto files in this repo are generated into two kinds of Java files, one using *
 [PBJ](https://github.com/hashgraph/pbj) a custom java code generation library for Hedera. To support PBJ all proto files
 need to have an option of the form:
 ```
-import "pbj_custom_options.proto";
-option (pbj.java_package) = "com.hedera.hapi.node.token";
+// <<<pbj.java_package = "com.hedera.hapi.node.token">>> This comment is special code for setting PBJ Compiler java package
 ```
 To specify the Java package for PBJ generated model objects. This option is ignored by **protoc**. PBJ ignores the default 
 option `option java_package = "com.hederahashgraph.api.proto.java";` which is used by **protoc** to generate Java files.

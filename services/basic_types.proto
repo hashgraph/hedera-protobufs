@@ -22,13 +22,11 @@ package proto;
  * ‍
  */
 
-import "pbj_custom_options.proto";
 import "timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
-
-option (pbj.java_package) = "com.hedera.hapi.node.base";
+// <<<pbj.java_package = "com.hedera.hapi.node.base">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 /**
