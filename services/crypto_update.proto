@@ -156,12 +156,6 @@ message CryptoUpdateTransactionBody {
      */
     google.protobuf.BoolValue decline_reward = 18;
 
-    /**
-     * If set to the sentinel <tt>0.0.0</tt> AccountID, this field removes the account's auto-renew 
-     * account. Otherwise it updates the account's auto-renew account to the referenced account.
-     */
-    AccountID auto_renew_account = 19;
-
     oneof virtual_address_update {
         /**
          * The virtual address to be added.
