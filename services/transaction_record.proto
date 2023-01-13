@@ -40,33 +40,45 @@ message TransactionRecord {
     /**
      * The status (reach consensus, or failed, or is unknown) and the ID of any new
      * account/file/instance created.
+     *
+     * <<<pbj.sub_interface = "Base">>>
      */
     TransactionReceipt receipt = 1;
 
     /**
      * The hash of the Transaction that executed (not the hash of any Transaction that failed for
      * having a duplicate TransactionID)
+     *
+     * <<<pbj.sub_interface = "Base">>>
      */
     bytes transactionHash = 2;
 
     /**
      * The consensus timestamp (or null if didn't reach consensus yet)
+     *
+     * <<<pbj.sub_interface = "Base">>>
      */
     Timestamp consensusTimestamp = 3;
 
     /**
      * The ID of the transaction this record represents
+     *
+     * <<<pbj.sub_interface = "Base">>>
      */
     TransactionID transactionID = 4;
 
     /**
      * The memo that was submitted as part of the transaction (max 100 bytes)
+     *
+     * <<<pbj.sub_interface = "Base">>>
      */
     string memo = 5;
 
     /**
      * The actual transaction fee charged, not the original transactionFee value from
      * TransactionBody
+     *
+     * <<<pbj.sub_interface = "Crypto">>>
      */
     uint64 transactionFee = 6;
 
@@ -74,12 +86,16 @@ message TransactionRecord {
         /**
          * Record of the value returned by the smart contract function (if it completed and didn't
          * fail) from ContractCallTransaction
+         *
+         * <<<pbj.sub_interface = "SmartContract">>>
          */
         ContractFunctionResult contractCallResult = 7;
 
         /**
          * Record of the value returned by the smart contract constructor (if it completed and
          * didn't fail) from ContractCreateTransaction
+         *
+         * <<<pbj.sub_interface = "SmartContract">>>
          */
         ContractFunctionResult contractCreateResult = 8;
     }
@@ -88,61 +104,83 @@ message TransactionRecord {
      * All hbar transfers as a result of this transaction, such as fees, or transfers performed by
      * the transaction, or by a smart contract it calls, or by the creation of threshold records
      * that it triggers.
+     *
+     * <<<pbj.sub_interface = "Crypto">>>
      */
     TransferList transferList = 10;
 
     /**
      * All Token transfers as a result of this transaction
+     *
+     * <<<pbj.sub_interface = "Token">>>
      */
     repeated TokenTransferList tokenTransferLists = 11;
 
     /**
      * Reference to the scheduled transaction ID that this transaction record represent
+     *
+     * <<<pbj.sub_interface = "Scheduled">>>
      */
     ScheduleID scheduleRef = 12;
 
     /**
      * All custom fees that were assessed during a CryptoTransfer, and must be paid if the
      * transaction status resolved to SUCCESS
+     *
+     * <<<pbj.sub_interface = "Token">>>
      */
     repeated AssessedCustomFee assessed_custom_fees = 13;
 
     /**
      * All token associations implicitly created while handling this transaction
+     *
+     * <<<pbj.sub_interface = "Token">>>
      */
     repeated TokenAssociation automatic_token_associations = 14;
 
     /**
      * In the record of an internal transaction, the consensus timestamp of the user
      * transaction that spawned it.
+     *
+     * <<<pbj.sub_interface = "Base">>>
      */
     Timestamp parent_consensus_timestamp = 15;
 
     /**
      * In the record of a CryptoCreate transaction triggered by a user transaction with a
-     * (previously unused) alias, the new account's alias. 
+     * (previously unused) alias, the new account's alias.
+     *
+     * <<<pbj.sub_interface = "Crypto">>>
      */
      bytes alias = 16;
 
     /**
      * The keccak256 hash of the ethereumData. This field will only be populated for 
      * EthereumTransaction.
+     *
+     * <<<pbj.sub_interface = "SmartContract">>>
      */
     bytes ethereum_hash = 17;
 
     /**
      * List of accounts with the corresponding staking rewards paid as a result of a transaction.
+     *
+     * <<<pbj.sub_interface = "Crypto">>>
      */
     repeated AccountAmount paid_staking_rewards = 18;
 
     oneof entropy {
         /**
          * In the record of a UtilPrng transaction with no output range, a pseudorandom 384-bit string.
+         *
+         * <<<pbj.sub_interface = "Prng">>>
          */
         bytes prng_bytes = 19;
 
         /**
          * In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit string.
+         *
+         * <<<pbj.sub_interface = "Prng">>>
          */
         int32 prng_number = 20;
     }
@@ -150,6 +188,8 @@ message TransactionRecord {
     /**
      * The new default EVM address of the account created by this transaction.
      * This field is populated only when the EVM address is not specified in the related transaction body.
+     *
+     * <<<pbj.sub_interface = "SmartContract">>>
      */
     bytes evm_address = 21;
 }
