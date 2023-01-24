@@ -60,4 +60,12 @@ message EthereumTransactionBody {
    * the entire fee.
    */
   int64 max_gas_allowance = 3;
+
+  /**
+   * The maximum amount, in tinybars, that the payer of the Hedera transaction
+   * is willing to pay to for any additional *non-gas* costs of the transaction.
+   *
+   * An example of such costs would be any hollow account creation fees.
+   */
+  int64 max_additional_costs_allowance = 4;
 }
