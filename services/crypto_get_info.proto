@@ -182,10 +182,22 @@ message CryptoGetInfoResponse {
          */
         StakingInfo staking_info = 22;
 
+        message VirtualAddressInfo {
+            /**
+             * A virtual address entry.
+             */
+            VirtualAddress virtual_address = 1;
+
+            /**
+             * The ethereum transaction nonce associated with this virtual address.
+             */
+            int64 nonce = 2;
+        }
+
         /**
-         * List of virtual addresses each of which is an EVM address that maps to an ECDSA key pair a user must prove ownership of.
+         * List of virtual addresses each of which is an EVM address that maps to an ECDSA key pair a user must prove ownership of and their corresponding nonce value.
          */
-        repeated VirtualAddress virtual_addresses = 24;
+        repeated VirtualAddressInfo virtual_addresses = 24;
     }
 
     /**
