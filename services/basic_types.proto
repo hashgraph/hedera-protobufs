@@ -1607,3 +1607,8 @@ message VirtualAddress {
      */
     bool is_default = 2;
 }
+
+message ContractNonceInfo {
+    ContractID contract_id = 1;
+    int64 nonce = 2;
+}
