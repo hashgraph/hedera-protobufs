@@ -194,7 +194,7 @@ message CryptoGetInfoResponse {
             bool is_default = 2;
 
             /**
-             * The ethereum transaction nonce associated with this virtual address.
+             * The EthereumTransaction type nonce associated with this virtual address.
              */
             int64 nonce = 3;
         }
