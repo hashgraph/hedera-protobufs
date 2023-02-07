@@ -182,10 +182,27 @@ message CryptoGetInfoResponse {
          */
         StakingInfo staking_info = 22;
 
+        message AliasInfo {
+            /**
+             * The alias
+             */
+            bytes alias = 1;
+
+            /**
+             * Flag if this alias should now be set or is the default alias on the account.
+             */
+            bool is_default = 2;
+
+            /**
+             * The EthereumTransaction type nonce associated with this alias.
+             */
+            int64 nonce = 3;
+        }
+
         /**
-         * List of virtual addresses each of which is an EVM address that maps to an ECDSA key pair a user must prove ownership of.
+         * List of alias information each of which is an EVM address that maps to an ECDSA key pair a user must prove ownership of.
          */
-        repeated VirtualAddress virtual_addresses = 24;
+        repeated AliasInfo alias_info = 24;
     }
 
     /**
