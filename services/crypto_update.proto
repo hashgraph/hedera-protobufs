@@ -155,11 +155,4 @@ message CryptoUpdateTransactionBody {
      * If true, the account declines receiving a staking reward. The default value is false.
      */
     google.protobuf.BoolValue decline_reward = 18;
-
-    oneof alias_update {
-        /**
-         * The alias to be added.
-         */
-        bytes add = 20;
-    }
 }
