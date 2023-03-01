@@ -35,7 +35,8 @@ message Topic {
     int64 auto_renew_period = 4;
     int64 auto_renew_account_number = 5;
     bool deleted = 6;
-    string memo = 7;
-    Key admin_key = 8;
-    Key submit_key = 9;
+    bytes running_hash = 7;
+    string memo = 8;
+    Key admin_key = 9;
+    Key submit_key = 10;
 }
