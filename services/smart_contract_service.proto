@@ -30,7 +30,7 @@ import "response.proto";
 import "transaction.proto";
 
 /**
- * Transactions and queries for the file service. 
+ * Transactions and queries for the smart contract service. 
  */
 service SmartContractService {
     /**
