@@ -40,7 +40,7 @@ service TokenService {
     rpc createToken (Transaction) returns (TransactionResponse);
 
     /**
-     * Updates the account by submitting the transaction
+     * Updates the token by submitting the transaction
      */
     rpc updateToken (Transaction) returns (TransactionResponse);
 
