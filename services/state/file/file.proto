@@ -31,8 +31,9 @@ option java_multiple_files = true;
 
 message File {
     int64 file_number = 1;
-    Timestamp expiration_time = 2;
+    int64 expiration_time = 2;
     KeyList keys = 3;
     bytes contents = 4;
     string memo = 5;
+    bool deleted = 6;
 }
