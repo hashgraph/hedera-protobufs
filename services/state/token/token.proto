@@ -28,7 +28,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
-message Account {
+message Token {
     int64 tokenNum = 1;
     string name = 2;
     string symbol = 3;
