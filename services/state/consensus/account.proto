@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+import "basic_types.proto";
+
+option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+message Account {
+    int64 accountNumber = 1;
+    bytes alias = 2;
+    Key key = 3;
+    int64 expiry = 4;
+    int64 balance = 5;
+    string memo = 6;
+    bool deleted = 7;
+    bool smart_contract = 8;
+    bool receiver_sig_required = 9;
+    int64 num_owned_nfts = 10;
+    int32 max_auto_associations = 11;
+    int32 used_auto_associations = 12;
+    int32 num_associations = 13;
+    int32 num_positive_balances = 14;
+    int64 ethereum_nonce = 15;
+    int64 staked_to_me = 16;
+    int64 stake_period_start = 17;
+    int64 staked_num = 18;
+    bool decline_reward = 19;
+    int64 stake_at_start_of_last_rewarded_period = 20;
+    int64 autoR_renew_account_number = 21;
+    int64 auto_renew_secs = 22;
+}

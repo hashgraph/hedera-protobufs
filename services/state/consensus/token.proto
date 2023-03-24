@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+import "basic_types.proto";
+
+option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+message Account {
+    int64 tokenNum = 1;
+    string name = 2;
+    string symbol = 3;
+    uint32 decimals = 4;
+    uint64 totalSupply = 5;
+    int64 treasury_account_number = 6;
+    Key admin_key = 7;
+    Key kyc_key = 8;
+    Key freeze_key = 9;
+    Key wipe_key = 10;
+    Key supply_key = 11;
+    Key fee_schedule_key = 12;
+    Key pause_key = 13;
+    bool hasRoyaltyWithFallback = 14;
+    bool deleted = 15;
+    int64 auto_renew_account_number = 16;
+    int64 auto_renew_secs = 17;
+    int64 expiry = 18;
+    string memo = 19;
+    int64 max_supply = 20;
+    bool paused = 21;
+    bool accounts_frozen_by_default = 22;
+    bool accounts_kyc_granted_by_default = 23;
+    TokenType tokenType = 24;
+    TokenSupplyType supplyType = 25;
+    repeated CustomFee custom_fees = 26;
+}
