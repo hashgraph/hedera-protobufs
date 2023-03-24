@@ -23,37 +23,21 @@ package proto;
  */
 
 import "basic_types.proto";
-import "custom_fees.proto";
+import "state/token/account.proto";
+import "state/token/token.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
-message Token {
-    int64 tokenNum = 1;
-    string name = 2;
-    string symbol = 3;
-    int32 decimals = 4;
-    int64 totalSupply = 5;
-    int64 treasury_account_number = 6;
-    Key admin_key = 7;
-    Key kyc_key = 8;
-    Key freeze_key = 9;
-    Key wipe_key = 10;
-    Key supply_key = 11;
-    Key fee_schedule_key = 12;
-    Key pause_key = 13;
-    bool hasRoyaltyWithFallback = 14;
-    bool deleted = 15;
-    int64 auto_renew_account_number = 16;
-    int64 auto_renew_secs = 17;
-    int64 expiry = 18;
-    string memo = 19;
-    int64 max_supply = 20;
-    bool paused = 21;
-    bool accounts_frozen_by_default = 22;
-    bool accounts_kyc_granted_by_default = 23;
-    TokenType tokenType = 24;
-    TokenSupplyType supplyType = 25;
-    repeated CustomFee custom_fees = 26;
+message TokenRelation {
+    Token token = 1;
+    Account account = 2;
+    int64 balance = 3;
+    bool frozen = 4;
+    bool kycGranted = 5;
+    bool deleted = 6;
+    bool notYetPersisted = 7;
+    bool automaticAssociation = 8;
+    bool fungibleBalanceChange = 9;
 }
