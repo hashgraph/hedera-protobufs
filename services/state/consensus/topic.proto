@@ -43,7 +43,7 @@ option java_multiple_files = true;
  *   has signed a transaction allowing the network to use its balance to automatically extend the topic's 
  *   expiration time when it passes.
  *   3. The number of seconds the network should automatically extend the topic's expiration by, if the 
- *   topic has a non-zero auto-renew account number and is not deleted upon expiration.
+ *   topic has a valid auto-renew account, and is not deleted upon expiration.
  *   4. A boolean marking if the topic has been deleted.
  *   5. A memo string whose UTF-8 encoding is at most 100 bytes.
  *   6. (Optional) An admin key whose signature must be active for the topic's metadata to be updated.
