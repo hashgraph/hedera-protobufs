@@ -28,27 +28,154 @@ option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+/**
+ * First-draft representation of a Hedera Token Service account entity in the network Merkle tree.
+ *
+ * As with all network entities, an account has a unique entity number, which is usually given along
+ * with the network's shard and realm in the form of a shard.realm.number id.
+ *
+ * An account consists of :
+ *   1. (Optional) The public key bytes to be used as the account's alias, if any.
+ *   2. (Optional) The key to be used to sign transactions from the account, if any.
+ *   3. The expiration time of the account, in seconds since the epoch.
+ *   4. The balance of the account, in tiny-bars.
+ *   5. (Optional) A memo to be stored with the account, if any.
+ *   6. A boolean marking if the account has been deleted.
+ *   7. A boolean marking if the account is a smart contract.
+ *   8. A boolean marking if the account requires a receiver signature.
+ *   9. The number of NFTs owned by the account.
+ *   10. The maximum number of tokens that can be auto-associated with the account.
+ *   11. The number of used auto-association slots.
+ *   12. The number of tokens associated with the account.
+ *   13. The number of tokens with a positive balance associated with the account.
+ *   14. The nonce of the account, used for Ethereum interoperability.
+ *   15. The amount of hbars staked to the account.
+ *   16. The start of the current stake period.
+ *   17. the node number or the account number this account is staked to.
+ *   18. A boolean marking if the account declines rewards.
+ *   19. The amount of hbars staked to the account at the start of the last rewarded period.
+ *   20. (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that
+ *   has signed a transaction allowing the network to use its balance to automatically extend the topic's
+ *   expiration time when it passes.
+ *   21. (Optional) The number of seconds the network should automatically extend the account's expiration by, if the
+ *   account has a valid auto-renew account, and is not deleted upon expiration.
+ */
+
 message Account {
+    /**
+     * The unique entity number of the account.
+     */
     int64 accountNumber = 1;
+    /**
+     * The public key bytes to be used as the account's alias, if any.
+     */
     bytes alias = 2;
+    /**
+     * The key to be used to sign transactions from the account, if any.
+     */
     Key key = 3;
+    /**
+     * The expiration time of the account, in seconds since the epoch.
+     */
     int64 expiry = 4;
-    int64 balance = 5;
+    /**
+     * The balance of the account, in tiny-bars.
+     */
+    int64 hbar_balance = 5;
+    /**
+     * An optional description of the topic with UTF-8 encoding up to 100 bytes.
+     */
     string memo = 6;
+    /**
+     * A boolean marking if the account has been deleted.
+     */
     bool deleted = 7;
+    /**
+     * A boolean marking if the account is a smart contract.
+     */
     bool smart_contract = 8;
+    /**
+     * A boolean marking if the account requires a receiver signature.
+     */
     bool receiver_sig_required = 9;
+    /**
+     * The number of NFTs owned by the account.
+     */
     int64 num_owned_nfts = 10;
+    /**
+     * The maximum number of tokens that can be auto-associated with the account.
+     */
     int32 max_auto_associations = 11;
+    /**
+     * The number of used auto-association slots.
+     */
     int32 used_auto_associations = 12;
+    /**
+     * The number of tokens associated with the account.
+     */
     int32 num_associations = 13;
+    /**
+     * The number of tokens with a positive balance associated with the account.
+     */
     int32 num_positive_balances = 14;
+    /**
+     * The nonce of the account, used for Ethereum interoperability.
+     */
     int64 ethereum_nonce = 15;
+    /**
+     * The amount of hbars staked to the account.
+     */
     int64 staked_to_me = 16;
+    /**
+     * If this account stakes to another account, its value will be -1. It will
+     * be set to the time when the account starts staking to a node.
+     */
     int64 stake_period_start = 17;
+    /**
+     * The node number or the account number this account is staked to.
+     * It is negative if staking to a node and positive if staking to an account and 0 if not staking to anyone.
+     * When staking to a node, it is stored as -node-1 to differentiate node 0.
+     */
     int64 staked_num = 18;
+    /**
+     * A boolean marking if the account declines rewards.
+     */
     bool decline_reward = 19;
+    /**
+     * The amount of hbars staked to the account at the start of the last rewarded period.
+     */
     int64 stake_at_start_of_last_rewarded_period = 20;
-    int64 autoR_renew_account_number = 21;
+    /**
+     * The number of an auto-renew account, in the same shard and realm as the topic, that
+     * has signed a transaction allowing the network to use its balance to automatically extend the topic's
+     * expiration time when it passes.
+     */
+    int64 auto_renew_account_number = 21;
+    /**
+     * The number of seconds the network should automatically extend the account's expiration by, if the
+     * account has a valid auto-renew account, and is not deleted upon expiration.
+     */
     int64 auto_renew_secs = 22;
+    /**
+     * If this account is a smart-contract, number of key-value pairs stored on the contract.
+     */
+    int32 num_contract_kv_pairs = 23;
+    /**
+     * List of crypto allowances approved by the account.
+     */
+    repeated CryptoAllowance cryptoAllowances = 24;
+    /**
+     * List of non-fungible token allowances approved by the account.
+     */
+    repeated NftAllowance nftAllowances = 25;
+
+    /**
+     * List of fungible token allowances approved by the account.
+     */
+    repeated TokenAllowance tokenAllowances = 26;
+    uint64 head_token_id = 27;
+    uint64 head_nft_id = 28;
+    uint64 head_nft_serial_num = 29;
+    uint32 num_treasury_titles = 30;
+    bool expired_and_pending_removal = 31;
 }
