@@ -32,7 +32,7 @@ option java_multiple_files = true;
  * First-draft representation of a Hedera Consensus Service topic in the network Merkle tree. 
  * 
  * As with all network entities, a topic has a unique entity number, which is usually given along 
- * with the network's shard and realm in the form of a <shard>.<realm>.<number> id.
+ * with the network's shard and realm in the form of a shard.realm.number id.
  * 
  * A topic consists of just two pieces of data:
  *   1. The total number of messages sent to the topic; and,
