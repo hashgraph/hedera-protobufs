@@ -39,7 +39,7 @@ message Account {
     /**
      * The unique entity number of the account.
      */
-    int64 accountNumber = 1;
+    int64 account_number = 1;
     /**
      * The public key bytes to be used as the account's alias, if any.
      */
@@ -75,7 +75,7 @@ message Account {
     /**
      * The number of NFTs owned by the account.
      */
-    int64 num_owned_nfts = 10;
+    int64 number_owned_nfts = 10;
     /**
      * The maximum number of tokens that can be auto-associated with the account.
      */
@@ -87,11 +87,11 @@ message Account {
     /**
      * The number of tokens associated with the account.
      */
-    int32 num_associations = 13;
+    int32 number_associations = 13;
     /**
      * The number of tokens with a positive balance associated with the account.
      */
-    int32 num_positive_balances = 14;
+    int32 number_positive_balances = 14;
     /**
      * The nonce of the account, used for Ethereum interoperability.
      */
@@ -110,7 +110,7 @@ message Account {
      * It is negative if staking to a node and positive if staking to an account and 0 if not staking to anyone.
      * When staking to a node, it is stored as -node-1 to differentiate node 0.
      */
-    int64 staked_num = 18;
+    int64 staked_number = 18;
     /**
      * A boolean marking if the account declines rewards.
      */
@@ -133,24 +133,24 @@ message Account {
     /**
      * If this account is a smart-contract, number of key-value pairs stored on the contract.
      */
-    int32 num_contract_kv_pairs = 23;
+    int32 contract_kv_pairs_number = 23;
     /**
      * (Optional) List of crypto allowances approved by the account.
      */
-    repeated CryptoAllowance cryptoAllowances = 24;
+    repeated CryptoAllowance crypto_allowances = 24;
     /**
      * (Optional) List of non-fungible token allowances approved by the account.
      */
-    repeated NftAllowance nftAllowances = 25;
+    repeated NftAllowance nft_allowances = 25;
 
     /**
      * (Optional) List of fungible token allowances approved by the account.
      */
-    repeated TokenAllowance tokenAllowances = 26;
+    repeated TokenAllowance token_allowances = 26;
     /**
      * The token ID of the head of the linked list from token relations map for the account.
      */
-    uint64 head_token_id = 27;
+    uint64 head_token_number = 27;
     /**
      * The NftId of the head of the linked list from unique tokens map for the account.
      */
@@ -158,11 +158,11 @@ message Account {
     /**
       * The serial number of the head NftId of the linked list from unique tokens map for the account.
       */
-    uint64 head_nft_serial_num = 29;
+    uint64 head_nft_serial_number = 29;
     /**
      * The number of tokens for which this account is treasury
      */
-    uint32 num_treasury_titles = 30;
+    uint32 number_treasury_titles = 30;
     /**
      * A flag indicating if the account is expired and pending removal.
      * Only the entity expiration system task toggles this flag when it reaches this account

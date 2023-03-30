@@ -53,7 +53,7 @@ message TokenRelation {
     /**
      * The flag indicating if the token relationship has been granted KYC.
      */
-    bool kycGranted = 5;
+    bool kyc_granted = 5;
     /**
      * The flag indicating if the token relationship was deleted.
      */
@@ -61,11 +61,11 @@ message TokenRelation {
     /**
      * The flag indicating if the token relationship was created using automatic association.
      */
-    bool automaticAssociation = 8;
+    bool automatic_association = 8;
     /**
      * The previous token number of account's association linked list
      */
-    uint64 prev_token = 9;
+    uint64 previous_token = 9;
     /**
      * The next token number of account's association linked list
      */

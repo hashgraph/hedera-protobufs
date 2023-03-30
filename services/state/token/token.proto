@@ -40,7 +40,7 @@ message Token {
     /**
      * The unique entity number of this token.
      */
-    int64 tokenNum = 1;
+    int64 token_number = 1;
     /**
      * The name of this token.
      */
@@ -132,11 +132,11 @@ message Token {
     /**
      * The type of this token.
      */
-    TokenType tokenType = 24;
+    TokenType token_type = 24;
     /**
      * The supply type of this token.
      */
-    TokenSupplyType supplyType = 25;
+    TokenSupplyType supply_type = 25;
     /**
      * (Optional) The custom fees of this token.
      */
