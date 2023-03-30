@@ -33,32 +33,6 @@ option java_multiple_files = true;
  *
  * As with all network entities, an account has a unique entity number, which is usually given along
  * with the network's shard and realm in the form of a shard.realm.number id.
- *
- * An account consists of :
- *   1. (Optional) The public key bytes to be used as the account's alias, if any.
- *   2. (Optional) The key to be used to sign transactions from the account, if any.
- *   3. The expiration time of the account, in seconds since the epoch.
- *   4. The balance of the account, in tiny-bars.
- *   5. (Optional) A memo to be stored with the account, if any.
- *   6. A boolean marking if the account has been deleted.
- *   7. A boolean marking if the account is a smart contract.
- *   8. A boolean marking if the account requires a receiver signature.
- *   9. The number of NFTs owned by the account.
- *   10. The maximum number of tokens that can be auto-associated with the account.
- *   11. The number of used auto-association slots.
- *   12. The number of tokens associated with the account.
- *   13. The number of tokens with a positive balance associated with the account.
- *   14. The nonce of the account, used for Ethereum interoperability.
- *   15. The amount of hbars staked to the account.
- *   16. The start of the current stake period.
- *   17. the node number or the account number this account is staked to.
- *   18. A boolean marking if the account declines rewards.
- *   19. The amount of hbars staked to the account at the start of the last rewarded period.
- *   20. (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that
- *   has signed a transaction allowing the network to use its balance to automatically extend the topic's
- *   expiration time when it passes.
- *   21. (Optional) The number of seconds the network should automatically extend the account's expiration by, if the
- *   account has a valid auto-renew account, and is not deleted upon expiration.
  */
 
 message Account {
@@ -71,7 +45,7 @@ message Account {
      */
     bytes alias = 2;
     /**
-     * The key to be used to sign transactions from the account, if any.
+     * (Optional) The key to be used to sign transactions from the account, if any.
      */
     Key key = 3;
     /**
@@ -146,7 +120,7 @@ message Account {
      */
     int64 stake_at_start_of_last_rewarded_period = 20;
     /**
-     * The number of an auto-renew account, in the same shard and realm as the topic, that
+     * (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that
      * has signed a transaction allowing the network to use its balance to automatically extend the topic's
      * expiration time when it passes.
      */
@@ -161,21 +135,41 @@ message Account {
      */
     int32 num_contract_kv_pairs = 23;
     /**
-     * List of crypto allowances approved by the account.
+     * (Optional) List of crypto allowances approved by the account.
      */
     repeated CryptoAllowance cryptoAllowances = 24;
     /**
-     * List of non-fungible token allowances approved by the account.
+     * (Optional) List of non-fungible token allowances approved by the account.
      */
     repeated NftAllowance nftAllowances = 25;
 
     /**
-     * List of fungible token allowances approved by the account.
+     * (Optional) List of fungible token allowances approved by the account.
      */
     repeated TokenAllowance tokenAllowances = 26;
+    /**
+     * The token ID of the head of the linked list from token relations map for the account.
+     */
     uint64 head_token_id = 27;
+    /**
+     * The NftId of the head of the linked list from unique tokens map for the account.
+     */
     uint64 head_nft_id = 28;
+    /**
+      * The serial number of the head NftId of the linked list from unique tokens map for the account.
+      */
     uint64 head_nft_serial_num = 29;
+    /**
+     * The number of tokens for which this account is treasury
+     */
     uint32 num_treasury_titles = 30;
+    /**
+     * A flag indicating if the account is expired and pending removal.
+     * Only the entity expiration system task toggles this flag when it reaches this account
+     * and finds it expired. Before setting the flag the system task checks if the account has
+     * an auto-renew account with balance. This is done to prevent a zero-balance account with a funded
+     * auto-renew account from being treated as expired in the interval between its expiration
+     * and the time the system task actually auto-renews it.
+     */
     bool expired_and_pending_removal = 31;
 }

@@ -23,8 +23,6 @@ package proto;
  */
 
 import "basic_types.proto";
-import "state/token/account.proto";
-import "state/token/token.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
@@ -37,13 +35,13 @@ option java_multiple_files = true;
  */
 message TokenRelation {
     /**
-     * The token being associated to the account.
+     * The token involved in this relation.
      */
-    Token token = 1;
+    uint64 token_number = 1;
     /**
-     * The account being associated to the token.
+     * The account involved in this association.
      */
-    Account account = 2;
+    uint64 account_number = 2;
     /**
      * The balance of the token relationship.
      */
@@ -65,7 +63,11 @@ message TokenRelation {
      */
     bool automaticAssociation = 8;
     /**
-     * The flag indicating if the token relationship was created using automatic association.
+     * The previous token number of account's association linked list
      */
-    bool fungibleBalanceChange = 9;
+    uint64 prev_token = 9;
+    /**
+     * The next token number of account's association linked list
+     */
+    uint64 next_token = 10;
 }

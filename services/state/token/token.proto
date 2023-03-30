@@ -62,31 +62,31 @@ message Token {
      */
     int64 treasury_account_number = 6;
     /**
-     * The admin key of this token.
+     * (Optional) The admin key of this token.
      */
     Key admin_key = 7;
     /**
-     * The kyc key of this token.
+     * (Optional) The kyc key of this token.
      */
     Key kyc_key = 8;
     /**
-     * The freeze key of this token.
+     * (Optional) The freeze key of this token.
      */
     Key freeze_key = 9;
     /**
-     * The wipe key of this token.
+     * (Optional) The wipe key of this token.
      */
     Key wipe_key = 10;
     /**
-     * The supply key of this token.
+     * (Optional) The supply key of this token.
      */
     Key supply_key = 11;
     /**
-     * The fee schedule key of this token.
+     * (Optional) The fee schedule key of this token.
      */
     Key fee_schedule_key = 12;
     /**
-     * The pause key of this token.
+     * (Optional) The pause key of this token.
      */
     Key pause_key = 13;
     /**
@@ -138,7 +138,7 @@ message Token {
      */
     TokenSupplyType supplyType = 25;
     /**
-     * The custom fees of this token.
+     * (Optional) The custom fees of this token.
      */
     repeated CustomFee custom_fees = 26;
 }
