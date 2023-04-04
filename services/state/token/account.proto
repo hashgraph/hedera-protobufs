@@ -151,15 +151,15 @@ message Account {
     /**
      * The token ID of the head of the linked list from token relations map for the account.
      */
-    uint64 head_token_number = 27;
+    int64 head_token_number = 27;
     /**
-     * The NftId of the head of the linked list from unique tokens map for the account.
+     * The NftId of the head of the linkeint64d list from unique tokens map for the account.
      */
-    uint64 head_nft_id = 28;
+    int64 head_nft_id = 28;
     /**
       * The serial number of the head NftId of the linked list from unique tokens map for the account.
       */
-    uint64 head_nft_serial_number = 29;
+    int64 head_nft_serial_number = 29;
     /**
      * The number of tokens for which this account is treasury
      */

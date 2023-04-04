@@ -37,11 +37,11 @@ message TokenRelation {
     /**
      * The token involved in this relation.
      */
-    uint64 token_number = 1;
+    int64 token_number = 1;
     /**
      * The account involved in this association.
      */
-    uint64 account_number = 2;
+    int64 account_number = 2;
     /**
      * The balance of the token relationship.
      */
@@ -65,9 +65,9 @@ message TokenRelation {
     /**
      * The previous token number of account's association linked list
      */
-    uint64 previous_token = 9;
+    int64 previous_token = 9;
     /**
      * The next token number of account's association linked list
      */
-    uint64 next_token = 10;
+    int64 next_token = 10;
 }
