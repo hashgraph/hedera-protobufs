@@ -56,9 +56,9 @@ message Account {
     /**
      * The balance of the account, in tiny-bars.
      */
-    int64 hbar_balance = 5;
+    int64 tinybar_balance = 5;
     /**
-     * An optional description of the topic with UTF-8 encoding up to 100 bytes.
+     * An optional description of the account with UTF-8 encoding up to 100 bytes.
      */
     string memo = 6;
     /**
@@ -121,8 +121,8 @@ message Account {
      */
     int64 stake_at_start_of_last_rewarded_period = 20;
     /**
-     * (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that
-     * has signed a transaction allowing the network to use its balance to automatically extend the topic's
+     * (Optional) The number of an auto-renew account, in the same shard and realm as the account, that
+     * has signed a transaction allowing the network to use its balance to automatically extend the account's
      * expiration time when it passes.
      */
     int64 auto_renew_account_number = 21;
