@@ -43,7 +43,7 @@ message Account {
      */
     int64 account_number = 1;
     /**
-     * The public key bytes to be used as the account's alias, if any.
+     * The alias to use for this account, if any.
      */
     bytes alias = 2;
     /**
