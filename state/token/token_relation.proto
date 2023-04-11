@@ -35,7 +35,7 @@ option java_multiple_files = true;
  */
 message TokenRelation {
     /**
-     * The token involved in this relation.
+     * The token involved in this relation.It takes only positive
      */
     int64 token_number = 1;
     /**
@@ -61,13 +61,13 @@ message TokenRelation {
     /**
      * The flag indicating if the token relationship was created using automatic association.
      */
-    bool automatic_association = 8;
+    bool automatic_association = 7;
     /**
      * The previous token number of account's association linked list
      */
-    int64 previous_token = 9;
+    int64 previous_token = 8;
     /**
      * The next token number of account's association linked list
      */
-    int64 next_token = 10;
+    int64 next_token = 9;
 }

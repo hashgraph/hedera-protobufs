@@ -32,8 +32,9 @@ option java_multiple_files = true;
 /**
  * First-draft representation of a Hedera Token Service account entity in the network Merkle tree.
  *
- * As with all network entities, an account has a unique entity number, which is usually given along
- * with the network's shard and realm in the form of a shard.realm.number id.
+ * As with all network entities, account has an unique entity number represented as shard.realm.X.
+ * X can be an alias public key or an EVM address or a number.
+ *
  */
 
 message Account {
@@ -154,7 +155,7 @@ message Account {
      */
     int64 head_token_number = 27;
     /**
-     * The NftId of the head of the linkeint64d list from unique tokens map for the account.
+     * The NftId of the head of the linked list from unique tokens map for the account.
      */
     int64 head_nft_id = 28;
     /**
