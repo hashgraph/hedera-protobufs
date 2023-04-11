@@ -43,8 +43,8 @@ Ed25519 key(s) associated to their account.
 ## Overview of state
 State directory and its subdirectories contain the protobuf files that define the state of the network.
 The state is divided into the following subdirectories, based on the service modules:
-1. [Token](state/token) - The state of the Token service.
-2. [Consensus](state/consensus) - The state of the Consensus service.
+1. [Token](services/state/token) - The state of the Token service.
+2. [Consensus](services/state/consensus) - The state of the Consensus service.
 
 The state directory and its subdirectories  are in preview and are subject to change.
 
