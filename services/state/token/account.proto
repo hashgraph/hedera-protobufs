@@ -38,7 +38,8 @@ option java_multiple_files = true;
 
 message Account {
     /**
-     * The unique entity number of the account.
+     * The unique entity number of the account. The shard and realm numbers are implied, based on the network
+     * this entity came from.
      */
     int64 account_number = 1;
     /**
