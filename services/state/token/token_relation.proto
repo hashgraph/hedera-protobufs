@@ -47,7 +47,7 @@ message TokenRelation {
      */
     int64 balance = 3;
     /**
-     * The flags of the token relationship.
+     * The flags specifying the token relationship is frozen or not.
      */
     bool frozen = 4;
     /**

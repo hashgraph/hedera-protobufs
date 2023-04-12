@@ -88,11 +88,13 @@ message Account {
      */
     int32 used_auto_associations = 12;
     /**
-     * The number of tokens associated with the account.
+     * The number of tokens associated with the account. This number is used for
+     * fee calculation during renewal of the account.
      */
     int32 number_associations = 13;
     /**
      * The number of tokens with a positive balance associated with the account.
+     * If the account has positive balance in a token, it can not be deleted.
      */
     int32 number_positive_balances = 14;
     /**
@@ -131,10 +133,13 @@ message Account {
     /**
      * The number of seconds the network should automatically extend the account's expiration by, if the
      * account has a valid auto-renew account, and is not deleted upon expiration.
+     * If this is not provided in a allowed range on account creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
+     * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
     int64 auto_renew_secs = 22;
     /**
      * If this account is a smart-contract, number of key-value pairs stored on the contract.
+     * This is used to determine the storage rent for the contract.
      */
     int32 contract_kv_pairs_number = 23;
     /**
