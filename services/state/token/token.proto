@@ -112,51 +112,51 @@ message Token {
      */
     bool deleted = 15;
     /**
+     * The type of this token. A token can be either FUNGIBLE_COMMON or NON_FUNGIBLE_UNIQUE.
+     * If it has been omitted during token creation, FUNGIBLE_COMMON type is used.
+     */
+    TokenType token_type = 16;
+    /**
+     * The supply type of this token.A token can have either INFINITE or FINITE supply type.
+     * If it has been omitted during token creation, INFINITE type is used.
+     */
+    TokenSupplyType supply_type = 17;
+    /**
      * The number of the account (if any) that the network will attempt to charge for the
      * token's auto-renewal upon expiration.
      */
-    int64 auto_renew_account_number = 16;
+    int64 auto_renew_account_number = 18;
     /**
      * The number of seconds the network should automatically extend the token's expiration by, if the
      * token has a valid auto-renew account, and is not deleted upon expiration.
      * If this is not provided in a allowed range on token creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
      * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
-    int64 auto_renew_secs = 17;
+    int64 auto_renew_secs = 19;
     /**
      * The expiration time of the token, in seconds since the epoch.
      */
-    int64 expiry = 18;
+    int64 expiry = 20;
     /**
      * An optional description of the token with UTF-8 encoding up to 100 bytes.
      */
-    string memo = 19;
+    string memo = 21;
     /**
      * The maximum supply of this token.
      */
-    int64 max_supply = 20;
+    int64 max_supply = 22;
     /**
      * The flag indicating if this token is paused.
      */
-    bool paused = 21;
+    bool paused = 23;
     /**
      * The flag indicating if this token has accounts associated to it that are frozen by default.
      */
-    bool accounts_frozen_by_default = 22;
+    bool accounts_frozen_by_default = 24;
     /**
       * The flag indicating if this token has accounts associated to it that are KYC granted by default.
      */
-    bool accounts_kyc_granted_by_default = 23;
-    /**
-     * The type of this token. A token can be either FUNGIBLE_COMMON or NON_FUNGIBLE_UNIQUE.
-     * If it has been omitted during token creation, FUNGIBLE_COMMON type is used.
-     */
-    TokenType token_type = 24;
-    /**
-     * The supply type of this token.A token can have either INFINITE or FINITE supply type.
-     * If it has been omitted during token creation, INFINITE type is used.
-     */
-    TokenSupplyType supply_type = 25;
+    bool accounts_kyc_granted_by_default = 25;
     /**
      * (Optional) The custom fees of this token.
      */
