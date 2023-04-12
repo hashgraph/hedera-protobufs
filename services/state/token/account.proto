@@ -49,6 +49,8 @@ message Account {
     bytes alias = 2;
     /**
      * (Optional) The key to be used to sign transactions from the account, if any.
+     * This key will not be set for hollow accounts until the account is finalized.
+     * This key should be set on all the accounts, except for immutable accounts (0.0.800 and 0.0.801).
      */
     Key key = 3;
     /**

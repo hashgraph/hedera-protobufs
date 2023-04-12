@@ -69,31 +69,38 @@ message Token {
     /**
      * (Optional) The admin key of this token. If this key is set, the token is mutable.
      * A mutable token can be modified.
+     * If this key is not set on token creation, it cannot be modified.
      */
     Key admin_key = 7;
     /**
      * (Optional) The kyc key of this token.
+     * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
     Key kyc_key = 8;
     /**
      * (Optional) The freeze key of this token. This key is needed for freezing the token.
+     * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
     Key freeze_key = 9;
     /**
      * (Optional) The wipe key of this token. This key is needed for wiping the token.
+     * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
     Key wipe_key = 10;
     /**
      * (Optional) The supply key of this token. This key is needed for minting or burning token.
+     * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
     Key supply_key = 11;
     /**
      * (Optional) The fee schedule key of this token. This key should be set, in order to make any
      * changes to the custom fee schedule.
+     * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
     Key fee_schedule_key = 12;
     /**
      * (Optional) The pause key of this token. This key is needed for pausing the token.
+     * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
     Key pause_key = 13;
     /**
