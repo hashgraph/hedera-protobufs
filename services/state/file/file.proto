@@ -29,11 +29,36 @@ option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.file">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+/**
+ * First-draft representation of a Hedera Token Service file in the network Merkle tree.
+ *
+ * As with all network entities, a file has a unique entity number, which is usually given along
+ * with the network's shard and realm in the form of a shard.realm.number id.
+ */
 message File {
+    /**
+     * The file's unique entity number in the Merkle state.
+     */
     int64 file_number = 1;
+    /**
+      * The file's consensus expiration time in seconds since the epoch.
+      */
     int64 expiration_time = 2;
+    /**
+     * All keys at the top level of a key list must sign to create or modify the file. Any one of
+     * the keys at the top level key list can sign to delete the file.
+     */
     KeyList keys = 3;
+    /**
+     * The bytes that are the contents of the file
+     */
     bytes contents = 4;
+    /**
+     * The memo associated with the file (UTF-8 encoding max 100 bytes)
+     */
     string memo = 5;
+    /**
+     * Whether this file is deleted.
+     */
     bool deleted = 6;
 }
