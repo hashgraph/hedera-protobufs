@@ -159,16 +159,16 @@ message Account {
     /**
      * (Optional) List of crypto allowances approved by the account.
      */
-    repeated CryptoAllowance crypto_allowances = 27;
+    map<int64, int64> crypto_allowances = 27;
     /**
      * (Optional) List of non-fungible token allowances approved by the account.
      */
-    repeated NftAllowance nft_allowances = 28;
+    repeated TokenAllowance approve_for_all_nft_allowances = 28;
 
     /**
      * (Optional) List of fungible token allowances approved by the account.
      */
-    repeated TokenAllowance token_allowances = 29;
+    repeated FungibleTokenAllowances token_allowances = 29;
     /**
      * The number of tokens for which this account is treasury
      */
@@ -182,4 +182,14 @@ message Account {
      * and the time the system task actually auto-renews it.
      */
     bool expired_and_pending_removal = 31;
+}
+
+message FungibleTokenAllowances {
+    TokenAllowance token_allowance_key = 1;
+    int64 amount = 2;
+}
+
+message TokenAllowance {
+    int64 token_id = 1;
+    int64 account_id = 2;
 }
