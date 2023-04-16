@@ -157,13 +157,14 @@ message Account {
      */
     int32 contract_kv_pairs_number = 26;
     /**
-     * (Optional) List of crypto allowances approved by the account.
+     * (Optional) Map of crypto allowances approved by the account.
+     * Key is the account number and value is the amount approved for that account.
      */
     map<int64, int64> crypto_allowances = 27;
     /**
      * (Optional) List of non-fungible token allowances approved by the account.
      */
-    repeated TokenAllowance approve_for_all_nft_allowances = 28;
+    repeated TokenAllowancesId approve_for_all_nft_allowances = 28;
 
     /**
      * (Optional) List of fungible token allowances approved by the account.
@@ -184,12 +185,12 @@ message Account {
     bool expired_and_pending_removal = 31;
 }
 
-message FungibleTokenAllowances {
-    TokenAllowance token_allowance_key = 1;
-    int64 amount = 2;
-}
-
-message TokenAllowance {
+message TokenAllowancesId {
     int64 token_id = 1;
     int64 account_id = 2;
+}
+
+message FungibleTokenAllowances {
+    TokenAllowancesId token_allowance_key = 1;
+    int64 amount = 2;
 }
