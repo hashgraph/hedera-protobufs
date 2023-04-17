@@ -160,7 +160,7 @@ message Account {
      * (Optional) Map of crypto allowances approved by the account.
      * Key is the account number and value is the amount approved for that account.
      */
-    repeated AccountCryptoAllowances crypto_allowances = 27;
+    repeated AccountCryptoAllowance crypto_allowances = 27;
     /**
      * (Optional) List of non-fungible token allowances approved by the account.
      */
@@ -169,7 +169,7 @@ message Account {
     /**
      * (Optional) List of fungible token allowances approved by the account.
      */
-    repeated AccountFungibleTokenAllowances token_allowances = 29;
+    repeated AccountFungibleTokenAllowance token_allowances = 29;
     /**
      * The number of tokens for which this account is treasury
      */
@@ -190,12 +190,12 @@ message AccountTokenAllowance {
     int64 account_id = 2;
 }
 
-message AccountFungibleTokenAllowances {
+message AccountFungibleTokenAllowance {
     AccountTokenAllowance token_allowance_key = 1;
     int64 amount = 2;
 }
 
-message AccountCryptoAllowances {
+message AccountCryptoAllowance {
     int64 account_id = 1;
     int64 amount = 2;
 }
