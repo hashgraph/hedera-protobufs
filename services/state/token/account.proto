@@ -157,17 +157,23 @@ message Account {
      */
     int32 contract_kv_pairs_number = 26;
     /**
-     * (Optional) Map of crypto allowances approved by the account.
-     * Key is the account number and value is the amount approved for that account.
+     * (Optional) List of crypto allowances approved by the account.
+     * It contains account number for which the allowance is approved to and
+     * the amount approved for that account.
      */
     repeated AccountCryptoAllowance crypto_allowances = 27;
     /**
-     * (Optional) List of non-fungible token allowances approved by the account.
+     * (Optional) List of non-fungible token allowances approved for all by the account.
+     * It contains account number approved for spending all serial numbers for the given
+     * NFT token number using approved_for_all flag.
+     * Allowances for a specific serial number is stored in the NFT itself in state.
      */
     repeated AccountTokenAllowance approve_for_all_nft_allowances = 28;
 
     /**
      * (Optional) List of fungible token allowances approved by the account.
+     * It contains account number for which the allowance is approved to and  the token number.
+     * It also contains and the amount approved for that account.
      */
     repeated AccountFungibleTokenAllowance token_allowances = 29;
     /**
@@ -185,16 +191,26 @@ message Account {
     bool expired_and_pending_removal = 31;
 }
 
+/**
+ * Allowance granted by this account to another account for a specific token.
+ */
 message AccountTokenAllowance {
     int64 token_num = 1;
     int64 account_num = 2;
 }
 
+/**
+ * Allowance granted by this account to another account for a specific fungible token.
+ * This also contains the amount of the token that is approved for the account.
+ */
 message AccountFungibleTokenAllowance {
     AccountTokenAllowance token_allowance_key = 1;
     int64 amount = 2;
 }
 
+/**
+ * Allowance granted by this account to another account for an amount of hbars.
+ */
 message AccountCryptoAllowance {
     int64 account_num = 1;
     int64 amount = 2;
