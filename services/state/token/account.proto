@@ -168,7 +168,7 @@ message Account {
      * NFT token number using approved_for_all flag.
      * Allowances for a specific serial number is stored in the NFT itself in state.
      */
-    repeated AccountTokenAllowance approve_for_all_nft_allowances = 28;
+    repeated AccountApprovalForAllAllowance approve_for_all_nft_allowances = 28;
 
     /**
      * (Optional) List of fungible token allowances approved by the account.
@@ -189,29 +189,78 @@ message Account {
      * and the time the system task actually auto-renews it.
      */
     bool expired_and_pending_removal = 31;
+    /**
+     * The first 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_first_int = 32;
+    /**
+     * The second 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_second_int = 33;
+    /**
+     * The third 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_third_int = 34;
+    /**
+     * The fourth 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_fourth_int = 35;
+    /**
+     * The fifth 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_fifth_int = 36;
+    /**
+     * The sixth 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_sixth_int = 37;
+    /**
+     * The seventh 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_seventh_int = 38;
+    /**
+     * The eighth 32 bytes of uint256 key in the doubly-linked list of this contract's storage mappings;
+     * It is null if this account is not a contract, or a contract with no storage.
+     */
+    int32 first_storage_key_eighth_int = 39;
+    /*
+     * Number of the low-order bytes in first Uint256 Key that contain ones
+     */
+    bytes first_key_non_zero_bytes = 40;
 }
 
 /**
- * Allowance granted by this account to another account for a specific token.
+ * Allowance granted by this account to a spender for a specific non-fungible token
+ * using ApproveForAll. This allows spender to spend all serial numbers for the given
+ * non-fungible token number.
  */
-message AccountTokenAllowance {
+message AccountApprovalForAllAllowance {
     int64 token_num = 1;
-    int64 account_num = 2;
+    int64 spender_num = 2;
 }
 
 /**
  * Allowance granted by this account to another account for a specific fungible token.
  * This also contains the amount of the token that is approved for the account.
+ * This allows spender to spend the amount of tokens approved for the account.
  */
 message AccountFungibleTokenAllowance {
-    AccountTokenAllowance token_allowance_key = 1;
-    int64 amount = 2;
+    int64 token_num = 1;
+    int64 spender_num = 2;
+    int64 amount = 3;
 }
 
 /**
  * Allowance granted by this account to another account for an amount of hbars.
+ * This allows spender to spend the amount of hbars approved for the account.
  */
 message AccountCryptoAllowance {
-    int64 account_num = 1;
+    int64 spender_num = 1;
     int64 amount = 2;
 }
