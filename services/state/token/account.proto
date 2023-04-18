@@ -193,7 +193,7 @@ message Account {
      * The first key in the doubly-linked list of this contract's storage mappings;
      * It will be null if if the account is not a contract or the contract has no storage mappings.
      */
-    uint256 first_contract_storage_key = 32;
+    Uint256Value first_contract_storage_key = 32;
 }
 
 /**
@@ -228,7 +228,7 @@ message AccountCryptoAllowance {
 /**
  * Message representing a uint256 value.
  */
-message uint256 {
+message Uint256Value {
     /**
      * The number low-order bytes in the 256-bits that contain ones
      */
