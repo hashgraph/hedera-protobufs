@@ -190,49 +190,10 @@ message Account {
      */
     bool expired_and_pending_removal = 31;
     /**
-     * The first 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
+     * The first key in the doubly-linked list of this contract's storage mappings;
+     * It will be null if if the account is not a contract or the contract has no storage mappings.
      */
-    int32 first_storage_key_first_int = 32;
-    /**
-     * The second 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
-     */
-    int32 first_storage_key_second_int = 33;
-    /**
-     * The third 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
-     */
-    int32 first_storage_key_third_int = 34;
-    /**
-     * The fourth 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
-     */
-    int32 first_storage_key_fourth_int = 35;
-    /**
-     * The fifth 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
-     */
-    int32 first_storage_key_fifth_int = 36;
-    /**
-     * The sixth 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
-     */
-    int32 first_storage_key_sixth_int = 37;
-    /**
-     * The seventh 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
-     */
-    int32 first_storage_key_seventh_int = 38;
-    /**
-     * The eighth 32 bits of uint256 key in the doubly-linked list of this contract's storage mappings;
-     * It is null if this account is not a contract, or a contract with no storage.
-     */
-    int32 first_storage_key_eighth_int = 39;
-    /*
-     * Number of the low-order bytes in first Uint256 Key that contain ones
-     */
-    bytes first_key_non_zero_bytes = 40;
+    uint256 first_contract_storage_key = 32;
 }
 
 /**
@@ -263,4 +224,29 @@ message AccountFungibleTokenAllowance {
 message AccountCryptoAllowance {
     int64 spender_num = 1;
     int64 amount = 2;
+}
+/**
+ * Message representing a uint256 value.
+ */
+message uint256 {
+    /**
+     * The number low-order bytes in the 256-bits that contain ones
+     */
+    uint32 non_zero_bits = 1;
+    /**
+     * The first 64 bits of a uint256 value
+     */
+    uint64 first_long = 2;
+    /**
+     * The second 64 bits of a uint256 value
+     */
+    uint64 second_long = 3;
+    /**
+     * The first 64 bits of a uint256 value
+     */
+    uint64 third_long = 4;
+    /**
+     * The first 64 bits of a uint256 value
+     */
+    uint64 fourth_long = 5;
 }
