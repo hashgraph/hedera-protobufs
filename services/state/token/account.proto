@@ -23,7 +23,6 @@ package proto;
  */
 
 import "basic_types.proto";
-import "crypto_approve_allowance.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
@@ -193,7 +192,7 @@ message Account {
      * The first key in the doubly-linked list of this contract's storage mappings;
      * It will be null if if the account is not a contract or the contract has no storage mappings.
      */
-    Uint256Value first_contract_storage_key = 32;
+    Int256Value first_contract_storage_key = 32;
 }
 
 /**
@@ -228,25 +227,25 @@ message AccountCryptoAllowance {
 /**
  * Message representing a uint256 value.
  */
-message Uint256Value {
+message Int256Value {
     /**
      * The number low-order bytes in the 256-bits that contain ones
      */
-    uint32 non_zero_bits = 1;
+    int32 non_zero_bits = 1;
     /**
-     * The first 64 bits of a uint256 value
+     * The first 64 bits of a int256 value
      */
-    uint64 first_long = 2;
+    int64 first_long = 2;
     /**
-     * The second 64 bits of a uint256 value
+     * The second 64 bits of a int256 value
      */
-    uint64 second_long = 3;
+    int64 second_long = 3;
     /**
-     * The first 64 bits of a uint256 value
+     * The first 64 bits of a int256 value
      */
-    uint64 third_long = 4;
+    int64 third_long = 4;
     /**
-     * The first 64 bits of a uint256 value
+     * The first 64 bits of a int256 value
      */
-    uint64 fourth_long = 5;
+    int64 fourth_long = 5;
 }
