@@ -112,8 +112,7 @@ message NodeStake {
   int64 reward_rate = 4;
 
   /**
-   * Consensus weight of this node for the new staking period. This is the total stake (rewarded or not rewarded)
-   * this node has at the beginning of the new staking period.
+   * Total stake (rewarded and not rewarded) of this node has at the beginning of the new staking period.
    */
   int64 stake = 5;
 
