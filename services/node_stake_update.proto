@@ -112,19 +112,28 @@ message NodeStake {
   int64 reward_rate = 4;
 
   /**
-   * Consensus weight of this node for the new staking period.
+   * Consensus weight of this node for the new staking period. This is the total stake (rewarded or not rewarded)
+   * this node has at the beginning of the new staking period.
    */
   int64 stake = 5;
 
   /**
-   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=true, at the 
+   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=true, at the
    * beginning of the new staking period.
    */
   int64 stake_not_rewarded = 6;
 
   /**
-   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=false, at the 
+   * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=false, at the
    * beginning of the new staking period.
    */
   int64 stake_rewarded = 7;
+  /**
+   * The consensus weight of this node in the network. This is computed based on the stake of this node
+   * at midnight UTC of the current day. If the stake of this node is less than minStake, then the
+   * weight is 0. Sum of all weights of nodes in the network should be less than 500.
+   * If the stake of this node A is greater than minStake,
+   * then A's weight is computed as Math.max(1, Math.ceil(A's stake * 500 / total stake of all nodes)).
+   */
+  int32 weight = 8;
 }
