@@ -128,11 +128,13 @@ message NodeStake {
    */
   int64 stake_rewarded = 7;
   /**
-   * The consensus weight of this node in the network. This is computed based on the stake of this node
-   * at midnight UTC of the current day. If the stake of this node is less than minStake, then the
-   * weight is 0. Sum of all weights of nodes in the network should be less than 500.
-   * If the stake of this node A is greater than minStake,
-   * then A's weight is computed as Math.max(1, Math.ceil(A's stake * 500 / total stake of all nodes)).
+   * The consensus weight of this node in the network.
+   * The network normalizes the weights of nodes above minStake so that the total sum of
+   * weight is approximately 500. Specifically, the weight of a node A with stake > minStake
+   * is computed using integer arithmetic as,
+   * A_weight = Math.max((# of whole hbars staked by A) * 500 / (total # of whole hbars staked), 1)
+   * so that every node above minStake has weight at least 1; but any node that has staked
+   * at least 1 out of every 250 whole hbars staked will have weight >= 2.
    */
   int32 weight = 8;
 }
