@@ -112,7 +112,7 @@ message NodeStake {
   int64 reward_rate = 4;
 
   /**
-   * Total stake (rewarded and not rewarded) of this node has at the beginning of the new staking period.
+   * Total stake (rewarded and not rewarded) of this node at the beginning of the new staking period.
    */
   int64 stake = 5;
 
