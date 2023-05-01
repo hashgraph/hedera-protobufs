@@ -45,8 +45,7 @@ message File {
       */
     int64 expiration_time = 2;
     /**
-     * All keys at the top level of a key list must sign to create or modify the file. Any one of
-     * the keys at the top level key list can sign to delete the file.
+     * All keys at the top level of a key list must sign to create, modify and delete the file.
      */
     KeyList keys = 3;
     /**
