@@ -29,48 +29,133 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service Fast-copyable CustomFee
- *
- * As with all network entities, account has an unique entity number represented as shard.realm.X.
- * X can be an alias public key or an EVM address or a number.
- *
+ * First-draft representation of a Hedera Token Service Fast-copyable CustomFee.
+ * A transfer fee to assess during a CryptoTransfer that transfers units of the token to which the
+ * fee is attached. A custom fee may be either fixed or fractional, and must specify a fee collector
+ * account to receive the assessed fees. Only positive fees may be assessed.
+ * Non-fungible tokens can have royalty fee.
  */
+
 message TokenCustomFee {
-    FeeType fee_type = 1;
-    int64 fee_collector = 2;
-    bool all_collectors_exempt = 3;
-    TokenFixedFee fixed_fee = 4;
-    TokenFractionalFee fractional_fee = 5;
-    TokenRoyaltyFee royalty_fee = 6;
+  /**
+   * Fee type of the custom fee
+   */
+  FeeType fee_type = 1;
+  /**
+   * The account to receive the custom fee
+   */
+  int64 fee_collector = 2;
+  /**
+   * If true, exempts all the token's fee collection accounts from this fee.
+   * (The token's treasury and the above fee_collector_account_id will always
+   * be exempt.)
+  */
+  bool all_collectors_exempt = 3;
+  /**
+   * Fixed fee to be charged
+   */
+  TokenFixedFee fixed_fee = 4;
+  /**
+   * Fractional fee to be charged
+   */
+  TokenFractionalFee fractional_fee = 5;
+  /**
+   * Royalty fee to be charged
+   */
+  TokenRoyaltyFee royalty_fee = 6;
 }
 
+/**
+ * A fixed number of units (hbar or token) assessed as a fee during a CryptoTransfer that transfers
+ * units of the token to which this fixed fee is attached.
+ */
 message TokenFixedFee {
-    /**
-     * Number of hbar or token units to collect for fixed fee.
-     */
-    int64 units_to_collect = 1;
-    /**
-     *
-     */
-    int64 token_denomination = 2;
+   /**
+    * Number of hbar or token units to assess for fixed fee.
+    */
+  int64 units_to_collect = 1;
+  /**
+   * The denomination of the fee. It is taken as hbar if left unset. In a TokenCreate, taken as the number
+   * of the newly created token if set to the sentinel value of 0.0.0.
+   * When set to sentinel value, we automatically associating fee collector in TokenCreate
+   */
+  int64 token_denomination = 2;
 }
 
+/**
+ * A fraction of the transferred units of a token assessed as a fee. The amount assessed will never
+ * be less than the given minimum_amount, and never greater than the given maximum_amount.  The
+ * denomination is always units of the token to which this fractional fee is attached.
+ */
 message TokenFractionalFee {
+   /**
+    * Numerator in the fraction of transferred units to assess fee
+    */
     int64 numerator = 1;
+    /**
+     * Denominator in the fraction of transferred units to assess fee
+     */
     int64 denominator = 2;
+    /**
+     * The minimum amount of fee assessed as custom fee, if fee calculated is less than minimum amount.
+     */
     int64 min_units_to_collect = 3;
+    /**
+     * Limit on the maximum amount of fee assessed as custom fee, if fee calculated is more than maximum amount.
+     */
     int64 max_units_to_collect = 4;
+    /**
+     * If true, assesses the fee to the sender, so the receiver gets the full amount from the token
+     * transfer list, and the sender is charged an additional fee; if false, the receiver does NOT get
+     * the full amount, but only what is left over after paying the fractional fee
+     */
     bool net_of_transfers = 5;
 }
 
+/**
+ * A fee to assess during a CryptoTransfer that changes ownership of an NFT. Defines the fraction of
+ * the fungible value exchanged for an NFT that the ledger should collect as a royalty. ("Fungible
+ * value" includes both ℏ and units of fungible HTS tokens.) When the NFT sender does not receive
+ * any fungible value, the ledger will assess the fallback fee, if present, to the new NFT owner.
+ * Royalty fees can only be added to tokens of type type NON_FUNGIBLE_UNIQUE.
+ *
+ * Counterparties that _do_ wish to respect creator royalties should follow the pattern the network
+ * recognizes: The NFT sender and receiver should both sign a single `CryptoTransfer` that credits
+ * the sender with all the fungible value the receiver is exchanging for the NFT.
+ *
+ * Similarly, a marketplace using an approved spender account for an escrow transaction should credit
+ * the account selling the NFT in the same `CryptoTransfer` that deducts fungible value from the buying
+ * account.
+ *
+ */
 message TokenRoyaltyFee {
-      int64 numerator = 1;
-      int64 denominator = 2;
-      TokenFixedFee fall_back_fee = 3;
+  /**
+   * Numerator of the fraction of fungible value exchanged for an NFT to collect as royalty
+   */
+  int64 numerator = 1;
+  /**
+   * Denominator of the fraction of fungible value exchanged for an NFT to collect as royalty
+   */
+  int64 denominator = 2;
+  /**
+   * If present, the fixed fee to assess to the NFT receiver when no fungible value is exchanged with the sender
+   */
+  TokenFixedFee fall_back_fee = 3;
 }
-
+/**
+ * Type of fee
+ */
 enum FeeType {
+  /**
+   * A fractional fee
+   */
   FRACTIONAL_FEE = 0;
+  /**
+   * A fixed fee
+   */
   FIXED_FEE = 1;
+  /**
+   * A royalty fee
+   */
   ROYALTY_FEE = 2;
 }
