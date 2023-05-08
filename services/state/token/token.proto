@@ -160,5 +160,5 @@ message Token {
     /**
      * (Optional) The custom fees of this token.
      */
-    repeated CustomFee custom_fees = 26;
+    repeated TokenCustomFee custom_fees = 26;
 }
