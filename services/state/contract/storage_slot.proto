@@ -42,7 +42,7 @@ message SlotKey {
     /**
      * The EVM key of this slot, when left-padded with zeros to form a 256-bit word.
      */
-    bytes value = 2;
+    bytes key = 2;
 }
 
 /**
