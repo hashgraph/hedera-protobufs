@@ -40,9 +40,9 @@ message SlotKey {
     int64 contract_number = 1;
 
     /**
-     * The EVM key of this slot.
+     * The EVM key of this slot, when left-padded with zeros to form a 256-bit word.
      */
-    Int256Value value = 2;
+    bytes value = 2;
 }
 
 /**
@@ -54,17 +54,17 @@ message SlotKey {
  */
 message SlotValue {
     /**
-     * The EVM value in this slot.
+     * The EVM value in this slot, when left-padded with zeros to form a 256-bit word.
      */
-    Int256Value value = 1;
+    bytes value = 1;
 
     /**
      * The word of the previous key in this contract's storage list (if any).
      */
-    Int256Value previous_key = 2;
+    bytes previous_key = 2;
 
     /**
      * The word of the next key in this contract's storage list (if any).
      */
-    Int256Value next_key = 3;
+    bytes next_key = 3;
 }
