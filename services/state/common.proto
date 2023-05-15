@@ -51,3 +51,10 @@ message Int256Value {
      */
     int64 fourth_long = 5;
 }
+
+/**
+ * A single 64-bit number identifying a Hedera native entity.
+ */
+message EntityNumber {
+    int64 number = 1;
+}
