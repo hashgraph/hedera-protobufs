@@ -42,7 +42,7 @@ import "transaction_body.proto";
  */
 message Transaction {
     /**
-     * the body of the transaction, which needs to be signed
+     * The body of the transaction, which needs to be signed
      */
     TransactionBody body = 1 [deprecated = true];
 
