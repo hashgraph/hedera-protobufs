@@ -22,6 +22,7 @@ package proto;
  * ‍
  */
 
+import "basic_types.proto";
 import "transaction_record.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -41,7 +42,14 @@ message TransactionRecordEntry {
     int64 node_id = 1;
 
     /**
+     * The AccountID of the payer of the transaction. This may be the same as the account ID within the Transaction ID
+     * of the record, or it may be the account ID of the node that submitted the transaction to consensus if the account
+     * ID in the Transaction ID is not able to pay.
+     */
+    AccountID payer_account_id = 2;
+
+    /**
      * The transaction record for the transaction.
      */
-    TransactionRecord transaction_record = 2;
+    TransactionRecord transaction_record = 3;
 }
