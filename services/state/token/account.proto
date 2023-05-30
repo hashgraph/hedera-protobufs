@@ -193,7 +193,7 @@ message Account {
      * The first key in the doubly-linked list of this contract's storage mappings;
      * It will be null if if the account is not a contract or the contract has no storage mappings.
      */
-    Int256Value first_contract_storage_key = 32;
+    bytes first_contract_storage_key = 32;
 }
 
 /**
