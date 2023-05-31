@@ -29,6 +29,7 @@ option java_multiple_files = true;
 import "basic_types.proto";
 import "query_header.proto";
 import "response_header.proto";
+import "contract_types.proto";
 
 import "google/protobuf/wrappers.proto";
 
@@ -56,23 +57,6 @@ message ContractLoginfo {
      * event data
      */
     bytes data = 4;
-}
-
-/**
- * Info about a contract account's nonce value.
- * A nonce of a contract is only incremented when that contract creates another contract.
- */
-message ContractNonceInfo {
-
-    /**
-     * Id of the contract
-     */
-    ContractID contract_id = 1;
-
-    /**
-     * The current value of the contract account's nonce property
-     */
-    int64 nonce = 2;
 }
 
 /**
