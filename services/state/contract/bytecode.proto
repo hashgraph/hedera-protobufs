@@ -27,18 +27,11 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * The bytecode for a contract id, along with its hash. (Computing this hash
- * is fairly expensive, and may be in principle be requested frequently within
- * an EVM transaction.)
+ * The bytecode for a contract id.
  */
 message Bytecode {
     /**
      * The raw bytes (not hex-encoded) of a contract's bytecode.
      */
     bytes code = 1;
-
-    /**
-     * The SHA-256 (SHA-3) hash of the code. 
-     */
-    bytes code_hash = 2;
 }
