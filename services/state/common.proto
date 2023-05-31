@@ -32,3 +32,18 @@ option java_multiple_files = true;
 message EntityNumber {
     int64 number = 1;
 }
+
+/**
+ * Identifier for a unique token (or "NFT"), used by both contract and token services.
+ */
+message UniqueTokenId {
+  /**
+   * The number of the unique token type this NFT is an instance of.
+   */
+  int64 token_type_number = 1;
+
+  /**
+   * The serial number of this NFT within its token type.
+   */
+  int64 serial_number = 2;
+}

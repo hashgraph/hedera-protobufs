@@ -23,6 +23,7 @@ package proto;
  */
 
 import "timestamp.proto";
+import "state/common.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
@@ -32,22 +33,11 @@ option java_multiple_files = true;
  * First-draft representation of a Hedera Token Service NFT in the network Merkle tree.
  */
 message Nft {
-    message Id {
-      /**
-       * The number of the unique token type this NFT is an instance of.
-       */
-      int64 token_type_number = 1;
-
-      /**
-       * The serial number of this NFT within its token type.
-       */
-      int64 serial_number = 2;
-    }
 
     /**
      * The id of this NFT.
      */
-    Id id = 1;
+    UniqueTokenId id = 1;
 
     /**
      * The number of the account or contract that owns this NFT. 
@@ -77,11 +67,11 @@ message Nft {
      * If the owner of this NFT is not its token treasury, the id of the previous NFT 
      * in the owner's "doubly-linked list" of owned NFTs (if any).
      */
-    Id owner_previous_nft_id = 6;
+    UniqueTokenId owner_previous_nft_id = 6;
 
     /**
      * If the owner of this NFT is not its token treasury, the id of the next NFT in 
      * the owner's "doubly-linked list" of owned NFTs (if any).
      */
-    Id owner_next_nft_id = 7;
+    UniqueTokenId owner_next_nft_id = 7;
 }
