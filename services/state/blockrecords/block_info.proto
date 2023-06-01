@@ -42,8 +42,8 @@ message BlockInfo {
   Timestamp first_cons_time_of_last_block = 2;
   /**
    * SHA384 48 byte hashes of the last 256 blocks in single byte array.
-   * First 48 bytes is oldest block.
-   * Last 48 bytes is newest block, which is the last fully completed immutable block.
+   * First 48 bytes is the oldest block.
+   * Last 48 bytes is the newest block, which is the last fully completed immutable block.
    * If we are shortly after genesis and there are less than 256 blocks then this could contain less than 256 hashes.
    */
   bytes block_hashes = 3;
