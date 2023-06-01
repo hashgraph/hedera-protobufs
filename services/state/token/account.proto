@@ -22,6 +22,7 @@ package proto;
  * ‍
  */
 
+import "state/common.proto";
 import "basic_types.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -192,7 +193,7 @@ message Account {
      * The first key in the doubly-linked list of this contract's storage mappings;
      * It will be null if if the account is not a contract or the contract has no storage mappings.
      */
-    Int256Value first_contract_storage_key = 32;
+    bytes first_contract_storage_key = 32;
 }
 
 /**
@@ -223,29 +224,4 @@ message AccountFungibleTokenAllowance {
 message AccountCryptoAllowance {
     int64 spender_num = 1;
     int64 amount = 2;
-}
-/**
- * Message representing a uint256 value.
- */
-message Int256Value {
-    /**
-     * The number low-order bytes in the 256-bits that contain ones
-     */
-    int32 non_zero_bits = 1;
-    /**
-     * The first 64 bits of a int256 value
-     */
-    int64 first_long = 2;
-    /**
-     * The second 64 bits of a int256 value
-     */
-    int64 second_long = 3;
-    /**
-     * The first 64 bits of a int256 value
-     */
-    int64 third_long = 4;
-    /**
-     * The first 64 bits of a int256 value
-     */
-    int64 fourth_long = 5;
 }
