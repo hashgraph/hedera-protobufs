@@ -29,9 +29,9 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * The running hash a of transaction records and the previous 3 running hashes.
+ * Information about the most recently completed and last 256 blocks.
  */
-message Blocks {
+message BlockInfo {
   /** The last block number, this is the last completed immutable block. */
   int64 last_block_no = 1;
   /** The consensus time of the first transaction of the last block, this is the last completed immutable block. */

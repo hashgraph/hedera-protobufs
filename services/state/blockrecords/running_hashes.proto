@@ -27,15 +27,16 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * The running hash a of transaction records and the previous 3 running hashes.
+ * The running hash a of transaction records and the previous 3 running hashes. All hashes are 48 bytes SHA384 hashes. If the
+ * running hashes do not exist yet then they will be default values witch is empty bytes object or zero length byte array.
  */
 message RunningHashes {
-  /** A runningHash of all record stream items */
+  /** A running hash of all record stream items */
   bytes running_hash = 1;
-  /** The previous runningHash of all record stream items */
+  /** The previous running hash of all record stream items */
   bytes n_minus_1_running_hash = 2;
-  /** The previous, previous runningHash of all record stream items */
+  /** The previous, previous running hash of all record stream items */
   bytes n_minus_2_running_hash = 3;
-  /** The previous, previous, previous runningHash of all record stream items */
+  /** The previous, previous, previous running hash of all record stream items */
   bytes n_minus_3_running_hash = 4;
 }
