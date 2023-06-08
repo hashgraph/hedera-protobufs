@@ -44,14 +44,14 @@ message Nft {
      *
      * If this number is zero in state, the NFT is owned by its token type's current treasury.
      */
-    int64 owner_number = 2;
+    AccountID owner_id = 2;
 
     /**
      * The number of the account or contract approved to spend this NFT.
      * 
      * If this number is zero, there is no approved spender.
      */
-    int64 spender_number = 3;
+    AccountID spender_id = 3;
 
     /**
      * The consensus time of the TokenMint that created this NFT.

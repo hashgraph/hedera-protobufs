@@ -39,6 +39,7 @@ option java_multiple_files = true;
 message Token {
     /**
      * The unique entity number of this token.
+     * FUTURE : Need to validate if this is needed
      */
     int64 token_number = 1;
     /**
@@ -65,7 +66,7 @@ message Token {
      * tokens as-well as the tokens from the Token Mint operation once executed. The balance
      * of the treasury account is decreased when the Token Burn operation is executed.
      */
-    int64 treasury_account_number = 6;
+    AccountID treasury_account_id = 6;
     /**
      * (Optional) The admin key of this token. If this key is set, the token is mutable.
      * A mutable token can be modified.
@@ -125,7 +126,7 @@ message Token {
      * The number of the account (if any) that the network will attempt to charge for the
      * token's auto-renewal upon expiration.
      */
-    int64 auto_renew_account_number = 18;
+    AccountID auto_renew_account_id = 18;
     /**
      * The number of seconds the network should automatically extend the token's expiration by, if the
      * token has a valid auto-renew account, and is not deleted upon expiration.

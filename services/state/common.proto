@@ -34,13 +34,21 @@ message EntityNumber {
 }
 
 /**
+ * A single 64-bit number identifying a Hedera native entity.
+ */
+message EntityIDPair {
+  AccountID account_id = 1;
+  TokenID token_id = 2;
+}
+
+/**
  * Identifier for a unique token (or "NFT"), used by both contract and token services.
  */
 message UniqueTokenId {
   /**
    * The number of the unique token type this NFT is an instance of.
    */
-  int64 token_type_number = 1;
+  TokenID token_id = 1;
 
   /**
    * The serial number of this NFT within its token type.
