@@ -62,7 +62,7 @@ message Token {
      */
     int64 total_supply = 5;
     /**
-     * The treasury account number of this token. This account receives the initial supply of
+     * The treasury account id of this token. This account receives the initial supply of
      * tokens as-well as the tokens from the Token Mint operation once executed. The balance
      * of the treasury account is decreased when the Token Burn operation is executed.
      */
@@ -123,7 +123,7 @@ message Token {
      */
     TokenSupplyType supply_type = 17;
     /**
-     * The number of the account (if any) that the network will attempt to charge for the
+     * The account id (if any) that the network will attempt to charge for the
      * token's auto-renewal upon expiration.
      */
     AccountID auto_renew_account_id = 18;

@@ -47,7 +47,7 @@ message EntityIDPair {
  */
 message UniqueTokenId {
   /**
-   * The number of the unique token type this NFT is an instance of.
+   * The id of the unique token this NFT is an instance of.
    */
   TokenID token_id = 1;
 

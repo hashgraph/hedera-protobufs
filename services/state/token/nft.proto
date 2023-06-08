@@ -41,14 +41,14 @@ message Nft {
     UniqueTokenId id = 1;
 
     /**
-     * The number of the account or contract that owns this NFT. 
+     * The account or contract id that owns this NFT.
      *
      * If this number is zero in state, the NFT is owned by its token type's current treasury.
      */
     AccountID owner_id = 2;
 
     /**
-     * The number of the account or contract approved to spend this NFT.
+     * The account or contract id approved to spend this NFT.
      * 
      * If this number is zero, there is no approved spender.
      */

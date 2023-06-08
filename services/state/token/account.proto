@@ -200,7 +200,7 @@ message Account {
 /**
  * Allowance granted by this account to a spender for a specific non-fungible token
  * using ApproveForAll. This allows spender to spend all serial numbers for the given
- * non-fungible token number.
+ * non-fungible token id.
  */
 message AccountApprovalForAllAllowance {
     TokenID token_id = 1;
