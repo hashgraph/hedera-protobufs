@@ -45,31 +45,31 @@ message Account {
      */
     int64 account_number = 1;
     /**
-     * The alias to use for this account, if any.
+     * The balance of the account, in tiny-bars.
      */
-    bytes alias = 2;
+    int64 tinybar_balance = 2;
     /**
-     * (Optional) The key to be used to sign transactions from the account, if any.
-     * This key will not be set for hollow accounts until the account is finalized.
-     * This key should be set on all the accounts, except for immutable accounts (0.0.800 and 0.0.801).
+     * A boolean marking if the account has been deleted.
      */
-    Key key = 3;
+    bool deleted = 3;
     /**
      * The expiration time of the account, in seconds since the epoch.
      */
     int64 expiry = 4;
     /**
-     * The balance of the account, in tiny-bars.
+     * The alias to use for this account, if any.
      */
-    int64 tinybar_balance = 5;
+    bytes alias = 5;
+    /**
+     * (Optional) The key to be used to sign transactions from the account, if any.
+     * This key will not be set for hollow accounts until the account is finalized.
+     * This key should be set on all the accounts, except for immutable accounts (0.0.800 and 0.0.801).
+     */
+    Key key = 6;
     /**
      * An optional description of the account with UTF-8 encoding up to 100 bytes.
      */
-    string memo = 6;
-    /**
-     * A boolean marking if the account has been deleted.
-     */
-    bool deleted = 7;
+    string memo = 7;
     /**
      * The amount of hbars staked to the account.
      */
