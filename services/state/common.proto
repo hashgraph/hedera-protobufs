@@ -35,7 +35,7 @@ message EntityNumber {
 }
 
 /**
- * A single 64-bit number identifying a Hedera native entity.
+ * Pair of AccountID and TokenID to represent TokenRelation
  */
 message EntityIDPair {
   AccountID account_id = 1;
