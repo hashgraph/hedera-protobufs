@@ -38,10 +38,10 @@ option java_multiple_files = true;
 
 message Token {
     /**
-     * The unique entity number of this token.
+     * The unique entity id of this token.
      * FUTURE : Need to validate if this is needed
      */
-    int64 token_number = 1;
+    TokenID token_id = 1;
     /**
      * The human-readable name of this token and its not necessarily unique. Maximum length allowed is 100 bytes.
      */
