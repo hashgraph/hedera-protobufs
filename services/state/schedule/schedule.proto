@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+import "basic_types.proto";
+import "timestamp.proto";
+
+option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.state.file">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+/**
+ * First-draft representation of a Hedera Schedule Service in the network Merkle tree.
+ *
+ * As with all network entities, a schedule has a unique entity number, which is usually given along
+ * with the network's shard and realm in the form of a shard.realm.number id.
+ */
+message Schedule {
+
+    /**
+     * The schedule deleted flag
+     */
+    bool deleted = 1;
+
+    /**
+     * The schedule executed flag
+     */
+    bool executed = 2;
+
+    /**
+     * The memo associated with this schedule.
+     */
+    string memo = 3;
+
+    /**
+     * The file's unique entity number in the Merkle state.
+     */
+    ScheduleID id = 4;
+
+    /**
+     * The schedule account for this schedule.
+     */
+    AccountID scheduler_account = 5;
+
+    /**
+     * The payer account for this schedule.
+     */
+    AccountID payer_account = 6;
+
+    /**
+      * The admin key for this schedule.
+     */
+    Key adminKey = 7;
+
+    /**
+      * The start time of the schedule.
+     */
+    TimeStamp schedule_valid_start = 8;
+
+    /**
+      * The expiration time of the schedule as provided by the user.
+     */
+    TimeStamp expiration_time_provided = 9;
+    /**
+      * The calculated expiration time of the schedule.
+     */
+    TimeStamp calculated_expiration_time = 10;
+
+    /**
+      * The consensus timestamp of the transaction that created this schedule.
+     */
+    TimeStamp resolution_time = 11;
+
+    /**
+     * The scheduled transaction
+     */
+    SchedulableTransaction scheduled_transaction = 12;
+
+    /**
+     * The transaction body bytes
+     */
+    bytes body_bytes = 13;
+
+    /**
+    * All signature keys must sign to create schedule.
+    */
+    repeated Key signatories = 14;
+
+
+
+
+}
