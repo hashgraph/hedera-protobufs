@@ -75,22 +75,22 @@ message Schedule {
     /**
       * The start time of the schedule.
      */
-    TimeStamp schedule_valid_start = 8;
+    Timestamp schedule_valid_start = 8;
 
     /**
       * The expiration time of the schedule as provided by the user.
      */
-    TimeStamp expiration_time_provided = 9;
+    Timestamp expiration_time_provided = 9;
 
     /**
       * The calculated expiration time of the schedule.
      */
-    TimeStamp calculated_expiration_time = 10;
+    Timestamp calculated_expiration_time = 10;
 
     /**
       * The consensus timestamp of the transaction that executed, deleted, or expired this schedule.
      */
-    TimeStamp resolution_time = 11;
+    Timestamp resolution_time = 11;
 
     /**
      * The scheduled transaction
