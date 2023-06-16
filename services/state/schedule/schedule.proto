@@ -53,7 +53,7 @@ message Schedule {
     string memo = 3;
 
     /**
-     * The file's unique entity number in the Merkle state.
+     * This schedule's unique ID within the network state.
      */
     ScheduleID id = 4;
 
@@ -81,13 +81,14 @@ message Schedule {
       * The expiration time of the schedule as provided by the user.
      */
     TimeStamp expiration_time_provided = 9;
+
     /**
       * The calculated expiration time of the schedule.
      */
     TimeStamp calculated_expiration_time = 10;
 
     /**
-      * The consensus timestamp of the transaction that created this schedule.
+      * The consensus timestamp of the transaction that executed, deleted, or expired this schedule.
      */
     TimeStamp resolution_time = 11;
 
@@ -102,8 +103,10 @@ message Schedule {
     bytes body_bytes = 13;
 
     /**
-    * All signature keys must sign to create schedule.
-    */
+     * All the primitive keys that have already signed this schedule.
+     * The scheduled transaction will not be executed before this list is
+     * sufficient to "activate" the required keys for the scheduled transaction.
+     */
     repeated Key signatories = 14;
 
 
