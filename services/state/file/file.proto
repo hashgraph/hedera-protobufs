@@ -37,9 +37,9 @@ option java_multiple_files = true;
  */
 message File {
     /**
-     * The file's unique entity number in the Merkle state.
+     * The file's unique entity id in the Merkle state.
      */
-    int64 file_number = 1;
+    FileID file_id = 1;
     /**
       * The file's consensus expiration time in seconds since the epoch.
       */

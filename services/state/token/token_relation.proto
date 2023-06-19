@@ -37,11 +37,11 @@ message TokenRelation {
     /**
      * The token involved in this relation.It takes only positive
      */
-    int64 token_number = 1;
+    TokenID token_id = 1;
     /**
      * The account involved in this association.
      */
-    int64 account_number = 2;
+    AccountID account_id = 2;
     /**
      * The balance of the token relationship.
      */
@@ -63,11 +63,11 @@ message TokenRelation {
      */
     bool automatic_association = 7;
     /**
-     * The previous token number of account's association linked list
+     * The previous token id of account's association linked list
      */
-    int64 previous_token = 8;
+    TokenID previous_token = 8;
     /**
-     * The next token number of account's association linked list
+     * The next token id of account's association linked list
      */
-    int64 next_token = 9;
+    TokenID next_token = 9;
 }
