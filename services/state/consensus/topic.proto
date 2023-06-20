@@ -51,9 +51,9 @@ option java_multiple_files = true;
  */
 message Topic {
     /**
-     * The topic's unique entity id in the Merkle state.
+     * The topic's unique entity number in the Merkle state.
      */
-    TopicID topic_id = 1;
+    int64 topic_number = 1;
     /**
      * The number of messages sent to the topic.
      */
@@ -68,10 +68,10 @@ message Topic {
      */
     int64 auto_renew_period = 4;
     /**
-     * The id of the account (if any) that the network will attempt to charge for the
+     * The number of the account (if any) that the network will attempt to charge for the
      * topic's auto-renewal upon expiration.
      */
-    AccountID auto_renew_account_id = 5;
+    int64 auto_renew_account_number = 5;
     /**
      * Whether this topic is deleted.
      */
