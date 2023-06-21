@@ -37,10 +37,9 @@ option java_multiple_files = true;
  */
 message File {
     /**
-     * DEPRECATED and replaced by file_id.
-     * The file's unique entity number in the Merkle state.
+     * The file's unique file identifier in the Merkle state.
      */
-    int64 file_number = 1 [deprecated=true];
+    FileID file_id = 1;
     /**
       * The file's consensus expiration time in seconds since the epoch.
       */
@@ -61,8 +60,4 @@ message File {
      * Whether this file is deleted.
      */
     bool deleted = 6;
-    /**
-     * The file's unique file identifier in the Merkle state.
-     */
-    FileID file_id = 7;
 }
