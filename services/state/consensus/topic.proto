@@ -53,7 +53,7 @@ message Topic {
     /**
      * The topic's unique entity number in the Merkle state.
      */
-    int64 topic_number = 1;
+    TopicID id = 1;
     /**
      * The number of messages sent to the topic.
      */
