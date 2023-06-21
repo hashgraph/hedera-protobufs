@@ -51,7 +51,7 @@ option java_multiple_files = true;
  */
 message Topic {
     /**
-     * The topic's unique entity number in the Merkle state.
+     * The topic's unique id number in the Merkle state.
      */
     TopicID id = 1;
     /**
