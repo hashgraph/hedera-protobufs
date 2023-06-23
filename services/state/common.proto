@@ -21,6 +21,7 @@ package proto;
  * limitations under the License.
  * ‍
  */
+import "basic_types.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.common">>> This comment is special code for setting PBJ Compiler java package
@@ -34,13 +35,21 @@ message EntityNumber {
 }
 
 /**
+ * Pair of AccountID and TokenID to represent TokenRelation
+ */
+message EntityIDPair {
+  AccountID account_id = 1;
+  TokenID token_id = 2;
+}
+
+/**
  * Identifier for a unique token (or "NFT"), used by both contract and token services.
  */
 message UniqueTokenId {
   /**
-   * The number of the unique token type this NFT is an instance of.
+   * The id of the unique token this NFT is an instance of.
    */
-  int64 token_type_number = 1;
+  TokenID token_id = 1;
 
   /**
    * The serial number of this NFT within its token type.

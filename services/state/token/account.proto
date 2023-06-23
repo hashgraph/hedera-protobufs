@@ -39,36 +39,37 @@ option java_multiple_files = true;
 
 message Account {
     /**
-     * The unique entity number of the account. The shard and realm numbers are implied, based on the network
+     * The unique entity id of the account. The shard and realm numbers are implied, based on the network
      * this entity came from.
+     * FUTURE : Need to validate if this is needed
      */
-    int64 account_number = 1;
+    AccountID account_id = 1;
     /**
-     * The alias to use for this account, if any.
+     * The balance of the account, in tiny-bars.
      */
-    bytes alias = 2;
+    int64 tinybar_balance = 2;
     /**
-     * (Optional) The key to be used to sign transactions from the account, if any.
-     * This key will not be set for hollow accounts until the account is finalized.
-     * This key should be set on all the accounts, except for immutable accounts (0.0.800 and 0.0.801).
+     * A boolean marking if the account has been deleted.
      */
-    Key key = 3;
+    bool deleted = 3;
     /**
      * The expiration time of the account, in seconds since the epoch.
      */
     int64 expiry = 4;
     /**
-     * The balance of the account, in tiny-bars.
+     * The alias to use for this account, if any.
      */
-    int64 tinybar_balance = 5;
+    bytes alias = 5;
+    /**
+     * (Optional) The key to be used to sign transactions from the account, if any.
+     * This key will not be set for hollow accounts until the account is finalized.
+     * This key should be set on all the accounts, except for immutable accounts (0.0.800 and 0.0.801).
+     */
+    Key key = 6;
     /**
      * An optional description of the account with UTF-8 encoding up to 100 bytes.
      */
-    string memo = 6;
-    /**
-     * A boolean marking if the account has been deleted.
-     */
-    bool deleted = 7;
+    string memo = 7;
     /**
      * The amount of hbars staked to the account.
      */
@@ -95,11 +96,11 @@ message Account {
     /**
      * The token ID of the head of the linked list from token relations map for the account.
      */
-    int64 head_token_number = 13;
+    TokenID head_token_id = 13;
     /**
      * The NftId of the head of the linked list from unique tokens map for the account.
      */
-    int64 head_nft_id = 14;
+    UniqueTokenId head_nft_id = 14;
     /**
       * The serial number of the head NftId of the linked list from unique tokens map for the account.
       */
@@ -139,11 +140,11 @@ message Account {
      */
     int64 stake_at_start_of_last_rewarded_period = 23;
     /**
-     * (Optional) The number of an auto-renew account, in the same shard and realm as the account, that
+     * (Optional) The id of an auto-renew account, in the same shard and realm as the account, that
      * has signed a transaction allowing the network to use its balance to automatically extend the account's
      * expiration time when it passes.
      */
-    int64 auto_renew_account_number = 24;
+    AccountID auto_renew_account_id = 24;
     /**
      * The number of seconds the network should automatically extend the account's expiration by, if the
      * account has a valid auto-renew account, and is not deleted upon expiration.
@@ -199,11 +200,11 @@ message Account {
 /**
  * Allowance granted by this account to a spender for a specific non-fungible token
  * using ApproveForAll. This allows spender to spend all serial numbers for the given
- * non-fungible token number.
+ * non-fungible token id.
  */
 message AccountApprovalForAllAllowance {
-    int64 token_num = 1;
-    int64 spender_num = 2;
+    TokenID token_id = 1;
+    AccountID spender_id = 2;
 }
 
 /**
@@ -212,8 +213,8 @@ message AccountApprovalForAllAllowance {
  * This allows spender to spend the amount of tokens approved for the account.
  */
 message AccountFungibleTokenAllowance {
-    int64 token_num = 1;
-    int64 spender_num = 2;
+    TokenID token_id = 1;
+    AccountID spender_id = 2;
     int64 amount = 3;
 }
 
@@ -222,6 +223,6 @@ message AccountFungibleTokenAllowance {
  * This allows spender to spend the amount of hbars approved for the account.
  */
 message AccountCryptoAllowance {
-    int64 spender_num = 1;
+    AccountID spender_id = 1;
     int64 amount = 2;
 }
