@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "basic_types.proto";
 
 package proto;
 
@@ -34,16 +35,9 @@ message EntityNumber {
 }
 
 /**
- * Identifier for a unique token (or "NFT"), used by both contract and token services.
+ * Pair of AccountID and TokenID to represent TokenRelation
  */
-message UniqueTokenId {
-  /**
-   * The number of the unique token type this NFT is an instance of.
-   */
-  int64 token_type_number = 1;
-
-  /**
-   * The serial number of this NFT within its token type.
-   */
-  int64 serial_number = 2;
+message EntityIDPair {
+  AccountID account_id = 1;
+  TokenID token_id = 2;
 }
