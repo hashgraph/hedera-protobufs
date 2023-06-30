@@ -38,9 +38,9 @@ option java_multiple_files = true;
 
 message Token {
     /**
-     * The unique entity number of this token.
+     * The unique entity id of this token.
      */
-    int64 token_number = 1;
+    TokenID token_id = 1;
     /**
      * The human-readable name of this token and its not necessarily unique. Maximum length allowed is 100 bytes.
      */
@@ -61,11 +61,11 @@ message Token {
      */
     int64 total_supply = 5;
     /**
-     * The treasury account number of this token. This account receives the initial supply of
+     * The treasury account id of this token. This account receives the initial supply of
      * tokens as-well as the tokens from the Token Mint operation once executed. The balance
      * of the treasury account is decreased when the Token Burn operation is executed.
      */
-    int64 treasury_account_number = 6;
+    AccountID treasury_account_id = 6;
     /**
      * (Optional) The admin key of this token. If this key is set, the token is mutable.
      * A mutable token can be modified.
@@ -122,10 +122,10 @@ message Token {
      */
     TokenSupplyType supply_type = 17;
     /**
-     * The number of the account (if any) that the network will attempt to charge for the
+     * The id of the account (if any) that the network will attempt to charge for the
      * token's auto-renewal upon expiration.
      */
-    int64 auto_renew_account_number = 18;
+    AccountID auto_renew_account_id = 18;
     /**
      * The number of seconds the network should automatically extend the token's expiration by, if the
      * token has a valid auto-renew account, and is not deleted upon expiration.
