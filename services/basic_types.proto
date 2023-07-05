@@ -114,6 +114,21 @@ message AccountID {
 }
 
 /**
+ * Represents an NFT on the Ledger
+ */
+message NftID {
+    /**
+     * The (non-fungible) token of which this NFT is an instance
+     */
+    TokenID tokenID = 1;
+
+    /**
+     * The unique identifier of this instance
+     */
+    int64 serialNumber = 2;
+}
+
+/**
  * The ID for a file 
  */
 message FileID {
