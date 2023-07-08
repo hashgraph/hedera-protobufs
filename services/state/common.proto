@@ -41,18 +41,3 @@ message EntityIDPair {
   AccountID account_id = 1;
   TokenID token_id = 2;
 }
-
-/**
- * Identifier for a unique token (or "NFT"), used by both contract and token services.
- */
-message UniqueTokenId {
-  /**
-   * The id of the unique token type this NFT is an instance of.
-   */
-  TokenID token_id = 1;
-
-  /**
-   * The serial number of this NFT within its token type.
-   */
-  int64 serial_number = 2;
-}
