@@ -68,10 +68,10 @@ message Topic {
      */
     int64 auto_renew_period = 4;
     /**
-     * The number of the account (if any) that the network will attempt to charge for the 
+     * The id of the account (if any) that the network will attempt to charge for the
      * topic's auto-renewal upon expiration.
      */
-    int64 auto_renew_account_number = 5;
+    AccountID auto_renew_account_id = 5;
     /**
      * Whether this topic is deleted.
      */
