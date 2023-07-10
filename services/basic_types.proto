@@ -114,6 +114,21 @@ message AccountID {
 }
 
 /**
+ * Identifier for a unique token (or "NFT"), used by both contract and token services.
+ */
+message NftID {
+    /**
+     * The (non-fungible) token of which this NFT is an instance
+     */
+    TokenID token_id = 1;
+
+    /**
+     * The serial number of this NFT within its token type
+     */
+    int64 serial_number = 2;
+}
+
+/**
  * The ID for a file 
  */
 message FileID {

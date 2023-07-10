@@ -97,11 +97,11 @@ message Account {
      */
     int64 head_token_number = 13;
     /**
-     * The NftId of the head of the linked list from unique tokens map for the account.
+     * The NftID of the head of the linked list from unique tokens map for the account.
      */
     int64 head_nft_id = 14;
     /**
-      * The serial number of the head NftId of the linked list from unique tokens map for the account.
+      * The serial number of the head NftID of the linked list from unique tokens map for the account.
       */
     int64 head_nft_serial_number = 15;
     /**

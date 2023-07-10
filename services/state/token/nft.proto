@@ -24,7 +24,6 @@ package proto;
 
 import "timestamp.proto";
 import "basic_types.proto";
-import "state/common.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
@@ -38,8 +37,7 @@ message Nft {
     /**
      * The id of this NFT.
      */
-    UniqueTokenId id = 1;
-
+    NftID id = 1;
 
     /**
      * The account or contract id that owns this NFT.
@@ -69,11 +67,11 @@ message Nft {
      * If the owner of this NFT is not its token treasury, the id of the previous NFT 
      * in the owner's "doubly-linked list" of owned NFTs (if any).
      */
-    UniqueTokenId owner_previous_nft_id = 6;
+    NftID owner_previous_nft_id = 6;
 
     /**
      * If the owner of this NFT is not its token treasury, the id of the next NFT in 
      * the owner's "doubly-linked list" of owned NFTs (if any).
      */
-    UniqueTokenId owner_next_nft_id = 7;
+    NftID owner_next_nft_id = 7;
 }
