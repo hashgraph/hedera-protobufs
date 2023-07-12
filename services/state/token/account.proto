@@ -78,12 +78,24 @@ message Account {
      * be set to the time when the account starts staking to a node.
      */
     int64 stake_period_start = 9;
+
     /**
-     * The node number or the account number this account is staked to.
-     * It is negative if staking to a node and positive if staking to an account and 0 if not staking to anyone.
-     * When staking to a node, it is stored as -node-1 to differentiate node 0.
+     * ID of the account or node to which this account is staking.
      */
-    int64 staked_number = 10;
+    oneof staked_id {
+
+        /**
+         * ID of the new account to which this account is staking. If set to the sentinel <tt>0.0.0</tt> AccountID,
+         * this field removes this account's staked account ID.
+         */
+        AccountID staked_account_id = 33;
+
+        /**
+         * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
+         * removes this account's staked node ID.
+         */
+        int64 staked_node_id = 10;
+    }
     /**
      * A boolean marking if the account declines rewards.
      */
