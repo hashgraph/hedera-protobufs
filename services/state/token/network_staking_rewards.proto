@@ -41,7 +41,7 @@ message NetworkStakingRewards {
    * reaches minimum required balance.
    */
   bool staking_rewards_activated = 1;
-  
+
   /**
   * Total of (balance + stakedToMe) for all accounts staked to all nodes in the network with declineReward=false, at the
   * beginning of the new staking period.
