@@ -34,7 +34,7 @@ option java_multiple_files = true;
  *
  * As with all network entities, staking info is per node and has an unique entity number represented as shard.realm.X.
  */
-message StakingRewardContext {
+message StakingRewards {
   /**
    * Whether staking rewards are activated for this node. This is set to true when the balance of 0.0.800
    * reaches minimum required balance.
