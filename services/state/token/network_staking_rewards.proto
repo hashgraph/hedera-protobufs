@@ -28,30 +28,30 @@ option java_multiple_files = true;
 
 /**
  * First-draft representation of a Hedera Token Service staking reward entity in the network Merkle tree.
- * This consist of all the information needed to calculate the staking rewards for all nodes. It is
+ * This consist of all the information needed to calculate the staking rewards for all nodes in the network. It is
  * calculated at the beginning of each staking period for all nodes and is needed to have same values
  * for reconnect.
  *
  * As with all network entities, staking info is per node and has an unique entity number represented as shard.realm.X.
  */
-message StakingRewards {
+message NetworkStakingRewards {
   /**
-   * Whether staking rewards are activated for this node. This is set to true when the balance of 0.0.800
+   * Whether staking rewards are activated on the network. This is set to true when the balance of 0.0.800
    * reaches minimum required balance.
    */
   bool staking_rewards_activated = 1;
   /**
-  * Total of (balance + stakedToMe) for all accounts staked to all nodes with declineReward=false, at the
+  * Total of (balance + stakedToMe) for all accounts staked to all nodes in the network with declineReward=false, at the
   * beginning of the new staking period.
   */
   int64 total_staked_reward_start = 2;
   /**
-  * Total of (balance + stakedToMe) for all accounts staked to this node, at the beginning of the new
+  * Total of (balance + stakedToMe) for all accounts staked to all nodes in the network, at the beginning of the new
   * staking period.
   */
   int64 total_staked_start = 3;
   /**
-   * The total amount in tinybars that will be received in the next reward situation.
+   * The total amount in tinybars accumulated for paying rewards in next reward situation for all nodes in the network.
   */
   int64 pending_rewards = 4;
 }
