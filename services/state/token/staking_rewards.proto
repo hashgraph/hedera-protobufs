@@ -41,13 +41,13 @@ message StakingRewards {
    */
   bool staking_rewards_activated = 1;
   /**
-  * Total of (balance + stakedToMe) for all accounts staked to all nodes with declineReward=true, at the
+  * Total of (balance + stakedToMe) for all accounts staked to all nodes with declineReward=false, at the
   * beginning of the new staking period.
   */
   int64 total_staked_reward_start = 2;
   /**
-  * Total of (balance + stakedToMe) for all accounts staked to this node with declineReward=false, at the
-  * beginning of the new staking period.
+  * Total of (balance + stakedToMe) for all accounts staked to this node, at the beginning of the new
+  * staking period.
   */
   int64 total_staked_start = 3;
   /**
