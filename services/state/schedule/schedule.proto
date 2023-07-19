@@ -52,55 +52,43 @@ message Schedule {
     bool executed = 2;
 
     /**
-     * The schedule flag to wait for expiration
-     * A schedule will be executed immediately when all necessary signatures are gathered, unless
-     * this flag is set.  If this flag is set, the schedule will wait until the consensus time
-     * reaches expiration_time_provided, when signatures will again be verified, and if all
-     * required signatures are present at that time, the schedule will be executed.  Otherwise
-     * the schedule will expire without execution.
-     * Note that a schedule is always removed from state when it expires, regardless of whether it
-     * was executed or not.
-     */
-    bool wait_for_expiry = 3;
-
-    /**
      * The memo associated with this schedule.
      */
-    string memo = 4;
+    string memo = 3;
 
     /**
      * This schedule's unique ID within the global network state.
      */
-    ScheduleID id = 5;
+    ScheduleID id = 4;
 
     /**
      * The schedule account for this schedule.  This is the account that submitted the original
      * ScheduleCreate transaction.
      */
-    AccountID scheduler_account = 6;
+    AccountID scheduler_account = 5;
 
     /**
      * The explicit payer account for the scheduled transaction.
      * This account is added to the accounts that must sign the schedule before it will execute.
      */
-    AccountID payer_account = 7;
+    AccountID payer_account = 6;
 
     /**
      * The admin key for this schedule.
      * If this is not set, then the schedule cannot be deleted.
      */
-    Key admin_key = 8;
+    Key admin_key = 7;
 
     /**
      * The transaction valid start value from the transaction that created this schedule.
      */
-    Timestamp schedule_valid_start = 9;
+    Timestamp schedule_valid_start = 8;
 
     /**
      * The requested expiration time of the schedule as provided by the user.
      * The actual calculated expiration time may be "earlier" than this, but will not be later.
      */
-    Timestamp expiration_time_provided = 10;
+    Timestamp expiration_time_provided = 9;
 
     /**
      * The calculated expiration time of the schedule.  This is calculated based on the requested
@@ -109,29 +97,29 @@ message Schedule {
      * The schedule will be removed from global network state after the network reaches a consensus
      * time greater than or equal to this value.
      */
-    Timestamp calculated_expiration_time = 11;
+    Timestamp calculated_expiration_time = 10;
 
     /**
      * The consensus timestamp of the transaction that executed or deleted this schedule.
      */
-    Timestamp resolution_time = 12;
+    Timestamp resolution_time = 11;
 
     /**
      * The scheduled transaction to execute.
      */
-    SchedulableTransactionBody scheduled_transaction = 13;
+    SchedulableTransactionBody scheduled_transaction = 12;
 
     /**
      * The full transaction that created this schedule.  This is primarily used for duplicate
      * schedule create detection.  This is also the source of the parent transaction ID, from
      * which the child transaction ID is derived.
      */
-    TransactionBody original_create_transaction = 14;
+    TransactionBody original_create_transaction = 13;
 
     /**
      * All the primitive keys that have already signed this schedule.
      * The scheduled transaction will not be executed before this list is
      * sufficient to "activate" the required keys for the scheduled transaction.
      */
-    repeated Key signatories = 15;
+    repeated Key signatories = 14;
 }

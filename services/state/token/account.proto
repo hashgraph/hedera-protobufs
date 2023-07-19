@@ -89,10 +89,10 @@ message Account {
          */
         AccountID staked_account_id = 10;
 
-        /**
+    /**
          * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
          * removes this account's staked node ID.
-         */
+     */
         int64 staked_node_id = 11;
     }
     /**
@@ -106,11 +106,11 @@ message Account {
     /**
      * The token ID of the head of the linked list from token relations map for the account.
      */
-    TokenID head_token_id = 13;
+    TokenID head_token_id = 14;
     /**
      * The NftID of the head of the linked list from unique tokens map for the account.
      */
-    NftID head_nft_id = 14;
+    NftID head_nft_id = 15;
     /**
       * The serial number of the head NftID of the linked list from unique tokens map for the account.
       */
@@ -154,7 +154,7 @@ message Account {
      * has signed a transaction allowing the network to use its balance to automatically extend the account's
      * expiration time when it passes.
      */
-    AccountID auto_renew_account_id = 24;
+    AccountID auto_renew_account_id = 25;
     /**
      * The number of seconds the network should automatically extend the account's expiration by, if the
      * account has a valid auto-renew account, and is not deleted upon expiration.

@@ -35,7 +35,7 @@ message BlockInfo {
   /**
    * The last block number, this is the last completed immutable block.
    */
-  int64 last_block_number = 1;
+  int64 last_block_no = 1;
   /**
    * The consensus time of the first transaction of the last block, this is the last completed immutable block.
    */
