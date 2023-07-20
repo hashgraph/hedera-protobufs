@@ -23,16 +23,15 @@ package proto;
  */
 
 import "basic_types.proto";
-import "timestamp.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.file">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service file in the network Merkle tree.
+ * Representation of a Hedera Token Service file in the network Merkle tree.
  *
- * As with all network entities, a file has a unique entity number, which is usually given along
+ * As with all network entities, a file has a unique entity number, which is given along
  * with the network's shard and realm in the form of a shard.realm.number id.
  */
 message File {
@@ -43,7 +42,7 @@ message File {
     /**
       * The file's consensus expiration time in seconds since the epoch.
       */
-    int64 expiration_time = 2;
+    int64 expiration_second = 2;
     /**
      * All keys at the top level of a key list must sign to create, modify and delete the file.
      */

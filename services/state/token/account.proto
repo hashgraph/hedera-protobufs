@@ -30,19 +30,17 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service account entity in the network Merkle tree.
+ * Representation of a Hedera Token Service account entity in the network Merkle tree.
  *
- * As with all network entities, account has an unique entity number represented as shard.realm.X.
+ * As with all network entities, account has a unique entity number represented as shard.realm.X.
  * X can be an alias public key or an EVM address or a number.
- *
  */
 
 message Account {
     /**
-     * The unique entity number of the account. The shard and realm numbers are implied, based on the network
-     * this entity came from.
+     * The unique entity id of the account.
      */
-    int64 account_number = 1;
+    AccountID account_id = 1;
     /**
      * The alias to use for this account, if any.
      */
@@ -56,7 +54,7 @@ message Account {
     /**
      * The expiration time of the account, in seconds since the epoch.
      */
-    int64 expiry = 4;
+    int64 expiration_second = 4;
     /**
      * The balance of the account, in tiny-bars.
      */
@@ -83,7 +81,6 @@ message Account {
      * ID of the account or node to which this account is staking.
      */
     oneof staked_id {
-
         /**
          * ID of the new account to which this account is staking. If set to the sentinel <tt>0.0.0</tt> AccountID,
          * this field removes this account's staked account ID.
@@ -91,8 +88,8 @@ message Account {
         AccountID staked_account_id = 10;
 
         /**
-         * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
-         * removes this account's staked node ID.
+             * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
+             * removes this account's staked node ID.
          */
         int64 staked_node_id = 11;
     }
@@ -107,11 +104,11 @@ message Account {
     /**
      * The token ID of the head of the linked list from token relations map for the account.
      */
-    int64 head_token_number = 14;
+    TokenID head_token_id = 14;
     /**
      * The NftID of the head of the linked list from unique tokens map for the account.
      */
-    int64 head_nft_id = 15;
+    NftID head_nft_id = 15;
     /**
       * The serial number of the head NftID of the linked list from unique tokens map for the account.
       */
@@ -151,18 +148,18 @@ message Account {
      */
     int64 stake_at_start_of_last_rewarded_period = 24;
     /**
-     * (Optional) The number of an auto-renew account, in the same shard and realm as the account, that
+     * (Optional) The id of an auto-renew account, in the same shard and realm as the account, that
      * has signed a transaction allowing the network to use its balance to automatically extend the account's
      * expiration time when it passes.
      */
-    int64 auto_renew_account_number = 25;
+    AccountID auto_renew_account_id = 25;
     /**
      * The number of seconds the network should automatically extend the account's expiration by, if the
      * account has a valid auto-renew account, and is not deleted upon expiration.
-     * If this is not provided in a allowed range on account creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
+     * If this is not provided in an allowed range on account creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
      * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
-    int64 auto_renew_secs = 26;
+    int64 auto_renew_seconds = 26;
     /**
      * If this account is a smart-contract, number of key-value pairs stored on the contract.
      * This is used to determine the storage rent for the contract.
@@ -211,11 +208,11 @@ message Account {
 /**
  * Allowance granted by this account to a spender for a specific non-fungible token
  * using ApproveForAll. This allows spender to spend all serial numbers for the given
- * non-fungible token number.
+ * non-fungible token id.
  */
 message AccountApprovalForAllAllowance {
-    int64 token_num = 1;
-    int64 spender_num = 2;
+    TokenID token_id = 1;
+    AccountID spender_id = 2;
 }
 
 /**
@@ -224,8 +221,8 @@ message AccountApprovalForAllAllowance {
  * This allows spender to spend the amount of tokens approved for the account.
  */
 message AccountFungibleTokenAllowance {
-    int64 token_num = 1;
-    int64 spender_num = 2;
+    TokenID token_id = 1;
+    AccountID spender_id = 2;
     int64 amount = 3;
 }
 
@@ -234,6 +231,6 @@ message AccountFungibleTokenAllowance {
  * This allows spender to spend the amount of hbars approved for the account.
  */
 message AccountCryptoAllowance {
-    int64 spender_num = 1;
+    AccountID spender_id = 1;
     int64 amount = 2;
 }

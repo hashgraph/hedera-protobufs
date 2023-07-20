@@ -30,7 +30,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service token entity in the network Merkle tree.
+ * Representation of a Hedera Token Service token entity in the network Merkle tree.
  *
  * As with all network entities, a token has a unique entity number, which is usually given along
  * with the network's shard and realm in the form of a shard.realm.number id.
@@ -42,7 +42,7 @@ message Token {
      */
     TokenID token_id = 1;
     /**
-     * The human-readable name of this token and its not necessarily unique. Maximum length allowed is 100 bytes.
+     * The human-readable name of this token. Need not be unique. Maximum length allowed is 100 bytes.
      */
     string name = 2;
     /**
@@ -62,7 +62,7 @@ message Token {
     int64 total_supply = 5;
     /**
      * The treasury account id of this token. This account receives the initial supply of
-     * tokens as-well as the tokens from the Token Mint operation once executed. The balance
+     * tokens as well as the tokens from the Token Mint operation once executed. The balance
      * of the treasury account is decreased when the Token Burn operation is executed.
      */
     AccountID treasury_account_id = 6;
@@ -132,11 +132,11 @@ message Token {
      * If this is not provided in a allowed range on token creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
      * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
-    int64 auto_renew_secs = 19;
+    int64 auto_renew_seconds = 19;
     /**
      * The expiration time of the token, in seconds since the epoch.
      */
-    int64 expiry = 20;
+    int64 expiration_second = 20;
     /**
      * An optional description of the token with UTF-8 encoding up to 100 bytes.
      */
@@ -154,7 +154,7 @@ message Token {
      */
     bool accounts_frozen_by_default = 24;
     /**
-      * The flag indicating if this token has accounts associated to it that are KYC granted by default.
+      * The flag indicating if this token has accounts associated with it that are KYC granted by default.
      */
     bool accounts_kyc_granted_by_default = 25;
     /**
