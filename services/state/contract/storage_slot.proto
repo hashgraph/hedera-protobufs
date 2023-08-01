@@ -48,8 +48,8 @@ message SlotKey {
 /**
  * The value of a contract storage slot. For the EVM, this is a single word.
  * 
- * But because we need to be able to iterate through all the storage slots for an 
- * expired contract when purging it from state, our slot values also include the words 
+ * Because we iterate through all the storage slots for an expired contract
+ * when purging it from state, our slot values also include the words
  * of the previous and next keys in this contract's storage "list". 
  */
 message SlotValue {

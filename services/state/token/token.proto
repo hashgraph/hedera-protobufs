@@ -30,7 +30,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service token entity in the network Merkle tree.
+ * Representation of a Hedera Token Service token entity in the network Merkle tree.
  *
  * As with all network entities, a token has a unique entity number, which is usually given along
  * with the network's shard and realm in the form of a shard.realm.number id.
@@ -40,123 +40,123 @@ message Token {
     /**
      * The unique entity id of this token.
      */
-    TokenID token_id = 1;
+    TokenID token_id = 14;
     /**
-     * The human-readable name of this token and its not necessarily unique. Maximum length allowed is 100 bytes.
+     * The human-readable name of this token. Need not be unique. Maximum length allowed is 100 bytes.
      */
-    string name = 2;
+    string name = 11;
     /**
      * The human-readable symbol for the token. It is not necessarily unique. Maximum length allowed is 100 bytes.
      */
-    string symbol = 3;
+    string symbol = 12;
     /**
      * The number of decimal places of this token. If decimals are 8 or 11, then the number of whole
      * tokens can be at most a few billions or millions, respectively. For example, it could match
      * Bitcoin (21 million whole tokens with 8 decimals) or hbars (50 billion whole tokens with 8 decimals).
      * It could even match Bitcoin with milli-satoshis (21 million whole tokens with 11 decimals).
      */
-    int32 decimals = 4;
+    int32 decimals = 5;
     /**
      * The total supply of this token.
      */
-    int64 total_supply = 5;
+    int64 total_supply = 6;
     /**
      * The treasury account id of this token. This account receives the initial supply of
-     * tokens as-well as the tokens from the Token Mint operation once executed. The balance
+     * tokens as well as the tokens from the Token Mint operation once executed. The balance
      * of the treasury account is decreased when the Token Burn operation is executed.
      */
-    AccountID treasury_account_id = 6;
+    AccountID treasury_account_id = 15;
     /**
      * (Optional) The admin key of this token. If this key is set, the token is mutable.
      * A mutable token can be modified.
      * If this key is not set on token creation, it cannot be modified.
      */
-    Key admin_key = 7;
+    Key admin_key = 16;
     /**
      * (Optional) The kyc key of this token.
      * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
-    Key kyc_key = 8;
+    Key kyc_key = 17;
     /**
      * (Optional) The freeze key of this token. This key is needed for freezing the token.
      * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
-    Key freeze_key = 9;
+    Key freeze_key = 18;
     /**
      * (Optional) The wipe key of this token. This key is needed for wiping the token.
      * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
-    Key wipe_key = 10;
+    Key wipe_key = 19;
     /**
      * (Optional) The supply key of this token. This key is needed for minting or burning token.
      * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
-    Key supply_key = 11;
+    Key supply_key = 20;
     /**
      * (Optional) The fee schedule key of this token. This key should be set, in order to make any
      * changes to the custom fee schedule.
      * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
-    Key fee_schedule_key = 12;
+    Key fee_schedule_key = 21;
     /**
      * (Optional) The pause key of this token. This key is needed for pausing the token.
      * If this key is not set on token creation, it can only be set if the token has admin key set.
      */
-    Key pause_key = 13;
+    Key pause_key = 22;
     /**
      * The last used serial number of this token.
      */
-    int64 last_used_serial_number = 14;
+    int64 last_used_serial_number = 7;
     /**
      * The flag indicating if this token is deleted.
      */
-    bool deleted = 15;
+    bool deleted = 1;
     /**
      * The type of this token. A token can be either FUNGIBLE_COMMON or NON_FUNGIBLE_UNIQUE.
      * If it has been omitted during token creation, FUNGIBLE_COMMON type is used.
      */
-    TokenType token_type = 16;
+    TokenType token_type = 23;
     /**
      * The supply type of this token.A token can have either INFINITE or FINITE supply type.
      * If it has been omitted during token creation, INFINITE type is used.
      */
-    TokenSupplyType supply_type = 17;
+    TokenSupplyType supply_type = 24;
     /**
      * The id of the account (if any) that the network will attempt to charge for the
      * token's auto-renewal upon expiration.
      */
-    AccountID auto_renew_account_id = 18;
+    AccountID auto_renew_account_id = 25;
     /**
      * The number of seconds the network should automatically extend the token's expiration by, if the
      * token has a valid auto-renew account, and is not deleted upon expiration.
      * If this is not provided in a allowed range on token creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
      * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
-    int64 auto_renew_secs = 19;
+    int64 auto_renew_secs = 8;
     /**
      * The expiration time of the token, in seconds since the epoch.
      */
-    int64 expiry = 20;
+    int64 expiry = 9;
     /**
      * An optional description of the token with UTF-8 encoding up to 100 bytes.
      */
-    string memo = 21;
+    string memo = 13;
     /**
      * The maximum supply of this token.
      */
-    int64 max_supply = 22;
+    int64 max_supply = 10;
     /**
      * The flag indicating if this token is paused.
      */
-    bool paused = 23;
+    bool paused = 2;
     /**
      * The flag indicating if this token has accounts associated to it that are frozen by default.
      */
-    bool accounts_frozen_by_default = 24;
+    bool accounts_frozen_by_default = 3;
     /**
-      * The flag indicating if this token has accounts associated to it that are KYC granted by default.
+      * The flag indicating if this token has accounts associated with it that are KYC granted by default.
      */
-    bool accounts_kyc_granted_by_default = 25;
+    bool accounts_kyc_granted_by_default = 4;
     /**
      * (Optional) The custom fees of this token.
      */

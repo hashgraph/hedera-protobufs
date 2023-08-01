@@ -30,38 +30,38 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service NFT in the network Merkle tree.
+ * Representation of a Hedera Token Service NFT in the network Merkle tree.
  */
 message Nft {
 
     /**
      * The id of this NFT.
      */
-    NftID id = 1;
+    NftID id = 2;
 
     /**
      * The account or contract id that owns this NFT.
      *
      * If this number is zero in state, the NFT is owned by its token type's current treasury.
      */
-    AccountID owner_id = 2;
+    AccountID owner_id = 3;
 
     /**
      * The account or contract id approved to spend this NFT.
      *
      * If this number is zero, there is no approved spender.
      */
-    AccountID spender_id = 3;
+    AccountID spender_id = 4;
 
     /**
      * The consensus time of the TokenMint that created this NFT.
      */
-    Timestamp mint_time = 4;
+    Timestamp mint_time = 5;
 
     /**
      * The metadata of this NFT, up to 100 bytes; usually the UTF-8 encoding of a URI.
      */
-    bytes metadata = 5;
+    bytes metadata = 1;
 
     /**
      * If the owner of this NFT is not its token treasury, the id of the previous NFT 

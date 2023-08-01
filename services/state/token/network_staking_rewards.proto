@@ -27,12 +27,12 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service staking reward entity in the network Merkle tree.
- * This consist of all the information needed to calculate the staking rewards for all nodes in the network. It is
+ * Representation of a Hedera Token Service staking reward entity in the network Merkle tree.
+ * This consists of all the information needed to calculate the staking rewards for all nodes in the network. It is
  * calculated at the beginning of each staking period for all nodes and is needed to have same values
  * for reconnect.
  *
- * As with all network entities, staking info is per node and has an unique entity number represented as shard.realm.X.
+ * As with all network entities, staking info is per node and has a unique entity number represented as shard.realm.X.
  */
 message NetworkStakingRewards {
 

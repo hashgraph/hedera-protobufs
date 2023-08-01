@@ -30,24 +30,24 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service file in the network Merkle tree.
+ * Representation of a Hedera Token Service file in the network Merkle tree.
  *
- * As with all network entities, a file has a unique entity number, which is usually given along
+ * As with all network entities, a file has a unique entity number, which is given along
  * with the network's shard and realm in the form of a shard.realm.number id.
  */
 message File {
     /**
      * The file's unique file identifier in the Merkle state.
      */
-    FileID file_id = 1;
+    FileID file_id = 5;
     /**
       * The file's consensus expiration time in seconds since the epoch.
       */
-    int64 expiration_time = 2;
+    int64 expiry = 2;
     /**
      * All keys at the top level of a key list must sign to create, modify and delete the file.
      */
-    KeyList keys = 3;
+    KeyList keys = 6;
     /**
      * The bytes that are the contents of the file
      */
@@ -55,9 +55,9 @@ message File {
     /**
      * The memo associated with the file (UTF-8 encoding max 100 bytes)
      */
-    string memo = 5;
+    string memo = 3;
     /**
      * Whether this file is deleted.
      */
-    bool deleted = 6;
+    bool deleted = 1;
 }
