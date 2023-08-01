@@ -71,19 +71,19 @@ message Schedule {
     /**
      * This schedule's unique ID within the global network state.
      */
-    ScheduleID id = 5;
+    ScheduleID schedule_id = 5;
 
     /**
      * The schedule account for this schedule.  This is the account that submitted the original
      * ScheduleCreate transaction.
      */
-    AccountID scheduler_account = 6;
+    AccountID scheduler_account_id = 6;
 
     /**
      * The explicit payer account for the scheduled transaction.
      * This account is added to the accounts that must sign the schedule before it will execute.
      */
-    AccountID payer_account = 7;
+    AccountID payer_account_id = 7;
 
     /**
      * The admin key for this schedule.
@@ -100,7 +100,7 @@ message Schedule {
      * The requested expiration time of the schedule as provided by the user.
      * The actual calculated expiration time may be "earlier" than this, but will not be later.
      */
-    Timestamp expiration_time_provided = 10;
+    Timestamp expiry_provided = 10;
 
     /**
      * The calculated expiration time of the schedule.  This is calculated based on the requested
@@ -109,7 +109,7 @@ message Schedule {
      * The schedule will be removed from global network state after the network reaches a consensus
      * time greater than or equal to this value.
      */
-    Timestamp calculated_expiration_time = 11;
+    Timestamp calculated_expiry = 11;
 
     /**
      * The consensus timestamp of the transaction that executed or deleted this schedule.

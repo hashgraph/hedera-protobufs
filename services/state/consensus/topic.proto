@@ -29,7 +29,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Consensus Service topic in the network Merkle tree. 
+ * Representation of a Hedera Consensus Service topic in the network Merkle tree.
  * 
  * As with all network entities, a topic has a unique entity number, which is usually given along 
  * with the network's shard and realm in the form of a shard.realm.number id.
@@ -51,9 +51,9 @@ option java_multiple_files = true;
  */
 message Topic {
     /**
-     * The topic's unique id number in the Merkle state.
+     * The topic's unique id in the Merkle state.
      */
-    TopicID id = 1;
+    TopicID topic_id = 7;
     /**
      * The number of messages sent to the topic.
      */
@@ -71,11 +71,11 @@ message Topic {
      * The id of the account (if any) that the network will attempt to charge for the
      * topic's auto-renewal upon expiration.
      */
-    AccountID auto_renew_account_id = 5;
+    AccountID auto_renew_account_id = 8;
     /**
      * Whether this topic is deleted.
      */
-    bool deleted = 6;
+    bool deleted = 1;
     /**
      * When a topic is created, its running hash is initialized to 48 bytes of binary zeros.
      * For each submitted message, the topic's running hash is then updated to the output
@@ -84,11 +84,11 @@ message Topic {
      * See the TransactionReceipt.proto documentation for an exact description of the
      * data included in the SHA-384 digest used for the update.
      */
-    bytes running_hash = 7;
+    bytes running_hash = 6;
     /**
      * An optional description of the topic with UTF-8 encoding up to 100 bytes.
      */
-    string memo = 8;
+    string memo = 5;
     /**
      * If present, enforces access control for updating or deleting the topic.
      * A topic without an admin key is immutable.

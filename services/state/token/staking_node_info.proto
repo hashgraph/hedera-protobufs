@@ -30,9 +30,9 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service staking info entity in the network Merkle tree.
+ * Representation of a Hedera Token Service staking info entity in the network Merkle tree.
  *
- * As with all network entities, staking info is per node and has an unique entity number represented as shard.realm.X.
+ * As with all network entities, staking info is per node and has a unique entity number represented as shard.realm.X.
  */
 message StakingNodeInfo {
     /**
@@ -79,7 +79,7 @@ message StakingNodeInfo {
      * is the reward up to and including the last full period that finished before the present. Second element is
      * the reward up to and including the period before that
      */
-    repeated int64 reward_sum_history = 9;
+    repeated int64 reward_sum_history = 10;
     /**
      * The consensus weight of this node in the network. This is computed based on the stake of this node
      * at midnight UTC of the current day. If the stake of this node is less than minStake, then the weight is 0.
@@ -87,5 +87,5 @@ message StakingNodeInfo {
      * If the stake of this node A is greater than minStake, then the weight of this node A is calculated as:
      * (node A stake * 500/ total stake of all nodes)
      */
-    int32 weight = 10;
+    int32 weight = 9;
 }
