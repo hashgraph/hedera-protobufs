@@ -135,3 +135,15 @@ message Schedule {
      */
     repeated Key signatories = 15;
 }
+
+/**
+ * A message for storing a list of schedules in state.
+ * This is used to store lists of schedules that expire at a particular time or that have the same
+ * simplified hash code.
+ */
+message ScheduleList {
+  /**
+   * a list of schedules, in no particular order.
+   */
+  repeated Schedule schedules = 2;
+}
