@@ -80,6 +80,12 @@ message NodeStakeUpdateTransactionBody {
    * The total number of tinybars to be distributed as staking rewards each period.
    */
   int64 staking_reward_rate = 9;
+
+  /**
+   * The amount of the staking reward funds (account 0.0.800) reserved to pay pending rewards that 
+   * have been earned but not collected.
+   */
+  int64 reserved_staking_rewards = 10;
 }
 
 /**
