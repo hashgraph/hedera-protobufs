@@ -61,7 +61,7 @@ message Topic {
     /**
      * The topic's consensus expiration time in seconds since the epoch.
      */
-    int64 expiry = 3;
+    int64 expiration_seconds = 3;
     /**
      * The number of seconds for which the topic will be automatically renewed 
      * upon expiring (if it has a valid auto-renew account).

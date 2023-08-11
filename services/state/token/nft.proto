@@ -37,7 +37,7 @@ message Nft {
     /**
      * The id of this NFT.
      */
-    NftID id = 2;
+    NftID nft_id = 2;
 
     /**
      * The account or contract id that owns this NFT.

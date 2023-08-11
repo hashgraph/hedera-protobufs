@@ -100,7 +100,7 @@ message Schedule {
      * The requested expiration time of the schedule as provided by the user.
      * The actual calculated expiration time may be "earlier" than this, but will not be later.
      */
-    Timestamp expiry_provided = 10;
+    int64 provided_expiration_seconds = 10;
 
     /**
      * The calculated expiration time of the schedule.  This is calculated based on the requested
@@ -109,7 +109,7 @@ message Schedule {
      * The schedule will be removed from global network state after the network reaches a consensus
      * time greater than or equal to this value.
      */
-    Timestamp calculated_expiry = 11;
+    int64 calculated_expiration_seconds = 11;
 
     /**
      * The consensus timestamp of the transaction that executed or deleted this schedule.

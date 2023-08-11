@@ -54,7 +54,7 @@ message Account {
     /**
      * The expiration time of the account, in seconds since the epoch.
      */
-    int64 expiry = 12;
+    int64 expiration_seconds = 12;
     /**
      * The balance of the account, in tiny-bars.
      */
