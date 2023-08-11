@@ -136,7 +136,7 @@ message Token {
     /**
      * The expiration time of the token, in seconds since the epoch.
      */
-    int64 expiry = 9;
+    int64 expiration_seconds = 9;
     /**
      * An optional description of the token with UTF-8 encoding up to 100 bytes.
      */
