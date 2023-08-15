@@ -54,7 +54,7 @@ message Account {
     /**
      * The expiration time of the account, in seconds since the epoch.
      */
-    int64 expiration_seconds = 4;
+    int64 expiration_second = 4;
     /**
      * The balance of the account, in tiny-bars.
      */
@@ -156,10 +156,10 @@ message Account {
     /**
      * The number of seconds the network should automatically extend the account's expiration by, if the
      * account has a valid auto-renew account, and is not deleted upon expiration.
-     * If this is not provided in a allowed range on account creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
+     * If this is not provided in an allowed range on account creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
      * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
-    int64 auto_renew_secs = 26;
+    int64 auto_renew_seconds = 26;
     /**
      * If this account is a smart-contract, number of key-value pairs stored on the contract.
      * This is used to determine the storage rent for the contract.

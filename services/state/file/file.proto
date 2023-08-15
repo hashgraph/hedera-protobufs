@@ -42,7 +42,7 @@ message File {
     /**
       * The file's consensus expiration time in seconds since the epoch.
       */
-    int64 expiration_seconds = 2;
+    int64 expiration_second = 2;
     /**
      * All keys at the top level of a key list must sign to create, modify and delete the file.
      */

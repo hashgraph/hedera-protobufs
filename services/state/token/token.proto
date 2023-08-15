@@ -132,11 +132,11 @@ message Token {
      * If this is not provided in a allowed range on token creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
      * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
-    int64 auto_renew_secs = 19;
+    int64 auto_renew_seconds = 19;
     /**
      * The expiration time of the token, in seconds since the epoch.
      */
-    int64 expiration_seconds = 20;
+    int64 expiration_second = 20;
     /**
      * An optional description of the token with UTF-8 encoding up to 100 bytes.
      */
