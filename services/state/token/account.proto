@@ -44,7 +44,7 @@ message Account {
     /**
      * The alias to use for this account, if any.
      */
-    bytes alias = 22;
+    bytes alias = 2;
     /**
      * (Optional) The key to be used to sign transactions from the account, if any.
      * This key will not be set for hollow accounts until the account is finalized.
@@ -82,16 +82,16 @@ message Account {
      */
     oneof staked_id {
         /**
-             * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
-             * removes this account's staked node ID.
-         */
-        int64 staked_node_id = 10;
-
-        /**
          * ID of the new account to which this account is staking. If set to the sentinel <tt>0.0.0</tt> AccountID,
          * this field removes this account's staked account ID.
          */
-        AccountID staked_account_id = 11;
+        AccountID staked_account_id = 10;
+
+        /**
+             * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
+             * removes this account's staked node ID.
+         */
+        int64 staked_node_id = 11;
     }
     /**
      * A boolean marking if the account declines rewards.
