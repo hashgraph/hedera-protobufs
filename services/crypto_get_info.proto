@@ -31,6 +31,7 @@ import "duration.proto";
 import "basic_types.proto";
 import "query_header.proto";
 import "response_header.proto";
+import "crypto_add_live_hash.proto";
 
 /**
  * Get all the information about an account, including the balance. This does not get the list of
