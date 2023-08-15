@@ -39,7 +39,7 @@ message File {
     /**
      * The file's unique file identifier in the Merkle state.
      */
-    FileID file_id = 5;
+    FileID file_id = 1;
     /**
       * The file's consensus expiration time in seconds since the epoch.
       */
@@ -47,7 +47,7 @@ message File {
     /**
      * All keys at the top level of a key list must sign to create, modify and delete the file.
      */
-    KeyList keys = 6;
+    KeyList keys = 3;
     /**
      * The bytes that are the contents of the file
      */
@@ -55,9 +55,9 @@ message File {
     /**
      * The memo associated with the file (UTF-8 encoding max 100 bytes)
      */
-    string memo = 3;
+    string memo = 5;
     /**
      * Whether this file is deleted.
      */
-    bool deleted = 1;
+    bool deleted = 6;
 }

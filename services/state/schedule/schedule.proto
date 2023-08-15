@@ -38,18 +38,22 @@ option java_multiple_files = true;
  * with the network's shard and realm in the form of a shard.realm.number id.
  */
 message Schedule {
+    /**
+     * This schedule's unique ID within the global network state.
+     */
+    ScheduleID schedule_id = 1;
 
     /**
      * The schedule deleted flag
      * A schedule will either be executed or deleted, but never both.
      */
-    bool deleted = 1;
+    bool deleted = 2;
 
     /**
      * The schedule executed flag
      * A schedule will either be executed or deleted, but never both.
      */
-    bool executed = 2;
+    bool executed = 3;
 
     /**
      * The schedule flag to wait for expiration
@@ -61,17 +65,12 @@ message Schedule {
      * Note that a schedule is always removed from state when it expires, regardless of whether it
      * was executed or not.
      */
-    bool wait_for_expiry = 3;
+    bool wait_for_expiry = 4;
 
     /**
      * The memo associated with this schedule.
      */
-    string memo = 4;
-
-    /**
-     * This schedule's unique ID within the global network state.
-     */
-    ScheduleID schedule_id = 5;
+    string memo = 5;
 
     /**
      * The schedule account for this schedule.  This is the account that submitted the original
@@ -145,5 +144,5 @@ message ScheduleList {
   /**
    * a list of schedules, in no particular order.
    */
-  repeated Schedule schedules = 2;
+  repeated Schedule schedules = 1;
 }

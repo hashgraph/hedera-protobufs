@@ -53,7 +53,7 @@ message Topic {
     /**
      * The topic's unique id in the Merkle state.
      */
-    TopicID topic_id = 7;
+    TopicID topic_id = 1;
     /**
      * The number of messages sent to the topic.
      */
@@ -71,11 +71,11 @@ message Topic {
      * The id of the account (if any) that the network will attempt to charge for the
      * topic's auto-renewal upon expiration.
      */
-    AccountID auto_renew_account_id = 8;
+    AccountID auto_renew_account_id = 5;
     /**
      * Whether this topic is deleted.
      */
-    bool deleted = 1;
+    bool deleted = 6;
     /**
      * When a topic is created, its running hash is initialized to 48 bytes of binary zeros.
      * For each submitted message, the topic's running hash is then updated to the output
@@ -84,11 +84,11 @@ message Topic {
      * See the TransactionReceipt.proto documentation for an exact description of the
      * data included in the SHA-384 digest used for the update.
      */
-    bytes running_hash = 6;
+    bytes running_hash = 7;
     /**
      * An optional description of the topic with UTF-8 encoding up to 100 bytes.
      */
-    string memo = 5;
+    string memo = 8;
     /**
      * If present, enforces access control for updating or deleting the topic.
      * A topic without an admin key is immutable.
