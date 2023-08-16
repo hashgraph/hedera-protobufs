@@ -30,11 +30,10 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service account entity in the network Merkle tree.
+ * Representation of a Hedera Token Service account entity in the network Merkle tree.
  *
- * As with all network entities, account has an unique entity number represented as shard.realm.X.
+ * As with all network entities, account has a unique entity number represented as shard.realm.X.
  * X can be an alias public key or an EVM address or a number.
- *
  */
 
 message Account {
@@ -55,7 +54,7 @@ message Account {
     /**
      * The expiration time of the account, in seconds since the epoch.
      */
-    int64 expiry = 4;
+    int64 expiration_second = 4;
     /**
      * The balance of the account, in tiny-bars.
      */
@@ -82,17 +81,16 @@ message Account {
      * ID of the account or node to which this account is staking.
      */
     oneof staked_id {
-
         /**
          * ID of the new account to which this account is staking. If set to the sentinel <tt>0.0.0</tt> AccountID,
          * this field removes this account's staked account ID.
          */
         AccountID staked_account_id = 10;
 
-    /**
-         * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
-         * removes this account's staked node ID.
-     */
+        /**
+             * ID of the new node this account is staked to. If set to the sentinel <tt>-1</tt>, this field
+             * removes this account's staked node ID.
+         */
         int64 staked_node_id = 11;
     }
     /**
@@ -158,10 +156,10 @@ message Account {
     /**
      * The number of seconds the network should automatically extend the account's expiration by, if the
      * account has a valid auto-renew account, and is not deleted upon expiration.
-     * If this is not provided in a allowed range on account creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
+     * If this is not provided in an allowed range on account creation, the transaction will fail with INVALID_AUTO_RENEWAL_PERIOD.
      * The default values for the minimum period and maximum period are 30 days and 90 days, respectively.
      */
-    int64 auto_renew_secs = 26;
+    int64 auto_renew_seconds = 26;
     /**
      * If this account is a smart-contract, number of key-value pairs stored on the contract.
      * This is used to determine the storage rent for the contract.

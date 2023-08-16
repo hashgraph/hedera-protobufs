@@ -30,14 +30,14 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Token Service NFT in the network Merkle tree.
+ * Representation of a Hedera Token Service NFT in the network Merkle tree.
  */
 message Nft {
 
     /**
      * The id of this NFT.
      */
-    NftID id = 1;
+    NftID nft_id = 1;
 
     /**
      * The account or contract id that owns this NFT.

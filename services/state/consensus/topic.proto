@@ -29,7 +29,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * First-draft representation of a Hedera Consensus Service topic in the network Merkle tree. 
+ * Representation of a Hedera Consensus Service topic in the network Merkle tree.
  * 
  * As with all network entities, a topic has a unique entity number, which is usually given along 
  * with the network's shard and realm in the form of a shard.realm.number id.
@@ -51,9 +51,9 @@ option java_multiple_files = true;
  */
 message Topic {
     /**
-     * The topic's unique id number in the Merkle state.
+     * The topic's unique id in the Merkle state.
      */
-    TopicID id = 1;
+    TopicID topic_id = 1;
     /**
      * The number of messages sent to the topic.
      */
@@ -61,7 +61,7 @@ message Topic {
     /**
      * The topic's consensus expiration time in seconds since the epoch.
      */
-    int64 expiry = 3;
+    int64 expiration_second = 3;
     /**
      * The number of seconds for which the topic will be automatically renewed 
      * upon expiring (if it has a valid auto-renew account).
