@@ -1165,6 +1165,11 @@ enum HederaFunctionality {
      * Generates a pseudorandom number.
      */
     UtilPrng = 86;
+
+    /**
+     * Get a record for a transaction.
+     */
+    TransactionGetFastRecord = 87;
 }
 
 /**
