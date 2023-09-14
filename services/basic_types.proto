@@ -118,9 +118,10 @@ message AccountID {
  */
 message NftID {
     /**
-     * The (non-fungible) token of which this NFT is an instance
+     * The (non-fungible) token of which this NFT is an instance; uppercase for "ID"
+     * for backward compatibility with original definition of this field.
      */
-    TokenID token_id = 1;
+    TokenID token_ID = 1;
 
     /**
      * The serial number of this NFT within its token type
