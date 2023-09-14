@@ -59,4 +59,9 @@ message File {
      * Whether this file is deleted.
      */
     bool deleted = 6;
+    /**
+      * The pre system delete expiration time in seconds
+      */
+    int64 pre_system_delete_expiration_second = 7;
+
 }
