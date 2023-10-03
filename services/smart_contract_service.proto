@@ -69,6 +69,11 @@ service SmartContractService {
     rpc getBySolidityID (Query) returns (Response);
 
     /**
+     * (NOT CURRENTLY SUPPORTED) Retrieves the ID for a single entity (account, claim, file or smart contract instance)
+     */
+    rpc getByKey (Query) returns (Response);
+
+    /**
      * Always returns an empty record list, as contract accounts are never effective payers for
      * transactions
      */
