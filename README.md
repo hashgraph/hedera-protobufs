@@ -28,7 +28,7 @@ retrieval of opaque binary data.
 
 There are also four secondary service families:
 1. The [network service](services/network_service.proto), for operations scoped
-to the network or its constituent nodes rather user-controlled entities as above.
+to the network or its constituent nodes rather than user-controlled entities as above.
 2. The [scheduling service](services/schedule_service.proto), for scheduling a transaction to 
 be executed when the ledger has received enough prequisite signatures. 
 3. The [freeze service](services/freeze_service.proto), for use by 
