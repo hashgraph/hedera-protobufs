@@ -60,4 +60,9 @@ service NetworkService {
      * account records.
      */
     rpc getAccountDetails (Query) returns (Response);
+
+    /**
+     * (NOT CURRENTLY SUPPORTED) Retrieves the ID for a single entity (account, claim, file or smart contract instance)
+     */
+    rpc getByKey (Query) returns (Response);
 }
