@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package proto;
+
+
+/**
+ * Create a new partition type on a token. After the entity is created, the TokenID for it is in
+ * the receipt.
+ */
+ message TokenCreatePartitionDefinitionTransactionBody {
+    /**
+     * The token (either FUNGIBLE_COMMON or NON_FUNGIBLE_UNIQUE) that this partition is a part of.
+     */
+    TokenID parent_token_id = 1;
+
+    /**
+     * The publicly visible name of the partition. The partition name is specified as a Unicode
+     * string. Its UTF-8 encoding cannot exceed 100 bytes, and cannot contain the 0 byte (NUL).
+     * This name is not unique within the ledger.
+     */
+    string name = 2;
+
+    /**
+     * The memo associated with the partition (UTF-8 encoding max 100 bytes)
+     */
+    string memo = 3;
+}

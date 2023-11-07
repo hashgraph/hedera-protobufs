@@ -142,4 +142,27 @@ message TokenUpdateTransactionBody {
      * transaction will resolve to TOKEN_HAS_NO_PAUSE_KEY
      */
     Key pause_key = 15;
+
+    
+
+    /**
+   * The key which can lock, unlock, or transfer locked tokens in an account. If the Token does not
+   * currently have a lock key, transaction will resolve to TOKEN_HAS_NO_LOCK_KEY
+   */
+    Key lock_key = 23;
+
+    /**
+     * The key which can create, update, and delete partitions of this token type. If the Token does
+     * not currently have a partition key, transaction will resolve to TOKEN_HAS_NO_PARTITION_KEY
+     */
+    Key partition_key = 24;
+
+    /**
+     * The key which can move balances from the token type's supply into any partition of any user,
+     * or move balance from one partition to another of different types, either in the same account,
+     * or in different accounts.
+     * If the Token does not currently have a partition move key, transaction will resolve to
+     * TOKEN_HAS_NO_PARTITION_MOVE_KEY
+     */
+    Key partition_move_key = 25;
 }

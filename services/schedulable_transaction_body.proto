@@ -72,6 +72,13 @@ import "token_unpause.proto";
 import "schedule_delete.proto";
 import "util_prng.proto";
 
+
+import "partition_create.proto";
+import "partition_update.proto";
+import "partition_delete.proto";
+import "token_lock.proto";
+import "token_unlock.proto";
+
 /**
  * A schedulable transaction. Note that the global/dynamic system property
  * <tt>scheduling.whitelist</tt> controls which transaction types may be scheduled. As of Hedera
@@ -283,5 +290,36 @@ message SchedulableTransactionBody {
      * Generates a pseudorandom number.
      */
     UtilPrngTransactionBody util_prng = 40;
+
+       
+
+    /**
+      Create new partition
+     */
+    
+     TokenCreatePartitionDefinitionTransactionBody partitionCreation = 41;
+    
+     /**
+       Update the partition
+      */
+     
+     TokenUpdatePartitionTransactionBody partitionUpdate = 42;
+ 
+     /**
+       Delete the partition
+      */
+ 
+     TokenDeletePartitionDefinitionTransactionBody partitionDeletion = 43;
+ 
+     /**
+       Lock the token
+      */
+     TokenLockTransactionBody tokenLock = 44;
+ 
+     /**
+       Unlock the token
+      */
+     
+     TokenUnlockTransactionBody tokenUnlock = 45;
   }
 }

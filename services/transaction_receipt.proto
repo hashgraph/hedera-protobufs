@@ -164,4 +164,12 @@ message TransactionReceipt {
      * the newly created NFTs
      */
     repeated int64 serialNumbers = 14;
+
+    
+    
+    /**
+     * If during CreateToken, a partition_key is specified but no supply_key is specified, then a single initial
+     * partition is created in addition to the token definition. This is the ID of that partition definition.
+     */
+     TokenID initialPartitionID = 15;
 }

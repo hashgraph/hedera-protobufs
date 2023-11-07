@@ -128,4 +128,32 @@ service TokenService {
 
     //  Unpause the token
     rpc unpauseToken (Transaction) returns (TransactionResponse);
+
+    
+
+  /**
+   * Locks an amount of the token in a user's account or partition of their account.
+   */
+  rpc lockToken (Transaction) returns (TransactionResponse);
+
+  /**
+   * Unlocks an amount of the token in a user's account or partition of their account.
+   */
+  rpc unlockToken (Transaction) returns (TransactionResponse);
+
+  /**
+   * Creates a new partition definition on a token definition. After the entity is created,
+   * the TokenID for it is in the receipt.
+   */
+  rpc createTokenPartitionDefinition (Transaction) returns (TransactionResponse);
+
+  /**
+   * Updates an already created token partition definition to the given values.
+   */
+  rpc updateTokenPartitionDefinition (Transaction) returns (TransactionResponse);
+
+  /**
+   * Marks a token partition definition as deleted, though it will remain in the ledger.
+   */
+  rpc deleteTokenPartitionDefinition (Transaction) returns (TransactionResponse);
 }

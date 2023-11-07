@@ -34,6 +34,9 @@ import "basic_types.proto";
  * admin key is not set, Transaction will result in TOKEN_IS_IMMUTABlE.
  * Once deleted update, mint, burn, wipe, freeze, unfreeze, grant kyc, revoke
  * kyc and token transfer transactions will resolve to TOKEN_WAS_DELETED.
+ * 
+ * A token cannot be deleted if it has any partition definitions that are not
+ * also deleted. In that case, the transaction will resolve to TOKEN_PARTITIONS_STILL_EXIST.
  */
 message TokenDeleteTransactionBody {
     /**
