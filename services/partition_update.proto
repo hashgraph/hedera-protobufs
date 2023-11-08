@@ -22,5 +22,5 @@ package proto;
     /**
      * If set, the new memo to be associated with the token (UTF-8 encoding max 100 bytes)
      */
-    google.protobuf.StringValue memo = 5;
+    google.protobuf.StringValue memo = 3;
 }
