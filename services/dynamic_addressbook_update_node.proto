@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.consensus">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "google/protobuf/wrappers.proto";
+import "basic_types.proto";
+import "duration.proto";
+import "timestamp.proto";
+
+/**
+ * All fields left null will not be updated.
+ * See [DynamicAddressBookService.updateTopic()](#proto.DynamicAddressBookService)
+ */
+message DynamicAddressBookUpdateNodeTransactionBody {
+    /**
+     * The unique entity id of the DynamicAddress.
+     */
+    int64 node_id = 1;
+    /**
+     * If set, the new account_id to be associated with the node
+     */
+    AccountID account_id = 2;
+    /**
+     * If set, the new description to be associated with the node
+     */
+    string description = 3;
+    /**
+     * If set, the new inbound_ip to be associated with the node
+     */
+    string inbound_ip = 4;
+    /**
+     * If set, the new inbound_port to be associated with the node
+     */
+    int32 inbound_port = 5;
+    /**
+     * If set, the new outbound_ip to be associated with the node
+     */
+    string outbound_ip = 6;
+    /**
+     *If set, the new outbound_port to be associated with the node
+     */
+    int32 outbound_port = 7;
+    /**
+     * If set, the new grpc_ip to be associated with the node
+     */
+    string grpc_ip = 8;
+    /**
+     * If set, the new grpc_port to be associated with the node
+     */
+    int32 grpc_port = 9;
+    /**
+    *If set, the new public_key to be associated with the node
+    */
+    Key public_key = 10;
+    /**
+     * If set, the new x509 certificate to be associated with the node
+     */
+    bytes certificate = 11;
+}
