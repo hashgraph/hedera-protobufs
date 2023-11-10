@@ -73,11 +73,7 @@ message DynamicAddressBookAddNodeTransactionBody {
     */
     Key public_key = 10;
     /**
-      * node weight.
-      */
-    int64 weight = 11;
-    /**
      * node x509 certificate
      */
-    bytes certificate = 12;
+    bytes certificate = 11;
 }
