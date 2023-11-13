@@ -39,11 +39,11 @@ message DynamicAddressBookUpdateNodeTransactionBody {
     /**
      * The unique entity id of the DynamicAddress.
      */
-    int64 node_id = 1;
+    int64 nodeID = 1;
     /**
      * If set, the new account_id to be associated with the node
      */
-    AccountID account_id = 2;
+    AccountID accountID = 2;
     /**
      * If set, the new description to be associated with the node
      */
@@ -51,31 +51,31 @@ message DynamicAddressBookUpdateNodeTransactionBody {
     /**
      * If set, the new inbound_ip to be associated with the node
      */
-    string inbound_ip = 4;
+    string inboundIp = 4;
     /**
      * If set, the new inbound_port to be associated with the node
      */
-    int32 inbound_port = 5;
+    int32 inboundPort = 5;
     /**
      * If set, the new outbound_ip to be associated with the node
      */
-    string outbound_ip = 6;
+    string outboundIp = 6;
     /**
      *If set, the new outbound_port to be associated with the node
      */
-    int32 outbound_port = 7;
+    int32 outboundPort = 7;
     /**
      * If set, the new grpc_ip to be associated with the node
      */
-    string grpc_ip = 8;
+    string grpcIp = 8;
     /**
      * If set, the new grpc_port to be associated with the node
      */
-    int32 grpc_port = 9;
+    int32 grpcPort = 9;
     /**
     *If set, the new public_key to be associated with the node
     */
-    Key public_key = 10;
+    Key publicKey = 10;
     /**
      * If set, the new x509 certificate to be associated with the node
      */
