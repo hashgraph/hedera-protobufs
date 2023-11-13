@@ -6,7 +6,7 @@ package proto;
  * ‌
  * Hedera Network Services Protobuf
  * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
+ * Copyright (C) 2023 Hedera Hashgraph, LLC
  * ​
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,51 +33,51 @@ import "timestamp.proto";
 
 /**
  * All fields left null will not be updated.
- * See [DynamicAddressBookService.updateTopic()](#proto.DynamicAddressBookService)
+ * See [NetworkService.updateNode()](#proto.NetworkService)
  */
-message DynamicAddressBookUpdateNodeTransactionBody {
+message NetworkUpdateNodeTransactionBody {
     /**
      * The unique entity id of the DynamicAddress.
      */
     int64 node_id = 1;
+
     /**
      * If set, the new account_id to be associated with the node
      */
     AccountID account_id = 2;
+
+    /**
+     * If set, the new nickName to be associated with the node
+     */
+    google.protobuf.StringValue nickName = 3;
+
     /**
      * If set, the new description to be associated with the node
      */
-    string description = 3;
+    google.protobuf.StringValue description = 4;
+
     /**
-     * If set, the new inbound_ip to be associated with the node
-     */
-    string inbound_ip = 4;
+       * inbound ip address or FQDN and port
+       */
+    ServiceEndpoint inbound_gossip_endpoint = 5;
+
     /**
-     * If set, the new inbound_port to be associated with the node
+     * outbound ip address or FQDN and port
      */
-    int32 inbound_port = 5;
+    ServiceEndpoint outbound_gossip_endpoint = 6;
+
     /**
-     * If set, the new outbound_ip to be associated with the node
-     */
-    string outbound_ip = 6;
-    /**
-     *If set, the new outbound_port to be associated with the node
-     */
-    int32 outbound_port = 7;
-    /**
-     * If set, the new grpc_ip to be associated with the node
-     */
-    string grpc_ip = 8;
-    /**
-     * If set, the new grpc_port to be associated with the node
-     */
-    int32 grpc_port = 9;
+    * # A node's service IP addresses and ports
+    */
+    repeated ServiceEndpoint service_endpoint = 7;
+
     /**
     *If set, the new public_key to be associated with the node
     */
-    Key public_key = 10;
+    google.protobuf.StringValue public_key = 8;
+
     /**
      * If set, the new x509 certificate to be associated with the node
      */
-    bytes certificate = 11;
+    google.protobuf.BytesValue certificate = 9;
 }

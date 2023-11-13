@@ -60,4 +60,19 @@ service NetworkService {
      * account records.
      */
     rpc getAccountDetails (Query) returns (Response);
+
+    /**
+     * Prepare to add a new node to the network
+     */
+    rpc createNode (Transaction) returns (TransactionResponse);
+
+    /**
+     * Prepare to delete the node to the network
+     */
+    rpc deleteNode (Transaction) returns (TransactionResponse);
+
+    /**
+     * Prepare to update the node to the network
+     */
+    rpc updateNode (Transaction) returns (TransactionResponse);
 }

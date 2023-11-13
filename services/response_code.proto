@@ -1373,4 +1373,19 @@ enum ResponseCodeEnum {
    * An alias that is assigned to an account or contract cannot be assigned to another account or contract.
    */
   ALIAS_ALREADY_ASSIGNED = 332;
+
+  /**
+   * A node is already deleted
+   */
+  NODE_DELETED = 333;
+
+  /**
+   * A node is not found
+   */
+  INVALID_NODE_ID = 334;
+
+  /**
+   * The account_id is already used for another node
+   */
+  INVALID_NODE_ACCOUNT_ID = 335;
 }

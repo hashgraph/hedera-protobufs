@@ -1171,6 +1171,22 @@ enum HederaFunctionality {
      * Get a record for a transaction.
      */
     TransactionGetFastRecord = 87;
+
+
+    /**
+    * Creates a node
+    */
+    CreateNode = 88;
+
+    /**
+     * Updates a node
+     */
+    UpdateNode = 89;
+
+    /**
+     * Deletes a node
+     */
+    DeleteNode = 90;
 }
 
 /**

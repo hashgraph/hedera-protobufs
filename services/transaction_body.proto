@@ -84,6 +84,11 @@ import "schedule_sign.proto";
 import "node_stake_update.proto";
 import "util_prng.proto";
 
+import "network_service.proto";
+import "network_create_node.proto";
+import "network_update_node.proto";
+import "network_delete_node.proto";
+
 /**
  * A single transaction. All transaction types are possible here.
  */
@@ -350,5 +355,20 @@ message TransactionBody {
      * Generates a pseudorandom number.
      */
     UtilPrngTransactionBody util_prng = 52;
+
+    /**
+    * Creates a node
+    */
+    NetworkCreateNodeTransactionBody networkCreateNode = 53;
+
+    /**
+     * Updates a node
+     */
+    NetworkDeleteNodeTransactionBody nodeUpdateNode = 54;
+
+    /**
+     * Deletes a node
+     */
+    NetworkUpdateNodeTransactionBody nodeDeleteNode = 55;
   }
 }

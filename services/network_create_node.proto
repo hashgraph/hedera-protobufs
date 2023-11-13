@@ -6,7 +6,7 @@ package proto;
  * ‌
  * Hedera Network Services Protobuf
  * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
+ * Copyright (C) 2023 Hedera Hashgraph, LLC
  * ​
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,51 +29,46 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * See [DynamicAddressBookService.addNode()](#proto.DynamicAddressBookService)
+ * See [NetworkService.createNode()](#proto.NetworkService)
  */
-message DynamicAddressBookAddNodeTransactionBody {
-    /**
-     * The unique entity id of the Node.
-     */
-    int64 node_id = 1;
+message NetworkCreateNodeTransactionBody {
     /**
      * node account id
      */
-    AccountID account_id = 2;
+    AccountID account_id = 1;
+
+    /**
+     * nickName of the node
+     */
+    string nickName = 2;
+
     /**
      * description of the node
      */
     string description = 3;
+
     /**
-     * inbound ip address or FQDN
-     */
-    string inbound_ip = 4;
+    * inbound ip address or FQDN and port
+    */
+    ServiceEndpoint inbound_gossip_endpoint = 4;
+
     /**
-     * inbound port
+     * outbound ip address or FQDN and port
      */
-    int32 inbound_port = 5;
+    ServiceEndpoint outbound_gossip_endpoint = 5;
+
     /**
-     * outbound ip address or FQDN
-     */
-    string outbound_ip = 6;
-    /**
-     * outbound port
-     */
-    int32 outbound_port = 7;
-    /**
-     * grpc ip address or FQDN
-     */
-    string grpc_ip = 8;
-    /**
-     * grpc port
-     */
-    int32 grpc_port = 9;
+    * # A node's service IP addresses and ports
+    */
+    repeated ServiceEndpoint service_endpoint = 6;
+
     /**
     * node public key
     */
-    Key public_key = 10;
+    string public_key = 7;
+
     /**
      * node x509 certificate
      */
-    bytes certificate = 11;
+    bytes certificate = 8;
 }

@@ -6,7 +6,7 @@ package proto;
  * ‌
  * Hedera Network Services Protobuf
  * ​
- * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * Copyright (C) 2023 Hedera Hashgraph, LLC
  * ​
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,62 +29,86 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * Representation of a Dynamic Node address in the network Merkle tree
+ * Representation of a Node in the network Merkle tree
  *
- * As with all network entities, a DynamicAddress has a unique nodeId, which is usually given along
+ * As with all network entities, a Node has a unique nodeId, which is usually given along
  */
 
-message DynamicAddress {
+message Node{
     /**
      * The unique entity id of the DynamicAddress.
      */
     int64 node_id = 1;
+
     /**
      * node account id
      */
     AccountID account_id = 2;
+
+    /**
+    * nickName of the node
+    */
+    string nickName = 3;
+
     /**
      * description of the node
      */
-    string description = 3;
+    string description = 4;
+
     /**
-     * inbound ip address or FQDN
-     */
-    string inbound_ip = 4;
+    * inbound ip address or FQDN and port
+    */
+    ServiceEndpoint inbound_gossip_endpoint = 5;
+
     /**
-     * inbound port
+     * outbound ip address or FQDN and port
      */
-    int32 inbound_port = 5;
+    ServiceEndpoint outbound_gossip_endpoint = 6;
+
     /**
-     * outbound ip address or FQDN
-     */
-    string outbound_ip = 6;
-    /**
-     * outbound port
-     */
-    int32 outbound_port = 7;
-    /**
-     * grpc ip address or FQDN
-     */
-    string grpc_ip = 8;
-    /**
-     * grpc port
-     */
-    int32 grpc_port = 9;
+    * # A node's service IP addresses and ports
+    */
+    repeated ServiceEndpoint service_endpoint = 7;
+
     /**
     * node public key
     */
-    Key public_key = 10;
+    string public_key = 8;
+
     /**
       * node weight.
       */
-    int64 weight = 11;
+    int64 weight = 9;
+
     /**
      * node x509 certificate
      */
-    bytes certificate = 12;
+    bytes certificate = 10;
+
     /**
-     * A boolean marking if the node is active in consensus.
+     * an enum to indicate the status of the node
      */
-    bool in_consensus = 13;
+    NodeStatus status = 11;
+}
+
+enum NodeStatus {
+    /**
+     * node deleted
+     */
+    DELETED = 0;
+
+    /**
+     * pending to be added
+     */
+    PENDING_ADDITION = 1;
+
+    /**
+     * pending to be deleted
+     */
+    PENDING_DELETION = 2;
+
+    /**
+     * join in the consensus
+     */
+    IN_CONSENSUS = 3;
 }
