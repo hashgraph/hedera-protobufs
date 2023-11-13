@@ -35,5 +35,5 @@ message DynamicAddressBookRemoveNodeTransactionBody {
     /**
      * Node identifier
      */
-    int64 nodeID = 1;
+    int64 node_id = 1;
 }

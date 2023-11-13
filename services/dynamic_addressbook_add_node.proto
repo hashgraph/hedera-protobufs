@@ -35,11 +35,11 @@ message DynamicAddressBookAddNodeTransactionBody {
     /**
      * The unique entity id of the Node.
      */
-    int64 nodeID = 1;
+    int64 node_id = 1;
     /**
      * node account id
      */
-    AccountID accountID = 2;
+    AccountID account_id = 2;
     /**
      * description of the node
      */
@@ -47,31 +47,31 @@ message DynamicAddressBookAddNodeTransactionBody {
     /**
      * inbound ip address or FQDN
      */
-    string inboundIp = 4;
+    string inbound_ip = 4;
     /**
      * inbound port
      */
-    int32 inboundPort = 5;
+    int32 inbound_port = 5;
     /**
      * outbound ip address or FQDN
      */
-    string outboundIp = 6;
+    string outbound_ip = 6;
     /**
      * outbound port
      */
-    int32 outboundPort = 7;
+    int32 outbound_port = 7;
     /**
      * grpc ip address or FQDN
      */
-    string grpcIp = 8;
+    string grpc_ip = 8;
     /**
      * grpc port
      */
-    int32 grpcPort = 9;
+    int32 grpc_port = 9;
     /**
     * node public key
     */
-    Key publicKey = 10;
+    Key public_key = 10;
     /**
      * node x509 certificate
      */
