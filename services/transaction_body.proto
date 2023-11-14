@@ -360,35 +360,30 @@ message TransactionBody {
     UtilPrngTransactionBody util_prng = 52;
 
     
-
     /**
-      Create new partition
+     * Create new partition
      */
-    
-    TokenCreatePartitionDefinitionTransactionBody partitionCreation = 53;
+    TokenCreatePartitionDefinitionTransactionBody token_create_partition = 53;
     
     /**
-      Update the partition
+     * Update the partition
      */
-    
-    TokenUpdatePartitionTransactionBody partitionUpdate = 54;
+    TokenUpdatePartitionTransactionBody token_update_partition = 54;
 
     /**
-      Delete the partition
+     * Delete the partition
      */
-
-    TokenDeletePartitionDefinitionTransactionBody partitionDeletion = 55;
-
-    /**
-      Lock the token
-     */
-    TokenLockTransactionBody tokenLock = 55;
+    TokenDeletePartitionDefinitionTransactionBody token_delete_partition = 55;
 
     /**
-      Unlock the token
+     * Lock the token
      */
-    
-    TokenUnlockTransactionBody tokenUnlock = 56;
+    TokenLockTransactionBody token_lock = 56;
+
+    /**
+     * Unlock the token
+     */
+    TokenUnlockTransactionBody token_unlock = 57;
 
   }
 }

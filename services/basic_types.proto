@@ -113,6 +113,10 @@ message AccountID {
     }
 }
 
+message LockableSerialNumbers {
+    repeated int64 serial_numbers = 1;
+}
+
 /**
  * Identifier for a unique token (or "NFT"), used by both contract and token services.
  */
