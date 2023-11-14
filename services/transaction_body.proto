@@ -84,7 +84,6 @@ import "schedule_sign.proto";
 import "node_stake_update.proto";
 import "util_prng.proto";
 
-import "network_service.proto";
 import "node_create.proto";
 import "node_update.proto";
 import "node_delete.proto";

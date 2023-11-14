@@ -72,6 +72,10 @@ import "token_unpause.proto";
 import "schedule_delete.proto";
 import "util_prng.proto";
 
+import "node_create.proto";
+import "node_update.proto";
+import "node_delete.proto";
+
 /**
  * A schedulable transaction. Note that the global/dynamic system property
  * <tt>scheduling.whitelist</tt> controls which transaction types may be scheduled. As of Hedera
@@ -283,5 +287,20 @@ message SchedulableTransactionBody {
      * Generates a pseudorandom number.
      */
     UtilPrngTransactionBody util_prng = 40;
+
+    /**
+    * Create a node
+    */
+    NodeCreateTransactionBody nodeCreate = 53;
+
+    /**
+     * Update a node
+     */
+    NodeUpdateTransactionBody nodeUpdate = 54;
+
+    /**
+     * Delete a node
+     */
+    NodeDeleteTransactionBody nodeDelete = 55;
   }
 }
