@@ -29,7 +29,7 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * Information about the most recently completed and last 256 blocks.
+ * Information about ongoing, most recently completed, and last 256 blocks.
  */
 message BlockInfo {
   /**
@@ -47,4 +47,16 @@ message BlockInfo {
    * If we are shortly after genesis and there are less than 256 blocks then this could contain less than 256 hashes.
    */
   bytes block_hashes = 3;
+  /**
+   * The consensus time of the last transaction that was handled by the node. This property is how we 'advance the
+   * consensus clock', i.e. continually setting this property to the latest consensus timestamp (and thus transaction)
+   * handled by the node.
+   */
+  Timestamp cons_time_of_last_handled_txn = 4;
+  /**
+   * A flag indicating whether migration records have been published. This property should be marked 'false'
+   * immediately following a node upgrade, and marked 'true' once the migration records (if any) are published, which
+   * should happen during the first transaction handled by the node.
+   */
+  bool migration_records_streamed = 5;
 }
