@@ -33,7 +33,7 @@ import "basic_types.proto";
  */
 message NetworkCreateNodeTransactionBody {
     /**
-     * node account id
+     * node account id, mandatory field
      */
     AccountID account_id = 1;
 
@@ -48,12 +48,12 @@ message NetworkCreateNodeTransactionBody {
     string description = 3;
 
     /**
-    * inbound ip address or FQDN and port
+    * inbound ip address or FQDN and port, mandatory field
     */
     ServiceEndpoint inbound_gossip_endpoint = 4;
 
     /**
-     * outbound ip address or FQDN and port
+     * outbound ip address or FQDN and port, mandatory field
      */
     ServiceEndpoint outbound_gossip_endpoint = 5;
 
@@ -63,12 +63,12 @@ message NetworkCreateNodeTransactionBody {
     repeated ServiceEndpoint service_endpoint = 6;
 
     /**
-    * node public key
+    * node public key, mandatory field
     */
     string public_key = 7;
 
     /**
-     * node x509 certificate
+     * node x509 certificate, optional field
      */
     bytes certificate = 8;
 }

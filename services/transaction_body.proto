@@ -357,18 +357,18 @@ message TransactionBody {
     UtilPrngTransactionBody util_prng = 52;
 
     /**
-    * Creates a node
+    * Create a node
     */
-    NetworkCreateNodeTransactionBody networkCreateNode = 53;
+    NetworkCreateNodeTransactionBody nodeCreate = 53;
 
     /**
-     * Updates a node
+     * Update a node
      */
-    NetworkDeleteNodeTransactionBody nodeUpdateNode = 54;
+    NetworkDeleteNodeTransactionBody nodeUpdate = 54;
 
     /**
-     * Deletes a node
+     * Delete a node
      */
-    NetworkUpdateNodeTransactionBody nodeDeleteNode = 55;
+    NetworkUpdateNodeTransactionBody nodeDelete = 55;
   }
 }
