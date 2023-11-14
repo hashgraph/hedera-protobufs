@@ -63,7 +63,7 @@ message NodeCreateTransactionBody {
     string public_key = 6;
 
     /**
-     * node x509 certificate, optional field
+     * node x509 certificate hash, optional field
      */
-    bytes certificate = 7;
+    bytes certificate_hash = 7;
 }

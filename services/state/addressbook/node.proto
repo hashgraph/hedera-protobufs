@@ -41,37 +41,35 @@ message Node{
     int64 node_id = 1;
 
     /**
-     * node account id
+     * The account to be paid for queries and transactions sent to this node
      */
     AccountID account_id = 2;
 
     /**
-    * nickName of the node
-    */
-    string nickName = 3;
-
-    /**
-     * description of the node
+     * A description of the node, with UTF-8 encoding up to 100 bytes
      */
     string description = 4;
 
     /**
-    * inbound ip address or FQDN and port
+    * Node Gossip inbound Endpoints, ip address or FQDN and port
     */
     ServiceEndpoint inbound_gossip_endpoint = 5;
 
     /**
-     * outbound ip address or FQDN and port
+     * Node Gossip outbound Endpoints, ip address or FQDN and port
      */
     ServiceEndpoint outbound_gossip_endpoint = 6;
 
     /**
-    * # A node's service IP addresses and ports
+    * # A node's service Endpoints, ip address or FQDN and port
     */
     repeated ServiceEndpoint service_endpoint = 7;
 
     /**
-    * node public key
+    * node’s public key within the Address Book used for signing.
+     * The node's X509 RSA public key used to sign stream files (e.g., record stream
+     * files). Precisely, this field is a string of hexadecimal characters which,
+     * translated to binary, are the public key's DER encoding.
     */
     string public_key = 8;
 
@@ -81,9 +79,12 @@ message Node{
     int64 weight = 9;
 
     /**
-     * node x509 certificate
+     * node x509 certificate hash. Hash of the node's TLS certificate. Precisely, this field is a string of
+     * hexadecimal characters which, translated to binary, are the SHA-384 hash of
+     * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
+     * used to verify the node's certificate it presents during TLS negotiations.
      */
-    bytes certificate = 10;
+    bytes certificate_hash = 10;
 
     /**
      * an enum to indicate the status of the node

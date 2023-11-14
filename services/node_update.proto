@@ -47,37 +47,32 @@ message NodeUpdateTransactionBody {
     AccountID account_id = 2;
 
     /**
-     * If set, the new nickName to be associated with the node
-     */
-    google.protobuf.StringValue nickName = 3;
-
-    /**
      * If set, the new description to be associated with the node
      */
-    google.protobuf.StringValue description = 4;
+    google.protobuf.StringValue description = 3;
 
     /**
        * inbound ip address or FQDN and port
        */
-    ServiceEndpoint inbound_gossip_endpoint = 5;
+    ServiceEndpoint inbound_gossip_endpoint = 4;
 
     /**
      * outbound ip address or FQDN and port
      */
-    ServiceEndpoint outbound_gossip_endpoint = 6;
+    ServiceEndpoint outbound_gossip_endpoint = 5;
 
     /**
     * # A node's service IP addresses and ports
     */
-    repeated ServiceEndpoint service_endpoint = 7;
+    repeated ServiceEndpoint service_endpoint = 6;
 
     /**
     *If set, the new public_key to be associated with the node
     */
-    google.protobuf.StringValue public_key = 8;
+    google.protobuf.StringValue public_key = 7;
 
     /**
      * If set, the new x509 certificate to be associated with the node
      */
-    google.protobuf.BytesValue certificate = 9;
+    google.protobuf.BytesValue certificate_hash = 8;
 }

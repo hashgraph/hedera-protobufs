@@ -35,6 +35,8 @@ import "transaction.proto";
 service NodeService {
     /**
      * Prepare to add a new node to the network
+     * When a valid council member initiates a HAPI transaction to add a new node,
+     * then the network should acknowledge the transaction and update the network’s Address Book within 24 hours.
      */
     rpc createNode (Transaction) returns (TransactionResponse);
 

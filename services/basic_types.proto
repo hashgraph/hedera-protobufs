@@ -1349,6 +1349,11 @@ message ServiceEndpoint {
      * The port of the node
      */
     int32 port = 2;
+
+    /**
+    * the fully qualified domain name of the node
+     */
+    string fqdn = 3;
 }
 
 /**
