@@ -33,11 +33,11 @@ import "timestamp.proto";
 
 /**
  * All fields left null will not be updated.
- * See [NetworkService.updateNode()](#proto.NetworkService)
+ * See [NodeService.updateNode()](#proto.NodeService)
  */
-message NetworkUpdateNodeTransactionBody {
+message NodeUpdateTransactionBody {
     /**
-     * The unique entity id of the DynamicAddress.
+     * The unique entity id of the Node.
      */
     int64 node_id = 1;
 

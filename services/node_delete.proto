@@ -29,46 +29,11 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * See [NetworkService.createNode()](#proto.NetworkService)
+ * See [NodeService.deleteNode()](#proto.NodeService)
  */
-message NetworkCreateNodeTransactionBody {
+message NodeDeleteTransactionBody {
     /**
-     * node account id, mandatory field
+     * Node identifier
      */
-    AccountID account_id = 1;
-
-    /**
-     * nickName of the node
-     */
-    string nickName = 2;
-
-    /**
-     * description of the node
-     */
-    string description = 3;
-
-    /**
-    * inbound ip address or FQDN and port, mandatory field
-    */
-    ServiceEndpoint inbound_gossip_endpoint = 4;
-
-    /**
-     * outbound ip address or FQDN and port, mandatory field
-     */
-    ServiceEndpoint outbound_gossip_endpoint = 5;
-
-    /**
-    * # A node's service IP addresses and ports
-    */
-    repeated ServiceEndpoint service_endpoint = 6;
-
-    /**
-    * node public key, mandatory field
-    */
-    string public_key = 7;
-
-    /**
-     * node x509 certificate, optional field
-     */
-    bytes certificate = 8;
+    int64 node_id = 1;
 }

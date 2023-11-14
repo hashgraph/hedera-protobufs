@@ -85,9 +85,9 @@ import "node_stake_update.proto";
 import "util_prng.proto";
 
 import "network_service.proto";
-import "network_create_node.proto";
-import "network_update_node.proto";
-import "network_delete_node.proto";
+import "node_create.proto";
+import "node_update.proto";
+import "node_delete.proto";
 
 /**
  * A single transaction. All transaction types are possible here.
@@ -359,16 +359,16 @@ message TransactionBody {
     /**
     * Create a node
     */
-    NetworkCreateNodeTransactionBody nodeCreate = 53;
+    NodeCreateTransactionBody nodeCreate = 53;
 
     /**
      * Update a node
      */
-    NetworkDeleteNodeTransactionBody nodeUpdate = 54;
+    NodeUpdateTransactionBody nodeUpdate = 54;
 
     /**
      * Delete a node
      */
-    NetworkUpdateNodeTransactionBody nodeDelete = 55;
+    NodeDeleteTransactionBody nodeDelete = 55;
   }
 }

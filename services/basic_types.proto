@@ -1176,17 +1176,17 @@ enum HederaFunctionality {
     /**
     * Create a node
     */
-    CreateNode = 88;
+    NodeCreate = 88;
 
     /**
      * Update a node
      */
-    UpdateNode = 89;
+    NodeUpdate = 89;
 
     /**
      * Delete a node
      */
-    DeleteNode = 90;
+    NodeDelete = 90;
 }
 
 /**

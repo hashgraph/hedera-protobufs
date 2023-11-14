@@ -21,19 +21,30 @@ package proto;
  * limitations under the License.
  * ‍
  */
+option java_package = "com.hederahashgraph.service.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.token">>> This comment is special code for setting PBJ Compiler java package
 
-option java_package = "com.hederahashgraph.api.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.node.consensus">>> This comment is special code for setting PBJ Compiler java package
-option java_multiple_files = true;
-
-import "basic_types.proto";
+import "query.proto";
+import "response.proto";
+import "transaction_response.proto";
+import "transaction.proto";
 
 /**
- * See [NetworkService.deleteNode()](#proto.NetworkService)
+ * Transactions for the Node Service
  */
-message NetworkDeleteNodeTransactionBody {
+service NodeService {
     /**
-     * Node identifier
+     * Prepare to add a new node to the network
      */
-    int64 node_id = 1;
+    rpc createNode (Transaction) returns (TransactionResponse);
+
+    /**
+     * Prepare to delete the node to the network
+     */
+    rpc deleteNode (Transaction) returns (TransactionResponse);
+
+    /**
+     * Prepare to update the node to the network
+     */
+    rpc updateNode (Transaction) returns (TransactionResponse);
 }
