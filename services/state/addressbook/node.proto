@@ -31,17 +31,17 @@ option java_multiple_files = true;
 /**
  * Representation of a Node in the network Merkle tree
  *
- * As with all network entities, a Node has a unique nodeId, which is usually given along
+ * As with all network entities, a Node has a unique nodeId, which is a long type
  */
 
-message Node{
+message Node {
     /**
-     * The unique entity id of the DynamicAddress.
+     * The unique id of the Node.
      */
     int64 node_id = 1;
 
     /**
-     * The account to be paid for queries and transactions sent to this node
+     * The account is charged for transactions submitted by the node that fail due diligence
      */
     AccountID account_id = 2;
 
@@ -51,8 +51,8 @@ message Node{
     string description = 4;
 
     /**
-    * Node Gossip inbound Endpoints, ip address or FQDN and port
-    */
+     * Node Gossip inbound Endpoints, ip address or FQDN and port
+     */
     ServiceEndpoint inbound_gossip_endpoint = 5;
 
     /**
@@ -61,12 +61,12 @@ message Node{
     ServiceEndpoint outbound_gossip_endpoint = 6;
 
     /**
-    * # A node's service Endpoints, ip address or FQDN and port
-    */
+     * A node's service Endpoints, ip address or FQDN and port
+     */
     repeated ServiceEndpoint service_endpoint = 7;
 
     /**
-    * node’s public key within the Address Book used for signing.
+     * node’s public key within the Address Book used for signing.
      * The node's X509 RSA public key used to sign stream files (e.g., record stream
      * files). Precisely, this field is a string of hexadecimal characters which,
      * translated to binary, are the public key's DER encoding.
@@ -74,8 +74,8 @@ message Node{
     string public_key = 8;
 
     /**
-      * node weight.
-      */
+     * node weight.
+     */
     int64 weight = 9;
 
     /**

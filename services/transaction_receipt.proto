@@ -166,7 +166,7 @@ message TransactionReceipt {
     repeated int64 serialNumbers = 14;
 
     /**
-     * In the receipt of a NetworkCreateNode, the id of the newly created node.
+     * In the receipt of a NodeCreate, the id of the newly created node.
      */
     int64 node_id = 15;
 }

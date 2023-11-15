@@ -30,6 +30,14 @@ import "basic_types.proto";
 
 /**
  * See [NodeService.createNode()](#proto.NodeService)
+ * Create a new node. After the node is created, the node_id for it is in the receipt.
+ * This HAPI APIs to facilitate changes to the address book used across the Hedera network.
+ * As a council member, I want the ability to submit signed HAPI transactions to add a new consensus node
+ * to the Hedera network within 24 hours, so that I can perform operations independently.
+ * When a valid council member initiates a HAPI transaction to add a new node, then the network should
+ * acknowledge the transaction and update the network’s Address Book within 24 hours.
+ * for phase 2, this just adds the node to the merkle tree and will be used to write config.txt and public.pfx during prepare freeze
+ * the added node will not be active until the network is upgraded.
  */
 message NodeCreateTransactionBody {
     /**
@@ -43,27 +51,34 @@ message NodeCreateTransactionBody {
     string description = 2;
 
     /**
-    * inbound ip address or FQDN and port, mandatory field
-    */
+     * inbound ip address or FQDN and port, ip/port on the local network, mandatory field
+     */
     ServiceEndpoint inbound_gossip_endpoint = 3;
 
     /**
-     * outbound ip address or FQDN and port, mandatory field
+     * outbound ip address or FQDN and port, ip/port outside the NATing firewall, mandatory field
      */
     ServiceEndpoint outbound_gossip_endpoint = 4;
 
     /**
-    * # A node's service IP addresses and ports, optional field
-    */
+     * # A node's service IP addresses and ports, optional field
+     */
     repeated ServiceEndpoint service_endpoint = 5;
 
     /**
-    * node public key, mandatory field
-    */
+     * The node's X509 RSA public key used to sign stream files (e.g., record stream
+     * files). Precisely, this field is a string of hexadecimal characters which,
+     * translated to binary, are the public key's DER encoding.,
+     * The public key of this node, as a hex-encoded string, mandatory field
+     */
     string public_key = 6;
 
     /**
-     * node x509 certificate hash, optional field
+     * Hash of the node's TLS certificate. Precisely, this field is a string of
+     * hexadecimal characters which, translated to binary, are the SHA-384 hash of
+     * the UTF-8 NFKD encoding of the node's TLS cert in PEM format.
+     * Its value can be used to verify the node's certificate it presents
+     * during TLS negotiations.node x509 certificate hash, optional field
      */
     bytes certificate_hash = 7;
 }

@@ -1172,7 +1172,6 @@ enum HederaFunctionality {
      */
     TransactionGetFastRecord = 87;
 
-
     /**
     * Create a node
     */
@@ -1351,7 +1350,7 @@ message ServiceEndpoint {
     int32 port = 2;
 
     /**
-    * the fully qualified domain name of the node
+     * the fully qualified domain name of the node
      */
     string fqdn = 3;
 }
