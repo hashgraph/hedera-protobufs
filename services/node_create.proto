@@ -41,29 +41,40 @@ import "basic_types.proto";
  */
 message NodeCreateTransactionBody {
     /**
-     * node account id, mandatory field
+     * node account id, mandatory field, ALIAS is not allowed, only ACCOUNT_NUM
+     * If account_id does not exist, it will reject the transaction.
      */
     AccountID account_id = 1;
 
     /**
-     * description of the node, optional field
+     * description of the node with UTF-8 encoding up to 100 bytes, optional field
      */
     string description = 2;
 
     /**
-     * inbound ip address or FQDN and port, ip/port on the local network, mandatory field
+     * the key on the operator account has to sign this transaction, mandatory field
      */
-    ServiceEndpoint inbound_gossip_endpoint = 3;
+    Key operator_key = 3;
 
     /**
-     * outbound ip address or FQDN and port, ip/port outside the NATing firewall, mandatory field
+     * the key council has to sign this transaction, mandatory field
      */
-    ServiceEndpoint outbound_gossip_endpoint = 4;
+    Key council_key = 4;
+
+    /**
+     * inbound ip address or fully qualified domain name and port, ip/port on the local network, mandatory field
+     */
+    ServiceEndpoint inbound_gossip_endpoint = 5;
+
+    /**
+     * outbound ip address or fully qualified domain name and port, ip/port outside the NATing firewall, mandatory field
+     */
+    ServiceEndpoint outbound_gossip_endpoint = 6;
 
     /**
      * # A node's service IP addresses and ports, optional field
      */
-    repeated ServiceEndpoint service_endpoint = 5;
+    repeated ServiceEndpoint service_endpoint = 7;
 
     /**
      * The node's X509 RSA public key used to sign stream files (e.g., record stream
@@ -71,7 +82,7 @@ message NodeCreateTransactionBody {
      * translated to binary, are the public key's DER encoding.,
      * The public key of this node, as a hex-encoded string, mandatory field
      */
-    string public_key = 6;
+    string public_key = 8;
 
     /**
      * Hash of the node's TLS certificate. Precisely, this field is a string of
@@ -80,5 +91,5 @@ message NodeCreateTransactionBody {
      * Its value can be used to verify the node's certificate it presents
      * during TLS negotiations.node x509 certificate hash, optional field
      */
-    bytes certificate_hash = 7;
+    bytes certificate_hash = 9;
 }

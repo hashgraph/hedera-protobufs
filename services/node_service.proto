@@ -31,6 +31,10 @@ import "transaction.proto";
 
 /**
  * Transactions for the Node Service, those HAPI APIs facilitate changes to the nodes used across the Hedera network.
+ * All those transactions needs to be signed by the Hedera Council. Steps needed below:
+ * 1. The node operator creates and signs the transaction with their key (the key on the node operator account)
+ * 2. The node operator hands this transaction to Alex, who then gives it to the council to sign
+ * 3. When signed and submitted, the server will verify that account 2 keys have signed, and the keys on the operator account have signed.
  */
 service NodeService {
     /**

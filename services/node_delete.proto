@@ -38,7 +38,7 @@ import "basic_types.proto";
  */
 message NodeDeleteTransactionBody {
     /**
-     * Node identifier
+     * The unique node identifier of the node to be deleted
      */
     int64 node_id = 1;
 }

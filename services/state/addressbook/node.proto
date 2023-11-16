@@ -33,7 +33,6 @@ option java_multiple_files = true;
  *
  * As with all network entities, a Node has a unique nodeId, which is a long type
  */
-
 message Node {
     /**
      * The unique id of the Node.
@@ -48,22 +47,32 @@ message Node {
     /**
      * A description of the node, with UTF-8 encoding up to 100 bytes
      */
-    string description = 4;
+    string description = 3;
+
+    /**
+     * the node operator account key
+     */
+    Key operator_key = 4;
+
+    /**
+     * the council account key
+     */
+    Key council_key = 5;
 
     /**
      * Node Gossip inbound Endpoints, ip address or FQDN and port
      */
-    ServiceEndpoint inbound_gossip_endpoint = 5;
+    ServiceEndpoint inbound_gossip_endpoint = 6;
 
     /**
      * Node Gossip outbound Endpoints, ip address or FQDN and port
      */
-    ServiceEndpoint outbound_gossip_endpoint = 6;
+    ServiceEndpoint outbound_gossip_endpoint = 7;
 
     /**
      * A node's service Endpoints, ip address or FQDN and port
      */
-    repeated ServiceEndpoint service_endpoint = 7;
+    repeated ServiceEndpoint service_endpoint = 8;
 
     /**
      * node’s public key within the Address Book used for signing.
@@ -71,12 +80,12 @@ message Node {
      * files). Precisely, this field is a string of hexadecimal characters which,
      * translated to binary, are the public key's DER encoding.
     */
-    string public_key = 8;
+    string public_key = 9;
 
     /**
-     * node weight.
+     * The consensus weight of this node in the network.
      */
-    int64 weight = 9;
+    int64 weight = 10;
 
     /**
      * node x509 certificate hash. Hash of the node's TLS certificate. Precisely, this field is a string of
@@ -84,12 +93,12 @@ message Node {
      * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
      * used to verify the node's certificate it presents during TLS negotiations.
      */
-    bytes certificate_hash = 10;
+    bytes certificate_hash = 11;
 
     /**
      * an enum to indicate the status of the node
      */
-    NodeStatus status = 11;
+    NodeStatus status = 12;
 }
 
 enum NodeStatus {

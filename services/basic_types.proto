@@ -1352,7 +1352,7 @@ message ServiceEndpoint {
     /**
      * the fully qualified domain name of the node
      */
-    string fqdn = 3;
+    string domain_name = 3;
 }
 
 /**
