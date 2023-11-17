@@ -1383,9 +1383,4 @@ enum ResponseCodeEnum {
    * A node is not found
    */
   INVALID_NODE_ID = 334;
-
-  /**
-   * The account_id is already used for another node
-   */
-  INVALID_NODE_ACCOUNT_ID = 335;
 }
