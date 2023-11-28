@@ -98,7 +98,7 @@ message Node {
     /**
      * an enum to indicate the status of the node
      */
-    NodeStatus status = 12;
+//    NodeStatus status = 12; not used in phase 2
 }
 
 enum NodeStatus {
