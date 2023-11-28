@@ -73,7 +73,7 @@ message NodeCreateTransactionBody {
     ServiceEndpoint outbound_gossip_endpoint = 6;
 
     /**
-     * # A node's service IP addresses and ports, IP:Port is mandatory, FQDNs are optional
+     * A node's service IP addresses and ports, IP:Port is mandatory, domain name is optional
      */
     repeated ServiceEndpoint service_endpoint = 7;
 

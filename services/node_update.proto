@@ -75,7 +75,7 @@ message NodeUpdateTransactionBody {
     ServiceEndpoint outbound_gossip_endpoint = 7;
 
     /**
-     * # A node's service IP addresses and ports
+     * A node's service IP addresses and ports
      */
     repeated ServiceEndpoint service_endpoint = 8;
 
