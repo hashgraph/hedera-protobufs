@@ -46,7 +46,6 @@ message NodeUpdateTransactionBody {
 
     /**
      * If set, the new account_id to be associated with the node, can not be empty
-     * add doc later about the signing requirement
      */
     AccountID account_id = 2;
 
