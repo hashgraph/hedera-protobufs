@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+option java_package = "com.hedera.services.stream.v7.proto";
+// <<<pbj.java_package = "com.hedera.hapi.streams.v7">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "transaction.proto";
+import "v7/block_header.proto";
+import "v7/block_state_proof.proto";
+import "v7/event_metadata.proto";
+import "v7/state_changes.proto";
+import "v7/system_transaction.proto";
+import "v7/transaction_output.proto";
+import "v7/transaction_result.proto";
+
+message BlockItem {
+  oneof block_item {
+    /**
+     * The header of the block, marking the start of a new block.
+     */
+    BlockHeader header = 1;
+
+    /**
+     * The start of a new event.
+     */
+    EventMetadata start_event = 2;
+
+    /**
+     * A system transaction.
+     */
+    SystemTransaction system_transaction = 3;
+
+    /**
+     * A raw non-system transaction. A Transaction block item is always followed by TransactionResult,
+     * TransactionOutput and BlockTransactionStateChanges in that order.
+     */
+    Transaction transaction = 4;
+
+    /**
+     * The result of running the transaction.
+     */
+    TransactionResult transaction_result = 5;
+
+    /**
+     * The transaction output.
+     */
+    TransactionOutput transaction_output = 6;
+
+    /**
+     * The state changes. The type of state changes is determined by the reason enum in StateChanges.
+     */
+    StateChanges state_changes = 7;
+
+    /**
+   * State Proof of running hash
+   */
+    BlockStateProof state_proof = 8;
+  }
+}

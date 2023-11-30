@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+option java_package = "com.hedera.services.stream.v7.proto";
+// <<<pbj.java_package = "com.hedera.hapi.streams.v7">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "basic_types.proto";
+
+message BlockHeader {
+  /**
+   * Version of the protobuf schema used to serialize the block.
+   */
+  SemanticVersion block_version = 1;
+
+  /**
+   * Version of HAPI that was used to serialize the block.
+   */
+  SemanticVersion hapi_proto_version = 2;
+
+  /**
+   * Version of Services that was used to produce the block.
+   */
+  SemanticVersion services_version = 3;
+
+  /**
+   * Version platform that was used to serialize the block.
+   */
+  SemanticVersion platform_version = 4;
+
+  /**
+   * The block number associated with this period.
+   */
+  uint64 number = 5;
+
+  /**
+   * The running hash of the previous block. This is here so a client parsing the BlockHeader can optimistically reject
+   * a block if this hash does not match the running hash of the previous block.
+   */
+  bytes start_running_hash = 6;
+
+  /**
+   * The hash algorithm used in this block.
+   */
+  BlockHashAlgorithm hash_algorithm = 7;
+
+  /**
+   * The signature algorithm used in this block.
+   */
+  BlockSignatureAlgorithm signature_algorithm = 8;
+}
+
+/**
+ * A specific hash algorithm used within a block.
+ *
+ * We did not reuse HashAlgorithm here because in all cases for now it will be SHA_384 and if that's the default value
+ * then we can save space by not serializing it, where as HASH_ALGORITHM_UNKNOWN = 0; is the default for HashAlgorithm.
+ */
+enum BlockHashAlgorithm {
+  BlockHashAlgorithm_SHA_384 = 0;
+}
+
+/**
+ * A specific signature algorithm used within a block.
+ *
+  * We did not reuse SignatureType here because in all cases for now it will be SHA_384_WITH_RSA and if that's the
+  * default value then we can save space by not serializing it, where as SIGNATURE_TYPE_UNKNOWN = 0; is the default for
+  * HashAlgorithm.
+ */
+enum BlockSignatureAlgorithm {
+  BlockSignatureAlgorithm_SHA_384_WITH_RSA = 0;
+}
