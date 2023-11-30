@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+option java_package = "com.hedera.services.stream.v7.proto";
+// <<<pbj.java_package = "com.hedera.hapi.streams.v7">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "hash_object.proto";
+import "signature_file.proto";
+
+message SystemTransaction {
+  oneof transaction {
+      StateSignatureSystemTransaction state_signature = 1;
+      BitsPerSecondSystemTransaction bits_per_second = 2;
+      PingSystemTransaction ping = 3;
+  }
+}
+
+message StateSignatureSystemTransaction {
+  /**
+   * The signature of the signed state. In the format specified in the BlockHeader.
+   */
+  bytes state_signature = 1;
+
+  /**
+   * The hash of the signed state. In the format specified in the BlockHeader.
+   */
+  bytes state_hash = 2;
+
+  /**
+   * The hash of the epoch to which this signature corresponds to. In the format specified in the BlockHeader.
+   */
+  bytes epoch_hash = 3;
+
+  /**
+   * Round number of the signed state.
+   */
+  int64 round = 4;
+}
+
+message BitsPerSecondSystemTransaction {
+  repeated int64 avg_bits_per_sec_sent = 1;
+}
+
+message PingSystemTransaction {
+  repeated int32 avg_ping_milliseconds = 1;
+}
