@@ -1,0 +1,297 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2023 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+option java_multiple_files = true;
+option java_package = "com.hedera.block.node.api.proto.java";
+// <<<pbj.java_package = "com.hedera.block.node.api">>> This comment is special code for setting PBJ Compiler java package
+
+import "v7/block.proto";
+import "v7/block_item.proto";
+
+// ---- Payment ----
+
+// A payment for a request to Block Node.
+message Payment {
+  // The amount to pay for the request.
+  uint64 payment_amount = 1;
+
+  // The max amount the user is willing to pay for the request.
+  uint64 payment_amount_max = 2;
+
+  // The token to pay with.
+  string payment_token = 3;
+
+  // The account to pay from.
+  string payer_account_id = 4;
+
+  // A signature of the payment.
+  bytes payer_signature = 5;
+
+  // A unique nonce for this request.
+  uint64 nonce = 6;
+}
+
+enum PaymentResponseCode {
+  PAYMENT_RESPONSE_CODE_SUCCESS = 0;
+  PAYMENT_RESPONSE_CODE_INVALID_PAYMENT_AMOUNT = 1;
+  PAYMENT_RESPONSE_CODE_INVALID_PAYMENT_AMOUNT_MAX = 2;
+  PAYMENT_RESPONSE_CODE_INVALID_TOKEN = 3;
+  PAYMENT_RESPONSE_CODE_INVALID_PAYER_ACCOUNT_ID = 4;
+  PAYMENT_RESPONSE_CODE_INVALID_PAYER_SIGNATURE = 5;
+  PAYMENT_RESPONSE_CODE_INVALID_NONCE = 6;
+  PAYMENT_RESPONSE_CODE_INSUFFICIENT_PAYMENT_ACCOUNT_BALANCE = 7;
+}
+
+// ---- AddTokens RPC ----
+
+// Request and response for adding tokens to an account on a Block Node.
+message AddTokensRequest {
+  // The payment for this request.
+  Payment payment = 1;
+
+  // The account in which to add the tokens to.
+  string account_id = 2;
+
+  // The amount of tokens to add.
+  int64 amount = 3;
+
+  // The token to add.
+  string token_id = 4;
+
+  // TBD signature or a signed transaction to execute.
+}
+
+message AddTokensResponse {
+    // The status of the request.
+    AddTokensResponseCode status = 1;
+}
+
+enum AddTokensResponseCode {
+  ADD_TOKENS_RESPONSE_CODE_SUCCESS = 0;
+  ADD_TOKENS_RESPONSE_CODE_INVALID_ACCOUNT_ID = 1;
+  ADD_TOKENS_RESPONSE_CODE_INVALID_AMOUNT = 2;
+  ADD_TOKENS_RESPONSE_CODE_INVALID_TOKEN_ID = 3;
+  ADD_TOKENS_RESPONSE_CODE_INVALID_SIGNATURE = 4;
+  ADD_TOKENS_RESPONSE_CODE_INSUFFICIENT_ACCOUNT_BALANCE = 5;
+}
+
+// ---- WithdrawTokens RPC ----
+
+// Request and response for withdrawing tokens from an account on a Block Node.
+message WithdrawTokensRequest {
+  // The payment for this request.
+  Payment payment = 1;
+
+  // The account from which to withdraw the tokens from.
+  string account_id = 2;
+
+  // The amount of tokens to withdraw.
+  int64 amount = 3;
+
+  // The token to withdraw.
+  string token_id = 4;
+
+  // TBD signature or a signed transaction to execute.
+}
+
+message WithdrawTokensResponse {
+  // The status of the request.
+  WithdrawTokensResponseCode status = 1;
+}
+
+enum WithdrawTokensResponseCode {
+  WITHDRAW_TOKENS_RESPONSE_CODE_SUCCESS = 0;
+  WITHDRAW_TOKENS_RESPONSE_CODE_INVALID_ACCOUNT_ID = 1;
+  WITHDRAW_TOKENS_RESPONSE_CODE_INVALID_AMOUNT = 2;
+  WITHDRAW_TOKENS_RESPONSE_CODE_INVALID_TOKEN_ID = 3;
+  WITHDRAW_TOKENS_RESPONSE_CODE_INVALID_SIGNATURE = 4;
+  WITHDRAW_TOKENS_RESPONSE_CODE_INSUFFICIENT_ACCOUNT_BALANCE = 5;
+}
+
+// ---- WriteBlockStream RPC ----
+
+// The client begins by establishing a connection to the block node server. The client then sends a stream of
+// WriteBlockStreamRequest(s) to the server. In some client cases, such as a consensus node writing its block stream to
+// a block node, the client needs to know that the block node has persisted the data to disk. gRPC streaming will ACK
+// once the server has read the message from the stream. Because of this, we cannot use grpc streaming to handle the
+// ACK. Instead, we must have the server send an explicit ACK at the application level to signal it has persisted the
+// data to disk.
+message WriteBlockStreamRequest {
+  // The payment for this request.
+  Payment payment = 1;
+
+  oneof request {
+    WriteBlockStreamRequestBlockItems write_block_items = 2;
+  }
+}
+
+message WriteBlockStreamRequestBlockItems {
+  repeated BlockItem block_item = 1;
+}
+
+message WriteBlockStreamResponse {
+  oneof response {
+    WriteBlockStreamResponseAck ack = 1;
+    WriteBlockStreamResponseEos status = 2;
+  }
+}
+
+// The server sends this message to the client to signal that it has persisted the data to disk.
+message WriteBlockStreamResponseAck {
+    // The block number of the block that was persisted to disk.
+    uint64 block_number = 1;
+
+    // Indicates if the block already existed on the node.
+    bool block_already_exists = 2;
+}
+
+message WriteBlockStreamResponseEos {
+  // The status of the request.
+  WriteBlockStreamResponseCode status = 1;
+}
+
+enum WriteBlockStreamResponseCode {
+  WRITE_BLOCK_STREAM_RESPONSE_CODE_SUCCESS = 0;
+}
+
+// ---- ReadBlock RPC ----
+
+// Read a single block by block number.
+message ReadBlockRequest {
+  // The block number to get.
+  int64 block_number = 1;
+}
+
+message ReadBlockResponse {
+  ReadBlockResponseCode status = 1;
+  Block block = 2;
+}
+
+enum ReadBlockResponseCode {
+  READ_BLOCK_RESPONSE_CODE_SUCCESS = 0;
+  READ_BLOCK_RESPONSE_CODE_NOT_FOUND = 1;
+}
+
+// ---- ReadBlockStream RPC ----
+
+// ReadBlockStreamResponse is a stream of blocks.
+// The server will stream the blocks in the range of block numbers specified in the request.
+// The server will stream the blocks in ascending order of block number.
+// The server will stop streaming blocks when the end block has been reached.
+// The server will return a ReadBlockStreamResponse with a status of SUCCESS when the stream is complete.
+// The server may return a ReadBlockStreamResponse with a status of READ_BLOCK_STREAM_INVALID_START_BLOCK_NUMBER if the start block number is greater than the end block number.
+// The server may return a ReadBlockStreamResponse with a status of READ_BLOCK_STREAM_PAYMENT_INSUFFICIENT if the payment is insufficient to continue streaming.
+// The server should do it's best to respond with any amount charged up until the error status occurred.
+
+// Request and response for streaming blocks from the block node.
+message ReadBlockStreamRequest {
+  // The start block number to stream.
+  uint64 start_block_number = 1;
+
+  // The end block number to stream to (inclusive). If a block with this number does not yet exist, the server may hold
+  // open the stream until it does, at which point the server will push the newly created block to the client.
+  uint64 end_block_number = 2;
+
+  // The payment for the request. During the course of the stream, the server may return a ReadBlockStreamResponse with a
+  // status of READ_BLOCK_STREAM_PAYMENT_INSUFFICIENT if the payment is insufficient to continue streaming.
+  Payment payment = 4;
+}
+
+message ReadBlockStreamResponse {
+  oneof response {
+    ReadBlockStreamResponseCode status = 1;
+    Block block = 2;
+  }
+}
+
+enum ReadBlockStreamResponseCode {
+  READ_BLOCK_STREAM_RESPONSE_CODE_SUCCESS = 0;
+  READ_BLOCK_STREAM_RESPONSE_CODE_INVALID_START_BLOCK_NUMBER = 1;
+  READ_BLOCK_STREAM_RESPONSE_CODE_INVALID_END_BLOCK_NUMBER = 2;
+  READ_BLOCK_STREAM_RESPONSE_CODE_INVALID_MAX_PAYMENT_HBAR = 3;
+}
+
+// ---- ReadSavedState RPC ----
+
+message ReadSavedStateRequest {
+  // The payment for the request.
+  Payment payment = 1;
+}
+
+message ReadSavedStateResponse {
+  ReadSavedStateResponseCode status = 1;
+  // TBD: Add the saved state snapshot.
+}
+
+enum ReadSavedStateResponseCode {
+  READ_SAVED_STATE_RESPONSE_CODE_SUCCESS = 0;
+  READ_SAVED_STATE_RESPONSE_CODE_INSUFFICIENT_PAYMENT = 1;
+}
+
+/**
+ * RPCs for the Block Node.
+ */
+service BlockService {
+  // ---- Payment | TBD on how we charge for Block Node usage. -----
+
+  /**
+   * Add tokens to an account on the block node to be used for payment of actions on the block node.
+   */
+  rpc AddTokens(AddTokensRequest) returns (AddTokensResponse);
+
+  /**
+   * Withdraw tokens from an account on the block node.
+   */
+  rpc WithdrawTokens(WithdrawTokensRequest) returns (WithdrawTokensResponse);
+
+  // ---- Random Access API ----
+
+  /**
+   * Read a block from the block node. The ReadBlockRequest contains the block number of the block to retrieve.
+   */
+  rpc ReadBlock(ReadBlockRequest) returns (ReadBlockResponse);
+
+  /**
+   * Read the saved state snapshot from the block node.
+   */
+  rpc ReadSavedStateSnapshot(ReadSavedStateRequest) returns (ReadSavedStateResponse);
+
+  // ---- Streaming API ----
+
+  /**
+   * Write a stream of blocks. Each WriteBlockStream in the stream may contain one or more BlockItem(s). The server must
+   * append each BlockItem to construct a block. The Block ends with a BlockItem containing a BlockStateProof. It is
+   * recommended that the server implementation verify the Block using the BlockStateProof to validate the contents.
+   */
+  rpc WriteBlockStream (stream WriteBlockStreamRequest) returns (stream WriteBlockStreamResponse);
+
+  /**
+   * Stream blocks from the block node. The ReadBlockStreamRequest contains the start and end block numbers of the
+   * blocks to retrieve. The server will stream the blocks in the range of block numbers specified in the request. The
+   * server will stream the blocks in ascending order of block number. The server will stop streaming blocks when the
+   * end block has been reached. The server will return a ReadBlockStreamResponse with a status of SUCCESS when the
+   * stream is complete. The server may return a ReadBlockStreamResponse with a status of
+   * READ_BLOCK_STREAM_INVALID_START_BLOCK_NUMBER if the start block number is greater than the end block number.
+   */
+  rpc ReadBlockStream(stream ReadBlockStreamRequest) returns (stream ReadBlockStreamResponse);
+}
