@@ -1029,10 +1029,36 @@ enum HederaFunctionality {
     ConsensusSubmitMessage = 54;
 
     UncheckedSubmit = 55;
+
     /**
      * Create Token
      */
     TokenCreate = 56;
+
+    /**
+     * Create a token partition
+     */
+    TokenCreatePartition = 88;
+
+    /**
+     * Delete a token partition
+     */
+    TokenDeletePartition = 89;
+
+    /**
+     * Update a token partition
+     */
+    TokenUpdatePartition = 90;
+
+    /**
+     * Lock a particular user's balance of (a possibly partitioned) token.
+     */
+    TokenLockUserAssets = 91;
+
+    /**
+     * Unlock a particular user's balance of (a possibly partitioned) token.
+     */
+    TokenUnlockUserAssets = 92;
 
     /**
      * Get Token information
