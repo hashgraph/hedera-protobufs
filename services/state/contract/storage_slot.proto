@@ -37,7 +37,7 @@ message SlotKey {
     /**
      * The number of the contract whose storage this slot belongs to.
      */
-    ContractID contract_number = 1;
+    ContractID contractID = 1;
 
     /**
      * The EVM key of this slot, when left-padded with zeros to form a 256-bit word.
