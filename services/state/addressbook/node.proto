@@ -60,19 +60,14 @@ message Node {
     Key council_key = 5;
 
     /**
-     * Node Gossip inbound Endpoints, ip address or FQDN and port
+     * Node Gossip Endpoints, ip address or FQDN and port
      */
-    ServiceEndpoint inbound_gossip_endpoint = 6;
-
-    /**
-     * Node Gossip outbound Endpoints, ip address or FQDN and port
-     */
-    ServiceEndpoint outbound_gossip_endpoint = 7;
+    ServiceEndpoint gossip_endpoint = 6;
 
     /**
      * A node's service Endpoints, ip address or FQDN and port
      */
-    repeated ServiceEndpoint service_endpoint = 8;
+    repeated ServiceEndpoint service_endpoint = 7;
 
     /**
      * node’s public key within the Address Book used for signing.
@@ -80,12 +75,12 @@ message Node {
      * files). Precisely, this field is a string of hexadecimal characters which,
      * translated to binary, are the public key's DER encoding.
     */
-    string public_key = 9;
+    string public_key = 8;
 
     /**
      * The consensus weight of this node in the network.
      */
-    int64 weight = 10;
+    int64 weight = 9;
 
     /**
      * node x509 certificate hash. Hash of the node's TLS certificate. Precisely, this field is a string of
@@ -93,7 +88,7 @@ message Node {
      * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
      * used to verify the node's certificate it presents during TLS negotiations.
      */
-    bytes certificate_hash = 11;
+    bytes certificate_hash = 10;
 
     /**
      * an enum to indicate the status of the node

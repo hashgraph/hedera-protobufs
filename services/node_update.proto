@@ -65,27 +65,22 @@ message NodeUpdateTransactionBody {
     Key council_key = 5;
 
     /**
-     * inbound ip address or FQDN and port, can not be empty
+     *  the new ip address or FQDN and port, can not be empty
      */
-    ServiceEndpoint inbound_gossip_endpoint = 6;
-
-    /**
-     * outbound ip address or FQDN and port, can not be empty
-     */
-    ServiceEndpoint outbound_gossip_endpoint = 7;
+    ServiceEndpoint gossip_endpoint = 6;
 
     /**
      * A node's service IP addresses and ports
      */
-    repeated ServiceEndpoint service_endpoint = 8;
+    repeated ServiceEndpoint service_endpoint = 7;
 
     /**
      *If set, the new public_key to be associated with the node, can not be empty
      */
-    google.protobuf.StringValue public_key = 9;
+    google.protobuf.StringValue public_key = 8;
 
     /**
      * If set, the new node x509 certificate hash to be associated with the node
      */
-    google.protobuf.BytesValue certificate_hash = 10;
+    google.protobuf.BytesValue certificate_hash = 9;
 }

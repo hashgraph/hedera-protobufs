@@ -63,19 +63,14 @@ message NodeCreateTransactionBody {
     Key council_key = 4;
 
     /**
-     * inbound ip address or fully qualified domain name and port, ip/port on the local network, mandatory field
+     * ip address or fully qualified domain name and port, ip/port on the local network, mandatory field
      */
-    ServiceEndpoint inbound_gossip_endpoint = 5;
-
-    /**
-     * outbound ip address or fully qualified domain name and port, ip/port outside the NATing firewall, mandatory field
-     */
-    ServiceEndpoint outbound_gossip_endpoint = 6;
+    ServiceEndpoint gossip_endpoint = 5;
 
     /**
      * A node's service IP addresses and ports, IP:Port is mandatory, domain name is optional
      */
-    repeated ServiceEndpoint service_endpoint = 7;
+    repeated ServiceEndpoint service_endpoint = 6;
 
     /**
      * The node's X509 RSA public key used to sign stream files (e.g., record stream
@@ -83,7 +78,7 @@ message NodeCreateTransactionBody {
      * translated to binary, are the public key's DER encoding.,
      * The public key of this node, as a hex-encoded string, mandatory field
      */
-    string public_key = 8;
+    string public_key = 7;
 
     /**
      * Hash of the node's TLS certificate. Precisely, this field is a string of
@@ -92,5 +87,5 @@ message NodeCreateTransactionBody {
      * Its value can be used to verify the node's certificate it presents
      * during TLS negotiations.node x509 certificate hash, optional field
      */
-    bytes certificate_hash = 9;
+    bytes certificate_hash = 8;
 }
