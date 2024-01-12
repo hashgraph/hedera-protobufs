@@ -37,15 +37,17 @@ import "timestamp.proto";
  * corresponding node attribute will be unchanged.
  * or phase 2, this marks node to be updated in the merkle tree and will be used to write config.txt and public.pfx during prepare freeze
  * the node will not be updated until the network is upgraded.
+ * Original node account ID has to sign the transaction.
  */
 message NodeUpdateTransactionBody {
+
     /**
      * The unique id of the Node to be updated. This must refer to an existing, non-deleted node.
      */
     int64 node_id = 1;
 
     /**
-     * If set, the new account_id to be associated with the node, can not be empty
+     * If set, the new node account_id
      */
     AccountID account_id = 2;
 
@@ -55,32 +57,22 @@ message NodeUpdateTransactionBody {
     google.protobuf.StringValue description = 3;
 
     /**
-     * If set, the new operator account key
+     * The new ip address or FQDN and port, can not be empty
      */
-    Key operator_key = 4;
-
-    /**
-     * If set, the new council account key
-     */
-    Key council_key = 5;
-
-    /**
-     *  the new ip address or FQDN and port, can not be empty
-     */
-    ServiceEndpoint gossip_endpoint = 6;
+    ServiceEndpoint gossip_endpoint = 4;
 
     /**
      * A node's service IP addresses and ports
      */
-    repeated ServiceEndpoint service_endpoint = 7;
+    repeated ServiceEndpoint service_endpoint = 5;
 
     /**
-     *If set, the new public_key to be associated with the node, can not be empty
+     * If set, the new public_key to be associated with the node, can not be empty
      */
-    google.protobuf.StringValue public_key = 8;
+    google.protobuf.StringValue public_key = 6;
 
     /**
      * If set, the new node x509 certificate hash to be associated with the node
      */
-    google.protobuf.BytesValue certificate_hash = 9;
+    google.protobuf.BytesValue certificate_hash = 7;
 }

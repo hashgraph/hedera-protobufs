@@ -35,6 +35,8 @@ import "basic_types.proto";
  * for phase 2, this marks the node to be deleted in the merkle tree and will be used to write config.txt and public.pfx during prepare freeze
  * the deleted node will not be deleted until the network is upgraded.
  * such a deleted node can never be reused.
+ * The council has to sign this transaction. This is a privileged transaction.
+ * Payer will be 55, addressBookAdmin.
  */
 message NodeDeleteTransactionBody {
     /**
