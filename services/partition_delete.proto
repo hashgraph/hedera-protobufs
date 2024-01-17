@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto;
+
+
+
+// Do we need to add partition_definition_id
+
+/**
+ * Marks a token partition as deleted, though it will remain in the ledger.
+ * The operation must be signed by the specified partition key of the parent Token. If
+ * the partition key is not set, the Transaction will result in TOKEN_IS_IMMUTABlE.
+ * Once deleted update, freeze, unfreeze, grant kyc, revoke kyc and token transfer
+ * transactions will resolve to TOKEN_WAS_DELETED.
+ */
+ message TokenDeletePartitionDefinitionTransactionBody {
+    /**
+     * The token partition to be deleted. If an invalid token is specified, the transaction will
+     * result in INVALID_TOKEN_ID
+     */
+    TokenID token = 1;
+
+}

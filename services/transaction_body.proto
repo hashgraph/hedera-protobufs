@@ -84,6 +84,14 @@ import "schedule_sign.proto";
 import "node_stake_update.proto";
 import "util_prng.proto";
 
+
+import "partition_create.proto";
+import "partition_update.proto";
+import "partition_delete.proto";
+import "token_lock.proto";
+import "token_unlock.proto";
+
+
 /**
  * A single transaction. All transaction types are possible here.
  */
@@ -350,5 +358,37 @@ message TransactionBody {
      * Generates a pseudorandom number.
      */
     UtilPrngTransactionBody util_prng = 52;
+
+    
+
+    /**
+      Create new partition
+     */
+    
+    TokenCreatePartitionDefinitionTransactionBody partitionCreation = 53;
+    
+    /**
+      Update the partition
+     */
+    
+    TokenUpdatePartitionTransactionBody partitionUpdate = 54;
+
+    /**
+      Delete the partition
+     */
+
+    TokenDeletePartitionDefinitionTransactionBody partitionDeletion = 55;
+
+    /**
+      Lock the token
+     */
+    TokenLockTransactionBody tokenLock = 55;
+
+    /**
+      Unlock the token
+     */
+    
+    TokenUnlockTransactionBody tokenUnlock = 56;
+
   }
 }
