@@ -3,11 +3,11 @@ syntax = "proto3";
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
+ *
  * Copyright (C) 2018 - 2022 Hedera Hashgraph, LLC
- * ​
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +19,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 import "timestamp.proto";
@@ -43,6 +43,7 @@ option java_multiple_files = true;
  * could potentially run in other realms in  parallel. So realms allow Solidity to be parallelized
  * somewhat, even though the  language itself assumes everything is serial.
  */
+// <<<pbj.comparable = "shardNum" >>>
 message ShardID {
     /**
      * the shard number (nonnegative)
@@ -54,6 +55,7 @@ message ShardID {
  * The ID for a realm. Within a given shard, every realm has a unique ID. Each account, file, and
  * contract instance belongs to exactly one realm.
  */
+// <<<pbj.comparable = "shardNum, realmNum" >>>
 message RealmID {
     /**
      * The shard number (nonnegative)
@@ -67,8 +69,31 @@ message RealmID {
 }
 
 /**
- * The ID for an a cryptocurrency account 
+ * Unique identifier for a token
+ * Note: This must be defined before any message that uses it, due to current limitations in the compiler.
  */
+// <<<pbj.comparable = "shardNum, realmNum, tokenNum" >>>
+message TokenID {
+    /**
+     * A nonnegative shard number
+     */
+    int64 shardNum = 1;
+
+    /**
+     * A nonnegative realm number
+     */
+    int64 realmNum = 2;
+
+    /**
+     * A nonnegative token number
+     */
+    int64 tokenNum = 3;
+}
+
+/**
+ * The ID for an a cryptocurrency account
+ */
+// <<<pbj.comparable = "shardNum, realmNum, account" >>>
 message AccountID {
     /**
      * The shard number (nonnegative)
@@ -116,6 +141,7 @@ message AccountID {
 /**
  * Identifier for a unique token (or "NFT"), used by both contract and token services.
  */
+// <<<pbj.comparable = "serial_number, token_ID" >>>
 message NftID {
     /**
      * The (non-fungible) token of which this NFT is an instance; uppercase for "ID"
@@ -130,8 +156,9 @@ message NftID {
 }
 
 /**
- * The ID for a file 
+ * The ID for a file
  */
+// <<<pbj.comparable = "shardNum, realmNum, fileNum" >>>
 message FileID {
     /**
      * The shard number (nonnegative)
@@ -150,8 +177,9 @@ message FileID {
 }
 
 /**
- * The ID for a smart contract instance 
+ * The ID for a smart contract instance
  */
+// <<<pbj.comparable = "shardNum, realmNum, contract" >>>
 message ContractID {
     /**
      * The shard number (nonnegative)
@@ -170,21 +198,21 @@ message ContractID {
         int64 contractNum = 3;
 
         /**
-        * The 20-byte EVM address of the contract to call. 
-        * 
+        * The 20-byte EVM address of the contract to call.
+        *
         * Every contract has an EVM address determined by its <tt>shard.realm.num</tt> id.
         * This address is as follows:
         *   <ol>
         *     <li>The first 4 bytes are the big-endian representation of the shard.</li>
         *     <li>The next 8 bytes are the big-endian representation of the realm.</li>
         *     <li>The final 8 bytes are the big-endian representation of the number.</li>
-        *   </ol>  
-        * 
-        * Contracts created via CREATE2 have an <b>additional, primary address</b> that is 
-        * derived from the <a href="https://eips.ethereum.org/EIPS/eip-1014">EIP-1014</a> 
-        * specification, and does not have a simple relation to a <tt>shard.realm.num</tt> id. 
-        * 
-        * (Please do note that CREATE2 contracts can also be referenced by the three-part 
+        *   </ol>
+        *
+        * Contracts created via CREATE2 have an <b>additional, primary address</b> that is
+        * derived from the <a href="https://eips.ethereum.org/EIPS/eip-1014">EIP-1014</a>
+        * specification, and does not have a simple relation to a <tt>shard.realm.num</tt> id.
+        *
+        * (Please do note that CREATE2 contracts can also be referenced by the three-part
         * EVM address described above.)
         */
         bytes evm_address = 4;
@@ -208,6 +236,7 @@ message ContractID {
  *  - The scheduled property is true for Scheduled Transactions
  *  - transactionValidStart, accountID and scheduled properties should be omitted
  */
+// <<<pbj.comparable = "transactionValidStart, accountID, scheduled, nonce" >>>
 message TransactionID {
     /**
      * The transaction is invalid if consensusTimestamp < transactionID.transactionStartValid
@@ -225,13 +254,13 @@ message TransactionID {
     bool scheduled = 3;
 
     /**
-     * The identifier for an internal transaction that was spawned as part 
-     * of handling a user transaction. (These internal transactions share the 
+     * The identifier for an internal transaction that was spawned as part
+     * of handling a user transaction. (These internal transactions share the
      * transactionValidStart and accountID of the user transaction, so a
      * nonce is necessary to give them a unique TransactionID.)
-     * 
-     * An example is when a "parent" ContractCreate or ContractCall transaction 
-     * calls one or more HTS precompiled contracts; each of the "child" 
+     *
+     * An example is when a "parent" ContractCreate or ContractCall transaction
+     * calls one or more HTS precompiled contracts; each of the "child"
      * transactions spawned for a precompile has a id with a different nonce.
      */
     int32 nonce = 4;
@@ -240,6 +269,7 @@ message TransactionID {
 /**
  * An account, and the amount that it sends or receives during a cryptocurrency or token transfer.
  */
+// <<<pbj.comparable = "accountID, amount, is_approval" >>>
 message AccountAmount {
     /**
      * The Account ID that sends/receives cryptocurrency or tokens
@@ -276,6 +306,7 @@ message TransferList {
  * NON_FUNGIBLE_UNIQUE type. When minting NFTs the sender will be the default AccountID instance
  * (0.0.0) and when burning NFTs, the receiver will be the default AccountID instance.
  */
+// <<<pbj.comparable = "serialNumber, is_approval, senderAccountID, receiverAccountID" >>>
 message NftTransfer {
     /**
      * The accountID of the sender
@@ -331,6 +362,7 @@ message TokenTransferList {
 /**
  * A rational number, used to set the amount of a value transfer to collect as a custom fee
  */
+// <<<pbj.comparable = "denominator, numerator" >>>
 message Fraction {
     /**
      * The rational's numerator
@@ -346,6 +378,7 @@ message Fraction {
 /**
  * Unique identifier for a topic (used by the consensus service)
  */
+// <<<pbj.comparable = "shardNum, realmNum, topicNum" >>>
 message TopicID {
     /**
      * The shard number (nonnegative)
@@ -364,28 +397,9 @@ message TopicID {
 }
 
 /**
- * Unique identifier for a token
- */
-message TokenID {
-    /**
-     * A nonnegative shard number
-     */
-    int64 shardNum = 1;
-
-    /**
-     * A nonnegative realm number
-     */
-    int64 realmNum = 2;
-
-    /**
-     * A nonnegative token number
-     */
-    int64 tokenNum = 3;
-}
-
-/**
  * Unique identifier for a Schedule
  */
+// <<<pbj.comparable = "shardNum, realmNum, scheduleNum" >>>
 message ScheduleID {
     /**
      * A nonnegative shard number
@@ -426,19 +440,19 @@ enum TokenType {
 }
 
 /**
- * Allows a set of resource prices to be scoped to a certain type of a HAPI operation. 
- * 
+ * Allows a set of resource prices to be scoped to a certain type of a HAPI operation.
+ *
  * For example, the resource prices for a TokenMint operation are different between minting fungible
  * and non-fungible tokens. This enum allows us to "mark" a set of prices as applying to one or the
  * other.
- * 
+ *
  * Similarly, the resource prices for a basic TokenCreate without a custom fee schedule yield a
  * total price of $1. The resource prices for a TokenCreate with a custom fee schedule are different
  * and yield a total base price of $2.
  */
 enum SubType {
     /**
-     * The resource prices have no special scope 
+     * The resource prices have no special scope
      */
     DEFAULT = 0;
 
@@ -552,15 +566,15 @@ enum TokenPauseStatus {
  * A Key can be a public key from either the Ed25519 or ECDSA(secp256k1) signature schemes, where
  * in the ECDSA(secp256k1) case we require the 33-byte compressed form of the public key. We call
  * these public keys <b>primitive keys</b>.
- * 
- * If an account has primitive key associated to it, then the corresponding private key must sign 
- * any transaction to transfer cryptocurrency out of it. 
  *
- * A Key can also be the ID of a smart contract instance, which is then authorized to perform any 
- * precompiled contract action that requires this key to sign. 
+ * If an account has primitive key associated to it, then the corresponding private key must sign
+ * any transaction to transfer cryptocurrency out of it.
  *
- * Note that when a Key is a smart contract ID, it <i>doesn't</i> mean the contract with that ID 
- * will actually create a cryptographic signature. It only means that when the contract calls a 
+ * A Key can also be the ID of a smart contract instance, which is then authorized to perform any
+ * precompiled contract action that requires this key to sign.
+ *
+ * Note that when a Key is a smart contract ID, it <i>doesn't</i> mean the contract with that ID
+ * will actually create a cryptographic signature. It only means that when the contract calls a
  * precompiled contract, the resulting "child transaction" will be authorized to perform any action
  * controlled by the Key.
  *
@@ -624,15 +638,15 @@ message Key {
          */
         bytes ECDSA_secp256k1 = 7;
 
-        /**  
+        /**
          * A smart contract that, if the recipient of the active message frame, should be treated
-         * as having signed. (Note this does not mean the <i>code being executed in the frame</i> 
-         * will belong to the given contract, since it could be running another contract's code via 
+         * as having signed. (Note this does not mean the <i>code being executed in the frame</i>
+         * will belong to the given contract, since it could be running another contract's code via
          * <tt>delegatecall</tt>. So setting this key is a more permissive version of setting the
          * contractID key, which also requires the code in the active message frame belong to the
          * the contract with the given id.)
          */
-        ContractID delegatable_contract_id = 8; 
+        ContractID delegatable_contract_id = 8;
     }
 }
 
@@ -668,7 +682,7 @@ message KeyList {
 }
 
 /**
- * This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained 
+ * This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained
  * here only for historical reasons.
  *
  * Please use the SignaturePair and SignatureMap messages.
@@ -711,7 +725,7 @@ message Signature {
 }
 
 /**
- * This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained 
+ * This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained
  * here only for historical reasons.
  *
  * Please use the SignaturePair and SignatureMap messages.
@@ -727,7 +741,7 @@ message ThresholdSignature {
 }
 
 /**
- * This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained 
+ * This message is <b>DEPRECATED</b> and <b>UNUSABLE</b> with network nodes. It is retained
  * here only for historical reasons.
  *
  * Please use the SignaturePair and SignatureMap messages.
@@ -744,16 +758,17 @@ message SignatureList {
 /**
  * The client may use any number of bytes from zero to the whole length of the public key for
  * pubKeyPrefix. If zero bytes are used, then it must be that only one primitive key is required
- * to sign the linked transaction; it will surely resolve to <tt>INVALID_SIGNATURE</tt> otherwise. 
- * 
- * <b>IMPORTANT:</b> In the special case that a signature is being provided for a key used to 
- * authorize a precompiled contract, the <tt>pubKeyPrefix</tt> must contain the <b>entire public 
- * key</b>! That is, if the key is a Ed25519 key, the <tt>pubKeyPrefix</tt> should be 32 bytes 
- * long. If the key is a ECDSA(secp256k1) key, the <tt>pubKeyPrefix</tt> should be 33 bytes long, 
- * since we require the compressed form of the public key. 
- * 
- * Only Ed25519 and ECDSA(secp256k1) keys and hence signatures are currently supported. 
+ * to sign the linked transaction; it will surely resolve to <tt>INVALID_SIGNATURE</tt> otherwise.
+ *
+ * <b>IMPORTANT:</b> In the special case that a signature is being provided for a key used to
+ * authorize a precompiled contract, the <tt>pubKeyPrefix</tt> must contain the <b>entire public
+ * key</b>! That is, if the key is a Ed25519 key, the <tt>pubKeyPrefix</tt> should be 32 bytes
+ * long. If the key is a ECDSA(secp256k1) key, the <tt>pubKeyPrefix</tt> should be 33 bytes long,
+ * since we require the compressed form of the public key.
+ *
+ * Only Ed25519 and ECDSA(secp256k1) keys and hence signatures are currently supported.
  */
+// <<<pbj.comparable = "pubKeyPrefix, signature" >>>
 message SignaturePair {
     /**
      * First few bytes of the public key
@@ -1179,6 +1194,7 @@ enum HederaFunctionality {
  * by the corresponding price to calculate the appropriate fee. Units are one-thousandth of a
  * tinyCent.
  */
+// <<<pbj.comparable = "min, max, constant, bpt, vpt, rbh, sbh, gas, tv, bpr, sbpr" >>>
 message FeeComponents {
     /**
      * A minimum, the calculated fee must be greater than this value
@@ -1262,6 +1278,7 @@ message TransactionFeeSchedule {
  * network for assigning the transaction a consensus timestamp, and a service fee that compensates
  * the network for the ongoing maintenance of the consequences of the transaction.
  */
+// <<<pbj.comparable = "nodedata, networkdata, servicedata, subType" >>>
 message FeeData {
     /**
      * Fee paid to the submitting node
@@ -1322,6 +1339,7 @@ message CurrentAndNextFeeSchedule {
  * Contains the IP address and the port representing a service endpoint of a Node in a network. Used
  * to reach the Hedera API and submit transactions to the network.
  */
+// <<<pbj.comparable = "ipAddressV4, port" >>>
 message ServiceEndpoint {
     /**
      * The 32-bit IPv4 address of the node encoded in left to right order (e.g.  127.0.0.1 has 127
@@ -1338,7 +1356,7 @@ message ServiceEndpoint {
 /**
  * The data about a node, including its service endpoints and the Hedera account to be paid for
  * services provided by the node (that is, queries answered and transactions submitted.)
- * 
+ *
  * If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the
  * (deprecated) <tt>ipAddress</tt> and <tt>portno</tt> fields should be used.
  *
@@ -1364,9 +1382,9 @@ message NodeAddress {
     bytes memo = 3 [deprecated=true];
 
     /**
-     * The node's X509 RSA public key used to sign stream files (e.g., record stream 
-     * files). Precisely, this field is a string of hexadecimal characters which, 
-     * translated to binary, are the public key's DER encoding.  
+     * The node's X509 RSA public key used to sign stream files (e.g., record stream
+     * files). Precisely, this field is a string of hexadecimal characters which,
+     * translated to binary, are the public key's DER encoding.
      */
     string RSA_PubKey = 4;
 
@@ -1381,9 +1399,9 @@ message NodeAddress {
     AccountID nodeAccountId = 6;
 
     /**
-     * # Hash of the node's TLS certificate. Precisely, this field is a string of 
-     * hexadecimal characters which, translated to binary, are the SHA-384 hash of 
-     * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be 
+     * # Hash of the node's TLS certificate. Precisely, this field is a string of
+     * hexadecimal characters which, translated to binary, are the SHA-384 hash of
+     * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
      * used to verify the node's certificate it presents during TLS negotiations.
      */
     bytes nodeCertHash = 7;
@@ -1421,6 +1439,7 @@ message NodeAddressBook {
  * <tt>NetworkService</tt> to return the deployed versions of both protobufs and software on the
  * node answering the query.
  */
+// <<<pbj.comparable = "major, minor, patch, pre, build" >>>
 message SemanticVersion {
     /**
      * Increases with incompatible API changes
@@ -1456,6 +1475,7 @@ message SemanticVersion {
 /**
  * UNDOCUMENTED
  */
+// <<<pbj.comparable = "name, value, data" >>>
 message Setting {
     /**
      * name of the property
@@ -1486,6 +1506,7 @@ message ServicesConfigurationList {
 /**
  * Token's information related to the given Account
  */
+// <<<pbj.comparable = "tokenId, symbol, balance, decimals, automatic_association, kycStatus, freezeStatus" >>>
 message TokenRelationship {
     /**
      * The ID of the token
@@ -1538,6 +1559,7 @@ message TokenRelationship {
  *
  * Transferable units are not directly comparable across different tokens.
  */
+// <<<pbj.comparable = "tokenId, balance, decimals" >>>
 message TokenBalance {
     /**
      * A unique token id
@@ -1565,6 +1587,7 @@ message TokenBalances {
 }
 
 /* A token - account association */
+// <<<pbj.comparable = "token_id, account_id" >>>
 message TokenAssociation {
     TokenID token_id = 1;  // The token involved in the association
     AccountID account_id = 2; // The account involved in the association
@@ -1573,6 +1596,7 @@ message TokenAssociation {
 /**
  * Staking metadata for an account or a contract returned in CryptoGetInfo or ContractGetInfo queries
  */
+// <<<pbj.comparable = "decline_reward, stake_period_start, staked_id, pending_reward, staked_to_me" >>>
 message StakingInfo {
 
     /**

@@ -31,6 +31,7 @@ option java_multiple_files = true;
 /**
  * A single 64-bit number with no particular meaning.
  */
+// <<<pbj.comparable = "value" >>>
 message ProtoLong {
     int64 value = 1;
 }
@@ -38,6 +39,7 @@ message ProtoLong {
 /**
  * A single 32-bit number with no particular meaning.
  */
+// <<<pbj.comparable = "value" >>>
 message ProtoInteger {
     int32 value = 1;
 }
@@ -45,6 +47,7 @@ message ProtoInteger {
 /**
  * A single boolean with no particular meaning.
  */
+// <<<pbj.comparable = "value" >>>
 message ProtoBoolean {
     bool value = 1;
 }
@@ -52,6 +55,7 @@ message ProtoBoolean {
 /**
  * A single string with no particular meaning.
  */
+// <<<pbj.comparable = "value" >>>
 message ProtoString {
     string value = 1;
 }
@@ -59,7 +63,7 @@ message ProtoString {
 /**
  * A single byte array with no particular meaning.
  */
+// <<<pbj.comparable = "value" >>>
 message ProtoBytes {
     bytes value = 1;
 }
-

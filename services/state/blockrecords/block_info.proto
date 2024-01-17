@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
+/*
+ *
  * Hedera Network Services Protobuf
- * ​
+ *
  * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
- * ​
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +19,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 import "timestamp.proto";
@@ -31,6 +31,7 @@ option java_multiple_files = true;
 /**
  * Information about ongoing, most recently completed, and last 256 blocks.
  */
+// <<<pbj.comparable = "last_block_number,first_cons_time_of_last_block,cons_time_of_last_handled_txn,migration_records_streamed,block_hashes" >>>
 message BlockInfo {
   /**
    * The last block number, this is the last completed immutable block.

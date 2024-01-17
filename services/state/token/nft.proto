@@ -3,11 +3,11 @@ syntax = "proto3";
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
+ *
  * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
- * ​
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +19,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 import "timestamp.proto";
@@ -32,6 +32,7 @@ option java_multiple_files = true;
 /**
  * Representation of a Hedera Token Service NFT in the network Merkle tree.
  */
+// <<<pbj.comparable = "owner_id,nft_id,spender_id,mint_time,owner_previous_nft_id,owner_next_nft_id,metadata" >>>
 message Nft {
 
     /**
@@ -64,13 +65,13 @@ message Nft {
     bytes metadata = 5;
 
     /**
-     * If the owner of this NFT is not its token treasury, the id of the previous NFT 
+     * If the owner of this NFT is not its token treasury, the id of the previous NFT
      * in the owner's "doubly-linked list" of owned NFTs (if any).
      */
     NftID owner_previous_nft_id = 6;
 
     /**
-     * If the owner of this NFT is not its token treasury, the id of the next NFT in 
+     * If the owner of this NFT is not its token treasury, the id of the next NFT in
      * the owner's "doubly-linked list" of owned NFTs (if any).
      */
     NftID owner_next_nft_id = 7;

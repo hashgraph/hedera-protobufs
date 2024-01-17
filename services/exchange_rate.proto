@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
+/*
+ *
  * Hedera Network Services Protobuf
- * ​
+ *
  * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +19,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.transaction">>> This comment is special code for setting PBJ Compiler java package
@@ -30,8 +30,9 @@ import "timestamp.proto";
 
 /**
  * An exchange rate between hbar and cents (USD) and the time at which the exchange rate will
- * expire, and be superseded by a new exchange rate. 
+ * expire, and be superseded by a new exchange rate.
  */
+// <<<pbj.comparable = "expirationTime,hbarEquiv,centEquiv" >>>
 message ExchangeRate {
     /**
      * Denominator in calculation of exchange rate between hbar and cents
@@ -52,6 +53,7 @@ message ExchangeRate {
 /**
  * Two sets of exchange rates
  */
+// <<<pbj.comparable = "currentRate,nextRate" >>>
 message ExchangeRateSet {
     /**
      * Current exchange rate

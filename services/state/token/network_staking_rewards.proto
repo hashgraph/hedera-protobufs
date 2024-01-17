@@ -3,11 +3,11 @@ syntax = "proto3";
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
+ *
  * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
- * ​
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +19,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -34,6 +34,7 @@ option java_multiple_files = true;
  *
  * As with all network entities, staking info is per node and has a unique entity number represented as shard.realm.X.
  */
+// <<<pbj.comparable = "staking_rewards_activated,total_staked_reward_start,total_staked_start,pending_rewards" >>>
 message NetworkStakingRewards {
 
   /**

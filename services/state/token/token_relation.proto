@@ -3,11 +3,11 @@ syntax = "proto3";
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
+ *
  * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
- * ​
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +19,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 import "basic_types.proto";
@@ -33,6 +33,7 @@ option java_multiple_files = true;
  * As with all network entities, a token relationship has a unique entity number pair, which is represented
  * with the account and the token involved in the relationship.
  */
+// <<<pbj.comparable = "token_id,account_id,deleted,frozen,kyc_granted,automatic_association,previous_token,next_token,balance" >>>
 message TokenRelation {
     /**
      * The token involved in this relation.It takes only positive
