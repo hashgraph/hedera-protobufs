@@ -59,4 +59,9 @@ message BlockInfo {
    * should happen during the first transaction handled by the node.
    */
   bool migration_records_streamed = 5;
+  /**
+   * The consensus time of the first transaction in the current block; necessary for reconnecting nodes to detect
+   * when the current block is finished.
+   */
+  Timestamp first_cons_time_of_current_block = 6;
 }
