@@ -146,7 +146,7 @@ message TokenUpdateTransactionBody {
     /**
      * Metadata of the created token definition
      */
-    google.protobuf.BytesValue metadata = 16;
+    bytes metadata = 16;
 
     /**
      * The key which can change the metadata of a token

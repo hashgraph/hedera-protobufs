@@ -48,5 +48,5 @@ message TokenUpdateNftTransactionBody {
     /**
      * The new metadata of the NFT
      */
-    google.protobuf.BytesValue metadata = 2;
+    bytes metadata = 2;
 }
