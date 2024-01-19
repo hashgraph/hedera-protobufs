@@ -200,8 +200,8 @@ message TokenCreateTransactionBody {
     Key pause_key = 22;
 
     /**
-   * Metadata of the created token definition.
-   */
+     * Metadata of the created token definition.
+     */
     bytes metadata = 23;
 
     /**
