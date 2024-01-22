@@ -95,4 +95,8 @@ message StakingNodeInfo {
      * to all nodes in the network in NetworkStakingRewards.
      */
     int64 pending_rewards = 11;
+    /**
+     * True if this node has been deleted from network.
+     */
+    bool deleted = 12;
 }
