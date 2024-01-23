@@ -128,7 +128,4 @@ service TokenService {
 
     //  Unpause the token
     rpc unpauseToken (Transaction) returns (TransactionResponse);
-
-    // Update an NFT
-    rpc updateNft (Transaction) returns (TransactionResponse);
 }
