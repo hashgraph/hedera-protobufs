@@ -88,4 +88,15 @@ message StakingNodeInfo {
      * (node A stake * 500/ total stake of all nodes)
      */
     int32 weight = 10;
+    /**
+     * The total staking rewards in tinybars that COULD be collected by all accounts staking to the current node after the end
+     * of this staking period; assuming that no account "renounces" its rewards by, for example, setting declineReward=true.
+     * When the current node is deleted, this amount will be subtracted from the total pending rewards of all accounts staking
+     * to all nodes in the network in NetworkStakingRewards.
+     */
+    int64 pending_rewards = 11;
+    /**
+     * True if this node has been deleted from network.
+     */
+    bool deleted = 12;
 }
