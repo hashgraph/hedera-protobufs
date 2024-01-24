@@ -26,6 +26,8 @@ option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.contract">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+import "basic_types.proto";
+
 /**
  * The key of a storage slot. A slot is scoped to a specific contract number.
  * 
@@ -35,7 +37,7 @@ message SlotKey {
     /**
      * The number of the contract whose storage this slot belongs to.
      */
-    int64 contract_number = 1;
+    ContractID contractID = 1;
 
     /**
      * The EVM key of this slot, when left-padded with zeros to form a 256-bit word.
