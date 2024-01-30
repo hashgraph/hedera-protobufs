@@ -1378,4 +1378,9 @@ enum ResponseCodeEnum {
    * A provided metadata key was invalid. Verify the bytes for an Ed25519 public key are exactly 32 bytes; and the bytes for a compressed ECDSA(secp256k1) key are exactly 33 bytes, with the first byte either 0x02 or 0x03..
    */
   INVALID_METADATA_KEY = 333;
+
+  /**
+   * Metadata key is not set on token
+   */
+  TOKEN_HAS_NO_METADATA_KEY = 334;
 }
