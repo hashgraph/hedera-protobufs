@@ -1383,4 +1383,9 @@ enum ResponseCodeEnum {
    * Metadata key is not set on token
    */
   TOKEN_HAS_NO_METADATA_KEY = 334;
+
+  /**
+   * Token Metadata is not provided
+   */
+  MISSING_TOKEN_METADATA = 335;
 }
