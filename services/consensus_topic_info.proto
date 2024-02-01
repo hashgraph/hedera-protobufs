@@ -1,5 +1,6 @@
 /**
- * #
+ * # Topic Information
+ * Query response describing a topic of the Hedera Consensus Service (HCS).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -39,11 +40,12 @@ import "duration.proto";
 import "timestamp.proto";
 
 /**
- * Current state of a topic.
+ * A query response describing the current state of a topic for the Hedera Consensus Service (HCS).
  */
 message ConsensusTopicInfo {
     /**
-     * The memo associated with the topic (UTF-8 encoding max 100 bytes)
+     * The memo associated with this topic.
+     * This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
      */
     string memo = 1;
 
@@ -52,9 +54,64 @@ message ConsensusTopicInfo {
      * When a topic is created, its running hash is initialized to 48 bytes of binary zeros.
      * For each submitted message, the topic's running hash is then updated to the output
      * of a particular SHA-384 digest whose input data include the previous running hash.
-     *
-     * See the TransactionReceipt.proto documentation for an exact description of the
-     * data included in the SHA-384 digest used for the update.
+     * <p>
+     * The latest running hash of the topic.<br/>
+     * This 48-byte field is the output of a SHA-384 digest with input data determined by the
+     * value of the topicRunningHashVersion as indicated below.<br/>
+     * The bytes of each uint64 or uint32 encoded for the hash input MUST be in Big-Endian format.
+     * <p>
+     * <hr/>
+     * If the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are,
+     * in order:
+     * <ol>
+     *   <li>The previous running hash of the topic (48 bytes)</li>
+     *   <li>The topic's shard (8 bytes)</li>
+     *   <li>The topic's realm (8 bytes)</li>
+     *   <li>The topic's number (8 bytes)</li>
+     *   <li>The number of seconds since the epoch before the ConsensusSubmitMessage reached
+     *    consensus (8 bytes)</li>
+     *   <li>The number of nanoseconds since 5. before the ConsensusSubmitMessage reached
+     *    consensus (4 bytes)</li>
+     *   <li>The topicSequenceNumber from above (8 bytes)</li>
+     *   <li>The message bytes from the ConsensusSubmitMessage (variable).</li>
+     * </ol>
+     * <hr/>
+     * If the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in
+     * order:
+     * <ol>
+     *   <li>The previous running hash of the topic (48 bytes)</li>
+     *   <li>The topicRunningHashVersion below (8 bytes)</li>
+     *   <li>The topic's shard (8 bytes)</li>
+     *   <li>The topic's realm (8 bytes)</li>
+     *   <li>The topic's number (8 bytes)</li>
+     *   <li>The number of seconds since the epoch before the ConsensusSubmitMessage reached
+     *    consensus (8 bytes)</li>
+     *   <li>The number of nanoseconds since 6. before the ConsensusSubmitMessage reached
+     *    consensus (4 bytes)</li>
+     *   <li>The topicSequenceNumber from above (8 bytes)</li>
+     *   <li>The output of the SHA-384 digest of the message bytes from the
+     *    consensusSubmitMessage (48 bytes)</li>
+     * </ol>
+     * <hr/>
+     * If the topicRunningHashVersion is '3', then the input data to the SHA-384 digest
+     * are, in order:
+     * <ol>
+     *   <li>The previous running hash of the topic (48 bytes)</li>
+     *   <li>The topicRunningHashVersion below (8 bytes)</li>
+     *   <li>The payer account's shard (8 bytes)</li>
+     *   <li>The payer account's realm (8 bytes)</li>
+     *   <li>The payer account's number (8 bytes)</li>
+     *   <li>The topic's shard (8 bytes)</li>
+     *   <li>The topic's realm (8 bytes)</li>
+     *   <li>The topic's number (8 bytes)</li>
+     *   <li>The number of seconds since the epoch before the ConsensusSubmitMessage reached
+     *    consensus (8 bytes)</li>
+     *   <li>The number of nanoseconds since 9. before the ConsensusSubmitMessage reached
+     *     consensus (4 bytes)</li>
+     *   <li>The topicSequenceNumber from above (8 bytes)</li>
+     *   <li>The output of the SHA-384 digest of the message bytes from the
+     *     consensusSubmitMessage (48 bytes)</li>
+     * </ol>
      */
     bytes runningHash = 2;
 

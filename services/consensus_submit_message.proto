@@ -1,5 +1,6 @@
 /**
- * #
+ * # Submit Message
+ * Submit a message to a topic via the Hedera Consensus Service (HCS).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",

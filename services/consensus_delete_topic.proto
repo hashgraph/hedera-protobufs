@@ -1,5 +1,6 @@
 /**
- * #
+ * # Delete Topic
+ * Delete an existing topic from the Hedera Consensus Service (HCS).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",

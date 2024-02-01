@@ -1,5 +1,6 @@
 /**
- * #
+ * # Consensus Service API
+ * GRPC service definitions for the Hedera Consensus Service (HCS).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",

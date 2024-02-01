@@ -1,5 +1,6 @@
 /**
- * #
+ * # Get Topic
+ * Query a topic in the Hedera Consensus Service (HCS).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",

@@ -1,5 +1,6 @@
 /**
- * #
+ * # Create Topic
+ * Create a new topic for the Hedera Consensus Service (HCS).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
