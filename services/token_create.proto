@@ -199,8 +199,6 @@ message TokenCreateTransactionBody {
      */
     Key pause_key = 22;
 
-    
-
     /**
    * The key which can lock, unlock, or transfer locked tokens in an account. Each fungible token
    * balance of a token-definition with a lock_key will have both a balance, and a quantity of
@@ -250,4 +248,15 @@ message TokenCreateTransactionBody {
    * and the new partition move key. Once null, it cannot be set again.
    */
   Key partition_move_key = 25;
+
+  /**
+   * Metadata of the created token definition.
+   */
+  bytes metadata = 26;
+
+  /**
+   * The key which can change the metadata of a token
+   * (token definition, partition definition, and individual NFTs).
+   */
+  Key metadata_key = 27;
 }

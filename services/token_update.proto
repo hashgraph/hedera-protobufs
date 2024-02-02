@@ -143,8 +143,6 @@ message TokenUpdateTransactionBody {
      */
     Key pause_key = 15;
 
-    
-
     /**
    * The key which can lock, unlock, or transfer locked tokens in an account. If the Token does not
    * currently have a lock key, transaction will resolve to TOKEN_HAS_NO_LOCK_KEY
@@ -165,4 +163,15 @@ message TokenUpdateTransactionBody {
      * TOKEN_HAS_NO_PARTITION_MOVE_KEY
      */
     Key partition_move_key = 18;
+
+    /**
+     * Metadata of the created token definition
+     */
+    google.protobuf.BytesValue metadata = 19;
+
+    /**
+     * The key which can change the metadata of a token
+     * (token definition, partition definition, and individual NFTs).
+     */
+    Key metadata_key = 20;
 }
