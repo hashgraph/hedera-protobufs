@@ -34,9 +34,7 @@ import "basic_types.proto";
  */
  message TokenUnlockTransactionBody {
     AccountID account_id = 1;
-    TokenID token_id = 2; // token-definition-id or partition-definition-id
-    oneof amountOrSerialNumbers {
-        int64 amount = 3; // if token-definition is FUNGIBLE_COMMON
-        LockableSerialNumbers serial_numbers = 4; // if the token-definition is NON_FUNGIBLE_UNIQUE
-    }
+    TokenID token_id = 2;     // token-definition-id or partition-definition-id
+    int64 amount = 3;         // if token-definition is FUNGIBLE_COMMON
+    LockableSerialNumbers serial_numbers = 4; // if the token-definition is NON_FUNGIBLE_UNIQUE
 }
