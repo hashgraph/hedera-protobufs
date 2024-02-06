@@ -113,12 +113,6 @@ message AccountID {
     }
 }
 
-message LockableSerialNumbers {
-    repeated int64 serial_numbers = 1;
-    // Work around a PBJ bug for now
-    bool tbd = 2;
-}
-
 /**
  * Identifier for a unique token (or "NFT"), used by both contract and token services.
  */
