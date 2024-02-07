@@ -19,17 +19,19 @@
  * >> due to issue 262
  * >
  * > Issue 240
- * >> These files currently cause PBJ integration tests to fail if included
- * >> due to issue 240.
+ * >> These files may cause PBJ integration tests to fail if included
+ * >> due to issue 240. This was worked around by specifying different
+ * >> values for java_package and pbj.java_package.
  * >
  * > Issue 218
- * >> These files have the same value for package and java_package. Ideally
- * >> we would not specify `java_package` or the pbj comment in that situation,
- * >> but Issue 218 prevents eliding the unnecessary directives.
+ * >> These files _should_ have the same value for package and java_package.
+ * >> Ideally we would not specify `java_package` or the pbj comment in that
+ * >> situation, but Issue 218 prevents eliding the unnecessary directives.
  * >
  * > Issue 217
- * >> These files may cause PBJ to fail compilation due to comments preceeding
- * >> the `syntax` keyword.
+ * >> These files may cause PBJ to fail compilation due to comments preceding
+ * >> the `syntax` keyword. Currently this is a warning, but in projects that
+ * >> make warnings errors, this will cause compilation to fail.
  * >
  * > Issue 216
  * >> These files would do well with validation support, but cannot make
@@ -790,9 +792,9 @@ message BlockNodeVersions {
 }
 
 /**
- * Remote procedure calls (RPCs) for the Block Node.
+ * Remote procedure calls (RPCs) for the Block Node ancillary services.
  */
-service BlockStreamService {
+service BlockNodeService {
     /**
      * Read the status of this block node server.
      * <p>
@@ -800,14 +802,25 @@ service BlockStreamService {
      * data or a state snapshot.
      */
     rpc serverStatus(ServerStatusRequest) returns (ServerStatusResponse);
+}
 
+/**
+ * Remote procedure calls (RPCs) for the Block Node block services.
+ */
+service BlockAccessService {
     /**
      * Read a single block from the block node.
      * <p>
      * The request SHALL describe the block number of the block to retrieve.
      */
     rpc singleBlock(SingleBlockRequest) returns (SingleBlockResponse);
+}
 
+/**
+ * Remote procedure calls (RPCs) for the Block Node state snapshot
+ * and query services.
+ */
+service StateService {
     /**
      * Read a state snapshot from the block node.
      * <p>
@@ -818,6 +831,12 @@ service BlockStreamService {
      */
     rpc stateSnapshot(StateSnapshotRequest) returns (StateSnapshotResponse);
 
+}
+
+/**
+ * Remote procedure calls (RPCs) for the Block Node stream services.
+ */
+service BlockStreamService {
     /**
      * Publish a stream of blocks.
      * <p>
