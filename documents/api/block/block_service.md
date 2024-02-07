@@ -22,7 +22,10 @@
     - [StateSnapshotResponseCode](#com-hedera-hapi-block-StateSnapshotResponseCode)
     - [SubscribeStreamResponseCode](#com-hedera-hapi-block-SubscribeStreamResponseCode)
   
+    - [BlockAccessService](#com-hedera-hapi-block-BlockAccessService)
+    - [BlockNodeService](#com-hedera-hapi-block-BlockNodeService)
     - [BlockStreamService](#com-hedera-hapi-block-BlockStreamService)
+    - [StateService](#com-hedera-hapi-block-StateService)
   
 
 
@@ -51,17 +54,19 @@ The Service API exposed by the Block Nodes.
 >> due to issue 262
 >
 > Issue 240
->> These files currently cause PBJ integration tests to fail if included
->> due to issue 240.
+>> These files may cause PBJ integration tests to fail if included
+>> due to issue 240. This was worked around by specifying different
+>> values for java_package and pbj.java_package.
 >
 > Issue 218
->> These files have the same value for package and java_package. Ideally
->> we would not specify `java_package` or the pbj comment in that situation,
->> but Issue 218 prevents eliding the unnecessary directives.
+>> These files _should_ have the same value for package and java_package.
+>> Ideally we would not specify `java_package` or the pbj comment in that
+>> situation, but Issue 218 prevents eliding the unnecessary directives.
 >
 > Issue 217
->> These files may cause PBJ to fail compilation due to comments preceeding
->> the `syntax` keyword.
+>> These files may cause PBJ to fail compilation due to comments preceding
+>> the `syntax` keyword. Currently this is a warning, but in projects that
+>> make warnings errors, this will cause compilation to fail.
 >
 > Issue 216
 >> These files would do well with validation support, but cannot make
@@ -518,18 +523,46 @@ This code SHALL represent the final status of the full request.
  <!-- end HasExtensions -->
 
 
-<a name="com-hedera-hapi-block-BlockStreamService"></a>
+<a name="com-hedera-hapi-block-BlockAccessService"></a>
 
-### BlockStreamService
-Remote procedure calls (RPCs) for the Block Node.
+### BlockAccessService
+Remote procedure calls (RPCs) for the Block Node block services.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| singleBlock | [SingleBlockRequest](#com-hedera-hapi-block-SingleBlockRequest) | [SingleBlockResponse](#com-hedera-hapi-block-SingleBlockResponse) | Read a single block from the block node. <p> The request SHALL describe the block number of the block to retrieve. |
+
+
+<a name="com-hedera-hapi-block-BlockNodeService"></a>
+
+### BlockNodeService
+Remote procedure calls (RPCs) for the Block Node ancillary services.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | serverStatus | [ServerStatusRequest](#com-hedera-hapi-block-ServerStatusRequest) | [ServerStatusResponse](#com-hedera-hapi-block-ServerStatusResponse) | Read the status of this block node server. <p> A client SHOULD request server status prior to requesting block stream data or a state snapshot. |
-| singleBlock | [SingleBlockRequest](#com-hedera-hapi-block-SingleBlockRequest) | [SingleBlockResponse](#com-hedera-hapi-block-SingleBlockResponse) | Read a single block from the block node. <p> The request SHALL describe the block number of the block to retrieve. |
-| stateSnapshot | [StateSnapshotRequest](#com-hedera-hapi-block-StateSnapshotRequest) | [StateSnapshotResponse](#com-hedera-hapi-block-StateSnapshotResponse) | Read a state snapshot from the block node. <p> The request SHALL describe the last block number present in the snapshot.<br/> Block node implementations MAY decline a request for a snapshot older than the latest available, but MUST clearly document this behavior. |
+
+
+<a name="com-hedera-hapi-block-BlockStreamService"></a>
+
+### BlockStreamService
+Remote procedure calls (RPCs) for the Block Node stream services.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
 | publishBlockStream | [PublishStreamRequest](#com-hedera-hapi-block-PublishStreamRequest) stream | [PublishStreamResponse](#com-hedera-hapi-block-PublishStreamResponse) stream | Publish a stream of blocks. <p> Each item in the stream MUST contain one `BlockItem`.<br/> Each Block MUST begin with a single `BlockHeader` block item.<br/> The block node SHALL append each `BlockItem` to an internal structure to construct full blocks.<br/> Each Block MUST end with a single `BlockStateProof` block item.<br/> It is RECOMMENDED that the implementations verify the Block using the `BlockStateProof` to validate all data was received correctly.<br/> This API SHOULD, generally, be restricted based on mTLS authentication to a limited set of source (i.e. consensus node) systems. |
 | subscribeBlockStream | [SubscribeStreamRequest](#com-hedera-hapi-block-SubscribeStreamRequest) | [SubscribeStreamResponse](#com-hedera-hapi-block-SubscribeStreamResponse) stream | Subscribe to a stream of blocks. <p> Each item in the stream SHALL contain one `BlockItem` or a response code.<br/> The request message MUST specify start and end block numbers to return/<br/> The block node SHALL stream the full contents of the blocks requested.<br/> The block items SHALL be streamed in order originally produced within a block.<br/> The blocks shall be streamed in ascending order by `block_number`.<br/> The block node SHALL end the stream when the last requested block, if set, has been sent.<br/> A request with an end block of `0` SHALL be interpreted to indicate the stream has no end. The block node SHALL continue to stream new blocks as soon as each becomes available.<br/> The block node SHALL end the stream with response code containing a status of SUCCESS when the stream is complete.<br/> The block node SHALL end the stream with a response code containing a status of `READ_STREAM_INVALID_START_BLOCK_NUMBER` if the start block number is greater than the end block number.<br/> The block node SHALL end the stream with a response code containing a status of `READ_STREAM_PAYMENT_INSUFFICIENT` if insufficient payment remains to complete the requested stream.<br/> The block node SHALL make every reasonable effort to fulfill as much of the request as possible in the event payment is not sufficient to complete the request. |
+
+
+<a name="com-hedera-hapi-block-StateService"></a>
+
+### StateService
+Remote procedure calls (RPCs) for the Block Node state snapshot
+and query services.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| stateSnapshot | [StateSnapshotRequest](#com-hedera-hapi-block-StateSnapshotRequest) | [StateSnapshotResponse](#com-hedera-hapi-block-StateSnapshotResponse) | Read a state snapshot from the block node. <p> The request SHALL describe the last block number present in the snapshot.<br/> Block node implementations MAY decline a request for a snapshot older than the latest available, but MUST clearly document this behavior. |
 
  <!-- end services -->
 

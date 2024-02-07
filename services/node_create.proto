@@ -45,9 +45,11 @@ import "basic_types.proto";
  *   configuration during the next `freeze` transaction with the field
  *   `freeze_type` set to `PREPARE_UPGRADE`.
  *
- * ### Record Stream Effects
- * Upon completion the newly assigned `node_id` SHALL be in the transaction
- * receipt.
+ * ### Block Stream Effects
+ * Upon completion the newly assigned `node_id` SHALL be recorded in
+ * the transaction receipt.<br/>
+ * This value SHALL be the next available node identifier.<br/>
+ * Node identifiers SHALL NOT be reused.
  */
 message NodeCreateTransactionBody {
     /**

@@ -90,6 +90,7 @@ A value updated in, or added to, a virtual map.
 | topic_value | [proto.Topic](#proto-Topic) |  | An HCS topic value. |
 | node_value | [com.hedera.hapi.node.state.addressbook.Node](#com-hedera-hapi-node-state-addressbook-Node) |  | An network node value. |
 | account_pending_airdrop_value | [proto.AccountPendingAirdrop](#proto-AccountPendingAirdrop) |  | A pending airdrop value. |
+| roster_value | [com.hedera.hapi.node.state.roster.Roster](#com-hedera-hapi-node-state-roster-Roster) |  | A roster value. |
 
 
 
@@ -184,7 +185,7 @@ The new item MUST be the same type of value as all other items in the queue.
 | ----- | ---- | ----- | ----------- |
 | proto_bytes_element | [google.protobuf.BytesValue](#google-protobuf-BytesValue) |  | A byte array added to the queue state. |
 | proto_string_element | [google.protobuf.StringValue](#google-protobuf-StringValue) |  | A string added to the queue state. |
-| transaction_record_entry_element | [proto.TransactionRecordEntry](#proto-TransactionRecordEntry) |  | A transaction record entry added to queue state. <p> <blockquote>REVIEW NOTE<blockquote> Do we really intend to push `transaction records` as state changes in the block stream? I would think that any queue holding transaction records is temporary storage (e.g. record cache) and will be removed or replaced with a block item queue as part of the change over to block stream. </blockquote></blockquote> |
+| transaction_receipt_entries_element | [proto.TransactionReceiptEntries](#proto-TransactionReceiptEntries) |  | All transaction receipts for a round added to queue state. |
 
 
 
@@ -224,6 +225,8 @@ An update to a `Singleton` state.
 | throttle_usage_snapshots_value | [proto.ThrottleUsageSnapshots](#proto-ThrottleUsageSnapshots) |  | A change to the throttle usage snapshots singleton. <p> Throttle usage snapshots SHALL be updated for _every transaction_ to reflect the amount used for each tps throttle and for the gas throttle. |
 | timestamp_value | [proto.Timestamp](#proto-Timestamp) |  | A change to a raw `Timestamp` singleton.<br/> An example of a raw `Timestamp` singleton is the "network freeze time" singleton state, which, if set, stores the time for the next scheduled freeze. |
 | block_stream_info_value | [com.hedera.hapi.node.state.blockstream.BlockStreamInfo](#com-hedera-hapi-node-state-blockstream-BlockStreamInfo) |  | A change to the block stream status singleton. <p> This MUST be updated at the beginning of a block, with the information for the immediately prior block. |
+| platform_state_value | [com.hedera.hapi.platform.state.PlatformState](#com-hedera-hapi-platform-state-PlatformState) |  | A change to the platform state singleton. |
+| roster_state_value | [com.hedera.hapi.node.state.roster.RosterState](#com-hedera-hapi-node-state-roster-RosterState) |  | A change to the roster state singleton. |
 
 
 
@@ -373,7 +376,10 @@ of the `StateChange`.`state_id` field.
 | STATE_ID_FREEZE_TIME | 23 | A state identifier for the next network freeze time. |
 | STATE_ID_BLOCK_STREAM_INFO | 24 | A state identifier for the block stream status singleton. |
 | STATE_ID_PENDING_AIRDROPS | 25 | A state identifier for pending airdrops. |
-| STATE_ID_RECORD_QUEUE | 126 | A state identifier for the record cache. |
+| STATE_ID_PLATFORM_STATE | 26 | A state identifier for the platform state singleton. |
+| STATE_ID_ROSTER_STATE | 27 | A state identifier for the roster state singleton. |
+| STATE_ID_ROSTERS | 28 | A state identifier for the rosters key/value map. |
+| STATE_ID_TRANSACTION_RECEIPTS_QUEUE | 126 | A state identifier for the round receipts queue. |
 | STATE_ID_UPGRADE_DATA_150 | 10001 | A state for the `150` upgrade file data |
 | STATE_ID_UPGRADE_DATA_151 | 10002 | A state for the `151` upgrade file data |
 | STATE_ID_UPGRADE_DATA_152 | 10003 | A state for the `152` upgrade file data |

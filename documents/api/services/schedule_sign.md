@@ -1,0 +1,71 @@
+## Table of Contents
+
+- [schedule_sign.proto](#schedule_sign-proto)
+    - [ScheduleSignTransactionBody](#proto-ScheduleSignTransactionBody)
+  
+
+
+
+<a name="schedule_sign-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## schedule_sign.proto
+# Schedule Sign
+Transaction body for a `scheduleSign` transaction to add signatures
+to an existing scheduled transaction.
+
+### Keywords
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
+
+
+<a name="proto-ScheduleSignTransactionBody"></a>
+
+### ScheduleSignTransactionBody
+Add signatures to an existing scheduled transaction.
+
+When a schedule _executes_ successfully, the receipt SHALL include a
+`scheduledTransactionID` with the `TransactionID` of the transaction that
+executed.<br/>
+When a scheduled transaction is executed the network SHALL charge the
+regular _service_ fee for the transaction to the `payerAccountID` for
+that schedule, but SHALL NOT charge node or network fees.<br/>
+If the `payerAccountID` field is not set, the effective `payerAccountID`
+SHALL be the `payer` for this create transaction.<br/>
+Each signature on this transaction SHALL "activate" the corresponding
+cryptographic("primitive") key for the schedule identified.<br/>
+Signature requirements SHALL be met when the set of active keys includes
+all keys required by the scheduled transaction.<br/>
+A scheduled transaction for a "long term" schedule SHALL NOT execute if
+the signature requirements for that transaction are not met when the
+network consensus time reaches the schedule `expiration_time`.<br/>
+A "short term" schedule SHALL execute immediately once signature
+requirements are met. This MAY be immediately when created.<br/>
+
+### Block Stream Effects
+If the scheduled transaction is executed immediately following this
+`scheduleSign` transaction, the transaction record SHALL include a
+`scheduleRef` with the schedule identifier `scheduleID`.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| scheduleID | [ScheduleID](#proto-ScheduleID) |  | A schedule identifier. <p> This MUST identify the schedule to which signatures SHALL be added. |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
