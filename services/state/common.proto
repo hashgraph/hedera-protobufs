@@ -27,6 +27,19 @@ option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.common">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+// REVIEW NOTES:
+//
+// 1. EntityNumber is a simple wrapper around a 64-bit number. It is not clear why this is needed, but it does help
+//    in the code to see an EntityNumber type. But it also is a little more heavyweight, rather than just being an
+//    int64. I assume we need the null value? Maybe the problem is that to be a key or value in the database you
+//    need a type. Maybe EntityNumber is being used mostly with mono code? After looking into this, we don't think
+//    there is any justification for this type. We should just use Int64Value or an account ID class. We only need the
+//    Int64Value for the singleton that keeps track of the next entity ID. Otherwise, not really needed.
+//
+// 2. EntityIDPair is wrong. The name at least is wrong, because it is not a generic pair of two entity IDs, it is
+//    actually specifically for accounts and tokens. So at least it should have a better name, and probably be in
+//    the "token" dir, and not in "common.proto".
+
 /**
  * A single 64-bit number identifying a Hedera native entity.
  */

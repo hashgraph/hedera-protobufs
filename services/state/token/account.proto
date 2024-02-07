@@ -29,20 +29,33 @@ option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+ // REVIEW NOTES
+ // How do we want to handle naming? We have a mixture of camel-case and snake-case. For example, in basic_types.proto
+ // we have accountID, but here we have account_id. When translated into Java using the google protobuf compiler, you
+ // would see accountID -> AccountID and account_id -> AccountId. This is a bit inconsistent. Do we care? Or do we
+ // eventually extend PBJ to support other languages?
+ //
+ // Since we're hopelessly inconsistent throughout our protobuf, we're just going to "do it right" with snake case
+ // since a foolish consistency is the hobgoblin of little minds. See https://protobuf.dev/programming-guides/style/.
+ // We recommend adding spotless support (CI/CD) for protobuf to enforce conventions going forward.
+ //
+ // We need much better documentation for the Account class itself.
+
 /**
  * Representation of a Hedera Token Service account entity in the network Merkle tree.
  *
  * As with all network entities, account has a unique entity number represented as shard.realm.X.
  * X can be an alias public key or an EVM address or a number.
  */
-
 message Account {
     /**
-     * The unique entity id of the account.
+     * The unique ID of the account. An account ID is normally of the form <shard>.<realm>.[<number>|<alias>], but when
+     * used in this field, an alias is never used, so the ID is always of the form <shard>.<realm>.<number>
      */
     AccountID account_id = 1;
     /**
-     * The alias to use for this account, if any.
+     * An account may optionally have an alias. (TODO: Need to define alias, and how every account has an "automatic"
+     * alias (long-zero), and how it can have the other types of aliases, and what they are, etc.)
      */
     bytes alias = 2;
     /**
