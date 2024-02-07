@@ -18,6 +18,20 @@ package proto;
  */
 
 /**
+ * REVIEW NOTES:
+ *
+ * It isn't clear whether we need or want these types. We could use the standard protobuf wrapper types
+ * (https://protobuf.dev/reference/protobuf/google.protobuf/), or we could "typedef" these as needed into a
+ * specific message type. For example, we know we have byte[] as a key into the alias->account map, and that is
+ * a legitimate case. We could use BytesValue, or we could create an "Alias" message that is a wrapper around a
+ * byte[]. The advantage to Alias is it provides some kind of migration path forward if we wanted to add things
+ * to it. On the other hand, other APIs are byte[] directly for alias, so it is probably always going to be
+ * a byte[], so we can use BytesValue instead.
+ *
+ * That tradeoff should be considered in every place where any of these types are used.
+ */
+
+/**
  * This proto file contains primitive value messages.
  * These are intended only for situations where the entire value to be stored in state is a single
  * primitive.  These should never be used as components of another message; use the protobuf
