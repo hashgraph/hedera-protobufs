@@ -350,5 +350,10 @@ message TransactionBody {
      * Generates a pseudorandom number.
      */
     UtilPrngTransactionBody util_prng = 52;
+
+    /**
+     * Updates individual NFTs in a collection.
+     */
+    TokenUpdateNftTransactionBody tokenUpdateNft = 53;
   }
 }
