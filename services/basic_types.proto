@@ -1171,6 +1171,11 @@ enum HederaFunctionality {
      * Get a record for a transaction.
      */
     TransactionGetFastRecord = 87;
+
+    /**
+    * Update an NFT in a Collection
+    */
+    TokenUpdateNft = 88;
 }
 
 /**
