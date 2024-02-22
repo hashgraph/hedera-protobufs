@@ -1,13 +1,21 @@
+/**
+ * #
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +27,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -44,7 +52,7 @@ message ConsensusTopicInfo {
      * When a topic is created, its running hash is initialized to 48 bytes of binary zeros.
      * For each submitted message, the topic's running hash is then updated to the output
      * of a particular SHA-384 digest whose input data include the previous running hash.
-     * 
+     *
      * See the TransactionReceipt.proto documentation for an exact description of the
      * data included in the SHA-384 digest used for the update.
      */
@@ -84,7 +92,7 @@ message ConsensusTopicInfo {
     AccountID autoRenewAccount = 8;
 
     /**
-     * The ledger ID the response was returned from; please see <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md">HIP-198</a> for the network-specific IDs. 
+     * The ledger ID the response was returned from; please see <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md">HIP-198</a> for the network-specific IDs.
      */
     bytes ledger_id = 9;
 }

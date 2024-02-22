@@ -1,13 +1,21 @@
+/**
+ * #
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +27,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -32,10 +40,10 @@ import "duration.proto";
 /**
  * Start a new smart contract instance. After the instance is created, the ContractID for it is in
  * the receipt, and can be retrieved by the Record or with a GetByKey query. The instance will run
- * the bytecode, either stored in a previously created file or in the transaction body itself for 
+ * the bytecode, either stored in a previously created file or in the transaction body itself for
  * small contracts.
- * 
- * 
+ *
+ *
  * The constructor will be executed using the given amount of gas, and any unspent gas will be
  * refunded to the paying account. Constructor inputs come from the given constructorParameters.
  *  - The instance will exist for autoRenewPeriod seconds. When that is reached, it will renew
@@ -82,7 +90,7 @@ import "duration.proto";
  *    to the smart contract in the future. The memo field can only be changed using the admin keys.
  *    If there are no admin keys, then it cannot be changed after the smart contract is created.
  *
- * <b>Signing requirements:</b> If an admin key is set, it must sign the transaction. If an 
+ * <b>Signing requirements:</b> If an admin key is set, it must sign the transaction. If an
  * auto-renew account is set, its key must sign the transaction.
  */
 message ContractCreateTransactionBody {

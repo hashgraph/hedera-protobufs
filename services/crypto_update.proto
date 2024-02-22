@@ -1,13 +1,21 @@
+/**
+ * #
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +27,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -36,8 +44,8 @@ import "google/protobuf/wrappers.proto";
  * transaction must be signed by the existing key for this account. If the transaction is changing
  * the key field, then the transaction must be signed by both the old key (from before the change)
  * and the new key. The old key must sign for security. The new key must sign as a safeguard to
- * avoid accidentally changing to an invalid key, and then having no way to recover. 
- * If the update transaction sets the <tt>auto_renew_account</tt> field to anything other 
+ * avoid accidentally changing to an invalid key, and then having no way to recover.
+ * If the update transaction sets the <tt>auto_renew_account</tt> field to anything other
  * than the sentinel <tt>0.0.0</tt>, the key of the referenced account must sign.
  */
 message CryptoUpdateTransactionBody {

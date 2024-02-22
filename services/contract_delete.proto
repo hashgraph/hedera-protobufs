@@ -1,13 +1,21 @@
+/**
+ * #
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,8 +27,9 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
+
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.contract">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
@@ -30,10 +39,10 @@ import "basic_types.proto";
 /**
  * At consensus, marks a contract as deleted and transfers its remaining hBars, if any, to a
  * designated receiver. After a contract is deleted, it can no longer be called.
- * 
+ *
  * If the target contract is immutable (that is, was created without an admin key), then this
  * transaction resolves to MODIFYING_IMMUTABLE_CONTRACT.
- * 
+ *
  * --- Signing Requirements ---
  * 1. The admin key of the target contract must sign.
  * 2. If the transfer account or contract has receiverSigRequired, its associated key must also sign
@@ -48,16 +57,16 @@ message ContractDeleteTransactionBody {
         /**
          * The id of an account to receive any remaining hBars from the deleted contract
          */
-		AccountID transferAccountID = 2;
+        AccountID transferAccountID = 2;
 
         /**
          * The id of a contract to receive any remaining hBars from the deleted contract
          */
-	    ContractID transferContractID = 3;
+        ContractID transferContractID = 3;
     }
 
     /**
-     * If set to true, means this is a "synthetic" system transaction being used to 
+     * If set to true, means this is a "synthetic" system transaction being used to
      * alert mirror nodes that the contract is being permanently removed from the ledger.
      * <b>IMPORTANT:</b> User transactions cannot set this field to true, as permanent
      * removal is always managed by the ledger itself. Any ContractDeleteTransactionBody
