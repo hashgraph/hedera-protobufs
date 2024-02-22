@@ -1,13 +1,24 @@
+/**
+ * # Unchecked Submit
+ * Submit a transaction to the network, bypassing all but the most minimal validation.
+ *
+ * This is used for testing only and MUST NOT be enabled in mainnet.
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
+/*
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +30,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -27,12 +38,18 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * Submit an arbitrary (serialized) Transaction to the network without prechecks. Requires superuser
- * privileges. 
+ * Submit an arbitrary (serialized) Transaction to the network without prechecks.
+ *
+ * This transaction SHALL require `superuser` privileges
+ * (e.g. the `treasury` or `systemAdmin` accounts).
  */
 message UncheckedSubmitBody {
     /**
-     * The serialized bytes of the Transaction to be submitted without prechecks
+     * The serialized bytes of a `Transaction`.<br/>
+     * This transaction SHALL be deserialized and submitted for consensus with no further
+     * validation.<br/>
+     * Specifically, the transaction may violate basic limits and constraints such as
+     * size limits, minimum or maximum values, valid start time, fee calculations, etc...
      */
     bytes transactionBytes = 1;
 }

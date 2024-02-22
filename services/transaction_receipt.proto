@@ -1,3 +1,12 @@
+/**
+ * # Transaction Receipt
+ * The receipt returned when the results of a transaction are requested via `TransactionGetReceiptQuery`.
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
@@ -29,42 +38,46 @@ import "exchange_rate.proto";
 /**
  * The summary of a transaction's result so far. If the transaction has not reached consensus, this
  * result will be necessarily incomplete.
+ * <p>
+ * Most items in this object are only set for specific transactions.  Those values SHALL be unset
+ * for all other transactions.
  */
 message TransactionReceipt {
     /**
-     * The consensus status of the transaction; is UNKNOWN if consensus has not been reached, or if
-     * the associated transaction did not have a valid payer signature
+     * The consensus status of the transaction.<br/>
+     * This SHALL be `UNKNOWN` if consensus has not been reached.<br/>
+     * This SHALL be `UNKNOWN` if the associated transaction did not have a valid payer signature.
      */
     ResponseCodeEnum status = 1;
 
     /**
-     * In the receipt of a CryptoCreate, the id of the newly created account
+     * In the receipt of a `CryptoCreate`, the id of the newly created account.
      */
     AccountID accountID = 2;
 
     /**
-     * In the receipt of a FileCreate, the id of the newly created file
+     * In the receipt of a `FileCreate`, the id of the newly created file.
      */
     FileID fileID = 3;
 
     /**
-     * In the receipt of a ContractCreate, the id of the newly created contract
+     * In the receipt of a `ContractCreate`, the id of the newly created contract.
      */
     ContractID contractID = 4;
 
     /**
-     * The exchange rates in effect when the transaction reached consensus
+     * The exchange rates in effect when the transaction reached consensus.
      */
     ExchangeRateSet exchangeRate = 5;
 
     /**
-     * In the receipt of a ConsensusCreateTopic, the id of the newly created topic.
+     * In the receipt of a `ConsensusCreateTopic`, the id of the newly created topic.
      */
     TopicID topicID = 6;
 
     /**
-     * In the receipt of a ConsensusSubmitMessage, the new sequence number of the topic that
-     * received the message
+     * In the receipt of a `ConsensusSubmitMessage`, the new sequence number for the topic that
+     * received the message.
      */
     uint64 topicSequenceNumber = 7;
 
@@ -132,8 +145,8 @@ message TransactionReceipt {
     bytes topicRunningHash = 8;
 
     /**
-     * In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update
-     * the running hash.
+     * In the receipt of a `ConsensusSubmitMessage`, the version of the SHA-384 digest inputs
+     * used to update the running hash.
      */
     uint64 topicRunningHashVersion = 9;
 
@@ -143,9 +156,9 @@ message TransactionReceipt {
     TokenID tokenID = 10;
 
     /**
-     * In the receipt of TokenMint, TokenWipe, TokenBurn, For fungible tokens - the current total
-     * supply of this token. For non fungible tokens - the total number of NFTs issued for a given
-     * tokenID
+     * In the receipt of TokenMint, TokenWipe, TokenBurn.<br/>
+     * For non-unique tokens, the current total supply of that token.
+     * For unique tokens,the total number of NFTs issued for that token.
      */
     uint64 newTotalSupply = 11;
 
@@ -155,15 +168,15 @@ message TransactionReceipt {
     ScheduleID scheduleID = 12;
 
     /**
-     * In the receipt of a ScheduleCreate or ScheduleSign that resolves to SUCCESS, the
-     * TransactionID that should be used to query for the receipt or record of the relevant
-     * scheduled transaction
+     * In the receipt of a ScheduleCreate or ScheduleSign that enables the scheduled transaction to
+     * execute immediately, the TransactionID that should be used to query for the receipt or
+     * record of the scheduled transaction that was executed.
      */
     TransactionID scheduledTransactionID = 13;
 
     /**
-     * In the receipt of a TokenMint for tokens of type NON_FUNGIBLE_UNIQUE, the serial numbers of
-     * the newly created NFTs
+     * In the receipt of a TokenMint for `unique` tokens, the serial numbers of the newly created
+     * tokens.
      */
     repeated int64 serialNumbers = 14;
 

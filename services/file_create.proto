@@ -1,13 +1,21 @@
+/**
+ * #
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +27,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -38,14 +46,14 @@ import "timestamp.proto";
  * at the expirationTime, unless its expiration is extended by another transaction before that time.
  * If the file is deleted, then its contents will become empty and it will be marked as deleted
  * until it expires, and then it will cease to exist.
- * 
+ *
  * The keys field is a list of keys. All keys within the top-level key list must sign (M-M) to
  * create or modify a file. However, to delete the file, only one key (1-M) is required to sign from
  * the top-level key list.  Each of those "keys" may itself be threshold key containing other keys
  * (including other threshold keys). In other words, the behavior is an AND for create/modify, OR
  * for delete. This is useful for acting as a revocation server. If it is desired to have the
  * behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single
- * Key, which is a threshold key, with N=1 for OR, N=M for AND. If the auto_renew_account field 
+ * Key, which is a threshold key, with N=1 for OR, N=M for AND. If the auto_renew_account field
  * is set, the key of the referenced account must sign.
  *
  * If a file is created without ANY keys in the keys field, the file is immutable and ONLY the

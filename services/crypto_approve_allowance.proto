@@ -1,13 +1,21 @@
+/**
+ * #
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2022 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +27,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -35,7 +43,7 @@ import "google/protobuf/wrappers.proto";
  * hbar/token to any other account of the spender's choice. If the owner is not specified in any allowance, the payer
  * of transaction is considered to be the owner for that particular allowance.
  * Setting the amount to zero in CryptoAllowance or TokenAllowance will remove the respective allowance for the spender.
- * 
+ *
  * (So if account <tt>0.0.X</tt> pays for this transaction and owner is not specified in the allowance,
  * then at consensus each spender account will have new allowances to spend hbar or tokens from <tt>0.0.X</tt>).
  */
@@ -137,4 +145,3 @@ message TokenAllowance {
    */
   int64 amount = 4;
 }
-

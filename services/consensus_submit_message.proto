@@ -1,13 +1,22 @@
+/**
+ * # Submit Message
+ * Submit a message to a topic via the Hedera Consensus Service (HCS).
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
 /*-
- * ‌
+ *
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +28,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
+ *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -29,11 +38,13 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * UNDOCUMENTED
+ * Information describing the way in which a message submitted for consensus is broken into
+ * multiple fragments to fit within network transaction size limits.
  */
 message ConsensusMessageChunkInfo {
     /**
-     * TransactionID of the first chunk, gets copied to every subsequent chunk in a fragmented message.
+     * The TransactionID of the first chunk.
+     * This MUST be set for every chunk in a fragmented message.
      */
     TransactionID initialTransactionID = 1;
 
@@ -49,7 +60,13 @@ message ConsensusMessageChunkInfo {
 }
 
 /**
- * UNDOCUMENTED
+ * Submit a message for consensus.<br/>
+ * Valid and authorized messages on valid topics will be ordered by the consensus service,
+ * published in the block stream, and available to all subscribers on this topic via the mirror
+ * nodes.<br/>
+ * If this transaction succeeds the resulting `TransactionReceipt` SHALL contain the latest
+ * `topicSequenceNumber` and `topicRunningHash` for the topic.<br/>
+ * If the topic has a `submitKey` then that key MUST sign this transaction.
  */
 message ConsensusSubmitMessageTransactionBody {
     /**
