@@ -36,7 +36,6 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 
-import "google/protobuf/wrappers.proto";
 /**
  * Info about a contract account's nonce value.
  * A nonce of a contract is only incremented when that contract creates another contract.

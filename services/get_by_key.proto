@@ -41,8 +41,7 @@ import "crypto_add_live_hash.proto";
 
 /**
  * Get all accounts, claims, files, and smart contract instances whose associated keys include the
- * given Key. The given Key must not be a contractID or a ThresholdKey. This is not yet implemented
- * in the API, but will be in the future.
+ * given Key. The given Key MUST NOT be a contractID or a ThresholdKey.
  */
 message GetByKeyQuery {
     /**
@@ -52,7 +51,7 @@ message GetByKeyQuery {
     QueryHeader header = 1;
 
     /**
-     * The key to search for. It must not contain a contractID nor a ThresholdSignature.
+     * The key to search for. It MUST NOT contain a contractID nor a ThresholdKey.
      */
     Key key = 2;
 }

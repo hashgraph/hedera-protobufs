@@ -38,7 +38,6 @@ import "timestamp.proto";
 import "basic_types.proto";
 import "custom_fees.proto";
 import "transaction_receipt.proto";
-import "crypto_transfer.proto";
 import "contract_call_local.proto";
 
 /**

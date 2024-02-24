@@ -39,8 +39,6 @@ import "duration.proto";
 import "basic_types.proto";
 import "query_header.proto";
 import "response_header.proto";
-import "crypto_add_live_hash.proto";
-import "google/protobuf/wrappers.proto";
 
 /**
  * Gets all the information about an account, including balance and allowances. This does not get the list of
