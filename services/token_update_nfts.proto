@@ -49,7 +49,7 @@ import "google/protobuf/wrappers.proto";
  * 3. The metadata key is not required to be included in the TokenUpdateNftTransactionBody as it is
  *      not required to set the metadata. The metadata key is required to sign the metadata update.
  */
-message TokenUpdateNftTransactionBody {
+message TokenUpdateNftsTransactionBody {
     /**
      * The token for which to update NFTs.
      */
