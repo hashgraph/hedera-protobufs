@@ -355,6 +355,6 @@ message TransactionBody {
     /**
      * Updates individual NFTs in a collection.
      */
-    TokenUpdateNftTransactionBody tokenUpdateNft = 53;
+    TokenUpdateNftsTransactionBody tokenUpdateNfts = 53;
   }
 }
