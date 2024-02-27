@@ -1375,7 +1375,7 @@ enum ResponseCodeEnum {
   ALIAS_ALREADY_ASSIGNED = 332;
 
   /**
-   * A provided metadata key was invalid. Verify the bytes for an Ed25519 public key are exactly 32 bytes; and the bytes for a compressed ECDSA(secp256k1) key are exactly 33 bytes, with the first byte either 0x02 or 0x03..
+   * A provided metadata key was invalid. Verification includes, for example, checking the size of Ed25519 and ECDSA(secp256k1) public keys.
    */
   INVALID_METADATA_KEY = 333;
 

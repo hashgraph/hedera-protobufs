@@ -58,7 +58,7 @@ message TokenUpdateNftsTransactionBody {
     /**
      * The list of serial numbers to be updated.
      */
-    repeated int64 serialNumbers = 2;
+    repeated int64 serial_numbers = 2;
 
     /**
      * The new metadata of the NFT(s)
