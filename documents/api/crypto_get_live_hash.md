@@ -11,7 +11,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## crypto_get_live_hash.proto
-#
+# Get Live Hash
+Standard query to inspect associations between content and accounts via SHA-384 hashes.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -22,14 +23,14 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-CryptoGetLiveHashQuery"></a>
 
 ### CryptoGetLiveHashQuery
-Requests a livehash associated to an account.
+Request detail for a specific live hash associated to a specific account.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
-| accountID | [AccountID](#proto-AccountID) |  | The account to which the livehash is associated |
-| hash | [bytes](#bytes) |  | The SHA-384 data in the livehash |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
+| accountID | [AccountID](#proto-AccountID) |  | An account ID.<br/> The network SHALL return live hash information for this account, if successful. |
+| hash | [bytes](#bytes) |  | The specific SHA-384 live hash to inspect |
 
 
 
@@ -39,15 +40,16 @@ Requests a livehash associated to an account.
 <a name="proto-CryptoGetLiveHashResponse"></a>
 
 ### CryptoGetLiveHashResponse
-Returns the full livehash associated to an account, if it is present. Note that the only way to
-obtain a state proof exhibiting the absence of a livehash from an account is to retrieve a state
-proof of the entire account with its list of livehashes.
+Return the full live hash associated to an account, if it is present.
+
+> Note that to generate a state proof of the _absence_ of a live hash from an account
+> a transaction MUST retrieve a state proof of the `Account` with its list of live hashes.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
-| liveHash | [LiveHash](#proto-LiveHash) |  | The livehash, if present |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
+| liveHash | [LiveHash](#proto-LiveHash) |  | The requested live hash, if found. |
 
 
 

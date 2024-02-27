@@ -10,7 +10,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## contract_call.proto
-#
+# Contract Call
+Transaction body for calls to a Smart Contract.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -21,24 +22,21 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-ContractCallTransactionBody"></a>
 
 ### ContractCallTransactionBody
-Call a function of the given smart contract instance, giving it functionParameters as its inputs.
-The call can use at maximum the given amount of gas - the paying account will not be charged for
-any unspent gas.
+Call a function of a given smart contract, providing function parameter inputs as needed.
 
-If this function results in data being stored, an amount of gas is calculated that reflects this
-storage burden.
+Resource ("gas") charges SHALL include all relevant fees incurred by the contract execution,
+including any storage required.
 
-The amount of gas used, as well as other attributes of the transaction, e.g. size, number of
-signatures to be verified, determine the fee for the transaction - which is charged to the paying
-account.
+The total transaction fee SHALL incorporate all of the "gas" actually consumed as well as the
+standard fees for transaction handling, data transfers, signature verification, etc...
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| contractID | [ContractID](#proto-ContractID) |  | The contract to call |
-| gas | [int64](#int64) |  | the maximum amount of gas to use for the call |
-| amount | [int64](#int64) |  | number of tinybars sent (the function must be payable if this is nonzero) |
-| functionParameters | [bytes](#bytes) |  | which function to call, and the parameters to pass to the function |
+| contractID | [ContractID](#proto-ContractID) |  | The ID of a smart contract to call. |
+| gas | [int64](#int64) |  | A maximum limit to the amount of gas to use for this call.<br/> The network SHALL charge the greater of the following, but SHALL NOT charge more than the value of this field. <ol> <li>The actual gas consumed by the smart contract call.</li> <li>`80%` of this value.</li> </ol> The `80%` factor encourages reasonable estimation, while allowing for some overage to ensure successful execution. |
+| amount | [int64](#int64) |  | An amount of tinybar sent via this contract call.<br/> If this is non-zero, the function MUST be `payable`. |
+| functionParameters | [bytes](#bytes) |  | The smart contract function to call, and the parameters to pass to that function.<br/> These MUST be presented in EVM bytecode function call format. |
 
 
 

@@ -24,10 +24,13 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### Duration
 A length of time in seconds.
 
+It is RECOMMENDED that this message be used whenever an amount of time, rather than a specific
+point in time, is needed.
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| seconds | [int64](#int64) |  | The number of seconds |
+| seconds | [int64](#int64) |  | The number of seconds for this duration. |
 
 
 

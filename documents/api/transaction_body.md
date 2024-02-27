@@ -77,6 +77,7 @@ A single transaction. All transaction types are possible here.
 | scheduleSign | [ScheduleSignTransactionBody](#proto-ScheduleSignTransactionBody) |  | Adds one or more Ed25519 keys to the affirmed signers of a scheduled transaction |
 | node_stake_update | [NodeStakeUpdateTransactionBody](#proto-NodeStakeUpdateTransactionBody) |  | Updates the staking info at the end of staking period to indicate new staking period has started. |
 | util_prng | [UtilPrngTransactionBody](#proto-UtilPrngTransactionBody) |  | Generates a pseudorandom number. |
+| token_update_nfts | [TokenUpdateNftsTransactionBody](#proto-TokenUpdateNftsTransactionBody) |  | Update the metadata of one or more NFT's of a specific token type. |
 
 
 

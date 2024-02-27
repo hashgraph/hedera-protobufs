@@ -43,7 +43,7 @@ ACCOUNT_DELETED response code will be returned if the queried account has been d
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | accountID | [AccountID](#proto-AccountID) |  | The Account for which information is requested |
 | start | [int64](#int64) |  | Specifies the start index (inclusive) of the range of NFTs to query for. Value must be in the range [0; ownedNFTs-1] |
 | end | [int64](#int64) |  | Specifies the end index (exclusive) of the range of NFTs to query for. Value must be in the range (start; ownedNFTs] |
@@ -61,7 +61,7 @@ UNDOCUMENTED
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | nfts | [TokenNftInfo](#proto-TokenNftInfo) | repeated | List of NFTs associated to the account |
 
 

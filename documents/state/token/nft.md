@@ -11,7 +11,7 @@
 
 ## state/token/nft.proto
 # NFT.
-This is a single unique non-fungible token within the Hedera network.
+This is a single, whole, unique, non-fungible token within the Hedera network.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -36,7 +36,7 @@ NFTs not owned by the token treasury SHALL be linked into the owner account's vi
 | owner_id | [AccountID](#proto-AccountID) |  | The account or contract id that owns this NFT.<br/> If this NFT is owned by its token type's current treasury account, this value SHALL be zero. |
 | spender_id | [AccountID](#proto-AccountID) |  | The account or contract id approved to spend this NFT.<br/> If there is no approved spender, this value SHALL be zero. |
 | mint_time | [Timestamp](#proto-Timestamp) |  | The consensus time of the TokenMint that created this NFT as offset from the epoch.<br/> For this purpose, `epoch` SHALL be the UNIX epoch with 0 at `1970-01-01T00:00:00.000Z`. |
-| metadata | [bytes](#bytes) |  | The metadata of this NFT encoded UTF-8.<br/> This field MUST be no more than 100 bytes after encoding.<br/> This is often a URI value. |
+| metadata | [bytes](#bytes) |  | The metadata bytes for this NFT. This is often a URI value.<br/> This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded. |
 | owner_previous_nft_id | [NftID](#proto-NftID) |  | The NFT ID of the previous entry in the current owner's "virtual double-linked list" of owned NFTs. If the owner of this NFT is the token treasury, this SHALL be unset. |
 | owner_next_nft_id | [NftID](#proto-NftID) |  | The NFT ID of the next entry in the current owner's "virtual double-linked list" of owned NFTs. If the owner of this NFT is the token treasury, this SHALL be unset. |
 

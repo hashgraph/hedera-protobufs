@@ -10,7 +10,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## contract_delete.proto
-#
+# Contract Delete
+Delete a smart contract, transferring any remaining balance to a designated account.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -21,23 +22,33 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-ContractDeleteTransactionBody"></a>
 
 ### ContractDeleteTransactionBody
-At consensus, marks a contract as deleted and transfers its remaining hBars, if any, to a
-designated receiver. After a contract is deleted, it can no longer be called.
+Delete a smart contract, and transfer any remaining HBAR balance to a designated account.
 
-If the target contract is immutable (that is, was created without an admin key), then this
-transaction resolves to MODIFYING_IMMUTABLE_CONTRACT.
+If this call succeeds then all subsequent calls to that smart contract SHALL fail.<br/>
 
---- Signing Requirements ---
-1. The admin key of the target contract must sign.
-2. If the transfer account or contract has receiverSigRequired, its associated key must also sign
+### Requirements
+ - An account or smart contract MUST be designated to receive all remaining account balances.
+ - The smart contract MUST have an admin key set. If the contract does not have `admin_key` set,
+   then this transaction SHALL fail and response code `MODIFYING_IMMUTABLE_CONTRACT`
+   SHALL be set.
+ - If `admin_key` is, or contains, an empty `KeyList` key, it SHALL be treated the same as an
+   admin key that is not set.
+ - The `Key` set for `admin_key` on the smart contract MUST have a valid signature set on this
+   transaction.
+ - The designated receiving account MAY have `receiver_sig_required` set. If that field is set,
+   the receiver account MUST also sign this transaction.
+ - The field `permanent_removal` MUST NOT be set. That field is reserved for internal system
+   use when purging the smart contract from state. Any user transaction with that field set
+   SHALL be rejected and a response code `PERMANENT_REMOVAL_REQUIRES_SYSTEM_INITIATION` SHALL
+   be set.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | contractID | [ContractID](#proto-ContractID) |  | The id of the contract to be deleted |
-| transferAccountID | [AccountID](#proto-AccountID) |  | The id of an account to receive any remaining hBars from the deleted contract |
-| transferContractID | [ContractID](#proto-ContractID) |  | The id of a contract to receive any remaining hBars from the deleted contract |
-| permanent_removal | [bool](#bool) |  | If set to true, means this is a "synthetic" system transaction being used to alert mirror nodes that the contract is being permanently removed from the ledger. <b>IMPORTANT:</b> User transactions cannot set this field to true, as permanent removal is always managed by the ledger itself. Any ContractDeleteTransactionBody submitted to HAPI with permanent_removal=true will be rejected with precheck status PERMANENT_REMOVAL_REQUIRES_SYSTEM_INITIATION. |
+| transferAccountID | [AccountID](#proto-AccountID) |  | An Account ID recipient.<br/> This account SHALL receive all HBAR and other tokens still owned by the contract that is removed. |
+| transferContractID | [ContractID](#proto-ContractID) |  | A contract ID recipient.<br/> This contract SHALL receive all HBAR and other tokens still owned by the contract that is removed. |
+| permanent_removal | [bool](#bool) |  | A flag indicating that this transaction is "synthetic"; initiated by the node software.<br/> The consensus nodes create such "synthetic" transactions to both to properly manage state changes and to communicate those changes to other systems via the Block Stream.<br/> A user-initiated transaction MUST NOT set this flag. |
 
 
 

@@ -10,7 +10,29 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## contract_create.proto
-#
+# Smart Contract Create
+
+Create a new smart contract.
+
+## General Comments
+ - A smart contract normally enforces rules, so "the code is law".<br/>
+   For example, an ERC-20 contract prevents a transfer from being undone without a signature by
+   the recipient of the transfer. This characteristic is generally true if the contract instance
+   was created without a value for the `adminKey` field.
+   For some uses, however, it may be desirable to create something like an ERC-20 contract that
+   has a specific group of trusted individuals who can act as a "supreme court" with the ability
+   to override the normal operation, when a sufficient number of them agree to do so.
+   If `adminKey` is set to a valid Key (which MAY be complex), then a transaction that can change
+   the state of the smart contract in arbitrary ways MAY be signed with enough keys to activate
+   that Key. Such transactions might reverse a transaction, change the code to close an
+   unexpected loophole, remove an exploit, or adjust outputs in ways not covered by the code
+   itself. The admin key MAY also be used to change the autoRenewPeriod, and change the
+   adminKey field itself (for example, to remove that key after a suitable testing period).
+   The API currently does not implement all relevant capabilities. But it does allow the
+   `adminKey` field to be set and queried, and MAY implement further administrative capability
+   in future releases.
+ - The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in
+   shard 0 and realm 0. Future versions of the system MAY support additional shards and realms.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -21,81 +43,40 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-ContractCreateTransactionBody"></a>
 
 ### ContractCreateTransactionBody
-Start a new smart contract instance. After the instance is created, the ContractID for it is in
-the receipt, and can be retrieved by the Record or with a GetByKey query. The instance will run
-the bytecode, either stored in a previously created file or in the transaction body itself for
-small contracts.
+Create a new smart contract.<br/>
+If this transaction succeeds, the `ContractID` for the new smart contract SHALL be set in the
+transaction receipt.<br/>
+The contract is defined by the initial bytecode (or `initcode`). The `initcode` SHALL be stored
+either in a previously created file, or in the transaction body itself for very small contracts.
 
-
-The constructor will be executed using the given amount of gas, and any unspent gas will be
-refunded to the paying account. Constructor inputs come from the given constructorParameters.
- - The instance will exist for autoRenewPeriod seconds. When that is reached, it will renew
-   itself for another autoRenewPeriod seconds by charging its associated cryptocurrency account
-   (which it creates here). If it has insufficient cryptocurrency to extend that long, it will
-   extend as long as it can. If its balance is zero, the instance will be deleted.
-
- - A smart contract instance normally enforces rules, so "the code is law". For example, an
-   ERC-20 contract prevents a transfer from being undone without a signature by the recipient of
-   the transfer. This is always enforced if the contract instance was created with the adminKeys
-   being null. But for some uses, it might be desirable to create something like an ERC-20
-   contract that has a specific group of trusted individuals who can act as a "supreme court"
-   with the ability to override the normal operation, when a sufficient number of them agree to
-   do so. If adminKeys is not null, then they can sign a transaction that can change the state of
-   the smart contract in arbitrary ways, such as to reverse a transaction that violates some
-   standard of behavior that is not covered by the code itself. The admin keys can also be used
-   to change the autoRenewPeriod, and change the adminKeys field itself. The API currently does
-   not implement this ability. But it does allow the adminKeys field to be set and queried, and
-   will in the future implement such admin abilities for any instance that has a non-null
-   adminKeys.
-
- - If this constructor stores information, it is charged gas to store it. There is a fee in hbars
-   to maintain that storage until the expiration time, and that fee is added as part of the
-   transaction fee.
-
- - An entity (account, file, or smart contract instance) must be created in a particular realm.
-   If the realmID is left null, then a new realm will be created with the given admin key. If a
-   new realm has a null adminKey, then anyone can create/modify/delete entities in that realm.
-   But if an admin key is given, then any transaction to create/modify/delete an entity in that
-   realm must be signed by that key, though anyone can still call functions on smart contract
-   instances that exist in that realm. A realm ceases to exist when everything within it has
-   expired and no longer exists.
-
- - The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in
-   shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms
-   and multiple shards.
-
- - The optional memo field can contain a string whose length is up to 100 bytes. That is the size
-   after Unicode NFD then UTF-8 conversion. This field can be used to describe the smart contract.
-   It could also be used for other purposes. One recommended purpose is to hold a hexadecimal
-   string that is the SHA-384 hash of a PDF file containing a human-readable legal contract. Then,
-   if the admin keys are the public keys of human arbitrators, they can use that legal document to
-   guide their decisions during a binding arbitration tribunal, convened to consider any changes
-   to the smart contract in the future. The memo field can only be changed using the admin keys.
-   If there are no admin keys, then it cannot be changed after the smart contract is created.
-
-<b>Signing requirements:</b> If an admin key is set, it must sign the transaction. If an
-auto-renew account is set, its key must sign the transaction.
+As part of contract creation, the constructor defined for the new smart contract SHALL run
+with the parameters provided in the `constructorParameters` field.<br/>
+The gas to "power" that constructor MUST be provided via the `gas` field, and SHALL be charged
+to the payer for this transaction.</br>
+If the contract _constructor_ stores information, it is charged gas for that storage.
+There is a separate fee in HBAR to maintain that storage until the expiration, and that fee
+SHALL be added to this transaction as part of the _transaction fee_, rather than gas.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| fileID | [FileID](#proto-FileID) |  | The file containing the smart contract initcode. A copy will be made and held by the contract instance, and have the same expiration time as the instance. |
-| initcode | [bytes](#bytes) |  | The bytes of the smart contract initcode. This is only useful if the smart contract init is less than the hedera transaction limit. In those cases fileID must be used. |
-| adminKey | [Key](#proto-Key) |  | the state of the instance and its fields can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance. Note that if it is created with no admin keys, then there is no administrator to authorize changing the admin keys, so there can never be any admin keys for that instance. |
-| gas | [int64](#int64) |  | gas to run the constructor |
-| initialBalance | [int64](#int64) |  | initial number of tinybars to put into the cryptocurrency account associated with and owned by the smart contract |
-| proxyAccountID | [AccountID](#proto-AccountID) |  | **Deprecated.** [Deprecated] ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking , or if it is not currently running a node, then it will behave as if proxyAccountID was null. |
-| autoRenewPeriod | [Duration](#proto-Duration) |  | the instance will charge its account every this many seconds to renew for this long |
-| constructorParameters | [bytes](#bytes) |  | parameters to pass to the constructor |
-| shardID | [ShardID](#proto-ShardID) |  | shard in which to create this |
-| realmID | [RealmID](#proto-RealmID) |  | realm in which to create this (leave this null to create a new realm) |
-| newRealmAdminKey | [Key](#proto-Key) |  | if realmID is null, then this the admin key for the new realm that will be created |
-| memo | [string](#string) |  | the memo that was submitted as part of the contract (max 100 bytes) |
-| max_automatic_token_associations | [int32](#int32) |  | The maximum number of tokens that this contract can be automatically associated with (i.e., receive air-drops from). |
-| auto_renew_account_id | [AccountID](#proto-AccountID) |  | An account to charge for auto-renewal of this contract. If not set, or set to an account with zero hbar balance, the contract's own hbar balance will be used to cover auto-renewal fees. |
-| staked_account_id | [AccountID](#proto-AccountID) |  | ID of the account to which this contract is staking. |
-| staked_node_id | [int64](#int64) |  | ID of the node this contract is staked to. |
-| decline_reward | [bool](#bool) |  | If true, the contract declines receiving a staking reward. The default value is false. |
+| fileID | [FileID](#proto-FileID) |  | The source for the smart contract EVM bytecode.<br/> The file containing the smart contract initcode. A copy of the contents SHALL be made and held as `bytes` in smart contract state.<br/> The contract bytecode is limited in size only by the network file size limit. |
+| initcode | [bytes](#bytes) |  | The source for the smart contract EVM bytecode.<br/> The bytes of the smart contract initcode. A copy of the contents SHALL be made and held as `bytes` in smart contract state.<br/> This value is limited in length by the network transaction size limit. This entire transaction, including all fields and signatures, MUST be less than the network transaction size limit. |
+| adminKey | [Key](#proto-Key) |  | Access control for modification of the smart contract after it is created.<br/> If this field is set, that key MUST sign this transaction.<br/> If this field is set, that key MUST sign each future transaction to update or delete the contract.<br/> An updateContract transaction that _only_ extends the topic expirationTime (a "manual renewal" transaction) SHALL NOT require admin key signature. <p> A contract without an admin key SHALL be immutable, except for expiration and renewal. |
+| gas | [int64](#int64) |  | A maximum limit to the amount of gas to use for the constructor call.<br/> The network SHALL charge the greater of the following, but SHALL NOT charge more than the value of this field. <ol> <li>The actual gas consumed by the smart contract constructor call.</li> <li>`80%` of this value.</li> </ol> The `80%` factor encourages reasonable estimation, while allowing for some overage to ensure successful execution. |
+| initialBalance | [int64](#int64) |  | The amount of HBAR to use as an initial balance for the account representing the new smart contract.<br/> This value is presented in tinybar (10<sup><strong>-</strong>8</sup> HBAR).<br/> The HBAR provided here will be withdrawn from the payer account that signed this transaction. |
+| proxyAccountID | [AccountID](#proto-AccountID) |  | **Deprecated.** Proxy account staking is handled via `staked_id`.<br/> Former field to designate a proxy account for HBAR staking. This field MUST NOT be set. |
+| autoRenewPeriod | [Duration](#proto-Duration) |  | The initial lifetime, in seconds, for the smart contract, and the number of seconds for which the smart contract will be automatically renewed upon expiration.<br/> This value MUST be set.<br/> This value MUST be greater than the configured MIN_AUTORENEW_PERIOD.<br/> This value MUST be less than the configured MAX_AUTORENEW_PERIOD.<br/> |
+| constructorParameters | [bytes](#bytes) |  | An array of bytes containing the EVM-encoded parameters to pass to the smart contract constructor defined in the smart contract init code provided. |
+| shardID | [ShardID](#proto-ShardID) |  | <blockquote>Review Question<br/> <blockquote>Should this be deprecated?<br/> It's never been used and probably never should be used...<br/> Shard should be determined by the node the transaction is submitted to. </blockquote></blockquote> <p> The shard in which to create the new smart contract.<br/> This value is currently ignored. |
+| realmID | [RealmID](#proto-RealmID) |  | <blockquote>Review Question<br/> <blockquote>Should this be deprecated?<br/> It's never been used and probably never should be used...<br/> Realm should be determined by node and network parameters.</blockquote></blockquote> <p> The shard/realm in which to create the new smart contract.<br/> This value is currently ignored. |
+| newRealmAdminKey | [Key](#proto-Key) |  | <blockquote>Review Question<br/> <blockquote>Should this be deprecated?<br/> It's never been used and probably never should be used...<br/> If a realm is used, it must already exist; we shouldn't be creating it without a separate transaction.</blockquote></blockquote> <p> This was intended to provide an admin key for any new realm created during the creation of the smart contract. This value is currently ignored. a new realm SHALL NOT be created, regardless of the value of `realmID`. |
+| memo | [string](#string) |  | A short memo for this smart contract.<br/> This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded. |
+| max_automatic_token_associations | [int32](#int32) |  | The maximum number of tokens that can be auto-associated with this smart contract.<br/> If this is less than or equal to `used_auto_associations` (or 0), then this contract MUST manually associate with a token before transacting in that token.<br/> Following HIP-904 This value may also be `-1` to indicate no limit.<br/> This value MUST NOT be less than `-1`. |
+| auto_renew_account_id | [AccountID](#proto-AccountID) |  | The id of an account, in the same shard and realm as this smart contract, that has signed this transaction, allowing the network to use its balance, when needed, to automatically extend this contract's expiration time.<br/> If this field is set, that key MUST sign this transaction.<br/> If this field is set, then the network SHALL deduct the necessary fees from the designated auto renew account, if that account has sufficient balance. If the auto renew account does not have sufficient balance, then the fees for contract renewal SHALL be deducted from the HBAR balance held by the smart contract.<br/> If this field is not set, then all renewal fees SHALL be deducted from the HBAR balance held by this contract. |
+| staked_account_id | [AccountID](#proto-AccountID) |  | An account ID.</br> This smart contract SHALL stake its HBAR via this account as proxy. |
+| staked_node_id | [int64](#int64) |  | The ID of a network node.<br/> This smart contract SHALL stake its HBAR to this node. <p> <blockquote>Note: node IDs do fluctuate as node operators change. Most contracts are immutable, and a contract staking to an invalid node ID SHALL NOT participate in staking. Immutable contracts MAY find it more reliable to use a proxy account for staking (via `staked_account_id`) to enable updating the _effective_ staking node ID when necessary through updating the proxy account.</blockquote> |
+| decline_reward | [bool](#bool) |  | A flag indicating that this smart contract declines to receive any reward for staking its HBAR balance to help secure the network.<br> If set to true, this smart contract SHALL NOT receive any reward for staking its HBAR balance to help secure the network, regardless of staking configuration, but MAY stake HBAR to support the network without reward. |
 
 
 

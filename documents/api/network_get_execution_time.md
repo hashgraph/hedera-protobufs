@@ -30,7 +30,7 @@ property <tt>stats.executionTimesToTrack</tt>).
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | standard info sent from client to node including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | transaction_ids | [TransactionID](#proto-TransactionID) | repeated | The id(s) of the transactions to get the execution time(s) of |
 
 
@@ -48,7 +48,7 @@ execution times in the answering node.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | execution_times | [uint64](#uint64) | repeated | The execution time(s) of the requested TransactionIDs, if available |
 
 

@@ -1,5 +1,6 @@
 /**
- * #
+ * # Delete Live Hash
+ * Dissociate a specific live hash from a specified account.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -37,17 +38,19 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * At consensus, deletes a livehash associated to the given account. The transaction must be signed
- * by either the key of the owning account, or at least one of the keys associated to the livehash.
+ * Delete a specific live hash associated to a given account.
+ *
+ * This transaction MUST be signed by either the key of the associated account, or at least one
+ * of the keys listed in the live hash.
  */
 message CryptoDeleteLiveHashTransactionBody {
     /**
-     * The account owning the livehash
+     * An account associated to a live hash.
      */
     AccountID accountOfLiveHash = 1;
 
     /**
-     * The SHA-384 livehash to delete from the account
+     * The SHA-384 value of a specific live hash to delete.
      */
     bytes liveHashToDelete = 2;
 }

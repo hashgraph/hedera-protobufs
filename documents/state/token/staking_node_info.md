@@ -24,7 +24,7 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### StakingNodeInfo
 An Hedera Token Service staking info entity.
 
-Staking info is per node.  Shard and Realm are implied based on the network address book entry
+Staking info is per node. Shard and Realm are implied based on the network address book entry
 for this node.
 
 

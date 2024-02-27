@@ -30,7 +30,7 @@ submitted, the receipt is unknown.  This query is free (the payment field is lef
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | transactionID | [TransactionID](#proto-TransactionID) |  | The ID of the transaction for which the record is requested. |
 
 
@@ -50,7 +50,7 @@ that it owned by that instance.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | transactionRecord | [TransactionRecord](#proto-TransactionRecord) |  | The requested transaction records |
 
 

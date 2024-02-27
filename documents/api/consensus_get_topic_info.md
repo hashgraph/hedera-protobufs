@@ -23,13 +23,17 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-ConsensusGetTopicInfoQuery"></a>
 
 ### ConsensusGetTopicInfoQuery
-See [ConsensusService.getTopicInfo()](#proto.ConsensusService)
+Retrieve the latest state of a topic.
+
+This method is unrestricted and allowed on any topic by any payer account.<br/>
+A query for a deleted topic MAY succeed if the topic is within the "autorenew grace period".<br/>
+A query for a topic removed from state SHALL NOT succeed.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
-| topicID | [TopicID](#proto-TopicID) |  | The Topic for which information is being requested |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
+| topicID | [TopicID](#proto-TopicID) |  | A topic ID.<br/> The network SHALL return information for this topic, if successful. |
 
 
 
@@ -39,14 +43,14 @@ See [ConsensusService.getTopicInfo()](#proto.ConsensusService)
 <a name="proto-ConsensusGetTopicInfoResponse"></a>
 
 ### ConsensusGetTopicInfoResponse
-Retrieve the parameters of and state of a consensus topic.
+Returns the current state of a topic in the Hedera Consensus Service(HCS).
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither. |
-| topicID | [TopicID](#proto-TopicID) |  | Topic identifier. |
-| topicInfo | [ConsensusTopicInfo](#proto-ConsensusTopicInfo) |  | Current state of the topic |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
+| topicID | [TopicID](#proto-TopicID) |  | The ID of the topic requested in the query. |
+| topicInfo | [ConsensusTopicInfo](#proto-ConsensusTopicInfo) |  | Information describing the current state of the topic. |
 
 
 

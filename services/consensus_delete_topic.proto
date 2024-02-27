@@ -38,11 +38,16 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * See [ConsensusService.deleteTopic()](#proto.ConsensusService)
+ * Delete a topic.
+ *
+ * Once deleted, subsequent transactions or queries for that topic SHALL NOT succeed.<br/>
+ * If adminKey is set on the topic, this transaction MUST be signed by that key.<br/>
+ * If adminKey is not set on the topic, this transaction SHALL fail with a response code
+ * of `UNAUTHORIZED`. A topic without an adminKey cannot be deleted (but MAY expire).
  */
 message ConsensusDeleteTopicTransactionBody {
     /**
-     * Topic identifier
+     * Topic to be deleted.
      */
     TopicID topicID = 1;
 }

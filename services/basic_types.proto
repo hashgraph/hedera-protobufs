@@ -3,7 +3,7 @@
  * Fundamental message types used across transactions and state as field types.
  *
  * ### Requirements for Entity ID values
- * Most entities in the network are identified by a multi-part ID.  These ID values consist of
+ * Most entities in the network are identified by a multi-part ID. These ID values consist of
  * a shard, a realm, and an entity identifier.
  *
  * Shard, Realm, and Entity Number are all whole numbers.
@@ -19,7 +19,7 @@
  *
  * ID values SHOULD use an Entity Number as the third component of the ID.
  * Some, however, MAY use alternative or composite values for the Entity portion of the
- * three part ID.  Any such alternative or composite value MUST be unique within that realm.
+ * three part ID. Any such alternative or composite value MUST be unique within that realm.
  *
  * The entity portion of the ID, regardless of type, MUST be unique within that realm and MAY be
  * globally unique.
@@ -66,8 +66,8 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * A shard number.  A shard is a partition of nodes running the network that processes transactions
- * separately from other shards.  Each shard is effectively an independent instance of the overall
+ * A shard number. A shard is a partition of nodes running the network that processes transactions
+ * separately from other shards. Each shard is effectively an independent instance of the overall
  * network that shares the same virtual distributed ledger, and may gossip cross-shard transactions
  * with other shards to maintain overall correct processing of the ledger.
  */
@@ -82,10 +82,10 @@ message ShardID {
  * The ID for a realm. Within a given shard, every realm has a unique ID. Each account, file, and
  * contract instance belongs to exactly one realm.
  *
- * Everything is partitioned into realms so that each Solidity smart contract can  access everything
- * in just a single realm, locking all those entities while it's  running, but other smart contracts
- * could potentially run in other realms in  parallel. So realms allow Solidity to be parallelized
- * somewhat, even though the  language itself assumes everything is serial.
+ * Everything is partitioned into realms so that each Solidity smart contract can access everything
+ * in just a single realm, locking all those entities while it's running, but other smart contracts
+ * could potentially run in other realms in parallel. So realms allow Solidity to be parallelized
+ * somewhat, even though the language itself assumes everything is serial.
  */
 message RealmID {
     /**
@@ -137,7 +137,7 @@ message TokenID {
  * For the purposes of this specification, we will use the following terms for clarity.<p>
  *
  *   - `key_alias` is the account public key as a protobuf serialized message and used for
- *     auto-creation and subsequent lookup.  This is only valid if the account key is a
+ *     auto-creation and subsequent lookup. This is only valid if the account key is a
  *     single `primitive` key, either Ed25519 or ECDSA_SECP256K1.
  *   - `evm_address` exists for every account and is one of
  *      - `contract_address`, which is the 20 byte EVM contract address per EIP-1014
@@ -334,7 +334,7 @@ message ScheduleID {
  * The other transactions will not take effect (and SHALL result in a `DUPLICATE_TRANSACTION`
  * response).<br/>
  * Multiple submission increase reliability on the assumption that an error in, for example,
- * network connectivity will not affect all nodes equally.  Latency might be slightly lower, if one
+ * network connectivity will not affect all nodes equally. Latency might be slightly lower, if one
  * node is handling intake significantly slower than others, for example.
  * The full transaction fee is required for each submission, however, so the total fees charged are
  * significantly higher when using this approach.
@@ -380,7 +380,7 @@ message TransactionID {
 /**
  * An account, and the amount that it sends or receives during a token transfer.
  *
- * This message is only relevant to fungible token transfers.  Non-fungible (NFT) token
+ * This message is only relevant to fungible token transfers. Non-fungible (NFT) token
  * transfers MUST use the NftTransfer message.
  */
 message AccountAmount {
@@ -412,7 +412,7 @@ message AccountAmount {
  * Each `TransferList` SHALL be contained in another message that contains other details required
  * to complete a transfer.
  * This is typically a `CryptoTransferTransactionBody` or `TransactionRecord`.<br/>
- * `TransferList` SHALL only be used for HBAR transfers.  Other token types MUST use the
+ * `TransferList` SHALL only be used for HBAR transfers. Other token types MUST use the
  * `TokenTransferList` message.
  */
 message TransferList {
@@ -456,7 +456,7 @@ message NftTransfer {
  * A list of transfers for a particular (non-HBAR) token type.
  *
  * A `TokenTransferList` applies to a single token type, but may contain many individual transfers.<br/>
- * Each transfer of a fungible non-unique token specifies an `accountID` and `amount`.  Amount
+ * Each transfer of a fungible non-unique token specifies an `accountID` and `amount`. Amount
  * is positive when the account receives tokens, and negative when the account sends tokens.<br/>
  * Each transfer of a unique token includes both sender and receiver, as well as the serial
  * number transferred.<br/>
@@ -464,7 +464,7 @@ message NftTransfer {
  */
 message TokenTransferList {
     /**
-     * The ID of the token
+     * The ID of the token.
      */
     TokenID token = 1;
 
@@ -498,7 +498,7 @@ message TokenTransferList {
  *
  * A common use is to set the amount of a value transfer to collect as a custom fee.<br/>
  * It is RECOMMENDED that both numerator and denominator be no larger than necessary to express
- * the required fraction.  A very large numerator, in particular, may not be reliable.
+ * the required fraction. A very large numerator, in particular, may not be reliable.
  */
 message Fraction {
     /**
@@ -532,19 +532,19 @@ message Fraction {
 enum TokenType {
     /**
      * Interchangeable with one another, where any quantity of them has the same value as
-     * another equal quantity if they are in the same class.  Share a single set of properties, not
+     * another equal quantity if they are in the same class. Share a single set of properties, not
      * distinct from one another. Represented as a balance or quantity associated to a given
-     * account.  May be divided into fractional tokens (within reasonable limits).
+     * account. May be divided into fractional tokens (within reasonable limits).
      * <p>
      * IWA taxonomy _fungible, fractional, intrinsic, common_
      */
     FUNGIBLE_COMMON = 0;
 
     /**
-     * Unique, not interchangeable with other tokens of the same type.  Each token carries a
+     * Unique, not interchangeable with other tokens of the same type. Each token carries a
      * serial number which is unique for that token, these tokens may have a different trade value
-     * for each individual token.  The tokens are individually accounted and often carry
-     * additional unique properties.  Tokens cannot be subdivided, and value is related to what
+     * for each individual token. The tokens are individually accounted and often carry
+     * additional unique properties. Tokens cannot be subdivided, and value is related to what
      * the individual token represents.
      * <p>
      * IWA taxonomy _non-fungible, whole, reference, unique_
@@ -699,7 +699,7 @@ enum TokenPauseStatus {
  * Note that when a key is a smart contract ID, it SHALL NOT imply that the contract with that ID
  * will actually create a cryptographic signature. It SHALL signify that when the contract calls a
  * precompiled contract, the resulting "child transaction" SHALL be implicitly authorized to
- * perform any action controlled by that key.  A contract ID key MAY be "delegatable", which permits
+ * perform any action controlled by that key. A contract ID key MAY be "delegatable", which permits
  * that contract to "authorize" a message frame for which it is recipient, even if the _code_
  * within that message frame is from a different contract.
  *
@@ -707,7 +707,7 @@ enum TokenPauseStatus {
  * for the signature to be considered valid.
  *
  * A Key can be a "key list" where all keys in the list must sign unless specified otherwise in the
- * documentation for a specific transaction type (e.g.  FileDeleteTransactionBody).
+ * documentation for a specific transaction type (e.g. FileDeleteTransactionBody).
  * This implies that the use of a key list is dependent on context. For example, an Hedera file
  * that is created with a list of keys, SHALL require that all of those keys must sign a
  * transaction to create or modify the file, but only one key from that list must sign a
@@ -716,12 +716,12 @@ enum TokenPauseStatus {
  * To reduce confusion this may cause, a key list SHALL always be considered M-of-M, unless
  * specified otherwise in official documentation.<br/>
  * A key list MAY have repeated primitive public keys, but the signature requirement for all keys
- * in a repeated set SHALL be satisfied by a single valid signature.  There is no mechanism to
+ * in a repeated set SHALL be satisfied by a single valid signature. There is no mechanism to
  * require a single key to sign a single transaction more than once.
  *
  * Any list or threshold key MAY have nested key lists or threshold keys. This allows, for example,
  * the keys within a threshold signature to themselves be threshold, list, contract, or primitive
- * keys.  This nesting structure enables complex asymmetric multi-party signature requirements to
+ * keys. This nesting structure enables complex asymmetric multi-party signature requirements to
  * be met.
  *
  * To ensure adequate performance and transaction security, key nesting is limited to at most
@@ -760,7 +760,7 @@ message Key {
         ThresholdKey thresholdKey = 5;
 
         /**
-         * A list of keys.  This may be treated like a "M-of-M" threshold key, as a component of
+         * A list of keys. This may be treated like a "M-of-M" threshold key, as a component of
          * another key, or in some other manner as documented.
          */
         KeyList keyList = 6;
@@ -785,8 +785,8 @@ message Key {
 
 /**
  * A threshold value and a list of public keys that, together, form a threshold signature
- * requirement.  Any subset of the keys in the list may satisfy the signature requirements of this
- * type of key, provided the number of keys meets or exceeds the threshold.  For example, if a
+ * requirement. Any subset of the keys in the list may satisfy the signature requirements of this
+ * type of key, provided the number of keys meets or exceeds the threshold. For example, if a
  * particular key has a threshold of three(3) and eight(8) keys in the list, then any three(3)
  * signatures, from the list of eight(8), is sufficient to authorize that key.
  *
@@ -795,7 +795,7 @@ message Key {
  * greater than one(1).
  *
  * > It is possible to construct a complex key structure that _would_ enable a single primitive key
- * > to successfully meet a threshold requirement.  All threshold keys SHOULD be carefully audited
+ * > to successfully meet a threshold requirement. All threshold keys SHOULD be carefully audited
  * > to ensure no one `primitive` key, or smart contract, has disproportionate capability.
  */
 message ThresholdKey {
@@ -818,9 +818,9 @@ message ThresholdKey {
  */
 message KeyList {
     /**
-     * A list of keys.  All values in this list SHALL be non-null.
+     * A list of keys. All values in this list SHALL be non-null.
      * <p>
-     * An empty key list is the "standard" mechanism to represent an unassigned key.  For example,
+     * An empty key list is the "standard" mechanism to represent an unassigned key. For example,
      * if the `admin_key` of an account is set to the empty key list, then that account has no
      * admin key, and functionality that requires an admin key to sign the transaction is disabled.
      */
@@ -1389,9 +1389,9 @@ enum HederaFunctionality {
 
 /**
  * A set of values the nodes use in determining transaction and query fees, and constants involved
- * in fee calculations.  Nodes multiply the amount of "resources" allocated to a transaction or
+ * in fee calculations. Nodes multiply the amount of "resources" allocated to a transaction or
  * query by the corresponding price to calculate the appropriate fee. Units are one-thousandth of a
- * tinyCent.  The "resource" allocations are estimated based on transaction characteristics and
+ * tinyCent. The "resource" allocations are estimated based on transaction characteristics and
  * current network state, and may be further adjusted based on network load and congestion.
  *
  * This is used, in different contexts, for the cost _factors_ used to calculate charged amounts,
@@ -1409,7 +1409,7 @@ message FeeComponents {
     int64 max = 2;
 
     /**
-     * Constant value.  A baseline constant contribution to total fee.
+     * Constant value. A baseline constant contribution to total fee.
      */
     int64 constant = 3;
 
@@ -1439,7 +1439,7 @@ message FeeComponents {
 
     /**
      * Compute: Ethereum term for a derivative EVM compute resource.<br/>
-     * The fee of computation for a smart contract transaction.  The value of gas is set by
+     * The fee of computation for a smart contract transaction. The value of gas is set by
      * a conversion rate, and is regularly updated to reflect reasonable and customary costs.
      */
     int64 gas = 8;
@@ -1468,7 +1468,7 @@ message FeeComponents {
  */
 message TransactionFeeSchedule {
     /**
-     * The enumeration for a particular transaction or query.  The functionality type determines
+     * The enumeration for a particular transaction or query. The functionality type determines
      * the base cost parameters.
      */
     HederaFunctionality hederaFunctionality = 1;
@@ -1547,7 +1547,7 @@ message FeeSchedule {
  * The current fee schedule is the schedule to apply to the current transaction.<br/>
  * The next fee schedule is the schedule that will apply after the current schedule expires.<br/>
  * We store both to avoid a condition where transactions are processed very near the time when a
- * fee schedule expires and it might be indeterminate which fees to apply.  With both current and
+ * fee schedule expires and it might be indeterminate which fees to apply. With both current and
  * next fee schedule the network can deterministically apply the correct fee schedule based on
  * consensus timestamp for each transaction.
  */
@@ -1629,7 +1629,7 @@ message NodeAddress {
 
     /**
      * `0.0.101 field`<p/>
-     * A numeric identifier for the node.  This value SHALL be non-sequential.
+     * A numeric identifier for the node. This value SHALL be non-sequential.
      */
     int64 nodeId = 5;
 
@@ -1653,7 +1653,7 @@ message NodeAddress {
 
     /**
      * `0.0.101 field`<p/>
-     * A node's service IP addresses and ports.  Nodes require multiple endpoints to ensure that
+     * A node's service IP addresses and ports. Nodes require multiple endpoints to ensure that
      * inter-node communication (e.g. gossip) is properly separated from client communication to
      * API endpoints.
      */
@@ -1674,7 +1674,7 @@ message NodeAddress {
 }
 
 /**
- * A list of nodes and their metadata that contains details of the nodes running the network.  Used
+ * A list of nodes and their metadata that contains details of the nodes running the network. Used
  * to parse the contents of system files `0.0.101` and `0.0.102`.
  */
 message NodeAddressBook {
@@ -1688,8 +1688,8 @@ message NodeAddressBook {
  * Hedera follows semantic versioning (https://semver.org/) for both the HAPI protobufs and the
  * Services software.<br/>
  * Hedera modifies the "typical" semantic versioning somewhat, the `major` version is always `0`,
- * and each release increments the `minor` version.  The `patch` and `pre` components are used in
- * the typical manner.  The `build` component is not generally used.<p/>
+ * and each release increments the `minor` version. The `patch` and `pre` components are used in
+ * the typical manner. The `build` component is not generally used.<p/>
  *
  * > HIP-851 changes Hedera versioning, and changes the meaning of these fields, but does not
  * > change the structure or naming.
@@ -1704,7 +1704,7 @@ message SemanticVersion {
 
     /**
      * Increases with backwards-compatible new functionality.<br/>
-     * Hedera increments this value with each release.  There may be incompatible API changes.
+     * Hedera increments this value with each release. There may be incompatible API changes.
      */
     int32 minor = 2;
 
@@ -1730,7 +1730,7 @@ message SemanticVersion {
 }
 
 /**
- * A single runtime configuration setting.  Typically a name-value pair, this may also contain
+ * A single runtime configuration setting. Typically a name-value pair, this may also contain
  * a small amount of associated data.
  */
 message Setting {
@@ -1745,7 +1745,7 @@ message Setting {
     string value = 2;
 
     /**
-     * A small quantity of data associated with this setting.  This SHOULD be less than 100 bytes.
+     * A small quantity of data associated with this setting. This SHOULD be less than 100 bytes.
      * If the value is a string, it MUST be encoded UTF-8.
      */
     bytes data = 3;
@@ -1762,7 +1762,7 @@ message ServicesConfigurationList {
 }
 
 /**
- * An Hedera Token Service token relationship.  A token relationship describes the connection
+ * An Hedera Token Service token relationship. A token relationship describes the connection
  * between an Account and a Token type, including the current account balance in that token.
  *
  * A TokenRelationship SHALL contain, for the referenced token and enclosing account,<br/>
@@ -1796,7 +1796,7 @@ message TokenRelationship {
 
     /**
      * The KYC status of the account (`KycNotApplicable`, `Granted` or `Revoked`) with respect to
-     * this token.  If KYC is not supported for this token (e.g. the `kyc_key` of the token
+     * this token. If KYC is not supported for this token (e.g. the `kyc_key` of the token
      * is not set), this will be `KycNotApplicable`.
      */
     TokenKycStatus kycStatus = 4;
@@ -1809,7 +1809,7 @@ message TokenRelationship {
     TokenFreezeStatus freezeStatus = 5;
 
     /**
-     * The maximum "precision" for this token.  A single whole token may be divided into at most
+     * The maximum "precision" for this token. A single whole token may be divided into at most
      * 10<sup>`decimals`</sup> sub-units.
      */
     uint32 decimals = 6;
@@ -1853,8 +1853,8 @@ message TokenBalance {
 }
 
 /**
- * A set of token balance values.  Each entry describes the balance the enclosing account holds for
- * a specific token.  The balance is an amount for a fungible (non-unique) token or a count for a
+ * A set of token balance values. Each entry describes the balance the enclosing account holds for
+ * a specific token. The balance is an amount for a fungible (non-unique) token or a count for a
  * non-fungible (unique) token.
  */
 message TokenBalances {
@@ -1865,7 +1865,7 @@ message TokenBalances {
 }
 
 /**
- * An association between a token and an account.  An account must be associated with a token before
+ * An association between a token and an account. An account must be associated with a token before
  * that account can transact (send or receive) that token.
  */
 message TokenAssociation {
@@ -1881,7 +1881,7 @@ message TokenAssociation {
 }
 
 /**
- * Staking metadata (info) for an account or a contract.<br/>
+ * Staking information for an account or a contract.<br/>
  * This is used for responses returned from CryptoGetInfo or ContractGetInfo queries.
  */
 message StakingInfo {
@@ -1894,7 +1894,7 @@ message StakingInfo {
     /**
      * A `Timestamp` indicating the start time of the most recent staking period during which either
      * the staking settings for this account or contract changed or the account or contract
-     * received staking rewards, whichever is later.  Examples of a change in staking settings
+     * received staking rewards, whichever is later. Examples of a change in staking settings
      * include starting staking or changing the staked_node_id.<br/>
      * If this account or contract is not currently staked to a node, then this field SHALL NOT be
      * set.
@@ -1902,7 +1902,7 @@ message StakingInfo {
     Timestamp stake_period_start = 2;
 
     /**
-     * The amount in tinybars that will be received in the next reward payout.  Rewards are not
+     * The amount in tinybars that will be received in the next reward payout. Rewards are not
      * paid out immediately; for efficiency reasons rewards are only paid out as part of another
      * transaction involving that account.
      */
@@ -1919,13 +1919,13 @@ message StakingInfo {
     oneof staked_id {
 
         /**
-         * Delegated stake.  This account delegates to the indicated account for staking
+         * Delegated stake. This account delegates to the indicated account for staking
          * purposes.
          */
         AccountID staked_account_id = 5;
 
         /**
-         * Direct stake.  This accounts stakes its balance to the designated node.
+         * Direct stake. This accounts stakes its balance to the designated node.
          */
         int64 staked_node_id = 6;
     }

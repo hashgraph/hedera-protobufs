@@ -27,7 +27,7 @@ Get the deployed versions of Hedera Services and the HAPI proto in semantic vers
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 
 
 
@@ -42,7 +42,7 @@ Response when the client sends the node NetworkGetVersionInfoQuery
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | hapiProtoVersion | [SemanticVersion](#proto-SemanticVersion) |  | The Hedera API (HAPI) protobuf version recognized by the responding node. |
 | hederaServicesVersion | [SemanticVersion](#proto-SemanticVersion) |  | The version of the Hedera Services software deployed on the responding node. |
 

@@ -1,5 +1,10 @@
 /**
- * #
+ * # Transaction Record
+ * The record of a single transaction, including receipt and transaction results such as
+ * transfer lists, entropy, contract call result, etc...
+ * The record also includes fees, consensus time, EVM information, and other result metadata.<br/>
+ * Only values appropriate to the requested transaction are populated, all other fields will not be
+ * set (i.e. null or default values).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -38,7 +43,7 @@ import "timestamp.proto";
 import "basic_types.proto";
 import "custom_fees.proto";
 import "transaction_receipt.proto";
-import "contract_call_local.proto";
+import "contract_types.proto";
 
 /**
  * Response when the client sends the node TransactionGetRecordResponse
@@ -67,7 +72,7 @@ message TransactionRecord {
     TransactionID transactionID = 4;
 
     /**
-     * The memo that was submitted as part of the transaction (max 100 bytes)
+     * The memo that was submitted as part of the transaction, decoded to a string.
      */
     string memo = 5;
 
@@ -92,7 +97,7 @@ message TransactionRecord {
     }
 
     /**
-     * All hbar transfers as a result of this transaction, such as fees, or transfers performed by
+     * All HBAR transfers as a result of this transaction, such as fees, or transfers performed by
      * the transaction, or by a smart contract it calls, or by the creation of threshold records
      * that it triggers.
      */
@@ -144,12 +149,12 @@ message TransactionRecord {
 
     oneof entropy {
         /**
-         * In the record of a UtilPrng transaction with no output range, a pseudorandom 384-bit string.
+         * In the record of a UtilPrng transaction with no output range, a pseudorandom 384-bit sequence.
          */
         bytes prng_bytes = 19;
 
         /**
-         * In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit string.
+         * In the record of a PRNG transaction with an output range, the output of a PRNG whose input was a 384-bit sequence.
          */
         int32 prng_number = 20;
     }

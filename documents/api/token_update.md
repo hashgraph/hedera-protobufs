@@ -60,7 +60,7 @@ case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.
 | fee_schedule_key | [Key](#proto-Key) |  | If set, the new key to use to update the token's custom fee schedule; if the token does not currently have this key, transaction will resolve to TOKEN_HAS_NO_FEE_SCHEDULE_KEY |
 | pause_key | [Key](#proto-Key) |  | The Key which can pause and unpause the Token. If the Token does not currently have a pause key, transaction will resolve to TOKEN_HAS_NO_PAUSE_KEY |
 | metadata | [google.protobuf.BytesValue](#google-protobuf-BytesValue) |  | Metadata of the created token definition |
-| metadata_key | [Key](#proto-Key) |  | The key which can change the metadata of a token (token definition, partition definition, and individual NFTs). |
+| metadata_key | [Key](#proto-Key) |  | The key which can change the metadata of a token (token definition, partition definition, and individual NFTs). If the Token does not have currently a Metadata key, transaction will resolve to TOKEN_HAS_NO_METADATA_KEY |
 
 
 

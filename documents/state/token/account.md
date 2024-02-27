@@ -14,10 +14,10 @@
 
 ## state/token/account.proto
 # Account.
-This is a single account within the Hedera network.  An Account is the primary entity representing
+This is a single account within the Hedera network. An Account is the primary entity representing
 ownership of assets tracked on the ledger. Account Allowances are also described here, and
 these represent permission granted to an account to transfer assets owned by a different account
-which granted the "allowance".  Allowances specify the assets and amounts which may be
+which granted the "allowance". Allowances specify the assets and amounts which may be
 transferred.
 
 ### Keywords
@@ -41,13 +41,13 @@ Assets are represented as linked-lists with only the "head" item referenced dire
 Account, and the remaining items are accessible via the token relation or unique tokens maps.
 
 Accounts, as most items in the network, have an expiration time, recorded as seconds since the
-epoch, and must be "renewed" for a small fee at expiration.  This helps to reduce the amount of
-inactive accounts retained in state.  Another account may be designated to pay any renewal fees
+epoch, and must be "renewed" for a small fee at expiration. This helps to reduce the amount of
+inactive accounts retained in state. Another account may be designated to pay any renewal fees
 and automatically renew the account for (by default) 30-90 days at a time as a means to
 optionally ensure important accounts remain active.
 
 Accounts may participate in securing the network by "staking" the account balances to a
-particular network node, and receive a portion of network fees as a reward.  An account may
+particular network node, and receive a portion of network fees as a reward. An account may
 optionally decline these rewards but still stake its balances.
 
 An account may optionally require that inbound transfer transactions be signed by that account
@@ -63,7 +63,7 @@ reuse of the alias field for both EVM reference and "automatic" account creation
 
 For the purposes of this specification, we will use the following terms for clarity.
   - `key_alias` is the account public key as a protobuf serialized message and used for
-    auto-creation and subsequent lookup.  This is only valid if the account key is a
+    auto-creation and subsequent lookup. This is only valid if the account key is a
     single `primitive` key, either ED25519 or ECDSA_SECP256K1.
   - `evm_address` exists for every account and is one of
      - `contract_address`, which is the 20 byte EVM contract address per EIP-1014
@@ -89,7 +89,7 @@ referenced by `alias` in an `AccountID` by using the `long_zero` address for the
 This "hidden default" alias SHALL NOT be stored, but is synthesized by the node software as
 needed, and may be synthesized by an EVM contract or client software as well.
 
->> Note<br/>
+> Note<br/>
 >>  The use and meaning of `alias` is expected to change significantly as a result of HIP-631.
 
 An AccountID in a transaction MAY reference an `Account` with `shard`.`realm`.`alias`.<br/>
@@ -101,38 +101,38 @@ the account alias.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | account_id | [AccountID](#proto-AccountID) |  | The unique ID of this account. An account ID, when assigned to this field, SHALL be of the form `shard.realm.number`. Transactions MAY reference the account by alias, but the account itself MUST always have a purely numeric identifier. This ID is the value used to reference the account in query responses, transaction receipts, transaction records, and the block stream. |
-| alias | [bytes](#bytes) |  | Alias is a value used in some contexts to reference an account when account number is not available. The value of alias, when set to a non-default value, is immutable and SHALL NOT be changed. |
+| alias | [bytes](#bytes) |  | An account EVM alias.<br/> This is a value used in some contexts to reference an account when the tripartite account identifier is not available.<br/> This field, when set to a non-default value, is immutable and SHALL NOT be changed. |
 | key | [Key](#proto-Key) |  | The key to be used to sign transactions from this account, if any.<br/> This key SHALL NOT be set for hollow accounts until the account is finalized.<br/> This key SHALL be set on all other accounts, except for certain immutable accounts (0.0.800 and 0.0.801) necessary for network function and otherwise secured by the governing council. |
 | expiration_second | [int64](#int64) |  | The current expiration time of this account, in seconds since the epoch.<br/> For this purpose, `epoch` SHALL be the UNIX epoch with 0 at `1970-01-01T00:00:00.000Z`. |
 | tinybar_balance | [int64](#int64) |  | The HBAR balance of this account, in tinybar (10<sup>-8</sup> HBAR).<br/> This value is a signed integer for efficiency, but MUST always be a whole number. |
-| memo | [string](#string) |  | A description of this account.<br/> This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded. |
+| memo | [string](#string) |  | A short description of this account.<br/> This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded. |
 | deleted | [bool](#bool) |  | A boolean indicating that this account is deleted. |
 | staked_to_me | [int64](#int64) |  | The amount of HBAR staked to this account by others. |
 | stake_period_start | [int64](#int64) |  | If this account stakes to another account, this value SHALL be set to the time when the current period for staking and reward calculations began. |
 | staked_account_id | [AccountID](#proto-AccountID) |  | ID of the account to which this account is staking its balances. If this account is not currently staking its balances, then this field, if set, SHALL be the sentinel value of `0.0.0`. |
-| staked_node_id | [int64](#int64) |  | ID of the node this account is staked to. If this account is not currently staking its balances, then this field, if set, SHALL be the sentinel value of `-1`. |
+| staked_node_id | [int64](#int64) |  | ID of the node this account is staked to. If this account is not currently staking its balances, then this field, if set, SHALL be the sentinel value of `-1`. <p> <blockquote>Note: node IDs do fluctuate as node operators change. The Account owner MUST submit a new transaction to change this value if the current node ID changes or ceases to operate as a node. An account with an invalid `staked_node_id` SHALL NOT participate in staking until the `staked_node_id` is updated to a valid node ID. </blockquote> Wallet software SHOULD surface staking issues to users and provide a simple mechanism to update staking to a new node ID in the even the prior staked node ID ceases to be valid. |
 | decline_reward | [bool](#bool) |  | A boolean indicating that this account has chosen to decline rewards for staking its balances. This account MAY still stake its balances, but SHALL NOT receive reward payments for doing so. |
 | receiver_sig_required | [bool](#bool) |  | A boolean indicating that the account requires a receiver signature for inbound token transfer transactions.<br/> If this value is `true` then a transaction to transfer tokens to this account SHALL NOT succeed unless this account has signed the transfer transaction. |
 | head_token_id | [TokenID](#proto-TokenID) |  | The token ID of the head of the linked list for this account from the token relations map. The token relations are connected by including the "next" and "previous" TokenID in each TokenRelation message. The "head" item in that list is found by looking up the TokenRelation with this Account's account_id and this head_token_id. Each subsequent item in the list is found via similar lookup with both an AccountID and a TokenID. |
-| head_nft_id | [NftID](#proto-NftID) |  | The NftID of the head of the linked list for this account from the unique tokens map. The unique token relations are connected by including the "next" and "previous" NftID in each Nft message. The "head" item in that list is found by looking up the Nft with ID matching this head_nft_id. Each subsequent item in the list is found via similar lookup with the next or previous NftID. |
-| head_nft_serial_number | [int64](#int64) |  | The serial number in the NftID of the head of the linked list for this account from unique tokens map. This MUST match the `serial_number` field of `head_nft_id`. |
+| head_nft_id | [NftID](#proto-NftID) |  | The NftID of the head of the linked list for this account from the unique tokens map.<br/> The unique token relations are connected by including the "next" and "previous" NftID in each Nft message. The "head" item in that list is found by looking up the Nft with ID matching this head_nft_id. Each subsequent item in the list is found via similar lookup with the next or previous NftID. |
+| head_nft_serial_number | [int64](#int64) |  | The serial number in the NftID of the head of the linked list for this account from unique tokens map.<br/> This MUST match the `serial_number` field of `head_nft_id`. |
 | number_owned_nfts | [int64](#int64) |  | The number of non-fungible tokens (NTFs) owned by the account. |
-| max_auto_associations | [int32](#int32) |  | The maximum number of tokens that can be auto-associated with the account.<br/> If this is less than or equal to `used_auto_associations` (or 0), then this account MUST manually associate with a token before transacting in that token. |
-| used_auto_associations | [int32](#int32) |  | The number of used auto-association slots. If this is greater than, or equal to, the current value of `max_auto_associations`, then this account MUST manually associate with a new token before transacting in that token. |
+| max_auto_associations | [int32](#int32) |  | The maximum number of tokens that can be auto-associated with the account.<br/> If this is less than or equal to `used_auto_associations` (or 0), then this account MUST manually associate with a token before transacting in that token.<br/> Following HIP-904 This value may also be `-1` to indicate no limit.<br/> This value MUST NOT be less than `-1`. |
+| used_auto_associations | [int32](#int32) |  | The number of used auto-association slots.<br/> If this is greater than, or equal to, the current value of `max_auto_associations`, then this account MUST manually associate with a new token before transacting in that token. |
 | number_associations | [int32](#int32) |  | The number of tokens associated with this account.<br/> This value determines a portion of the renewal fee for this account. |
 | smart_contract | [bool](#bool) |  | A boolean indicating that this account is owned by a smart contract. |
 | number_positive_balances | [int32](#int32) |  | The number of tokens with a positive balance associated with this account.<br/> If the account has a positive balance in any token, it SHALL NOT be deleted. |
 | ethereum_nonce | [int64](#int64) |  | The nonce of this account for Ethereum interoperability. |
 | stake_at_start_of_last_rewarded_period | [int64](#int64) |  | The amount of HBAR staked by this account at the start of the last reward period. |
-| auto_renew_account_id | [AccountID](#proto-AccountID) |  | The id of another account, in the same shard and realm as this account, that has signed a transaction allowing the network to use its balance, if needed, to automatically extend this account's expiration time during automatic renewal processing. If this is set, and this account lack sufficient HBAR balance to pay renewal fees when due, then the network SHALL deduct the necessary fees from the designated auto renew account, if that account has sufficient balance. |
+| auto_renew_account_id | [AccountID](#proto-AccountID) |  | The id of another account, in the same shard and realm as this account, that has signed a transaction allowing the network to use its balance, if needed, to automatically extend this account's expiration time during automatic renewal processing.<br/> If this is set, and this account lack sufficient HBAR balance to pay renewal fees when due, then the network SHALL deduct the necessary fees from the designated auto renew account, if that account has sufficient balance. |
 | auto_renew_seconds | [int64](#int64) |  | The number of seconds the network SHALL use to extend the account's expiration, if funds are available during automatic renewal processing.<br/> This SHALL NOT apply if the account is already deleted upon expiration.<br/> If this is not provided in an allowed range on account creation, the transaction SHALL fail with INVALID_AUTO_RENEWAL_PERIOD. The default values for the minimum period and maximum period are currently 30 days and 90 days, respectively. |
-| contract_kv_pairs_number | [int32](#int32) |  | If this account is a smart-contract, this is the number of key-value pairs stored on the contract. If this account is not a smart contract, this field SHALL NOT be used. This value determines a portion of the storage rental fees for the contract. |
+| contract_kv_pairs_number | [int32](#int32) |  | If this account is a smart-contract, this is the number of key-value pairs stored on the contract.<br/> If this account is not a smart contract, this field SHALL NOT be used.<br/> This value determines a portion of the storage rental fees for the contract. |
 | crypto_allowances | [AccountCryptoAllowance](#proto-AccountCryptoAllowance) | repeated | A list of crypto (HBAR) allowances approved by this account.<br/> If this is not empty, each allowance SHALL permit a specified "spender" account to spend this account's HBAR balance, up to a designated limit.<br/> This field SHALL permit spending only HBAR balance, not other tokens the account may hold. Allowances for other tokens SHALL be listed in the `token_allowances` field or the `approve_for_all_nft_allowances` field. |
-| approve_for_all_nft_allowances | [AccountApprovalForAllAllowance](#proto-AccountApprovalForAllAllowance) | repeated | A list of non-fungible token (NFT) allowances approved by this account.<br/> If this is not empty, each allowance permits a specified "spender" account to transfer _all_ of this account's non-fungible tokens from a particular collection.<br/> Allowances for a specific serial number SHALL be directly associated with that specific non-fungible token, rather than the holding account. |
+| approve_for_all_nft_allowances | [AccountApprovalForAllAllowance](#proto-AccountApprovalForAllAllowance) | repeated | A list of non-fungible token (NFT) allowances approved by this account.<br/> If this is not empty, each allowance permits a specified "spender" account to transfer _all_ of this account's non-fungible tokens from a particular collection.<br/> Allowances for a specific serial number MUST be directly associated with that specific non-fungible token, rather than the holding account. |
 | token_allowances | [AccountFungibleTokenAllowance](#proto-AccountFungibleTokenAllowance) | repeated | A list of fungible token allowances approved by this account.<br/> If this is not empty, each allowance permits a specified "spender" to spend this account's fungible tokens, of the designated type, up to a designated limit. |
 | number_treasury_titles | [uint32](#uint32) |  | The number of tokens for which this account is the treasury account.<br/> Each native token is initially created with all tokens held by its treasury, and the owner of that account (which may be a smart contract) determines how those tokens are distributed. |
 | expired_and_pending_removal | [bool](#bool) |  | A flag indicating that the account is expired and pending removal.<br/> When the network checks for entity expiration, it SHALL set this flag if the account expiration time has past and the account has no HBAR sufficient to pay current renewal fees.<br/> If the account has an auto-renew account set with an HBAR balance that could pay for an auto-renewal, then this flag SHALL NOT be set. This ensures the account is not encumbered during the time between expiration and when the auto-renewal processing renews the account. |
-| first_contract_storage_key | [bytes](#bytes) |  | The first key in the doubly-linked list of this contract's storage mappings; This value SHALL be empty if the account is not a contract or the contract has no storage mappings. |
+| first_contract_storage_key | [bytes](#bytes) |  | The first key in the doubly-linked list of this contract's storage mappings.<br/> This value SHALL be empty if the account is not a contract or the contract has no storage mappings. |
 
 
 
@@ -146,8 +146,10 @@ Permission granted by one account (the "funding" account) to another account
 (the "spender" account) that allows the spender to transfer all serial numbers of a specific
 non-fungible token (NFT) collection owned by the funding account.<br/>
 This is a broad permission, as it does not matter how many NFTs of the specified collection
-the funding account owns, the spender MAY dispose of any or all of them with this allowance.
-Each token type (typically a collection of NFTs) SHALL require a separate allowance.
+the funding account owns, the spender MAY dispose of any or all of them with this allowance.<br/>
+Each token type (typically a collection of NFTs) SHALL require a separate allowance.<br/>
+Allowances for a specific serial number MUST be directly associated with that specific
+non-fungible token, rather than the holding account.
 
 An allowance SHALL NOT transfer any tokens directly, it only permits transactions signed only
 by the spender account to transfer any non-fungible tokens of the specified type owned by the
@@ -156,8 +158,8 @@ funding account.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| token_id | [TokenID](#proto-TokenID) |  |  |
-| spender_id | [AccountID](#proto-AccountID) |  |  |
+| token_id | [TokenID](#proto-TokenID) |  | The identifier for the token associated with this allowance.<br/> This token MUST be a non-fungible/unique token. |
+| spender_id | [AccountID](#proto-AccountID) |  | The identifier for the spending account associated with this allowance.<br/> This account SHALL be permitted to sign transactions to spend tokens of the associated token type from the funding/allowing account. |
 
 
 
@@ -180,8 +182,8 @@ required before that spending account may spend additional HBAR from the funding
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| spender_id | [AccountID](#proto-AccountID) |  |  |
-| amount | [int64](#int64) |  |  |
+| spender_id | [AccountID](#proto-AccountID) |  | The identifier for the spending account associated with this allowance.<br/> This account SHALL be permitted to sign transactions to spend HBAR from the funding/allowing account.<br/> This permission SHALL be limited to no more than the specified `amount`. |
+| amount | [int64](#int64) |  | The maximum amount that the spender account may transfer within the scope of this allowance.<br/> This allowance SHALL be consumed if any combination of transfers authorized via this allowance meet this value in total.<br/> This value MUST be specified in tinybar (i.e. 10<sup>-8</sup> HBAR). |
 
 
 
@@ -205,9 +207,9 @@ required before that spending account may spend additional tokens from the fundi
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| token_id | [TokenID](#proto-TokenID) |  |  |
-| spender_id | [AccountID](#proto-AccountID) |  |  |
-| amount | [int64](#int64) |  |  |
+| token_id | [TokenID](#proto-TokenID) |  | The identifier for the token associated with this allowance.<br/> This token MUST be a fungible/common token. |
+| spender_id | [AccountID](#proto-AccountID) |  | The identifier for the spending account associated with this allowance.<br/> This account SHALL be permitted to sign transactions to spend tokens of the associated token type from the funding/allowing account.<br/> This permission SHALL be limited to no more than the specified `amount`. |
+| amount | [int64](#int64) |  | The maximum amount that the spender account may transfer within the scope of this allowance.<br/> This allowance SHALL be consumed if any combination of transfers authorized via this allowance meet this value in total.<br/> This value MUST be specified in the smallest units of the relevant token (i.e. 10<sup>-decimals</sup> whole tokens). |
 
 
 

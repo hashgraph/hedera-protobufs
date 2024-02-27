@@ -44,56 +44,20 @@ import "timestamp.proto";
  */
 message ConsensusTopicInfo {
     /**
-     * The memo associated with this topic.
+     * A short description of this topic.<br/>
      * This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
      */
     string memo = 1;
 
     /**
-     * When a topic is created, its running hash is initialized to 48 bytes of binary zeros.
-     * For each submitted message, the topic's running hash is then updated to the output
-     * of a particular SHA-384 digest whose input data include the previous running hash.
-     * <p>
      * The latest running hash of the topic.<br/>
      * This 48-byte field is the output of a SHA-384 digest with input data determined by the
-     * value of the `topicRunningHashVersion` field.<br/>
-     * All new transactions SHALL use `topicRunningHashVersion` `3`.<br/>
+     * current version of the running hash algorithm used by the network.<br/>
+     * All new transactions SHALL use algorithm version `3`.<br/>
      * The bytes of each uint64 or uint32 encoded for the hash input MUST be in Big-Endian format.
      * <p>
      * <hr/>
-     * If the `topicRunningHashVersion` is '0' or '1', then the input data to the SHA-384 digest are,
-     * in order:
-     * <ol>
-     *   <li>The previous running hash of the topic (48 bytes)</li>
-     *   <li>The topic's shard (8 bytes)</li>
-     *   <li>The topic's realm (8 bytes)</li>
-     *   <li>The topic's number (8 bytes)</li>
-     *   <li>The number of seconds since the epoch when the `ConsensusSubmitMessage` reached
-     *    consensus (8 bytes)</li>
-     *   <li>The number of nanoseconds within the second when the `ConsensusSubmitMessage` reached
-     *    consensus (4 bytes)</li>
-     *   <li>The `topicSequenceNumber` (8 bytes)</li>
-     *   <li>The message bytes from the `ConsensusSubmitMessage` (variable).</li>
-     * </ol>
-     * <hr/>
-     * If the `topicRunningHashVersion` is '2', then the input data to the SHA-384 digest are, in
-     * order:
-     * <ol>
-     *   <li>The previous running hash of the topic (48 bytes)</li>
-     *   <li>The `topicRunningHashVersion` (8 bytes)</li>
-     *   <li>The topic's shard (8 bytes)</li>
-     *   <li>The topic's realm (8 bytes)</li>
-     *   <li>The topic's number (8 bytes)</li>
-     *   <li>The number of seconds since the epoch when the `ConsensusSubmitMessage` reached
-     *    consensus (8 bytes)</li>
-     *   <li>The number of nanoseconds within the second when the `ConsensusSubmitMessage` reached
-     *    consensus (4 bytes)</li>
-     *   <li>The `topicSequenceNumber` (8 bytes)</li>
-     *   <li>The output of a SHA-384 digest of the message bytes from the `ConsensusSubmitMessage`
-     *    (48 bytes)</li>
-     * </ol>
-     * <hr/>
-     * If the `topicRunningHashVersion` is '3', then the input data to the SHA-384 digest
+     * If the algorithm version is '3', then the input data to the SHA-384 digest
      * are, in order:
      * <ol>
      *   <li>The previous running hash of the topic (48 bytes)</li>
@@ -122,10 +86,8 @@ message ConsensusTopicInfo {
     uint64 sequenceNumber = 3;
 
     /**
-     * Effective consensus timestamp when this topic will expire.<br/>
-     * A `SubmitMessage` call to an expired topic SHALL fail.<br/>
-     * An expired topic SHALL be deleted after an additional duration
-     * set by the value of `AUTORENEW_GRACE_PERIOD`.<br/>
+     * The expiration time for this topic, in seconds since the epoch.
+     * For this purpose, `epoch` SHALL be the UNIX epoch with 0 at `1970-01-01T00:00:00.000Z`.
      */
     Timestamp expirationTime = 4;
 
@@ -143,7 +105,7 @@ message ConsensusTopicInfo {
 
     /**
      * The duration, in seconds, to extend the `expirationTime` value when this topic is
-     * automatically renewed.  If the `autoRenewAccount` value for this topic is set to a valid
+     * automatically renewed. If the `autoRenewAccount` value for this topic is set to a valid
      * account with sufficient HBAR balance to pay renewal fees when this topic expires, the system
      * SHALL automatically renew this topic, extending the `expirationTime` value by the number of
      * seconds described here.
@@ -155,7 +117,7 @@ message ConsensusTopicInfo {
 
     /**
      * If this value is a valid account ID when this topic expires, this account SHALL be charged
-     * the renewal fees for this topic, if it holds sufficient HBAR balance.  If the account does
+     * the renewal fees for this topic, if it holds sufficient HBAR balance. If the account does
      * not hold sufficient HBAR balance to pay renewal fees when necessary, then this topic SHALL
      * be deleted.
      * If this value is not set (null), or is not a valid account ID, when this topic expires, then

@@ -45,16 +45,17 @@ import "response_header.proto";
  * property <tt>stats.executionTimesToTrack</tt>).
  */
 message NetworkGetExecutionTimeQuery {
-  /**
-   * standard info sent from client to node including the signed payment, and what kind of response
-   * is requested (cost, state proof, both, or neither).
-   */
-  QueryHeader header = 1;
+    /**
+     * Standard information sent with every query operation.<br/>
+     * This includes the signed payment and what kind of response is requested
+     * (cost, state proof, both, or neither).
+     */
+    QueryHeader header = 1;
 
-  /**
-   * The id(s) of the transactions to get the execution time(s) of
-   */
-  repeated TransactionID transaction_ids = 2;
+    /**
+     * The id(s) of the transactions to get the execution time(s) of
+     */
+    repeated TransactionID transaction_ids = 2;
 }
 
 /**
@@ -64,8 +65,8 @@ message NetworkGetExecutionTimeQuery {
  */
 message NetworkGetExecutionTimeResponse {
     /**
-     * Standard response from node to client, including the requested fields: cost, or state proof,
-     * or both, or neither
+     * The standard response information for queries.<br/>
+     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
      */
     ResponseHeader header = 1;
 

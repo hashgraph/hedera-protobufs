@@ -22,12 +22,17 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-ConsensusDeleteTopicTransactionBody"></a>
 
 ### ConsensusDeleteTopicTransactionBody
-See [ConsensusService.deleteTopic()](#proto.ConsensusService)
+Delete a topic.
+
+Once deleted, subsequent transactions or queries for that topic SHALL NOT succeed.<br/>
+If adminKey is set on the topic, this transaction MUST be signed by that key.<br/>
+If adminKey is not set on the topic, this transaction SHALL fail with a response code
+of `UNAUTHORIZED`. A topic without an adminKey cannot be deleted (but MAY expire).
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| topicID | [TopicID](#proto-TopicID) |  | Topic identifier |
+| topicID | [TopicID](#proto-TopicID) |  | Topic to be deleted. |
 
 
 

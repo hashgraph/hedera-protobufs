@@ -60,7 +60,7 @@
 Fundamental message types used across transactions and state as field types.
 
 ### Requirements for Entity ID values
-Most entities in the network are identified by a multi-part ID.  These ID values consist of
+Most entities in the network are identified by a multi-part ID. These ID values consist of
 a shard, a realm, and an entity identifier.
 
 Shard, Realm, and Entity Number are all whole numbers.
@@ -76,7 +76,7 @@ Thus a File has a FileID, a numeric triplet, such as 0.0.2 for shard 0, realm 0,
 
 ID values SHOULD use an Entity Number as the third component of the ID.
 Some, however, MAY use alternative or composite values for the Entity portion of the
-three part ID.  Any such alternative or composite value MUST be unique within that realm.
+three part ID. Any such alternative or composite value MUST be unique within that realm.
 
 The entity portion of the ID, regardless of type, MUST be unique within that realm and MAY be
 globally unique.
@@ -97,7 +97,7 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### AccountAmount
 An account, and the amount that it sends or receives during a token transfer.
 
-This message is only relevant to fungible token transfers.  Non-fungible (NFT) token
+This message is only relevant to fungible token transfers. Non-fungible (NFT) token
 transfers MUST use the NftTransfer message.
 
 
@@ -132,7 +132,7 @@ reuse of the alias field for both EVM reference and "automatic" account creation
 For the purposes of this specification, we will use the following terms for clarity.<p>
 
   - `key_alias` is the account public key as a protobuf serialized message and used for
-    auto-creation and subsequent lookup.  This is only valid if the account key is a
+    auto-creation and subsequent lookup. This is only valid if the account key is a
     single `primitive` key, either Ed25519 or ECDSA_SECP256K1.
   - `evm_address` exists for every account and is one of
      - `contract_address`, which is the 20 byte EVM contract address per EIP-1014
@@ -208,7 +208,7 @@ The "current" fee schedule and the "next" fee schedule.
 The current fee schedule is the schedule to apply to the current transaction.<br/>
 The next fee schedule is the schedule that will apply after the current schedule expires.<br/>
 We store both to avoid a condition where transactions are processed very near the time when a
-fee schedule expires and it might be indeterminate which fees to apply.  With both current and
+fee schedule expires and it might be indeterminate which fees to apply. With both current and
 next fee schedule the network can deterministically apply the correct fee schedule based on
 consensus timestamp for each transaction.
 
@@ -227,9 +227,9 @@ consensus timestamp for each transaction.
 
 ### FeeComponents
 A set of values the nodes use in determining transaction and query fees, and constants involved
-in fee calculations.  Nodes multiply the amount of "resources" allocated to a transaction or
+in fee calculations. Nodes multiply the amount of "resources" allocated to a transaction or
 query by the corresponding price to calculate the appropriate fee. Units are one-thousandth of a
-tinyCent.  The "resource" allocations are estimated based on transaction characteristics and
+tinyCent. The "resource" allocations are estimated based on transaction characteristics and
 current network state, and may be further adjusted based on network load and congestion.
 
 This is used, in different contexts, for the cost _factors_ used to calculate charged amounts,
@@ -324,7 +324,7 @@ A rational number.
 
 A common use is to set the amount of a value transfer to collect as a custom fee.<br/>
 It is RECOMMENDED that both numerator and denominator be no larger than necessary to express
-the required fraction.  A very large numerator, in particular, may not be reliable.
+the required fraction. A very large numerator, in particular, may not be reliable.
 
 
 | Field | Type | Label | Description |
@@ -356,7 +356,7 @@ precompiled contract action that requires authorization by that key.<br/>
 Note that when a key is a smart contract ID, it SHALL NOT imply that the contract with that ID
 will actually create a cryptographic signature. It SHALL signify that when the contract calls a
 precompiled contract, the resulting "child transaction" SHALL be implicitly authorized to
-perform any action controlled by that key.  A contract ID key MAY be "delegatable", which permits
+perform any action controlled by that key. A contract ID key MAY be "delegatable", which permits
 that contract to "authorize" a message frame for which it is recipient, even if the _code_
 within that message frame is from a different contract.
 
@@ -364,7 +364,7 @@ A Key can be a "threshold key", which means a list of M keys, any N of which may
 for the signature to be considered valid.
 
 A Key can be a "key list" where all keys in the list must sign unless specified otherwise in the
-documentation for a specific transaction type (e.g.  FileDeleteTransactionBody).
+documentation for a specific transaction type (e.g. FileDeleteTransactionBody).
 This implies that the use of a key list is dependent on context. For example, an Hedera file
 that is created with a list of keys, SHALL require that all of those keys must sign a
 transaction to create or modify the file, but only one key from that list must sign a
@@ -373,12 +373,12 @@ threshold key, and sometimes acts as a 1-of-M threshold key.<br/>
 To reduce confusion this may cause, a key list SHALL always be considered M-of-M, unless
 specified otherwise in official documentation.<br/>
 A key list MAY have repeated primitive public keys, but the signature requirement for all keys
-in a repeated set SHALL be satisfied by a single valid signature.  There is no mechanism to
+in a repeated set SHALL be satisfied by a single valid signature. There is no mechanism to
 require a single key to sign a single transaction more than once.
 
 Any list or threshold key MAY have nested key lists or threshold keys. This allows, for example,
 the keys within a threshold signature to themselves be threshold, list, contract, or primitive
-keys.  This nesting structure enables complex asymmetric multi-party signature requirements to
+keys. This nesting structure enables complex asymmetric multi-party signature requirements to
 be met.
 
 To ensure adequate performance and transaction security, key nesting is limited to at most
@@ -491,7 +491,7 @@ Only fields documented with `0.0.101 field` are populated in the 0.0.101 address
 <a name="proto-NodeAddressBook"></a>
 
 ### NodeAddressBook
-A list of nodes and their metadata that contains details of the nodes running the network.  Used
+A list of nodes and their metadata that contains details of the nodes running the network. Used
 to parse the contents of system files `0.0.101` and `0.0.102`.
 
 
@@ -510,10 +510,10 @@ to parse the contents of system files `0.0.101` and `0.0.102`.
 The ID for a realm. Within a given shard, every realm has a unique ID. Each account, file, and
 contract instance belongs to exactly one realm.
 
-Everything is partitioned into realms so that each Solidity smart contract can  access everything
-in just a single realm, locking all those entities while it's  running, but other smart contracts
-could potentially run in other realms in  parallel. So realms allow Solidity to be parallelized
-somewhat, even though the  language itself assumes everything is serial.
+Everything is partitioned into realms so that each Solidity smart contract can access everything
+in just a single realm, locking all those entities while it's running, but other smart contracts
+could potentially run in other realms in parallel. So realms allow Solidity to be parallelized
+somewhat, even though the language itself assumes everything is serial.
 
 
 | Field | Type | Label | Description |
@@ -549,8 +549,8 @@ Unique identifier for a Schedule
 Hedera follows semantic versioning (https://semver.org/) for both the HAPI protobufs and the
 Services software.<br/>
 Hedera modifies the "typical" semantic versioning somewhat, the `major` version is always `0`,
-and each release increments the `minor` version.  The `patch` and `pre` components are used in
-the typical manner.  The `build` component is not generally used.<p/>
+and each release increments the `minor` version. The `patch` and `pre` components are used in
+the typical manner. The `build` component is not generally used.<p/>
 
 > HIP-851 changes Hedera versioning, and changes the meaning of these fields, but does not
 > change the structure or naming.
@@ -610,7 +610,7 @@ Setting values representing a source of runtime configuration information.
 <a name="proto-Setting"></a>
 
 ### Setting
-A single runtime configuration setting.  Typically a name-value pair, this may also contain
+A single runtime configuration setting. Typically a name-value pair, this may also contain
 a small amount of associated data.
 
 
@@ -628,8 +628,8 @@ a small amount of associated data.
 <a name="proto-ShardID"></a>
 
 ### ShardID
-A shard number.  A shard is a partition of nodes running the network that processes transactions
-separately from other shards.  Each shard is effectively an independent instance of the overall
+A shard number. A shard is a partition of nodes running the network that processes transactions
+separately from other shards. Each shard is effectively an independent instance of the overall
 network that shares the same virtual distributed ledger, and may gossip cross-shard transactions
 with other shards to maintain overall correct processing of the ledger.
 
@@ -733,7 +733,7 @@ Only Ed25519 and ECDSA(secp256k1) keys and signatures are currently supported as
 <a name="proto-StakingInfo"></a>
 
 ### StakingInfo
-Staking metadata (info) for an account or a contract.<br/>
+Staking information for an account or a contract.<br/>
 This is used for responses returned from CryptoGetInfo or ContractGetInfo queries.
 
 
@@ -755,8 +755,8 @@ This is used for responses returned from CryptoGetInfo or ContractGetInfo querie
 
 ### ThresholdKey
 A threshold value and a list of public keys that, together, form a threshold signature
-requirement.  Any subset of the keys in the list may satisfy the signature requirements of this
-type of key, provided the number of keys meets or exceeds the threshold.  For example, if a
+requirement. Any subset of the keys in the list may satisfy the signature requirements of this
+type of key, provided the number of keys meets or exceeds the threshold. For example, if a
 particular key has a threshold of three(3) and eight(8) keys in the list, then any three(3)
 signatures, from the list of eight(8), is sufficient to authorize that key.
 
@@ -765,7 +765,7 @@ signature, so that signature(s) from a single key SHALL NOT _directly_ meet a th
 greater than one(1).
 
 > It is possible to construct a complex key structure that _would_ enable a single primitive key
-> to successfully meet a threshold requirement.  All threshold keys SHOULD be carefully audited
+> to successfully meet a threshold requirement. All threshold keys SHOULD be carefully audited
 > to ensure no one `primitive` key, or smart contract, has disproportionate capability.
 
 
@@ -803,7 +803,7 @@ Please use the SignaturePair and SignatureMap messages instead of this message.
 <a name="proto-TokenAssociation"></a>
 
 ### TokenAssociation
-An association between a token and an account.  An account must be associated with a token before
+An association between a token and an account. An account must be associated with a token before
 that account can transact (send or receive) that token.
 
 
@@ -844,8 +844,8 @@ Transferable units are not directly comparable across different tokens.
 <a name="proto-TokenBalances"></a>
 
 ### TokenBalances
-A set of token balance values.  Each entry describes the balance the enclosing account holds for
-a specific token.  The balance is an amount for a fungible (non-unique) token or a count for a
+A set of token balance values. Each entry describes the balance the enclosing account holds for
+a specific token. The balance is an amount for a fungible (non-unique) token or a count for a
 non-fungible (unique) token.
 
 
@@ -878,7 +878,7 @@ Unique identifier for a token
 <a name="proto-TokenRelationship"></a>
 
 ### TokenRelationship
-An Hedera Token Service token relationship.  A token relationship describes the connection
+An Hedera Token Service token relationship. A token relationship describes the connection
 between an Account and a Token type, including the current account balance in that token.
 
 A TokenRelationship SHALL contain, for the referenced token and enclosing account,<br/>
@@ -911,7 +911,7 @@ response, which specifies the account side of the relationship.
 A list of transfers for a particular (non-HBAR) token type.
 
 A `TokenTransferList` applies to a single token type, but may contain many individual transfers.<br/>
-Each transfer of a fungible non-unique token specifies an `accountID` and `amount`.  Amount
+Each transfer of a fungible non-unique token specifies an `accountID` and `amount`. Amount
 is positive when the account receives tokens, and negative when the account sends tokens.<br/>
 Each transfer of a unique token includes both sender and receiver, as well as the serial
 number transferred.<br/>
@@ -920,7 +920,7 @@ A single `TokenTransferList` SHALL contain `transfers` OR `nftTransfers`, but no
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| token | [TokenID](#proto-TokenID) |  | The ID of the token |
+| token | [TokenID](#proto-TokenID) |  | The ID of the token. |
 | transfers | [AccountAmount](#proto-AccountAmount) | repeated | List of AccountAmounts; each has an account and amount.<br/> These transfers are "double-entry" style; the credits (positive amount) and debits (negative amount) MUST sum to 0, unless this transfer list is part of a `mint` or `burn` operation. Applicable to tokens of type `FUNGIBLE_COMMON` only. |
 | nftTransfers | [NftTransfer](#proto-NftTransfer) | repeated | List of NftTransfers; each has a sender and receiver account, and the serial number of the unique token to transfer.<br/> Applicable to tokens of type `NON_FUNGIBLE_UNIQUE` only. |
 | expected_decimals | [google.protobuf.UInt32Value](#google-protobuf-UInt32Value) |  | The number of decimals a fungible token type is _expected_ to have. The transfer SHALL fail with <a href="ResponseCodeEnum#UNEXPECTED_TOKEN_DECIMALS">UNEXPECTED_TOKEN_DECIMALS</a> if this is set and the actual decimals specified for the `Token` differ from this value.<br/> If `nftTransfers` is set, then this value SHOULD NOT be set. |
@@ -979,7 +979,7 @@ take effect when the first of all those nodes submits the transaction and it rea
 The other transactions will not take effect (and SHALL result in a `DUPLICATE_TRANSACTION`
 response).<br/>
 Multiple submission increase reliability on the assumption that an error in, for example,
-network connectivity will not affect all nodes equally.  Latency might be slightly lower, if one
+network connectivity will not affect all nodes equally. Latency might be slightly lower, if one
 node is handling intake significantly slower than others, for example.
 The full transaction fee is required for each submission, however, so the total fees charged are
 significantly higher when using this approach.
@@ -1012,7 +1012,7 @@ receive(positive).<br/>
 Each `TransferList` SHALL be contained in another message that contains other details required
 to complete a transfer.
 This is typically a `CryptoTransferTransactionBody` or `TransactionRecord`.<br/>
-`TransferList` SHALL only be used for HBAR transfers.  Other token types MUST use the
+`TransferList` SHALL only be used for HBAR transfers. Other token types MUST use the
 `TokenTransferList` message.
 
 
@@ -1108,6 +1108,7 @@ The transactions and queries supported by Hedera Hashgraph.
 | NodeStakeUpdate | 85 | Used to indicate when the network has updated the staking information at the end of a staking period and to indicate a new staking period has started. |
 | UtilPrng | 86 | Generate and return a pseudorandom number based on network state. |
 | TransactionGetFastRecord | 87 | Get a record for a "recent" transaction. |
+| TokenUpdateNfts | 88 | Update the metadata of one or more NFT's of a specific token type. |
 
 
 
@@ -1220,3 +1221,5 @@ A few examples (these may not match enumerations below) using IWA taxonomy.
  <!-- end HasExtensions -->
 
  <!-- end services -->
+
+

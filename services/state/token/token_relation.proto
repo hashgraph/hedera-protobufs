@@ -39,8 +39,8 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * An Hedera Token Service token relationship.  A token relationship connects an Account with a Token
- * and is necessary for that Account to transact in that Token.  TokenRelationship defines a connection
+ * An Hedera Token Service token relationship. A token relationship connects an Account with a Token
+ * and is necessary for that Account to transact in that Token. TokenRelationship defines a connection
  * between one account and one _fungible_ token.
  * <p>
  * A TokenRelation SHALL be identified by the combination of token_id and account_id.<br/>
@@ -48,7 +48,7 @@ option java_multiple_files = true;
  * The account's current balance, whether the account has KYC granted, and whether the assets are frozen.
  * <p>
  * TokenRelation entries SHALL be connected via a "virtual linked list" with the next token ID and previous
- * token ID stored in the TokenRelation.  These TokenIDs MUST be combined with the AccountID to find the
+ * token ID stored in the TokenRelation. These TokenIDs MUST be combined with the AccountID to find the
  * next or previous relationship in the list.
  */
 message TokenRelation {
@@ -63,7 +63,7 @@ message TokenRelation {
     AccountID account_id = 2;
 
     /**
-     * The fungible token balance of this token relationship.  This MUST be a whole number.
+     * The fungible token balance of this token relationship. This MUST be a whole number.
      */
     int64 balance = 3;
 
@@ -73,7 +73,7 @@ message TokenRelation {
      * to or from the associated balance.
      * <p>
      * This flag is associated with the Token value `freeze_key`, and any transaction to set this
-     * flag MUST be signed by that key.  If the Token does not have a `freeze_key` set,
+     * flag MUST be signed by that key. If the Token does not have a `freeze_key` set,
      * then this flag SHALL NOT be set true for relationships between accounts and that token.
      */
     bool frozen = 4;
@@ -99,14 +99,14 @@ message TokenRelation {
 
     /**
      * The Token ID of the previous entry in the associated Account's "virtual double-linked list"
-     * of token relationships.  This must be combined with the value of `account_id` to identify the
+     * of token relationships. This must be combined with the value of `account_id` to identify the
      * actual `TokenRelation` referenced.
      */
     TokenID previous_token = 7;
 
     /**
      * The Token ID of the next entry in the associated Account's "virtual double-linked list"
-     * of token relationships.  This must be combined with the value of `account_id` to identify the
+     * of token relationships. This must be combined with the value of `account_id` to identify the
      * actual `TokenRelation` referenced.
      */
     TokenID next_token = 8;

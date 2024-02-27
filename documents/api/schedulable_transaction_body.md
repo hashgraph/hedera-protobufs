@@ -69,6 +69,7 @@ functions.
 | token_unpause | [TokenUnpauseTransactionBody](#proto-TokenUnpauseTransactionBody) |  | Unpauses the Token |
 | scheduleDelete | [ScheduleDeleteTransactionBody](#proto-ScheduleDeleteTransactionBody) |  | Marks a schedule in the network's action queue as deleted, preventing it from executing |
 | util_prng | [UtilPrngTransactionBody](#proto-UtilPrngTransactionBody) |  | Generates a pseudorandom number. |
+| token_update_nfts | [TokenUpdateNftsTransactionBody](#proto-TokenUpdateNftsTransactionBody) |  | Update the metadata of one or more NFT's of a specific token type. |
 
 
 

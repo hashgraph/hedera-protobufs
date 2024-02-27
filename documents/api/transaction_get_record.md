@@ -33,7 +33,7 @@ the record, then the results field will be set to nothing.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | transactionID | [TransactionID](#proto-TransactionID) |  | The ID of the transaction for which the record is requested. |
 | includeDuplicates | [bool](#bool) |  | Whether records of processing duplicate transactions should be returned along with the record of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such record exists, the record of processing the first transaction to reach consensus with the given transaction id.. |
 | include_child_records | [bool](#bool) |  | Whether the response should include the records of any child transactions spawned by the top-level transaction with the given transactionID. |
@@ -51,7 +51,7 @@ Response when the client sends the node TransactionGetRecordQuery
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither. |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | transactionRecord | [TransactionRecord](#proto-TransactionRecord) |  | Either the record of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such record exists, the record of processing the first transaction to reach consensus with the given transaction id. |
 | duplicateTransactionRecords | [TransactionRecord](#proto-TransactionRecord) | repeated | The records of processing all consensus transaction with the same id as the distinguished record above, in chronological order. |
 | child_transaction_records | [TransactionRecord](#proto-TransactionRecord) | repeated | The records of processing all child transaction spawned by the transaction with the given top-level id, in consensus order. Always empty if the top-level status is UNKNOWN. |

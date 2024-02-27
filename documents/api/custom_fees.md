@@ -14,7 +14,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## custom_fees.proto
-#
+# Custom Fees
+Fees defined by token creators that are charged as part of each transfer of that token type.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -25,15 +26,21 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-AssessedCustomFee"></a>
 
 ### AssessedCustomFee
-A custom transfer fee that was assessed during handling of a CryptoTransfer.
+Description of a transfer added to a `cryptoTransfer` transaction that satisfies
+custom fee requirements.
+
+It is important to note that this is not the actual transfer. The transfer of value SHALL
+be merged into the original transaction to minimize the number of actual transfers. This
+descriptor presents the fee assessed separately in the record stream so that the details
+of the fee assessed are not hidden in this process.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| amount | [int64](#int64) |  | The number of units assessed for the fee |
-| token_id | [TokenID](#proto-TokenID) |  | The denomination of the fee; taken as hbar if left unset |
-| fee_collector_account_id | [AccountID](#proto-AccountID) |  | The account to receive the assessed fee |
-| effective_payer_account_id | [AccountID](#proto-AccountID) | repeated | The account(s) whose final balances would have been higher in the absence of this assessed fee |
+| amount | [int64](#int64) |  | An amount of tokens assessed for this custom fee.<br/> This shall be expressed in units of 10<sup>-decimals</sup> tokens. |
+| token_id | [TokenID](#proto-TokenID) |  | The token transferred to satisfy this fee.<br/> If the token transferred is HBAR, this field SHALL NOT be set. |
+| fee_collector_account_id | [AccountID](#proto-AccountID) |  | An account that received the fee assessed.<br/> This SHALL NOT be the sender or receiver of the original cryptoTransfer transaction. |
+| effective_payer_account_id | [AccountID](#proto-AccountID) | repeated | An account that provided the tokens assessed as a fee.<br/> This SHALL be the account that _would have_ had a higher balance absent the fee. In most cases this SHALL be the `sender`, but some _fractional_ fees reduce the amount transferred, and in those cases the `receiver` SHALL be the effective payer.<br/> There are currently no situations where a third party pays a custom fee. This MAY change in a future release. |
 
 
 
@@ -50,11 +57,11 @@ account to receive the assessed fees. Only positive fees may be assessed.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| fixed_fee | [FixedFee](#proto-FixedFee) |  | Fixed fee to be charged |
-| fractional_fee | [FractionalFee](#proto-FractionalFee) |  | Fractional fee to be charged |
-| royalty_fee | [RoyaltyFee](#proto-RoyaltyFee) |  | Royalty fee to be charged |
+| fixed_fee | [FixedFee](#proto-FixedFee) |  | A fixed fee to be charged to the `sender` for every token transfer.<br/> This type of fee MAY be defined for any token type.<br/> This type of fee MAY be more consistent and reliable than other types. |
+| fractional_fee | [FractionalFee](#proto-FractionalFee) |  | A fee defined as a fraction of the tokens transferred.<br/> This type of fee MUST NOT be defined for a non-fungible/unique token type.<br/> This fee MAY be charged to either sender, as an increase to the amount sent, or receiver, as a reduction to the amount received. |
+| royalty_fee | [RoyaltyFee](#proto-RoyaltyFee) |  | A fee charged as royalty for any transfer of a non-fungible/unique token.<br/> This type of fee MUST NOT be defined for a fungible/common token type. |
 | fee_collector_account_id | [AccountID](#proto-AccountID) |  | The account to receive the custom fee |
-| all_collectors_are_exempt | [bool](#bool) |  | If true, exempts all the token's fee collection accounts from this fee. (The token's treasury and the above fee_collector_account_id will always be exempt. Please see <a href="https://hips.hedera.com/hip/hip-573">HIP-573</a> for details.) |
+| all_collectors_are_exempt | [bool](#bool) |  | Flag indicating to exempt all custom fee collector accounts for this token type from paying this custom fee when sending tokens.<br/> The treasury account for a token, and the account identified by the `fee_collector_account_id` field of this `CustomFee` are always exempt from this custom fee to avoid redundant and unnecessary transfers. If this value is `true` then the account(s) identified in `fee_collector_account_id` for _all_ custom fee definitions for this token type SHALL also be exempt from this custom fee. This behavior is specified in HIP-573. |
 
 
 
@@ -64,14 +71,18 @@ account to receive the assessed fees. Only positive fees may be assessed.
 <a name="proto-FixedFee"></a>
 
 ### FixedFee
-A fixed number of units (hbar or token) to assess as a fee during a CryptoTransfer that transfers
-units of the token to which this fixed fee is attached.
+A fixed fee to assess for each token transfer, regardless of the amount transferred.<br/>
+The fee SHALL be charged to the `sender` for the token transfer transaction.
+
+This fee type describes a fixed fee for each transfer of a token type.<br/>
+This fee MAY be assessed in HBAR, the token type transferred, or any other token type,
+as determined by the `denominating_token_id` field.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| amount | [int64](#int64) |  | The number of units to assess as a fee |
-| denominating_token_id | [TokenID](#proto-TokenID) |  | The denomination of the fee; taken as hbar if left unset and, in a TokenCreate, taken as the id of the newly created token if set to the sentinel value of 0.0.0 |
+| amount | [int64](#int64) |  | The amount to assess for each transfer.<br/> This value MUST be greater than `0`.<br/> This is expressed in units of 10<sup>-decimals</sup> tokens. |
+| denominating_token_id | [TokenID](#proto-TokenID) |  | The token type used to pay the assessed fee.<br/> If this is unset, the fee SHALL be assessed in HBAR.<br/> If this is set, the fee SHALL be assessed in the token identified. This MAY be any token type. Custom fees assessed in other token types are more likely to fail, however, and it is RECOMMENDED that token creators denominate custom fees in the transferred token, HBAR, or well documented and closely related token types.<br/> If this value is set to `0.0.0` in the `tokenCreate` transaction, it SHALL be replaced with the `TokenID` of the newly created token.<br/> |
 
 
 
@@ -81,17 +92,34 @@ units of the token to which this fixed fee is attached.
 <a name="proto-FractionalFee"></a>
 
 ### FractionalFee
-A fraction of the transferred units of a token to assess as a fee. The amount assessed will never
-be less than the given minimum_amount, and never greater than the given maximum_amount.  The
-denomination is always units of the token to which this fractional fee is attached.
+A descriptor for a fee based on a portion of the tokens transferred.
+
+This fee option describes fees as a fraction of the amount of fungible/common token(s)
+transferred.  The fee also describes a minimum and maximum amount, both of which
+are OPTIONAL.
+
+This type of fee SHALL be assessed only for fungible/common tokens.<br/>
+This type of fee MUST NOT be defined for a non-fungible/unique token type.<br/>
+This fee SHALL be paid with the same type of tokens as those transferred.<br/>
+The fee MAY be subtracted from the transferred tokens, or MAY be assessed to the sender
+in addition to the tokens actually transferred, based on the `net_of_transfers` field.
+
+When a single transaction sends tokens from one sender to multiple recipients, and the
+`net_of_transfers` flag is false, the network SHALL attempt to evenly assess the total
+fee across all recipients proportionally. This may be inexact and, particularly when
+there are large differences between recipients, MAY result in small deviations from
+an ideal "fair" distribution.<br/>
+If the sender lacks sufficient tokens to pay fees, or the assessment of custom fees
+reduces the net amount transferred to or below zero, the transaction MAY fail due to
+insufficient funds to pay all fees.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| fractional_amount | [Fraction](#proto-Fraction) |  | The fraction of the transferred units to assess as a fee |
-| minimum_amount | [int64](#int64) |  | The minimum amount to assess |
-| maximum_amount | [int64](#int64) |  | The maximum amount to assess (zero implies no maximum) |
-| net_of_transfers | [bool](#bool) |  | If true, assesses the fee to the sender, so the receiver gets the full amount from the token transfer list, and the sender is charged an additional fee; if false, the receiver does NOT get the full amount, but only what is left over after paying the fractional fee |
+| fractional_amount | [Fraction](#proto-Fraction) |  | A Fraction of the transferred tokens to assess as a fee.<br/> This value MUST be less than or equal to one.<br/> This value MUST be greater than zero. |
+| minimum_amount | [int64](#int64) |  | A minimum fee to charge, in units of 10<sup>-decimals</sup> tokens.<br/> This value is OPTIONAL, with a default of `0` indicating no minimum.<br/> If set, this value MUST be greater than zero.<br/> If set, all transfers SHALL pay at least this amount. |
+| maximum_amount | [int64](#int64) |  | A maximum fee to charge, in units of 10<sup>-decimals</sup> tokens.<br/> This value is OPTIONAL, with a default of `0` indicating no maximum.<br/> If set, this value MUST be greater than zero.<br/> If set, any fee charged SHALL NOT exceed this value.<br/> This value SHOULD be strictly greater than `minimum_amount`. If this amount is less than or equal to `minimum_amount`, then the fee charged SHALL always be equal to this value and `fractional_amount` SHALL NOT have any effect. |
+| net_of_transfers | [bool](#bool) |  | Flag requesting to assess the calculated fee against the sender, without reducing the amount transferred.<br/> <h4>Effects of this flag</h4> <ol> <li>If this value is true<ul> <li>The receiver of a transfer SHALL receive the entire amount sent.</li> <li>The fee SHALL be charged to the sender as an additional amount, increasing the token transfer debit.</li> </ul></li> <li>If this value is false<ul> <li>The receiver of a transfer SHALL receive the amount sent _after_ deduction of the calculated fee.</li> </ul> </ol> |
 
 
 
@@ -107,29 +135,48 @@ value" includes both ℏ and units of fungible HTS tokens.) When the NFT sender 
 any fungible value, the ledger will assess the fallback fee, if present, to the new NFT owner.
 Royalty fees can only be added to tokens of type type NON_FUNGIBLE_UNIQUE.
 
-**IMPORTANT:** Users must understand that native royalty fees are _strictly_ a convenience feature,
-and that the network cannot enforce inescapable royalties on the exchange of a non-fractional NFT.
-For example, if the counterparties agree to split their value transfer and NFT exchange into separate
-transactions, the network cannot possibly intervene. (And note the counterparties could use a smart
-contract to make this split transaction atomic if they do not trust each other.)
+#### Important Note
+> Users must understand that native royalty fees are _strictly_ a convenience feature,
+> SHALL NOT be guaranteed, and the network SHALL NOT enforce _inescapable_ royalties on the
+> exchange of a unique NFT.<br/>
+> For _one_ example, if the counterparties agree to split their
+> value transfer and NFT exchange into separate transactions, the network cannot
+> possibly determine the value exchanged. Even trustless transactions, using a smart
+> contract or other form of escrow, can arrange such split transactions as a
+> single _logical_ transfer.
 
-Counterparties that _do_ wish to respect creator royalties should follow the pattern the network
-recognizes: The NFT sender and receiver should both sign a single `CryptoTransfer` that credits
-the sender with all the fungible value the receiver is exchanging for the NFT.
+Counterparties that wish to _respect_ creator royalties MUST follow the pattern the network
+recognizes.<div style="margin-left: 2em; margin-top: -0.8em">
+A single transaction MUST contain all three elements, transfer of the NFT, debit
+of fungible value from the receiver, and credit of fungible value to the sender, in order
+for the network to accurately assess royalty fees.</div>
+<div style="margin-left: 1em; margin-top: -0.8em">
+Two examples are presented here.<div style="margin-left: 1em">
+The NFT sender and receiver MUST both sign a single `cryptoTransfer` that transfers
+ the NFT from sender to receiver, debits the fungible value from the receiver, and
+ credits the sender with the fungible value the receiver is exchanging for the NFT.<br/>
+A marketplace using an approved spender account for an escrow transaction
+ MUST credit the account selling the NFT in the same `cryptoTransfer` transaction
+ that transfers the NFT to, and deducts fungible value from, the buying account.
+</div></div>
+This type of fee MAY NOT produce accurate results if multiple transfers are executed in a
+single transaction. It is RECOMMENDED that each NFT subject to royalty fees be transferred
+separately and without unrelated fungible token transfers.
 
-Similarly, a marketplace using an approved spender account for an escrow transaction should credit
-the account selling the NFT in the same `CryptoTransfer` that deducts fungible value from the buying
-account.
-
-There is an [open HIP discussion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578)
-that proposes to broaden the class of transactions for which the network automatically collects
-royalties. If this interests or concerns you, please add your voice to that discussion.
+The network SHALL NOT consider third-party transfers, including "approved spender" accounts,
+in collecting royalty fees. An honest broker MUST ensure that transfer of an NFT and payment
+delivered to the sender are present in the same transaction.
+There is an
+[open suggestion](https://github.com/hashgraph/hedera-improvement-proposal/discussions/578)
+that proposes to broaden the scope of transfers from which the network automatically collects
+royalties to cover related third parties. If this interests or concerns you, please add your
+voice to that discussion.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| exchange_value_fraction | [Fraction](#proto-Fraction) |  | The fraction of fungible value exchanged for an NFT to collect as royalty |
-| fallback_fee | [FixedFee](#proto-FixedFee) |  | If present, the fixed fee to assess to the NFT receiver when no fungible value is exchanged with the sender |
+| exchange_value_fraction | [Fraction](#proto-Fraction) |  | The fraction of fungible value exchanged for an NFT to collect as royalty This SHALL be applied once to the total fungible value transferred for the transaction. There SHALL NOT be any adjustment based on multiple transfers involving the NFT sender as part of a single transaction.<br/> |
+| fallback_fee | [FixedFee](#proto-FixedFee) |  | A fixed fee to assess if no fungible value is known to be traded for the NFT.<br/> If an NFT is transferred without a corresponding transfer of _fungible_ value returned in the same transaction, the network SHALL charge this fee as a fallback.<br/> Fallback fees MAY have unexpected effects when interacting with escrow, market transfers, and smart contracts. It is RECOMMENDED that developers carefully consider possible effects from fallback fees when designing systems that facilitate the transfer of NFTs. |
 
 
 

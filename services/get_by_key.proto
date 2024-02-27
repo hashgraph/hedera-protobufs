@@ -1,5 +1,8 @@
 /**
- * #
+ * # Get By Key
+ * An obsolete query to obtain a list of entities that refer to a given Key object.
+ *
+ * Returned entities may be accounts, files, smart contracts, and/or live hash entries.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -41,12 +44,17 @@ import "crypto_add_live_hash.proto";
 
 /**
  * Get all accounts, claims, files, and smart contract instances whose associated keys include the
- * given Key. The given Key MUST NOT be a contractID or a ThresholdKey.
+ * given Key.
+ *
+ * > This query is no longer supported.
  */
 message GetByKeyQuery {
+    option deprecated = true;
+
     /**
-     * Standard info sent from client to node, including the signed payment, and what kind of
-     * response is requested (cost, state proof, both, or neither).
+     * Standard information sent with every query operation.<br/>
+     * This includes the signed payment and what kind of response is requested
+     * (cost, state proof, both, or neither).
      */
     QueryHeader header = 1;
 
@@ -57,9 +65,13 @@ message GetByKeyQuery {
 }
 
 /**
- * the ID for a single entity (account, livehash, file, or smart contract instance)
+ * The ID for a single entity (account, livehash, file, or smart contract)
+ *
+ * > The query that defines this message is no longer supported.
  */
 message EntityID {
+    option deprecated = true;
+
     oneof entity {
         /**
          * The Account ID for the cryptocurrency account
@@ -67,7 +79,7 @@ message EntityID {
         AccountID accountID = 1;
 
         /**
-         * A uniquely identifying livehash of an acount
+         * A uniquely identifying livehash of an account
          */
         LiveHash liveHash = 2;
 
@@ -86,11 +98,15 @@ message EntityID {
 
 /**
  * Response when the client sends the node GetByKeyQuery
+ *
+ * > This query is no longer supported.
  */
 message GetByKeyResponse {
+    option deprecated = true;
+
     /**
-     * Standard response from node to client, including the requested fields: cost, or state proof,
-     * or both, or neither
+     * The standard response information for queries.<br/>
+     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
      */
     ResponseHeader header = 1;
 

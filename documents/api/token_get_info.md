@@ -28,7 +28,7 @@ Gets information about Token instance
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither) |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | token | [TokenID](#proto-TokenID) |  | The token for which information is requested. If invalid token is provided, INVALID_TOKEN_ID response is returned. |
 
 
@@ -44,7 +44,7 @@ Response when the client sends the node TokenGetInfoQuery
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | tokenInfo | [TokenInfo](#proto-TokenInfo) |  | The information requested about this token instance |
 
 
@@ -86,6 +86,8 @@ The metadata about a Token instance
 | pause_key | [Key](#proto-Key) |  | The Key which can pause and unpause the Token. |
 | pause_status | [TokenPauseStatus](#proto-TokenPauseStatus) |  | Specifies whether the token is paused or not. PauseNotApplicable is returned if pauseKey is not set. |
 | ledger_id | [bytes](#bytes) |  | The ledger ID the response was returned from; please see <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md">HIP-198</a> for the network-specific IDs. |
+| metadata | [bytes](#bytes) |  | Represents the metadata of the token definition. |
+| metadata_key | [Key](#proto-Key) |  | The key which can change the metadata of a token (token definition and individual NFTs). |
 
 
 

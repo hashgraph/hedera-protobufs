@@ -1,6 +1,7 @@
 /**
  * ## Token
- * Tokens represent both fungible and non-fungible units of exchange.
+ * Tokens represent both fungible and non-fungible units of exchange. The `Token` here represents
+ * a token within the network state.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -47,47 +48,49 @@ option java_multiple_files = true;
  */
 message Token {
     /**
-     * The unique identifier of this token.
+     * The unique identifier for this token.
      */
     TokenID token_id = 1;
 
     /**
-     * The human-readable name of this token. This may not be unique.
+     * The human-readable name for this token. This may not be unique.<br/>
      * The value SHALL be encoded as UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
      */
     string name = 2;
 
     /**
-     * The human-readable symbol for the token. This may not be unique.
+     * The human-readable symbol for the token. This may not be unique.<br/>
      * The value SHALL be encoded as UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
      */
     string symbol = 3;
 
     /**
-     * The number of decimal places of this token. If decimals are 8 or 11, then the number of whole
-     * tokens can be at most billions or millions, respectively.  More decimals allows for
-     * a more finely-divided token, but also limits the maximum total supply.
+     * The number of decimal places for this token.<br/>
+     * If decimals are 8 or 11, then the number of whole tokens can be at most billions or
+     * millions, respectively. More decimals allows for a more finely-divided token, but also
+     * limits the maximum total supply.
      * <p>
      * Examples
      * <ul>
      *   <li>Bitcoin satoshis (21 million whole tokens with 8 decimals).</li>
      *   <li>Hedera tinybar (50 billion whole tokens with 8 decimals).</li>
      *   <li>Bitcoin milli-satoshis (21 million whole tokens with 11 decimals).</li>
-     *   <li>Theoretical limit is roughly 92.2 billion with 8 decimals, or 92.2 million with 11 decimals.</li>
+     *   <li>Theoretical limit is roughly 92.2 billion with 8 decimals, or 92.2 million with
+     *       11 decimals.</li>
      * </ul>
      * All token amounts in the network are stored as integer amounts, with each unit representing
      * 10<sup>-decimals</sup> whole tokens.
      * <p>
-     * For tokens with `token_type` `NON_FUNGIBLE_UNIQUE` this MUST be 0.
+     * For tokens with `token_type` set to `NON_FUNGIBLE_UNIQUE` this MUST be 0.
      */
     int32 decimals = 4;
 
     /**
-     * The _current_ total supply of this token, expressed in the smallest unit of the token.
+     * The _current_ total supply of this token, expressed in the smallest unit of the token.<br/>
      * The number of _whole_ tokens this represents is (total_supply / 10<sup>decimals</sup>).
      * The value of total supply, MUST be within the positive range of a twos-compliment signed
-     * 64-bit integer.  The minimum value of total_supply is 1, the maximum value is
-     * 9,223,372,036,854,775,807.
+     * 64-bit integer. The `total_supply`, therefore MUST be between 1, and
+     * 9,223,372,036,854,775,807, inclusive.
      * <p>
      * This value SHALL be reduced when a `token_burn` or `token_wipe_account` operation
      * is executed, and SHALL be increased when a `token_mint` operation is executed.
@@ -95,7 +98,7 @@ message Token {
     int64 total_supply = 5;
 
     /**
-     * The treasury account id of this token.
+     * The treasury account id for this token.
      * <p>
      * When the token is created, the initial supply given in the token create transaction SHALL be
      * minted and deposited in the treasury account.
@@ -109,8 +112,10 @@ message Token {
     AccountID treasury_account_id = 6;
 
     /**
-     * The admin key of this token. This key MUST sign any `token_update` transaction that
-     * changes any attribute of the token other than expiration_time.  Other attributes of this
+     * Access control for general modification of this token.
+     * <p>
+     * This key MUST sign any `token_update` transaction that
+     * changes any attribute of the token other than expiration_time. Other attributes of this
      * token MAY be changed by transactions other than `token_update`, and MUST be signed by
      * one of the other purpose-specific keys assigned to the token.
      * <p>
@@ -121,7 +126,7 @@ message Token {
     Key admin_key = 7;
 
     /**
-     * The KYC key of this token.
+     * Access control for KYC for this token.
      * <p>
      * Know Your Customer (KYC) status may be granted for an account by a token grant kyc transaction
      * signed by this key.
@@ -137,7 +142,7 @@ message Token {
     Key kyc_key = 8;
 
     /**
-     * The freeze key of this token.
+     * Access control to freeze this token.
      * <p>
      * A token may be frozen for an account, preventing any transaction from transferring that
      * token for that specified account, by a token freeze account transaction signed by this key.
@@ -153,12 +158,12 @@ message Token {
     Key freeze_key = 9;
 
     /**
-     * The wipe key of this token.
+     * Access control of account wipe for this token.
      * <p>
      * A token may be wiped, removing and burning tokens from a specific account, by a token wipe
-     * transaction signed by this key.  The `treasury_account` cannot be subjected to a token wipe.
-     * A token burn transaction, signed by the `supply_key` serves to burn tokens held by the
-     * `treasury_account` instead.
+     * transaction, which MUST be signed by this key. The `treasury_account` cannot be subjected
+     * to a token wipe. A token burn transaction, signed by the `supply_key` serves to burn tokens
+     * held by the `treasury_account` instead.
      * <p>
      * If this key is not set, the token cannot be wiped, and any transaction attempting to wipe
      * the token from an account SHALL NOT succeed.
@@ -171,7 +176,7 @@ message Token {
     Key wipe_key = 10;
 
     /**
-     * The supply key of this token.
+     * Access control of token mint/burn for this token.
      * <p>
      * A token mint transaction MUST be signed by this key, and any token mint transaction not
      * signed by the current `supply_key` for that token SHALL NOT succeed.
@@ -187,10 +192,10 @@ message Token {
     Key supply_key = 11;
 
     /**
-     * The fee schedule key of this token.
+     * Access control of the `custom_fees` field for this token.
      * <p>
      * The token custom fee schedule may be changed, modifying the fees charged for transferring
-     * that token, by a token update transaction signed by this key.
+     * that token, by a token update transaction, which MUST be signed by this key.
      * <p>
      * If this key is not set, the token custom fee schedule cannot be changed, and any transaction
      * attempting to change the custom fee schedule for this token SHALL NOT succeed.
@@ -203,7 +208,7 @@ message Token {
     Key fee_schedule_key = 12;
 
     /**
-     * The pause key of this token.
+     * Access control of pause/unpause for this token.
      * <p>
      * A token may be paused, preventing any transaction from transferring that token,
      * by a token update transaction signed by this key.
@@ -219,7 +224,7 @@ message Token {
     Key pause_key = 13;
 
     /**
-     * The last used serial number of this token.  This applies only to non-fungible tokens.<br/>
+     * The last used serial number for this token. This applies only to non-fungible tokens.<br/>
      * When a new NFT is minted, the serial number to apply SHALL be calculated from this value.
      */
     int64 last_used_serial_number = 14;
@@ -237,7 +242,7 @@ message Token {
     TokenType token_type = 16;
 
     /**
-     * The supply type of this token. A token can have either `INFINITE` or `FINITE` supply type.<br/>
+     * The supply type for this token. A token can have either `INFINITE` or `FINITE` supply type.<br/>
      * If this value was omitted during token creation, `INFINITE` is used.
      */
     TokenSupplyType supply_type = 17;
@@ -249,8 +254,8 @@ message Token {
     AccountID auto_renew_account_id = 18;
 
     /**
-     * The number of seconds the network should automatically extend this token's expiration by, if the
-     * token has a valid auto-renew account, and is not deleted upon expiration.<br/>
+     * The number of seconds the network should automatically extend this token's expiration by,
+     * if the token has a valid auto-renew account, and is not deleted upon expiration.<br/>
      * If this is not provided in an allowed range on token creation, the transaction will fail
      * with `INVALID_AUTO_RENEWAL_PERIOD`. The default values for the minimum period and maximum
      * period are 30 days and 90 days, respectively.
@@ -258,19 +263,19 @@ message Token {
     int64 auto_renew_seconds = 19;
 
     /**
-     * The expiration time of this token, in seconds since the epoch.
+     * The expiration time for this token, in seconds since the epoch.
      */
     int64 expiration_second = 20;
 
     /**
-     * A short description of this token.
+     * A short description of this token.<br/>
      * The value SHALL be encoded as UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
      */
     string memo = 21;
 
     /**
-     * The maximum supply of this token.
-     * This is the maximum number of tokens of this type that may be issued.  This limit applies
+     * The maximum supply of this token.<br/>
+     * This is the maximum number of tokens of this type that may be issued. This limit applies
      * regardless of `token_type`.
      * <p>
      * If `supply_type` is `INFINITE` then this value MUST be 0.
@@ -280,13 +285,18 @@ message Token {
     int64 max_supply = 22;
 
     /**
-     * A flag indicating that this token is paused.
+     * A flag indicating that this token is paused.<br/>
      * A transaction involving a paused token, other than token_unpause, MUST NOT succeed.
+     * This SHALL NOT prevent a `tokenReject` transaction to return the tokens from an account
+     * to the treasury account.
      */
     bool paused = 23;
 
     /**
-     * A flag indicating that accounts associated to this token are frozen by default.
+     * A flag indicating that accounts associated to this token are frozen by default.<br/>
+     * Accounts newly associated with this token CANNOT transact in the token until unfrozen.<br/>
+     * This SHALL NOT prevent a `tokenReject` transaction to return the tokens from an account
+     * to the treasury account.
      */
     bool accounts_frozen_by_default = 24;
 
@@ -301,13 +311,25 @@ message Token {
     repeated CustomFee custom_fees = 26;
 
     /**
-     * Metadata of the created token definition
+     * Token "Metadata".<br/>
+     * The value SHALL be encoded as UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
      */
     bytes metadata = 27;
 
     /**
-     * The key which can change the metadata of a token
-     * (token definition and individual NFTs).
+     *
+     * Access Control of metadata update for this token.<br/>
+     * A transaction to update the `metadata` field of this token MUST be signed by this key.<br/>
+     * If this token is a non-fungible/unique token type, a transaction to update the `metadata`
+     * field of any individual serialized unique token of this type MUST be signed by this key.<br/>
+     * If this key is not set, the token metadata SHALL NOT be changed after it is created.<br/>
+     * If this key is not set, the metadata for any individual serialized token of this type
+     * SHALL NOT be changed after it is created.<br/>
+     * <p>
+     * This key MAY be set when the token is created, and MAY be set or modified via a token update
+     * transaction, which MUST be signed by the `admin_key`.
+     * <p>
+     * If `admin_key` is not set, this value, whether set or unset, SHALL be immutable.
      */
     Key metadata_key = 28;
 }

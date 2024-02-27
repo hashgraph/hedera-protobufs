@@ -27,7 +27,7 @@ Requests records of all transactions for which the given account was the effecti
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | accountID | [AccountID](#proto-AccountID) |  | The account ID for which the records should be retrieved |
 
 
@@ -43,7 +43,7 @@ Returns records of all transactions for which the given account was the effectiv
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | accountID | [AccountID](#proto-AccountID) |  | The account that this record is for |
 | records | [TransactionRecord](#proto-TransactionRecord) | repeated | List of records |
 

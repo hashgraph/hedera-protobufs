@@ -31,7 +31,7 @@ State proof is available for this response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | transactionID | [TransactionID](#proto-TransactionID) |  | The ID of the transaction for which the receipt is requested. |
 | includeDuplicates | [bool](#bool) |  | Whether receipts of processing duplicate transactions should be returned along with the receipt of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such receipt exists, the receipt of processing the first transaction to reach consensus with the given transaction id. |
 | include_child_receipts | [bool](#bool) |  | Whether the response should include the receipts of any child transactions spawned by the top-level transaction with the given transactionID. |
@@ -53,7 +53,7 @@ that it owned by that instance. No State proof is available for this response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | receipt | [TransactionReceipt](#proto-TransactionReceipt) |  | Either the receipt of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such receipt exists, the receipt of processing the first transaction to reach consensus with the given transaction id. |
 | duplicateTransactionReceipts | [TransactionReceipt](#proto-TransactionReceipt) | repeated | The receipts of processing all transactions with the given id, in consensus time order. |
 | child_transaction_receipts | [TransactionReceipt](#proto-TransactionReceipt) | repeated | The receipts (if any) of all child transactions spawned by the transaction with the given top-level id, in consensus order. Always empty if the top-level status is UNKNOWN. |

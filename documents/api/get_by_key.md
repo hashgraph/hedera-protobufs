@@ -12,7 +12,10 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## get_by_key.proto
-#
+# Get By Key
+An obsolete query to obtain a list of entities that refer to a given Key object.
+
+Returned entities may be accounts, files, smart contracts, and/or live hash entries.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -23,13 +26,15 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-EntityID"></a>
 
 ### EntityID
-the ID for a single entity (account, livehash, file, or smart contract instance)
+The ID for a single entity (account, livehash, file, or smart contract)
+
+> The query that defines this message is no longer supported.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | accountID | [AccountID](#proto-AccountID) |  | The Account ID for the cryptocurrency account |
-| liveHash | [LiveHash](#proto-LiveHash) |  | A uniquely identifying livehash of an acount |
+| liveHash | [LiveHash](#proto-LiveHash) |  | A uniquely identifying livehash of an account |
 | fileID | [FileID](#proto-FileID) |  | The file ID of the file |
 | contractID | [ContractID](#proto-ContractID) |  | The smart contract ID that identifies instance |
 
@@ -42,12 +47,14 @@ the ID for a single entity (account, livehash, file, or smart contract instance)
 
 ### GetByKeyQuery
 Get all accounts, claims, files, and smart contract instances whose associated keys include the
-given Key. The given Key MUST NOT be a contractID or a ThresholdKey.
+given Key.
+
+> This query is no longer supported.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | key | [Key](#proto-Key) |  | The key to search for. It MUST NOT contain a contractID nor a ThresholdKey. |
 
 
@@ -60,10 +67,12 @@ given Key. The given Key MUST NOT be a contractID or a ThresholdKey.
 ### GetByKeyResponse
 Response when the client sends the node GetByKeyQuery
 
+> This query is no longer supported.
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | entities | [EntityID](#proto-EntityID) | repeated | The list of entities that include this public key in their associated Key list |
 
 

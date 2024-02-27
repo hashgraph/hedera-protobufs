@@ -12,7 +12,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## contract_get_info.proto
-#
+# Contract Get Info
+A standard query to obtain detailed information about a smart contract.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -23,14 +24,13 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-ContractGetInfoQuery"></a>
 
 ### ContractGetInfoQuery
-Get information about a smart contract instance. This includes the account that it uses, the file
-containing its initcode (if a file was used to initialize the contract), and the time when it will expire.
+Request detailed information about a smart contract.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
-| contractID | [ContractID](#proto-ContractID) |  | the contract for which information is requested |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
+| contractID | [ContractID](#proto-ContractID) |  | A smart contract ID.<br/> The network SHALL return information for this smart contract, if successful. |
 
 
 
@@ -40,13 +40,13 @@ containing its initcode (if a file was used to initialize the contract), and the
 <a name="proto-ContractGetInfoResponse"></a>
 
 ### ContractGetInfoResponse
-Response when the client sends the node ContractGetInfoQuery
+Information returned in response to a "get info" query for a smart contract.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
-| contractInfo | [ContractGetInfoResponse.ContractInfo](#proto-ContractGetInfoResponse-ContractInfo) |  | the information about this contract instance (a state proof can be generated for this) |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
+| contractInfo | [ContractGetInfoResponse.ContractInfo](#proto-ContractGetInfoResponse-ContractInfo) |  | The information, as requested, for a smart contract. A state proof MAY be generated for this value. |
 
 
 
@@ -61,21 +61,21 @@ Response when the client sends the node ContractGetInfoQuery
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| contractID | [ContractID](#proto-ContractID) |  | ID of the contract instance, in the format used in transactions |
-| accountID | [AccountID](#proto-AccountID) |  | ID of the cryptocurrency account owned by the contract instance, in the format used in transactions |
-| contractAccountID | [string](#string) |  | ID of both the contract instance and the cryptocurrency account owned by the contract instance, in the format used by Solidity |
-| adminKey | [Key](#proto-Key) |  | the state of the instance and its fields can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance. Note that if it is created with no admin keys, then there is no administrator to authorize changing the admin keys, so there can never be any admin keys for that instance. |
-| expirationTime | [Timestamp](#proto-Timestamp) |  | the current time at which this contract instance (and its account) is set to expire |
-| autoRenewPeriod | [Duration](#proto-Duration) |  | the expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If the account is empty when it expires, then it is deleted. |
-| storage | [int64](#int64) |  | number of bytes of storage being used by this instance (which affects the cost to extend the expiration time) |
-| memo | [string](#string) |  | the memo associated with the contract (max 100 bytes) |
-| balance | [uint64](#uint64) |  | The current balance, in tinybars |
-| deleted | [bool](#bool) |  | Whether the contract has been deleted |
-| tokenRelationships | [TokenRelationship](#proto-TokenRelationship) | repeated | **Deprecated.** [DEPRECATED] The metadata of the tokens associated to the contract. This field was deprecated by <a href="https://hips.hedera.com/hip/hip-367">HIP-367</a>, which allowed an account to be associated to an unlimited number of tokens. This scale makes it more efficient for users to consult mirror nodes to review their token associations. |
-| ledger_id | [bytes](#bytes) |  | The ledger ID the response was returned from; please see <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md">HIP-198</a> for the network-specific IDs. |
-| auto_renew_account_id | [AccountID](#proto-AccountID) |  | ID of the an account to charge for auto-renewal of this contract. If not set, or set to an account with zero hbar balance, the contract's own hbar balance will be used to cover auto-renewal fees. |
-| max_automatic_token_associations | [int32](#int32) |  | The maximum number of tokens that a contract can be implicitly associated with. |
-| staking_info | [StakingInfo](#proto-StakingInfo) |  | Staking metadata for this contract. |
+| contractID | [ContractID](#proto-ContractID) |  | The ID of the smart contract requested in the query. |
+| accountID | [AccountID](#proto-AccountID) |  | The Account ID for the account entry associated with this smart contract. |
+| contractAccountID | [string](#string) |  | The "Solidity" form contract and account ID value that refers to this smart contract. |
+| adminKey | [Key](#proto-Key) |  | The key that MUST sign any transaction to update or modify this smart contract.<br/> If this value is null, or is an empty `KeyList` then the contract CANNOT be deleted, modified, or updated, but MAY still expire. |
+| expirationTime | [Timestamp](#proto-Timestamp) |  | The point in time at which this contract will expire. |
+| autoRenewPeriod | [Duration](#proto-Duration) |  | The duration, in seconds, for which the contract lifetime will be automatically extended upon expiration, provide sufficient HBAR is available at that time to pay the renewal fee.<br/> See `auto_renew_account_id` for additional conditions. |
+| storage | [int64](#int64) |  | The amount of storage used by this smart contract. |
+| memo | [string](#string) |  | A short description of this smart contract.<br/> This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded. |
+| balance | [uint64](#uint64) |  | The current HBAR balance, in tinybar, of the smart contract account. |
+| deleted | [bool](#bool) |  | A flag indicating that this contract is deleted. |
+| tokenRelationships | [TokenRelationship](#proto-TokenRelationship) | repeated | **Deprecated.** Because <a href="https://hips.hedera.com/hip/hip-367">HIP-367</a>, which allows an account to be associated to an unlimited number of tokens, it became necessary to only provide this information from a Mirror Node.<br/> The list of tokens associated to this contract. |
+| ledger_id | [bytes](#bytes) |  | The ledger ID of the network that generated this response.<br/> This is originally defined in HIP-198 and depends on network configuration.<br/> The current values, as of Q1 2024, are <dl> <dt>Mainnet</dt><dd>0x00</dd> <dt>Testnet</dt><dd>0x01</dd> <dt>Previewnet</dt><dd>0x02</dd> <dt>Undefined</dt><dd>0x03</dd> <dt>Reserved</dt><dd>0x04</dd> </dl> |
+| auto_renew_account_id | [AccountID](#proto-AccountID) |  | An account designated to pay the renewal fee upon automatic renewal of this contract.<br/> If this is not set, or is set to an account with zero HBAR available, the HBAR balance of the contract, if available, SHALL be used to pay the renewal fee. |
+| max_automatic_token_associations | [int32](#int32) |  | The maximum number of tokens that the contract can be associated to automatically. |
+| staking_info | [StakingInfo](#proto-StakingInfo) |  | Staking information for this contract. |
 
 
 

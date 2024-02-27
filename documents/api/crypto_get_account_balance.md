@@ -28,7 +28,7 @@ reply than CryptoGetInfo, which returns the balance plus additional information.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | accountID | [AccountID](#proto-AccountID) |  | The account ID for which information is requested |
 | contractID | [ContractID](#proto-ContractID) |  | The account ID for which information is requested |
 
@@ -45,7 +45,7 @@ Response when the client sends the node CryptoGetAccountBalanceQuery
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither. |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | accountID | [AccountID](#proto-AccountID) |  | The account ID that is being described (this is useful with state proofs, for proving to a third party) |
 | balance | [uint64](#uint64) |  | The current balance, in tinybars. |
 | tokenBalances | [TokenBalance](#proto-TokenBalance) | repeated | **Deprecated.** [DEPRECATED] The balances of the tokens associated to the account. This field was deprecated by <a href="https://hips.hedera.com/hip/hip-367">HIP-367</a>, which allowed an account to be associated to an unlimited number of tokens. This scale makes it more efficient for users to consult mirror nodes to review their token balances. |

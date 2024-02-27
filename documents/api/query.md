@@ -21,8 +21,7 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-Query"></a>
 
 ### Query
-A single query, which is sent from the client to a node. This includes all possible queries. Each
-Query should not have more than 50 levels.
+A single query, which is sent from the client to a node. This includes all possible queries.
 
 
 | Field | Type | Label | Description |
@@ -32,7 +31,7 @@ Query should not have more than 50 levels.
 | contractCallLocal | [ContractCallLocalQuery](#proto-ContractCallLocalQuery) |  | Call a function of a smart contract instance |
 | contractGetInfo | [ContractGetInfoQuery](#proto-ContractGetInfoQuery) |  | Get information about a smart contract instance |
 | contractGetBytecode | [ContractGetBytecodeQuery](#proto-ContractGetBytecodeQuery) |  | Get runtime code used by a smart contract instance |
-| ContractGetRecords | [ContractGetRecordsQuery](#proto-ContractGetRecordsQuery) |  | Get Records of the contract instance |
+| ContractGetRecords | [ContractGetRecordsQuery](#proto-ContractGetRecordsQuery) |  | **Deprecated.** As of release 0.9.0 this query is not supported. Get Records of the contract instance |
 | cryptogetAccountBalance | [CryptoGetAccountBalanceQuery](#proto-CryptoGetAccountBalanceQuery) |  | Get the current balance in a cryptocurrency account |
 | cryptoGetAccountRecords | [CryptoGetAccountRecordsQuery](#proto-CryptoGetAccountRecordsQuery) |  | Get all the records that currently exist for transactions involving an account |
 | cryptoGetInfo | [CryptoGetInfoQuery](#proto-CryptoGetInfoQuery) |  | Get all information about an account |

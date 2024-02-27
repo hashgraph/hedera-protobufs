@@ -48,8 +48,9 @@ import "response_header.proto";
  */
 message FileGetInfoQuery {
     /**
-     * Standard info sent from client to node, including the signed payment, and what kind of
-     * response is requested (cost, state proof, both, or neither).
+     * Standard information sent with every query operation.<br/>
+     * This includes the signed payment and what kind of response is requested
+     * (cost, state proof, both, or neither).
      */
     QueryHeader header = 1;
 
@@ -64,8 +65,8 @@ message FileGetInfoQuery {
  */
 message FileGetInfoResponse {
     /**
-     * Standard response from node to client, including the requested fields: cost, or state proof,
-     * or both, or neither
+     * The standard response information for queries.<br/>
+     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
      */
     ResponseHeader header = 1;
 

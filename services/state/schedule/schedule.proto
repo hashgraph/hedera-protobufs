@@ -68,7 +68,7 @@ message Schedule {
      * this flag is set.<br/>
      * If this flag is set, the schedule SHALL wait until the consensus time reaches
      * `expiration_time_provided`, when signatures MUST again be verified, and if all
-     * required signatures are present at that time, the schedule SHALL be executed.  Otherwise
+     * required signatures are present at that time, the schedule SHALL be executed. Otherwise
      * the schedule SHALL expire without execution.
      * <p>
      * Note that a schedule is always removed from state after it expires, regardless of whether it
@@ -149,7 +149,7 @@ message Schedule {
 
     /**
      * The full transaction that created this schedule.<br/>
-     * This is primarily used for duplicate schedule create detection.  This is also the source
+     * This is primarily used for duplicate schedule create detection. This is also the source
      * of the parent transaction ID, from which the child transaction ID is derived when the
      * `scheduled_transaction` is executed.
      */
@@ -165,7 +165,7 @@ message Schedule {
      * <p>
      * The only keys stored are "primitive" keys (ED25519 or ECDSA_SECP256K1) in order to ensure
      * that any key list or threshold keys are correctly handled, regardless of signing order,
-     * intervening changes, or other situations.  The `scheduled_transaction` SHALL execute only
+     * intervening changes, or other situations. The `scheduled_transaction` SHALL execute only
      * if, at the time of execution, this list contains sufficient public keys to satisfy the
      * full requirements for signature on that transaction.
      */

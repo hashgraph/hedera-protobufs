@@ -38,7 +38,7 @@ option java_multiple_files = true;
 /**
  * An Hedera Token Service staking info entity.
  *
- * Staking info is per node.  Shard and Realm are implied based on the network address book entry
+ * Staking info is per node. Shard and Realm are implied based on the network address book entry
  * for this node.
  */
 message StakingNodeInfo {
@@ -107,7 +107,7 @@ message StakingNodeInfo {
      * A running list of reward amounts for the last 365+1 staking periods
      * (typically a year and a day). The first element is the reward up to and including the
      * last full period prior to the present reward period. Second element is the reward up to and
-     * including the period before that.  The list continues in reverse chronological order until
+     * including the period before that. The list continues in reverse chronological order until
      * the reward history limit is reached.
      */
     repeated int64 reward_sum_history = 9;

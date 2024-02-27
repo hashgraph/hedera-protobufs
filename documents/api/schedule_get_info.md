@@ -30,7 +30,7 @@ Responds with <tt>INVALID_SCHEDULE_ID</tt> if the requested schedule doesn't exi
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | standard info sent from client to node including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
 | scheduleID | [ScheduleID](#proto-ScheduleID) |  | The id of the schedule to interrogate |
 
 
@@ -46,7 +46,7 @@ Response wrapper for the <tt>ScheduleInfo</tt>
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
 | scheduleInfo | [ScheduleInfo](#proto-ScheduleInfo) |  | The information requested about this schedule instance |
 
 

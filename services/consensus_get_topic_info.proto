@@ -41,38 +41,45 @@ import "response_header.proto";
 import "consensus_topic_info.proto";
 
 /**
- * See [ConsensusService.getTopicInfo()](#proto.ConsensusService)
+ * Retrieve the latest state of a topic.
+ *
+ * This method is unrestricted and allowed on any topic by any payer account.<br/>
+ * A query for a deleted topic MAY succeed if the topic is within the "autorenew grace period".<br/>
+ * A query for a topic removed from state SHALL NOT succeed.
  */
 message ConsensusGetTopicInfoQuery {
     /**
-     * Standard info sent from client to node, including the signed payment, and what kind of response is requested
+     * Standard information sent with every query operation.<br/>
+     * This includes the signed payment and what kind of response is requested
      * (cost, state proof, both, or neither).
      */
     QueryHeader header = 1;
 
     /**
-     * The Topic for which information is being requested
+     * A topic ID.<br/>
+     * The network SHALL return information for this topic, if successful.
      */
     TopicID topicID = 2;
 }
 
 /**
- * Retrieve the parameters of and state of a consensus topic.
+ * Returns the current state of a topic in the Hedera Consensus Service(HCS).
  */
 message ConsensusGetTopicInfoResponse {
     /**
-     * Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither.
+     * The standard response information for queries.<br/>
+     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
      */
     ResponseHeader header = 1;
 
     /**
-     * Topic identifier.
+     * The ID of the topic requested in the query.
      */
     TopicID topicID = 2;
 
 
     /**
-     * Current state of the topic
+     * Information describing the current state of the topic.
      */
     ConsensusTopicInfo topicInfo = 5;
 }

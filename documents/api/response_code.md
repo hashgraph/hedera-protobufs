@@ -10,7 +10,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## response_code.proto
-#
+# Response Code Enumeration
+An enumeration of possible response codes.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -23,7 +24,7 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-ResponseCodeEnum"></a>
 
 ### ResponseCodeEnum
-UNDOCUMENTED
+An enumeration of possible response codes.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
@@ -113,8 +114,8 @@ UNDOCUMENTED
 | CONTRACT_FILE_EMPTY | 83 | File to create a smart contract was of length zero |
 | CONTRACT_BYTECODE_EMPTY | 84 | Bytecode for smart contract is of length zero |
 | INVALID_INITIAL_BALANCE | 85 | Attempt to set negative initial balance |
-| INVALID_RECEIVE_RECORD_THRESHOLD | 86 | [Deprecated]. attempt to set negative receive record threshold |
-| INVALID_SEND_RECORD_THRESHOLD | 87 | [Deprecated]. attempt to set negative send record threshold |
+| INVALID_RECEIVE_RECORD_THRESHOLD | 86 | Attempt to set negative receive record threshold |
+| INVALID_SEND_RECORD_THRESHOLD | 87 | Attempt to set negative send record threshold |
 | ACCOUNT_IS_NOT_GENESIS_ACCOUNT | 88 | Special Account Operations should be performed by only Genesis account, return this code if it is not Genesis Account |
 | PAYER_ACCOUNT_UNAUTHORIZED | 89 | The fee payer account doesn't have permission to submit such Transaction |
 | INVALID_FREEZE_TRANSACTION_BODY | 90 | FreezeTransactionBody is invalid |
@@ -269,20 +270,20 @@ UNDOCUMENTED
 | MAX_STORAGE_IN_PRICE_REGIME_HAS_BEEN_USED | 281 | All contract storage allocated to the current price regime has been consumed. |
 | INVALID_ALIAS_KEY | 282 | An alias used in a CryptoTransfer transaction is not the serialization of a primitive Key message--that is, a Key with a single Ed25519 or ECDSA(secp256k1) public key and no unknown protobuf fields. |
 | UNEXPECTED_TOKEN_DECIMALS | 283 | A fungible token transfer expected a different number of decimals than the involved type actually has. |
-| INVALID_PROXY_ACCOUNT_ID | 284 | [Deprecated] The proxy account id is invalid or does not exist. |
+| INVALID_PROXY_ACCOUNT_ID | 284 | The proxy account id is invalid or does not exist. |
 | INVALID_TRANSFER_ACCOUNT_ID | 285 | The transfer account id in CryptoDelete transaction is invalid or does not exist. |
 | INVALID_FEE_COLLECTOR_ACCOUNT_ID | 286 | The fee collector account id in TokenFeeScheduleUpdate is invalid or does not exist. |
 | ALIAS_IS_IMMUTABLE | 287 | The alias already set on an account cannot be updated using CryptoUpdate transaction. |
 | SPENDER_ACCOUNT_SAME_AS_OWNER | 288 | An approved allowance specifies a spender account that is the same as the hbar/token owner account. |
 | AMOUNT_EXCEEDS_TOKEN_MAX_SUPPLY | 289 | The establishment or adjustment of an approved allowance cause the token allowance to exceed the token maximum supply. |
 | NEGATIVE_ALLOWANCE_AMOUNT | 290 | The specified amount for an approved allowance cannot be negative. |
-| CANNOT_APPROVE_FOR_ALL_FUNGIBLE_COMMON | 291 | [Deprecated] The approveForAll flag cannot be set for a fungible token. |
+| CANNOT_APPROVE_FOR_ALL_FUNGIBLE_COMMON | 291 | The approveForAll flag cannot be set for a fungible token. |
 | SPENDER_DOES_NOT_HAVE_ALLOWANCE | 292 | The spender does not have an existing approved allowance with the hbar/token owner. |
 | AMOUNT_EXCEEDS_ALLOWANCE | 293 | The transfer amount exceeds the current approved allowance for the spender account. |
 | MAX_ALLOWANCES_EXCEEDED | 294 | The payer account of an approveAllowances or adjustAllowance transaction is attempting to go beyond the maximum allowed number of allowances. |
 | EMPTY_ALLOWANCES | 295 | No allowances have been specified in the approval transaction. |
-| SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES | 296 | [Deprecated] Spender is repeated more than once in Crypto or Token or NFT allowance lists in a single CryptoApproveAllowance transaction. |
-| REPEATED_SERIAL_NUMS_IN_NFT_ALLOWANCES | 297 | [Deprecated] Serial numbers are repeated in nft allowance for a single spender account |
+| SPENDER_ACCOUNT_REPEATED_IN_ALLOWANCES | 296 | Spender is repeated more than once in Crypto or Token or NFT allowance lists in a single CryptoApproveAllowance transaction. |
+| REPEATED_SERIAL_NUMS_IN_NFT_ALLOWANCES | 297 | Serial numbers are repeated in nft allowance for a single spender account |
 | FUNGIBLE_TOKEN_IN_NFT_ALLOWANCES | 298 | Fungible common token used in NFT allowances |
 | NFT_IN_FUNGIBLE_TOKEN_ALLOWANCES | 299 | Non fungible token used in fungible token allowances |
 | INVALID_ALLOWANCE_OWNER_ID | 300 | The account id specified as the owner is invalid or does not exist. |
@@ -318,6 +319,10 @@ UNDOCUMENTED
 | TRANSACTION_HAS_UNKNOWN_FIELDS | 330 | A transaction's protobuf message includes unknown fields; could mean that a client expects not-yet-released functionality to be available. |
 | ACCOUNT_IS_IMMUTABLE | 331 | The account cannot be modified. Account's key is not set |
 | ALIAS_ALREADY_ASSIGNED | 332 | An alias that is assigned to an account or contract cannot be assigned to another account or contract. |
+| INVALID_METADATA_KEY | 333 | A provided metadata key was invalid. Verification includes, for example, checking the size of Ed25519 and ECDSA(secp256k1) public keys. |
+| TOKEN_HAS_NO_METADATA_KEY | 334 | Metadata key is not set on token |
+| MISSING_TOKEN_METADATA | 335 | Token Metadata is not provided |
+| MISSING_SERIAL_NUMBERS | 336 | NFT serial numbers are missing in the TokenUpdateNftsTransactionBody |
 
 
  <!-- end enums -->

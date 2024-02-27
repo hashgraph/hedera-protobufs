@@ -50,6 +50,7 @@ Transactions and queries for the Token Service
 | getTokenNftInfos | [Query](#proto-Query) | [Response](#proto-Response) | (DEPRECATED) Gets info on NFTs N through M on the list of NFTs associated with a given Token of type NON_FUNGIBLE |
 | pauseToken | [Transaction](#proto-Transaction) | [TransactionResponse](#proto-TransactionResponse) | Pause the token |
 | unpauseToken | [Transaction](#proto-Transaction) | [TransactionResponse](#proto-TransactionResponse) | Unpause the token |
+| updateNfts | [Transaction](#proto-Transaction) | [TransactionResponse](#proto-TransactionResponse) | Updates the NFTs in a collection by TokenID and serial number |
 
  <!-- end services -->
 

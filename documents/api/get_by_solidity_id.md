@@ -11,7 +11,9 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## get_by_solidity_id.proto
-#
+# Get By Solidity
+A standard query to obtain account and contract identifiers for a smart contract, given the
+Solidity identifier for that contract.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -22,15 +24,14 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-GetBySolidityIDQuery"></a>
 
 ### GetBySolidityIDQuery
-Get the IDs in the format used by transactions, given the ID in the format used by Solidity. If
-the Solidity ID is for a smart contract instance, then both the ContractID and associated
-AccountID will be returned.
+Query to read Contract, Account, and File identifiers for a smart contract given a Solidity
+identifier.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [QueryHeader](#proto-QueryHeader) |  | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). |
-| solidityID | [string](#string) |  | The ID in the format used by Solidity |
+| header | [QueryHeader](#proto-QueryHeader) |  | Standard information sent with every query operation.<br/> This includes the signed payment and what kind of response is requested (cost, state proof, both, or neither). |
+| solidityID | [string](#string) |  | A contract ID in the format used by Solidity |
 
 
 
@@ -40,15 +41,17 @@ AccountID will be returned.
 <a name="proto-GetBySolidityIDResponse"></a>
 
 ### GetBySolidityIDResponse
-Response when the client sends the node GetBySolidityIDQuery
+Response to a getBySolidityId query.
+
+This message returns the account, contract, and file identifiers for a smart contract.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ResponseHeader](#proto-ResponseHeader) |  | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither |
-| accountID | [AccountID](#proto-AccountID) |  | The Account ID for the cryptocurrency account |
-| fileID | [FileID](#proto-FileID) |  | The file Id for the file |
-| contractID | [ContractID](#proto-ContractID) |  | A smart contract ID for the instance (if this is included, then the associated accountID will also be included) |
+| header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
+| accountID | [AccountID](#proto-AccountID) |  | The Account ID of the account supporting the requested smart contract. |
+| fileID | [FileID](#proto-FileID) |  | The file ID of the file supporting the requested smart contract. |
+| contractID | [ContractID](#proto-ContractID) |  | The contract ID of the requested smart contract. |
 
 
 

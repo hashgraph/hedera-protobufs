@@ -38,11 +38,13 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * UNDOCUMENTED
+ * Information describing the way in which a message submitted for consensus is broken into
+ * multiple fragments to fit within network transaction size limits.
  */
 message ConsensusMessageChunkInfo {
     /**
-     * TransactionID of the first chunk, gets copied to every subsequent chunk in a fragmented message.
+     * The TransactionID of the first chunk.
+     * This MUST be set for every chunk in a fragmented message.
      */
     TransactionID initialTransactionID = 1;
 
@@ -58,7 +60,13 @@ message ConsensusMessageChunkInfo {
 }
 
 /**
- * UNDOCUMENTED
+ * Submit a message for consensus.<br/>
+ * Valid and authorized messages on valid topics will be ordered by the consensus service,
+ * published in the block stream, and available to all subscribers on this topic via the mirror
+ * nodes.<br/>
+ * If this transaction succeeds the resulting `TransactionReceipt` SHALL contain the latest
+ * `topicSequenceNumber` and `topicRunningHash` for the topic.<br/>
+ * If the topic has a `submitKey` then that key MUST sign this transaction.
  */
 message ConsensusSubmitMessageTransactionBody {
     /**

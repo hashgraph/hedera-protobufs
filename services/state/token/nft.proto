@@ -1,6 +1,6 @@
 /**
  * # NFT.
- * This is a single unique non-fungible token within the Hedera network.
+ * This is a single, whole, unique, non-fungible token within the Hedera network.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -72,9 +72,8 @@ message Nft {
     Timestamp mint_time = 4;
 
     /**
-     * The metadata of this NFT encoded UTF-8.<br/>
-     * This field MUST be no more than 100 bytes after encoding.<br/>
-     * This is often a URI value.
+     * The metadata bytes for this NFT. This is often a URI value.<br/>
+     * This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
      */
     bytes metadata = 5;
 
