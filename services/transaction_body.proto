@@ -353,8 +353,8 @@ message TransactionBody {
     UtilPrngTransactionBody util_prng = 52;
 
     /**
-     * Updates individual NFTs in a collection.
+     * Update the metadata of one or more NFT's of a specific token type.
      */
-    TokenUpdateNftsTransactionBody tokenUpdateNfts = 53;
+    TokenUpdateNftsTransactionBody token_update_nfts = 53;
   }
 }

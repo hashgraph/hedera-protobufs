@@ -283,5 +283,10 @@ message SchedulableTransactionBody {
      * Generates a pseudorandom number.
      */
     UtilPrngTransactionBody util_prng = 40;
+
+    /**
+     * Update the metadata of one or more NFT's of a specific token type.
+     */
+    TokenUpdateNftsTransactionBody token_update_nfts = 41;
   }
 }

@@ -1173,7 +1173,7 @@ enum HederaFunctionality {
     TransactionGetFastRecord = 87;
 
     /**
-    * Update one of more NFTS in a Collection
+    * Update the metadata of one or more NFT's of a specific token type.
     */
     TokenUpdateNfts = 88;
 }
