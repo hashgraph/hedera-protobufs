@@ -1388,4 +1388,8 @@ enum ResponseCodeEnum {
    * Token Metadata is not provided
    */
   MISSING_TOKEN_METADATA = 335;
+  /**
+   * NFT serial numbers are missing in the TokenUpdateNftsTransactionBody
+   */
+  MISSING_SERIAL_NUMBERS = 336;
 }
