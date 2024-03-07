@@ -40,6 +40,14 @@ must be paid in ℏ from a cryptocurrency account. The payer authorizes a
 fee by signing an appropriate transaction with a sufficient subset of the 
 Ed25519 key(s) associated to their account.
 
+## Overview of state
+State directory and its subdirectories contain the protobuf files that define the state of the network.
+The state is divided into the following subdirectories, based on the service modules:
+1. [Token](services/state/token) - The state of the Token service.
+2. [Consensus](services/state/consensus) - The state of the Consensus service.
+
+The state directory and its subdirectories  are in preview and are subject to change.
+
 # For Developers
 
 ## Branching
