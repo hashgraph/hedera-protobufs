@@ -1047,12 +1047,12 @@ enum HederaFunctionality {
     /**
      * Lock a particular user's balance of (a possibly partitioned) token.
      */
-    TokenLockUserAssets = 91;
+    TokenLock = 91;
 
     /**
      * Unlock a particular user's balance of (a possibly partitioned) token.
      */
-    TokenUnlockUserAssets = 92;
+    TokenUnlock = 92;
 
     /**
      * Get Token information
