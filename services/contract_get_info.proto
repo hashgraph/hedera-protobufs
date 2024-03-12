@@ -148,6 +148,31 @@ message ContractGetInfoResponse {
          * Staking metadata for this contract.
          */
         StakingInfo staking_info = 15;
+
+        /**
+         * The total number of tinybars proxy staked to this account
+         */
+        int64 proxyReceived = 16;
+
+        /**
+         * If true, no transaction can transfer to this account unless signed by this account's key
+         */
+        bool receiverSigRequired = 17;
+
+        /**
+         * The number of NFTs owned by this account
+         */
+        int64 ownedNfts = 18;
+
+        /**
+         * The alias of this account
+         */
+        bytes alias = 19;
+
+        /**
+         * The ethereum transaction nonce associated with this account.
+         */
+        int64 ethereum_nonce = 20;
     }
 
     /**
