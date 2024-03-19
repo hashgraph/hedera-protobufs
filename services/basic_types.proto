@@ -1506,7 +1506,7 @@ message TokenRelationship {
      * For token of type FUNGIBLE_COMMON - the balance that the Account holds in the smallest
      * denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account
      */
-    uint64 balance = 3;
+    int64 balance = 3;
 
     /**
      * The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not
@@ -1523,7 +1523,7 @@ message TokenRelationship {
     /**
      * Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
      */
-    uint32 decimals = 6;
+    int32 decimals = 6;
 
     /**
      * Specifies if the relationship is created implicitly. False : explicitly associated, True :
@@ -1554,12 +1554,12 @@ message TokenBalance {
      * balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of
      * NFTs held by the account
      */
-    uint64 balance = 2;
+    int64 balance = 2;
 
     /**
      * Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
      */
-    uint32 decimals = 3;
+    int32 decimals = 3;
 }
 
 /**
