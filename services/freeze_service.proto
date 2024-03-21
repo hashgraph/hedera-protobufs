@@ -1,5 +1,6 @@
 /**
- * #
+ * # Freeze Service
+ * A service to manage network freeze and upgrade events.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -37,12 +38,21 @@ import "transaction_response.proto";
 import "transaction.proto";
 
 /**
- * The request and responses for freeze service.
+ * A service to manage network "freeze" events.
+ *
+ * This service provides a facility to prepare for network upgrades, halt network processing,
+ * perform network software upgrades, and automatically restart the network following an upgrade.
  */
 service FreezeService {
     /**
-     * Freezes the nodes by submitting the transaction. The grpc server returns the
-     * TransactionResponse
+     * Freeze, cancel, or prepare a freeze.<br/>
+     * This single transaction performs all of the functions supported by the
+     * network freeze service. These services include actions to prepare an upgrade,
+     * prepare a telemetry upgrade, freeze the network, freeze the network for upgrade,
+     * or abort a scheduled freeze.<br/>
+     * The actual freeze action is determined by the `freeze_type` field of the
+     * `FreezeTransactionBody`.<br/>
+     * The transaction body MUST be a `FreezeTransactionBody`.
      */
     rpc freeze (Transaction) returns (TransactionResponse);
 }

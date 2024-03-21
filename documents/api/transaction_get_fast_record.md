@@ -11,7 +11,13 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## transaction_get_fast_record.proto
-#
+# Get Fast Record
+Get a recent transaction record "fast".
+
+> Important
+>> This query is obsolete and not supported.<br/>
+>> Any query of this type that is submitted SHALL fail with a `PRE_CHECK` result
+>> of `NOT_SUPPORTED`.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",

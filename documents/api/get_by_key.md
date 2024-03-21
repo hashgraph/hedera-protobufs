@@ -17,6 +17,11 @@ An obsolete query to obtain a list of entities that refer to a given Key object.
 
 Returned entities may be accounts, files, smart contracts, and/or live hash entries.
 
+> Important
+>> This query is obsolete and not supported.<br/>
+>> Any query of this type that is submitted SHALL fail with a `PRE_CHECK` result
+>> of `NOT_SUPPORTED`.
+
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -46,7 +51,7 @@ The ID for a single entity (account, livehash, file, or smart contract)
 <a name="proto-GetByKeyQuery"></a>
 
 ### GetByKeyQuery
-Get all accounts, claims, files, and smart contract instances whose associated keys include the
+Query all accounts, claims, files, and smart contract instances whose associated keys include the
 given Key.
 
 > This query is no longer supported.

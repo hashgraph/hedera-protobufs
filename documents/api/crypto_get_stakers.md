@@ -13,7 +13,13 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## crypto_get_stakers.proto
-#
+# Get Stakers
+Query all of the accounts proxy staking _to_ a specified account.
+
+> Important
+>> This query is obsolete and not supported.<br/>
+>> Any query of this type that is submitted SHALL fail with a `PRE_CHECK` result
+>> of `NOT_SUPPORTED`.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -41,7 +47,7 @@ all of the accounts proxy staking to a given account, and the amounts proxy stak
 
 ### CryptoGetStakersQuery
 Get all the accounts that are proxy staking to this account. For each of them, give the amount
-currently staked. This is not yet implemented, but will be in a future version of the API.
+currently staked. This was never implemented.
 
 
 | Field | Type | Label | Description |

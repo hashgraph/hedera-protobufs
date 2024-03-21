@@ -14,6 +14,11 @@
 # Add Live Hash
 Associate content to an account via a SHA-384 hash.
 
+> Important
+>> This transaction is obsolete and not supported.<br/>
+>> Any transaction of this type that is submitted SHALL fail with a `PRE_CHECK` result
+>> of `NOT_SUPPORTED`.
+
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this

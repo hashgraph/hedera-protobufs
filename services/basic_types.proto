@@ -1391,7 +1391,7 @@ enum HederaFunctionality {
  * A set of values the nodes use in determining transaction and query fees, and constants involved
  * in fee calculations. Nodes multiply the amount of "resources" allocated to a transaction or
  * query by the corresponding price to calculate the appropriate fee. Units are one-thousandth of a
- * tinyCent. The "resource" allocations are estimated based on transaction characteristics and
+ * `tinyCent`. The "resource" allocations are estimated based on transaction characteristics and
  * current network state, and may be further adjusted based on network load and congestion.
  *
  * This is used, in different contexts, for the cost _factors_ used to calculate charged amounts,

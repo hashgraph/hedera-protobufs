@@ -34,7 +34,7 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### GetAccountDetailsQuery
 Request detail information about an account.
 
-The returned information SHALL include balance and allowances.
+The returned information SHALL include balance and allowances.<br/>
 The returned information SHALL NOT include a list of account records.
 
 

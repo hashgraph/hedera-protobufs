@@ -11,7 +11,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## network_get_version_info.proto
-#
+# Get Version
+Standard query for services and API message versions.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -22,7 +23,7 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-NetworkGetVersionInfoQuery"></a>
 
 ### NetworkGetVersionInfoQuery
-Get the deployed versions of Hedera Services and the HAPI proto in semantic version format
+Query the deployed versions of Hedera Services and the HAPI proto in semantic version format
 
 
 | Field | Type | Label | Description |
@@ -37,14 +38,19 @@ Get the deployed versions of Hedera Services and the HAPI proto in semantic vers
 <a name="proto-NetworkGetVersionInfoResponse"></a>
 
 ### NetworkGetVersionInfoResponse
-Response when the client sends the node NetworkGetVersionInfoQuery
+A response to a `NetworkGetVersionInfoQuery`.
+
+This SHALL return `SemanticVersion` information for both Hedera API (HAPI) and Hedera Services.
+
+Note that the Hedera software may use the fields of the `SemanticVersion` in a somewhat
+unorthodox manner.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | header | [ResponseHeader](#proto-ResponseHeader) |  | The standard response information for queries.<br/> This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither. |
-| hapiProtoVersion | [SemanticVersion](#proto-SemanticVersion) |  | The Hedera API (HAPI) protobuf version recognized by the responding node. |
-| hederaServicesVersion | [SemanticVersion](#proto-SemanticVersion) |  | The version of the Hedera Services software deployed on the responding node. |
+| hapiProtoVersion | [SemanticVersion](#proto-SemanticVersion) |  | An API version.<br/> This SHALL be the current Hedera API (HAPI) protobuf message version accepted by the network. |
+| hederaServicesVersion | [SemanticVersion](#proto-SemanticVersion) |  | A Services version.<br/> This SHALL be the current version of the Hedera Services software operating the network. |
 
 
 

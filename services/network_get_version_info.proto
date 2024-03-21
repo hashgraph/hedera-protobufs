@@ -1,5 +1,6 @@
 /**
- * #
+ * # Get Version
+ * Standard query for services and API message versions.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -10,7 +11,7 @@ syntax = "proto3";
 
 package proto;
 
-/*-
+/*
  *
  * Hedera Network Services Protobuf
  *
@@ -39,7 +40,7 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Get the deployed versions of Hedera Services and the HAPI proto in semantic version format
+ * Query the deployed versions of Hedera Services and the HAPI proto in semantic version format
  */
 message NetworkGetVersionInfoQuery {
     /**
@@ -51,7 +52,12 @@ message NetworkGetVersionInfoQuery {
 }
 
 /**
- * Response when the client sends the node NetworkGetVersionInfoQuery
+ * A response to a `NetworkGetVersionInfoQuery`.
+ *
+ * This SHALL return `SemanticVersion` information for both Hedera API (HAPI) and Hedera Services.
+ *
+ * Note that the Hedera software may use the fields of the `SemanticVersion` in a somewhat
+ * unorthodox manner.
  */
 message NetworkGetVersionInfoResponse {
     /**
@@ -61,12 +67,16 @@ message NetworkGetVersionInfoResponse {
     ResponseHeader header = 1;
 
     /**
-     * The Hedera API (HAPI) protobuf version recognized by the responding node.
+     * An API version.<br/>
+     * This SHALL be the current Hedera API (HAPI) protobuf message version
+     * accepted by the network.
      */
     SemanticVersion hapiProtoVersion = 2;
 
     /**
-     * The version of the Hedera Services software deployed on the responding node.
+     * A Services version.<br/>
+     * This SHALL be the current version of the Hedera Services software
+     * operating the network.
      */
     SemanticVersion hederaServicesVersion = 3;
 }

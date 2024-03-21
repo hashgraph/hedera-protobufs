@@ -1,5 +1,13 @@
 /**
- * #
+ * # Crypto Service
+ * A service defining transactions and queries related to accounts.
+ *
+ * This includes transactions for HBAR transfers and balance queries as well as transactions
+ * to manage "allowances" which permit a third party to spend a portion of the HBAR balance
+ * in an account.<br/>
+ * Basic account, record, and receipt queries are also defined in this service.
+ *
+ * Transactions and queries relating to tokens _other than HBAR_ are defined in the Token Service.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -73,17 +81,26 @@ service CryptoService {
     rpc deleteAllowances (Transaction) returns (TransactionResponse);
 
     /**
-     * (NOT CURRENTLY SUPPORTED) Adds a livehash
+     * Adds a livehash
+     * <blockquote>Important<blockquote>
+     * This transaction is obsolete, not supported, and SHALL fail with a pre-check
+     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
     rpc addLiveHash (Transaction) returns (TransactionResponse);
 
     /**
-     * (NOT CURRENTLY SUPPORTED) Deletes a livehash
+     * Deletes a livehash
+     * <blockquote>Important<blockquote>
+     * This transaction is obsolete, not supported, and SHALL fail with a pre-check
+     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
     rpc deleteLiveHash (Transaction) returns (TransactionResponse);
 
     /**
-     * (NOT CURRENTLY SUPPORTED) Retrieves a livehash for an account
+     * Retrieves a livehash for an account
+     * <blockquote>Important<blockquote>
+     * This query is obsolete, not supported, and SHALL fail with a pre-check
+     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
     rpc getLiveHash (Query) returns (Response);
 
@@ -111,7 +128,10 @@ service CryptoService {
     rpc getTransactionReceipts (Query) returns (Response);
 
     /**
-     * (NOT CURRENTLY SUPPORTED) Returns the records of transactions recently funded by an account
+     * Returns the records of transactions recently funded by an account
+     * <blockquote>Important<blockquote>
+     * This query is obsolete, not supported, and SHALL fail with a pre-check
+     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
     rpc getFastTransactionRecord (Query) returns (Response);
 
@@ -122,7 +142,10 @@ service CryptoService {
     rpc getTxRecordByTxID (Query) returns (Response);
 
     /**
-     * (NOT CURRENTLY SUPPORTED) Retrieves the stakers for a node by account id
+     * Retrieves the stakers for a node by account id
+     * <blockquote>Important<blockquote>
+     * This query is obsolete, not supported, and SHALL fail with a pre-check
+     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
     rpc getStakersByAccountID (Query) returns (Response);
 }

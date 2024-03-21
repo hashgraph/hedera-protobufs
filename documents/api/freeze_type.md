@@ -10,7 +10,8 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## freeze_type.proto
-#
+# Freeze Type
+An enumeration to select the type of a network freeze.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -23,17 +24,19 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="proto-FreezeType"></a>
 
 ### FreezeType
-The type of network freeze or upgrade operation to be performed. This type dictates which
-fields are required.
+An enumeration of possible network freeze types.
+
+Each enumerated value SHALL be associated to a single network freeze scenario. Each freeze
+scenario defines the specific parameters REQUIRED for that freeze.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| UNKNOWN_FREEZE_TYPE | 0 | An (invalid) default value for this enum, to ensure the client explicitly sets the intended type of freeze transaction. |
-| FREEZE_ONLY | 1 | Freezes the network at the specified time. The start_time field must be provided and must reference a future time. Any values specified for the update_file and file_hash fields will be ignored. This transaction does not perform any network changes or upgrades and requires manual intervention to restart the network. |
-| PREPARE_UPGRADE | 2 | A non-freezing operation that initiates network wide preparation in advance of a scheduled freeze upgrade. The update_file and file_hash fields must be provided and valid. The start_time field may be omitted and any value present will be ignored. |
-| FREEZE_UPGRADE | 3 | Freezes the network at the specified time and performs the previously prepared automatic upgrade across the entire network. |
-| FREEZE_ABORT | 4 | Aborts a pending network freeze operation. |
-| TELEMETRY_UPGRADE | 5 | Performs an immediate upgrade on auxilary services and containers providing telemetry/metrics. Does not impact network operations. |
+| UNKNOWN_FREEZE_TYPE | 0 | An invalid freeze type.<br/> The first value in a protobuf enum is a default value. This default is RECOMMENDED to be an invalid value to aid in detecting unset fields. |
+| FREEZE_ONLY | 1 | Freeze the network, and take no further action.<br/> The `start_time` field is REQUIRED and SHOULD be between `300` and `3600` seconds after the transaction identifier `transactionValidStart` field.<br/> The fields `update_file` and `file_hash` SHALL be ignored.<br/> A `FREEZE_ONLY` transaction SHALL NOT perform any network changes or upgrades.<br/> After this freeze is processed manual intervention is REQUIRED to restart the network. |
+| PREPARE_UPGRADE | 2 | This freeze type does not freeze the network, but begins "preparation" to upgrade the network.<br/> The fields `update_file` and `file_hash` are REQUIRED and MUST be valid.<br/> The `start_time` field SHALL be ignored.<br/> A `PREPARE_UPGRADE` transaction SHALL NOT freeze the network or interfere with general transaction processing.<br/> If this freeze type is initiated after a `TELEMETRY_UPGRADE`, the prepared telemetry upgrade SHALL be reset and all telemetry upgrade artifacts in the filesystem SHALL be deleted.<br/> At some point after this freeze type completes (dependent on the size of the upgrade file), the network SHALL be prepared to complete a software upgrade of all nodes. |
+| FREEZE_UPGRADE | 3 | Freeze the network to perform a software upgrade.<br/> The `start_time` field is REQUIRED and SHOULD be between `300` and `3600` seconds after the transaction identifier `transactionValidStart` field.<br/> A software upgrade file MUST be prepared prior to this transaction.<br/> After this transaction completes, the network SHALL initiate an upgrade and restart of all nodes at the start time specified. |
+| FREEZE_ABORT | 4 | Abort a pending network freeze operation.<br/> All fields SHALL be ignored for this freeze type.<br/> This freeze type MAY be submitted after a `FREEZE_ONLY`, `FREEZE_UPGRADE`, or `TELEMETRY_UPGRADE` is initiated.<br/> This freeze type MUST be submitted and reach consensus before the `start_time` designated for the current pending freeze to be effective.<br/> After this freeze type is processed, the upgrade file hash and pending freeze start time stored in the network SHALL be reset to default (empty) values. |
+| TELEMETRY_UPGRADE | 5 | Prepare an upgrade of auxiliary services and containers providing telemetry/metrics.<br/> The `start_time` field is REQUIRED and SHOULD be between `300` and `3600` seconds after the transaction `transactionValidStart` field.<br/> The `update_file` field is REQUIRED and MUST be valid.<br/> A `TELEMETRY_UPGRADE` transaction SHALL NOT freeze the network or interfere with general transaction processing.<br/> This freeze type MUST NOT be initiated between a `PREPARE_UPGRADE` and `FREEZE_UPGRADE`. If this freeze type is initiated after a `PREPARE_UPGRADE`, the prepared upgrade SHALL be reset and all software upgrade artifacts in the filesystem SHALL be deleted.<br/> At some point after this freeze type completes (dependent on the size of the upgrade file), the network SHALL automatically upgrade the telemetry/metrics services and containers as directed in the specified telemetry upgrade file. <blockquote> The condition that `start_time` is REQUIRED is an historical anomaly and SHOULD change in a future release.</blockquote> |
 
 
  <!-- end enums -->

@@ -14,6 +14,11 @@
 # Get Live Hash
 Standard query to inspect associations between content and accounts via SHA-384 hashes.
 
+> Important
+>> This query is obsolete and not supported.<br/>
+>> Any query of this type that is submitted SHALL fail with a `PRE_CHECK` result
+>> of `NOT_SUPPORTED`.
+
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this

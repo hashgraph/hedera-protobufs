@@ -49,7 +49,7 @@ import "response_header.proto";
 /**
  * Request detail information about an account.
  *
- * The returned information SHALL include balance and allowances.
+ * The returned information SHALL include balance and allowances.<br/>
  * The returned information SHALL NOT include a list of account records.
  */
 message GetAccountDetailsQuery {
