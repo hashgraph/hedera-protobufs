@@ -1,3 +1,13 @@
+/**
+ * # Event Payload
+ * A payload for an event intended to be transferred between nodes.
+ * This message forms the base unit of data communicated for consensus.
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
@@ -27,32 +37,26 @@ option java_package = "com.swirlds.proto.legacy.event";
 option java_multiple_files = true;
 
 /**
- * An Event Payload communicated between nodes for consensus.
- *
- * This message is communicated between nodes during consensus gossip.
+ * An Event Payload gossiped between nodes as part of events.<br/>
+ * <br/>
  * Each node MUST extract this payload and process according to the type
- * of payload encoded.
- *
- * The specific structure of this payload SHALL be application-defined.<br/>
+ * of payload encoded.<br/>
  * Both the platform and the application built on that platform MAY define event
  * payloads.<br/>
  * The encoded data SHOULD be a serialized protobuf message.<br/>
  */
 message EventPayload {
-  /**
-   * the payload
-   */
   oneof payload {
       /**
        * An application payload.<br/>
-       * The contents of this payload SHALL be defined by the application or platform
+       * The contents of this payload SHALL be defined by the application
        * subsystem that created the event.<br/>
        * The contents SHOULD be a serialized protobuf message.
        */
       bytes application_payload = 1;
       /**
        * A state signature.<br/>
-       * This payload MUST be a valid state signature for an event.
+       * This payload SHOULD be a valid state signature for a state snapshot.
        */
       StateSignaturePayload state_signature_payload = 2;
   }
