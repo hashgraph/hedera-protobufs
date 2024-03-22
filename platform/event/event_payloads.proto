@@ -1,7 +1,6 @@
 /**
- * # Event Payload
- * A payload for an event intended to be transferred between nodes.
- * This message forms the base unit of data communicated for consensus.
+ * # Event Payloads
+ * A list payloads of an event.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -37,8 +36,7 @@ option java_package = "com.swirlds.proto.legacy.event";
 option java_multiple_files = true;
 
 /**
- * A list payloads of an event.<br/>
- * <br/>
+ * A list payloads of an event.
  * This message is intended to be used to obtain a hash of the payloads of an
  * event. It MUST NOT be gossipped independently of the event itself.
  */

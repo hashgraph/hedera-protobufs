@@ -1,7 +1,6 @@
 /**
  * # Event Payload
- * A payload for an event intended to be transferred between nodes.
- * This message forms the base unit of data communicated for consensus.
+ * An Event Payload gossiped between nodes as part of events.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -37,13 +36,12 @@ option java_package = "com.swirlds.proto.legacy.event";
 option java_multiple_files = true;
 
 /**
- * An Event Payload gossiped between nodes as part of events.<br/>
- * <br/>
+ * An Event Payload gossiped between nodes as part of events.
  * Each node MUST extract this payload and process according to the type
- * of payload encoded.<br/>
+ * of payload encoded.
  * Both the platform and the application built on that platform MAY define event
- * payloads.<br/>
- * The encoded data SHOULD be a serialized protobuf message.<br/>
+ * payloads.
+ * The encoded data SHOULD be a serialized protobuf message.
  */
 message EventPayload {
   oneof payload {
@@ -56,7 +54,7 @@ message EventPayload {
       bytes application_payload = 1;
       /**
        * A state signature.<br/>
-       * This payload SHOULD be a valid state signature for a state snapshot.
+       * This payload SHALL be a valid state signature for a state snapshot.
        */
       StateSignaturePayload state_signature_payload = 2;
   }
