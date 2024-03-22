@@ -159,5 +159,5 @@ message TokenUpdateTransactionBody {
     /**
      * Determines whether the system should check the validity of the passed keys for update.
      */
-    TokenKeyValidation should_verify_key = 18;
+    TokenKeyValidation key_verification_mode = 18;
 }
