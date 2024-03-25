@@ -1,0 +1,98 @@
+/**
+ * # Transaction Output
+ * Messages that describe the output of a transaction; data reported in the block
+ * stream that is not in the transaction body and is not reported in state changes.
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
+syntax = "proto3";
+
+package com.hedera.hapi.block.stream;
+
+/*
+ * Hedera Network Services Protobuf
+ *
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+option java_package = "com.hedera.hapi.block.stream";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "stream/consensus_service.proto";
+import "stream/crypto_service.proto";
+import "stream/file_service.proto";
+import "stream/network_service.proto";
+import "stream/schedule_service.proto";
+import "stream/smart_contract_service.proto";
+import "stream/token_service.proto";
+import "stream/util_service.proto";
+
+/**
+ * Output from a transaction.
+ *
+ * The values in transaction outputs SHALL be data that is not present in the
+ * original transaction and nor present in state changes.
+ */
+message TransactionOutput {
+  oneof transaction {
+    CallContractOutput contract_call = 1;
+    CreateContractOutput contract_create = 2;
+    UpdateContractOutput contract_update = 3;
+    DeleteContractOutput contract_delete = 4;
+    EthereumOutput ethereum_call = 5;
+    ApproveAllowanceOutput approve_allowance = 6;
+    DeleteAllowanceOutput delete_allowance = 7;
+    CreateAccountOutput create_account = 8;
+    DeleteAccountOutput delete_account = 9;
+    CryptoTransferOutput crypto_transfer = 10;
+    UpdateAccountOutput update_account = 11;
+    AppendFileOutput file_append = 12;
+    CreateFileOutput file_create = 13;
+    DeleteFileOutput file_delete = 14;
+    UpdateFileOutput fileUpdate = 15;
+    SystemDeleteOutput systemDelete = 16;
+    SystemUndeleteOutput systemUndelete = 17;
+    CreateTopicOutput create_topic = 18;
+    UpdateTopicOutput update_topic = 19;
+    DeleteTopicOutput delete_topic = 20;
+    SubmitMessageOutput submit_message = 21;
+    CreateTokenOutput create_token = 22;
+    FreezeTokenAccountOutput freeze_token_account = 23;
+    UnfreezeTokenAccountOutput unfreeze_token_account = 24;
+    GrantTokenKycOutput grant_token_account_kyc = 25;
+    RevokeTokenKycOutput revoke_token_account_kyc = 26;
+    DeleteTokenOutput delete_token = 27;
+    UpdateTokenOutput update_token = 28;
+    UpdateTokenNftsOutput update_token_nfts = 29;
+    MintTokenOutput mint_token = 30;
+    BurnTokenOutput burn_token = 31;
+    WipeTokenAccountOutput wipe_token_account = 32;
+    AssociateTokenOutput associate_token = 33;
+    DissociateTokenOutput dissociate_token = 34;
+    UpdateTokenFeeScheduleOutput update_token_fee_schedule = 35;
+    PauseTokenOutput pause_token = 36;
+    UnpauseTokenOutput unpause_token = 37;
+    CreateScheduleOutput create_schedule = 38;
+    DeleteScheduleOutput delete_schedule = 39;
+    SignScheduleOutput sign_schedule = 40;
+    UpdateNodeStakeOutput update_node_stake = 41;
+    UtilPrngOutput util_prng = 42;
+    FreezeOutput freeze_network = 43;
+  }
+}
