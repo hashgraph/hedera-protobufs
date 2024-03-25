@@ -1,0 +1,99 @@
+/**
+ * # Block Header
+ * The block header reports information required to correctly process a block.  This includes
+ * versions, block number, and algorithms used.
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
+syntax = "proto3";
+
+package com.hedera.hapi.block.stream;
+
+/*
+ * Hedera Network Services Protobuf
+ *
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+option java_package = "com.hedera.hapi.block.stream";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "basic_types.proto";
+
+/**
+ * A Block Header.
+ *
+ * Each block in the block stream SHALL begin with a block header.<br/>
+ * The block header SHALL provide the base minimum information needed to correctly interpret
+ * and process that block, or stop processing if appropriate.<br/>
+ * The block header MUST describe, at minimum, the following items.
+ *  - The version of the block stream data
+ *  - The Hedera API version
+ *  - The Hedera Services version
+ *  - The Hedera Platform version
+ *  - The block number
+ *  - The hash of the previous block
+ *  - The hash algorithm used to generate the block hash
+ *  - The digital signature algorithm used to sign the block hash
+ *
+ * All fields of this message are REQUIRED, with the exception that the _algorithms_ MAY
+ * be _transmitted_ as a default value to improve data efficiency.
+ */
+message BlockHeader {
+    /**
+     * Version of the HAPI specification that was used to serialize the block.
+     */
+    proto.SemanticVersion hapi_proto_version = 2;
+
+    /**
+     * The block number of this block.<br/>
+     * This value MUST be exactly `1` more than the previous block.<br/>
+     * Client systems SHOULD optimistically reject any block with a gap or reverse
+     * in `number` sequence, and MAY assume the block stream has encountered data
+     * loss, data corruption, or unauthorized modification.
+     */
+    uint64 number = 5;
+
+    /**
+     * The running hash of the previous block.<br/>
+     * This value MUST match the block hash of the previous block in the block stream.<br/>
+     * This value SHALL be empty for the genesis block, and SHALL NOT be empty for
+     * any other block.<br/>
+     * Client systems SHOULD optimistically reject any block with a `start_running_hash` that
+     * does not match the block hash of the previous block and MAY assume the block stream
+     * has encountered data loss, data corruption, or unauthorized modification.
+     */
+    bytes start_running_hash = 6;
+
+    /**
+     * The hash algorithm used in this block.
+     */
+    BlockHashAlgorithm hash_algorithm = 7;
+}
+
+/**
+ * A specific hash algorithm used within a block.
+ *
+ * We did not reuse HashAlgorithm here because in all cases for now it will be `SHA_384` and
+ * if that is the default value then we can save space by not serializing it, whereas
+ * `HASH_ALGORITHM_UNKNOWN` is the default for HashAlgorithm.
+ */
+enum BlockHashAlgorithm {
+    SHA_384 = 0;
+}

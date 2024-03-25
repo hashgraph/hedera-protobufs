@@ -1,13 +1,23 @@
+/**
+ * # Event Metadata
+ * Messages for Event block items.
+ * NOTE: This may need to change substantially as platform creates the event protobufs for gossip.
+ *
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
-package proto;
+package com.hedera.hapi.block.stream;
 
-/*-
- * ‌
+/*
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,49 +29,39 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
  */
 
-option java_package = "com.hedera.services.stream.v7.proto";
-// <<<pbj.java_package = "com.hedera.hapi.streams.v7">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.hedera.hapi.block.stream";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "basic_types.proto";
-import "hash_object.proto";
-import "signature_file.proto";
 import "timestamp.proto";
-import "transaction.proto";
 
 /**
- Event for when serialized on wire, reuses EventMetadata
- Note: Not used in block stream
-*/
-message Event {
-  EventMetadata metadata = 1;
-  repeated Transaction transactions = 2;
-}
-
+ *
+ */
 message EventMetadata {
   /**
    * The software version of the node that created this event.
    */
-  SemanticVersion software_version = 1;
+  proto.SemanticVersion software_version = 1;
 
   /**
    * ID of this event's creator (translated before sending).
    */
-  int64 creator_id = 2;
+  uint64 creator_id = 2;
 
   /**
    * The generation of this event.
    */
-  int64 gen = 3;
+  uint64 generation = 3;
 
   /**
    * The birth round of this event, the round that has most recently reached consensus on the creating node when the
    * event was created.
    */
-  int64 birth_round = 4;
+  uint64 birth_round = 4;
 
   /**
    * A descriptor that describes this event's self parent as claimed by the event creator.
@@ -76,7 +76,7 @@ message EventMetadata {
   /**
    * Creation time, as claimed by its creator.
    */
-  Timestamp time_created = 7;
+  proto.Timestamp time_created = 7;
 
   /**
    * The event creator's hash of this event.
@@ -102,18 +102,18 @@ message ConsensusData {
   /**
    * The consensus timestamp for this event.
    */
-  Timestamp consensusTimestamp = 1;
+  proto.Timestamp consensusTimestamp = 1;
 
   /**
    * The round in which this event reached consensus.
    */
-  int64 round = 2;
+  uint64 round = 2;
 
   /**
    * The consensus order of this event. The first event ever to reach
    * consensus has an order of 0. This number increases monotonically.
    */
-  int64 order = 3;
+  uint64 order = 3;
 }
 
 /**
@@ -129,15 +129,15 @@ message EventDescriptor {
   /**
    * The ID of the node that created the parent event.
    */
-  int64 creator_id = 2;
+  uint64 creator_id = 2;
 
   /**
    * The generation of the parent event as claimed by the child event.
    */
-  int64 gen = 3;
+  uint64 generation = 3;
 
   /**
    * The birth round of the parent event as claimed by the child event.
    */
-  int64 birth_round = 4;
+  uint64 birth_round = 4;
 }
