@@ -1,13 +1,21 @@
+/**
+ * #  Service
+ * Block stream messages that report the results of transactions handled by the `` service.
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
 syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
+/*
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,23 +27,24 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
  */
 
 option java_package = "com.hedera.services.stream.v7.proto";
 // <<<pbj.java_package = "com.hedera.hapi.streams.v7">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
-import "contract_action.proto";
-import "contract_bytecode.proto";
+//import "contract_action.proto";
+//import "contract_bytecode.proto";
 import "contract_call_local.proto";
-import "contract_state_change.proto";
+//import "contract_state_change.proto";
 import "sidecar_file.proto";
 
 /**
- * ContractCallTransaction output.
+ * Block Stream data for a `contractCallMethod` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
  */
-message ContractCallOutput {
+message CallContractOutput {
   repeated TransactionSidecarRecord sidecars = 1;
 
   /**
@@ -47,9 +56,11 @@ message ContractCallOutput {
 }
 
 /**
- * ContractCreateTransaction output.
+ * Block Stream data for a `createContract` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
  */
-message ContractCreateOutput {
+message CreateContractOutput {
   repeated TransactionSidecarRecord sidecars = 1;
 
   /**
@@ -67,14 +78,40 @@ message ContractCreateOutput {
 
 // no evm exec, only modified entity
 // TODO: remove
-//message ContractUpdateOutput {}
+/**
+ * Block Stream data for a `updateContract` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message UpdateContractOutput {}
 
 // no evm exec, only modified entity
 // TODO: remove
-//message ContractDeleteOutput {}
+/**
+ * Block Stream data for a `deleteContract` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message DeleteContractOutput {}
 
 /**
- * An Ethereum encoded transaction output.
+ * Block Stream data for a contract `systemUndelete` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message SystemUnDeleteContractOutput {}
+
+/**
+ * Block Stream data for a contract `systemDelete` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message SystemDeleteContractOutput {}
+
+/**
+ * Block Stream data for a `callEthereum` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
  */
 message EthereumOutput {
   repeated TransactionSidecarRecord sidecars = 1;

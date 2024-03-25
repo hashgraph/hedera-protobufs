@@ -1,0 +1,252 @@
+/**
+ * # Token Service
+ * Block stream messages that report the results of transactions handled by the `Token` service.
+ *
+ * <blockquote>REVIEW NOTE<blockquote>
+ * There are several items split to fungible/non-fungible which are identical in content.
+ * They are even identical across multiple transactions. Should we replace those with an uint64?
+ * We could remove roughly a half-dozen unnecessary messages and also avoid creating
+ * a sub-optimal pattern which would add perhaps a dozen more, most of which are just wrapping
+ * a single (required) integer.</blockquote></blockquote>
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
+syntax = "proto3";
+
+package proto;
+
+/*
+ * Hedera Network Services Protobuf
+ *
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+option java_package = "com.hedera.services.stream.v7.proto";
+// <<<pbj.java_package = "com.hedera.hapi.streams.v7">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "basic_types.proto";
+
+/**
+ * Block Stream data for a `createToken` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message CreateTokenOutput {
+  /**
+   * The id of the newly created token.
+   */
+  TokenID token_id = 1;
+}
+
+/**
+ * Block Stream data for a `freezeTokenAccount` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message FreezeTokenAccountOutput {}
+
+/**
+ * Block Stream data for an `unfreezeTokenAccount` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message UnfreezeTokenAccountOutput {}
+
+/**
+ * Block Stream data for a `grantKycToTokenAccount` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message GrantTokenKycOutput {}
+
+/**
+ * Block Stream data for a `revokeKycFromTokenAccount` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message RevokeTokenKycOutput {}
+
+/**
+ * Block Stream data for a `deleteToken` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message DeleteTokenOutput {}
+
+/**
+ * Block Stream data for an `updateToken` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message UpdateTokenOutput {}
+
+/**
+ * Block Stream data for a `mintToken` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message MintTokenOutput {
+  oneof token_type {
+    MintTokenFungibleCommonOutput token_mint_fungible_common_output = 1;
+    MintTokenNonFungibleUniqueOutput token_mint_non_fungible_unique_output = 2;
+  }
+}
+
+/**
+ * Block Stream data for a `mintToken` transaction for a fungible/common token.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message MintTokenFungibleCommonOutput {
+  /**
+   * The current total supply of this token.
+   */
+  uint64 new_total_supply = 1;
+}
+
+/**
+ * Block Stream data for a `mintToken` transaction for a non-fungible/unique token.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message MintTokenNonFungibleUniqueOutput {
+  /**
+   * The total number of NFTs issued for a given token_id.
+   */
+  uint64 new_total_supply = 1;
+
+  /**
+   * The serial numbers of the newly created NFTs.
+   */
+  repeated uint64 serial_numbers = 2;
+}
+
+/**
+ * Block Stream data for a `burnToken` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message BurnTokenOutput {
+  oneof output {
+    BurnTokenFungibleCommonOutput token_burn_fungible_common_output = 1;
+    BurnTokenNonFungibleUniqueOutput token_burn_non_fungible_unique_output = 2;
+  }
+}
+
+/**
+ * Block Stream data for a `burnToken` transaction for a fungible/common token.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message BurnTokenFungibleCommonOutput {
+  /**
+   * The current total supply of this token.
+   */
+  uint64 new_total_supply = 1;
+}
+
+/**
+ * Block Stream data for a `burnToken` transaction for a non-fungible/unique token.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message BurnTokenNonFungibleUniqueOutput {
+  /**
+   * The total number of NFTs issued for a given token_id.
+   */
+  uint64 new_total_supply = 1;
+}
+
+/**
+ * Block Stream data for a `wipeTokenAccount` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message WipeTokenAccountOutput {
+  oneof output {
+    WipeTokenAccountFungibleCommonOutput token_wipe_fungible_common_output = 1;
+    WipeTokenAccountNonFungibleUniqueOutput token_wipe_non_fungible_unique_output = 2;
+  }
+}
+
+/**
+ * Block Stream data for a `wipeTokenAccount` transaction for a fungible/common token.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message WipeTokenAccountFungibleCommonOutput {
+  /**
+   * The current total supply of this token.
+   */
+  uint64 new_total_supply = 1;
+}
+
+/**
+ * Block Stream data for a `wipeTokenAccount` transaction for a non-fungible/unique token.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+message WipeTokenAccountNonFungibleUniqueOutput {
+  /**
+   * The total number of NFTs issued for a given token_id.
+   */
+  uint64 new_total_supply = 1;
+}
+
+/**
+ * Block Stream data for an `associateTokens` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message AssociateTokenOutput {}
+
+/**
+ * Block Stream data for a `dissociateTokens` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message DissociateTokenOutput {}
+
+/**
+ * Block Stream data for an `updateTokenFeeSchedule` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message UpdateTokenFeeScheduleOutput {}
+
+/**
+ * Block Stream data for a `pauseToken` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message PauseTokenOutput {}
+
+/**
+ * Block Stream data for an `unpauseToken` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message UnpauseTokenOutput {}
+
+/**
+ * Block Stream data for an `updateNfts` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained in the original transaction.
+ */
+//message UpdateTokenNftsOutput {}

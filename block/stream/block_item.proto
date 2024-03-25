@@ -1,0 +1,158 @@
+/**
+ * # Block Item
+ * A single item in the block stream, such as transaction data, event metadata, or a
+ * a system transaction.
+ *
+ * Each block consists of a block header, one or more block items,
+ * and a block state proof. Within the block items are a series of events delimited
+ * by start_event block items.
+ *
+ * > Note
+ * >> the existing structure here seems overly flexible. An alternative is proposed which
+ *    intends to move the transaction items (which are required in strict order and
+ *    to be all present or none present) to a separate item, and moves the header and state
+ *    proof up to the block.
+ *
+ * ### Keywords
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ */
+syntax = "proto3";
+
+package proto;
+
+/*
+ * Hedera Network Services Protobuf
+ *
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+option java_package = "com.hedera.hapi.block.stream";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "transaction.proto";
+import "stream/block_header.proto";
+import "stream/block_state_proof.proto";
+import "stream/event_metadata.proto";
+import "stream/state_changes.proto";
+import "stream/system_transaction.proto";
+import "stream/transaction_output.proto";
+import "stream/transaction_result.proto";
+
+message BlockItem {
+  oneof items {
+    /**
+     * The header of the block, marking the start of a new block.
+     * <blockquote>REVIEW NOTE<blockquote>
+     * Should this be in the `Block`?  It seems like each block should include exactly
+     * one header and exactly one state proof...</blockquote></blockquote>
+     */
+    BlockHeader header = 1;
+
+    /**
+     * The start of a new event.
+     */
+    EventMetadata start_event = 2;
+
+    /**
+     * A system transaction.
+     */
+    SystemTransaction system_transaction = 3;
+
+    /**
+     * A raw non-system transaction.
+     * A `transaction` block item is always followed by `transaction_result`,
+     * `transaction_output` and `state_changes` in that order.
+     * <blockquote>REVIEW NOTE<blockquote>
+     * Should we have a separate message that is just a `Transaction`, `TransactionResult`,
+     * `TransactionOutput`, and `StateChanges` combined?<br/>
+     * It seems like these four are _always_ combined and strictly ordered, so why not just
+     * have a single message that combines the four rather than relying on software
+     * to consistently add all four in strict order?</blockquote></blockquote>
+     */
+    Transaction transaction = 4;
+
+    /**
+     * The result of running a transaction.
+     */
+    TransactionResult transaction_result = 5;
+
+    /**
+     * The transaction output.
+     */
+    TransactionOutput transaction_output = 6;
+
+    /**
+     * The state changes. The type of state changes is determined by the reason enum in StateChanges.
+     */
+    StateChanges state_changes = 7;
+
+    /**
+     * ==================== SUGGESTED ITEM ====================
+     * A combination of `Transaction`, `TransactionResult`, `TransactionOutput`, and
+     * `StateChanges`.  This ensures that these four tightly coupled items are always
+     * included together. This replaces the prior mechanism which wrote them separately
+     * but in immediate succession and in strict order.
+     */
+    TransactionItem transaction_data = 9;
+
+    /**
+     * State Proof of running hash
+     * <blockquote>REVIEW NOTE<blockquote>
+     * Should this be in the `Block`?  It seems like each block should include exactly
+     * one header and exactly one state proof...</blockquote></blockquote>
+     */
+    BlockStateProof state_proof = 8;
+  }
+}
+
+//////////////////// The following is not final, but is recommended. ////////////////////
+
+/**
+ * A block stream item representing single a user-initiated transaction and its
+ * associated results, outputs, and changes.
+ *
+ * All fields are REQUIRED.<br/>
+ */
+message TransactionItem {
+    /**
+     * A raw transaction.  This is just a legacy container for bytes representing
+     * a serialized `SignedTransaction`.
+     * <blockquote>REVIEW NOTE<blockquote>
+     * Perhaps we should include the `SignedTransaction` here instead.
+     * That would create some issues with old data (before the transaction format
+     * changed), but I believe we could reprocess those to match this format if needed.
+     * </blockquote></blockquote>
+     */
+    Transaction transaction_bytes = 4;
+
+    /**
+     * The result of running a transaction.
+     */
+    TransactionResult transaction_result = 5;
+
+    /**
+     * A transaction output.
+     */
+    TransactionOutput transaction_output = 6;
+
+    /**
+     * A set of state changes.<br/>
+     * The structure of state changes is determined by the reason field in StateChanges.
+     */
+    StateChanges state_changes = 7;
+}
