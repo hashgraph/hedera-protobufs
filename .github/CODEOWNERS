@@ -1,4 +1,5 @@
 * @hashgraph/hedera-services @hashgraph/mirror-node
+/platform/ @hashgraph/platform-hashgraph
 /.github/ @hashgraph/release-engineering
 .gitignore @hashgraph/release-engineering
 LICENSE @hashgraph/release-engineering
