@@ -29,7 +29,7 @@ package proto;
  * limitations under the License.
  */
 
-import "state_signature_payload.proto";
+import "event/state_signature_payload.proto";
 
 option java_package = "com.swirlds.proto.legacy.event";
 // <<<pbj.java_package = "com.swirlds.proto.event">>> This comment is special code for setting PBJ Compiler java package
