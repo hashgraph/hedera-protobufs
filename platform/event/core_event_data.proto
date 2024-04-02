@@ -1,6 +1,6 @@
 /**
  * # Core Event Data
- * Contains information about an event, and its parents.
+ * Contains information about an event and its parents.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -9,7 +9,7 @@
  */
 syntax = "proto3";
 
-package proto;
+package com.hedera.hapi.platform.event;
 
 /*
  * Hedera Network Services Protobuf
@@ -33,13 +33,14 @@ import "event_descriptor.proto";
 import "timestamp.proto";
 import "basic_types.proto";
 
-option java_package = "com.swirlds.proto.legacy.event";
-// <<<pbj.java_package = "com.swirlds.proto.event">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.hedera.hapi.platform.event";
+// <<<pbj.java_package = "com.hedera.hapi.platform.event">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 message CoreEventData {
-  EventDescriptor event_descriptor = 1;
-  Timestamp time_created = 2;
-  SemanticVersion version = 3;
-  repeated EventDescriptor parents = 4;
+  proto.SemanticVersion version = 1;
+  int64 creator_id = 2;
+  int64 birth_round = 3;
+  proto.Timestamp time_created = 4;
+  repeated EventDescriptor parents = 5;
 }
