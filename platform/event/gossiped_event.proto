@@ -29,7 +29,7 @@ package com.hedera.hapi.platform.event;
  * limitations under the License.
  */
 
-import "event_payloads.proto";
+import "event_payload.proto";
 import "core_event_data.proto";
 
 option java_package = "com.hedera.hapi.platform.event";
@@ -39,5 +39,5 @@ option java_multiple_files = true;
 message GossipedEvent {
   CoreEventData core_event_data = 1;
   bytes signature = 2;
-  EventPayloads event_payloads = 3;
+  repeated EventPayload event_payloads = 3;
 }
