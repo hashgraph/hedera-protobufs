@@ -7,6 +7,8 @@
  * An event's descriptor is constructed individually by each node that receives a `GossipEvent`,
  * to uniquely identify that event. An event's descriptor isn't part of the `GossipEvent` itself,
  * since the descriptor contains the fields `hash` and `generation`, which can be computed locally.
+ * Nodes receiving a `GossipEvent` have the required information to construct the event descriptor
+ * immediately upon receiving the event, without needing to wait for the event to reach consensus.
  *
  * Aside from being a unique identifier for events that have been received through gossip,
  * the event descriptor contains the necessary information to describe an event's parents,
