@@ -36,8 +36,26 @@ option java_package = "com.hedera.hapi.platform.event";
 // <<<pbj.java_package = "com.hedera.hapi.platform.event">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+/**
+ * An event that is sent and received via gossip
+ */
 message GossipedEvent {
+  /**
+   * The core event data
+   */
   CoreEventData core_event_data = 1;
+
+  /**
+   * The signature of the event creator on the hash of the event. <br/>
+   * The signed hash MUST have been created using the same methodology as the hash in an EventDescriptor. <br/>
+   * The signature MUST have been created with the private key corresponding to the public key belonging to the event
+   * creator, as it exists in the current address book.
+   */
   bytes signature = 2;
+
+  /**
+   * The event payloads. <br/>
+   * This field MAY contain zero payloads.
+   */
   repeated EventPayload event_payloads = 3;
 }

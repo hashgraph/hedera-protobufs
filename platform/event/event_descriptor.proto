@@ -33,9 +33,32 @@ option java_package = "com.hedera.hapi.platform.event";
 // <<<pbj.java_package = "com.hedera.hapi.platform.event">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+/**
+ * Unique identifier for an event.
+ */
 message EventDescriptor {
+  /**
+   * The hash of the event. <br/>
+   * Future work: the precise hash methodology hasn't been determined yet.
+   */
   bytes hash = 1;
+
+  /**
+   * The ID of the node that created the event.
+   */
   int64 creator_id = 2;
+
+  /**
+   * The generation of the event. <br/>
+   * The generation SHALL be equal to the maximum generation of all parents + 1. <br/>
+   *
+   */
   int64 generation = 3;
+
+  /**
+   * The birth round of the event. <br/>
+   * The birth round SHALL be equal to pending consensus round at the time the event was created. <br/>
+   * The pending consensus round is defined as the latest round to have reached consensus + 1.
+   */
   int64 birth_round = 4;
 }
