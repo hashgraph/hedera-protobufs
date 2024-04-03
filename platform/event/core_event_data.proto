@@ -1,6 +1,10 @@
 /**
  * # Core Event Data
- * Contains information about an event and its parents.
+ * A message that describes the metadata for an event.
+ *
+ * The `CoreEventData` contains a list of the event's parents, as well as the software
+ * version, an identifier for the node that created this event, the birth round, and
+ * the creation timestamp for the event.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -14,7 +18,7 @@ package com.hedera.hapi.platform.event;
 /*
  * Hedera Network Services Protobuf
  *
- * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,27 +52,29 @@ message CoreEventData {
   proto.SemanticVersion version = 1;
 
   /**
-   * The ID of the node that created the event.
+   * A Creator Identifier.<br/>
+   * This SHALL be the unique identifier for the node that created the event.
    */
   int64 creator_id = 2;
 
   /**
-   * The birth round of the event. <br/>
-   * The birth round SHALL be equal to pending consensus round at the time the event was created. <br/>
-   * The pending consensus round is defined as the latest round to have reached consensus + 1.
+   * The birth round of the event.<br/>
+   * The birth round SHALL be the pending consensus round at the time the event is created.<br/>
+   * The pending consensus round SHALL be **one greater** than the latest round to reach consensus.
    */
   int64 birth_round = 3;
 
   /**
-   * The wall clock time at which the event was created, according to the node creating the event. <br/>
-   * The time created SHALL be strictly after the time created of the previous event created by the same node, if the
-   * node has created a previous event.
+   * The wall clock time at which the event was created, according to the node creating the event.<br/>
+   * The time created SHALL be strictly after the time created of this event's self parent, if one exists.
    */
   proto.Timestamp time_created = 4;
 
   /**
-   * A list of EventDescriptors representing the parents of this event. <br/>
-   * The list of parents SHALL include zero or one self parents, and zero or more other parents.
+   * A list of EventDescriptors representing the parents of this event.<br/>
+   * The list of parents SHALL include zero or one self parents, and zero or more other parents.<br/>
+   * The first element of the list SHALL be the self parent, if one exists.<br/>
+   * The list of parents SHALL NOT include more than one parent from the same creator.
    */
   repeated EventDescriptor parents = 5;
 }

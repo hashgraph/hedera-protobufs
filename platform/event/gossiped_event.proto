@@ -14,7 +14,7 @@ package com.hedera.hapi.platform.event;
 /*
  * Hedera Network Services Protobuf
  *
- * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,15 +46,19 @@ message GossipedEvent {
   CoreEventData core_event_data = 1;
 
   /**
-   * The signature of the event creator on the hash of the event. <br/>
-   * The signed hash MUST have been created using the same methodology as the hash in an EventDescriptor. <br/>
-   * The signature MUST have been created with the private key corresponding to the public key belonging to the event
-   * creator, as it exists in the current address book.
+   * A node signature.<br/>
+   * The signed hash MUST be created using the same methodology as the hash in an EventDescriptor.<br/>
+   * The signature MUST verify using the public key belonging to the `event_creator`.<br/>
+   * The `event_creator` public key SHALL be read from the address book that corresponds to the event's birth round.<br/>
+   * <blockquote>Future work<br/><blockquote>
+   * The precise hash methodology hasn't been determined yet. This documentation must be updated once it has.</blockquote></blockquote>
+   * <blockquote>Future work<br/><blockquote>
+   * The type of signature to use hasn't been determined yet. This documentation must be updated once it has.</blockquote></blockquote>
    */
   bytes signature = 2;
 
   /**
-   * The event payloads. <br/>
+   * The event payloads.<br/>
    * This field MAY contain zero payloads.
    */
   repeated EventPayload event_payloads = 3;
