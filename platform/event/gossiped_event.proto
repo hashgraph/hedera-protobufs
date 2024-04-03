@@ -51,8 +51,8 @@ message GossipedEvent {
    * The signature MUST verify using the public key belonging to the `event_creator`.<br/>
    * The `event_creator` public key SHALL be read from the address book that corresponds to the event's birth round.<br/>
    * <blockquote>Future work<br/><blockquote>
-   * The precise hash methodology hasn't been determined yet. This documentation must be updated once it has.</blockquote></blockquote>
-   * <blockquote>Future work<br/><blockquote>
+   * The precise hash methodology hasn't been determined yet. This documentation must be updated once it has.
+   * <p>
    * The type of signature to use hasn't been determined yet. This documentation must be updated once it has.</blockquote></blockquote>
    */
   bytes signature = 2;
