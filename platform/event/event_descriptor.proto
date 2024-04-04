@@ -51,6 +51,7 @@ option java_multiple_files = true;
 message EventDescriptor {
   /**
    * The hash of the event.<br/>
+   * The hash SHALL be a SHA-384 hash.<br/>
    * <blockquote>Future work<br/><blockquote>
    * Future work: the precise hash methodology hasn't been determined yet.</blockquote></blockquote>
    */

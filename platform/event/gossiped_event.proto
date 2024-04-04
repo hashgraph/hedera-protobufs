@@ -30,7 +30,7 @@ package com.hedera.hapi.platform.event;
  */
 
 import "event_payload.proto";
-import "core_event_data.proto";
+import "event_core.proto";
 
 option java_package = "com.hedera.hapi.platform.event";
 // <<<pbj.java_package = "com.hedera.hapi.platform.event">>> This comment is special code for setting PBJ Compiler java package
@@ -43,17 +43,16 @@ message GossipedEvent {
   /**
    * The core event data
    */
-  CoreEventData core_event_data = 1;
+  EventCore event_core = 1;
 
   /**
    * A node signature.<br/>
-   * The signed hash MUST be created using the same methodology as the hash in an EventDescriptor.<br/>
+   * The signature SHALL be created with the SHA384withRSA algorithm.<br/>
    * The signature MUST verify using the public key belonging to the `event_creator`.<br/>
    * The `event_creator` public key SHALL be read from the address book that corresponds to the event's birth round.<br/>
+   * The signed hash MUST be created using the same methodology as the hash in an EventDescriptor.<br/>
    * <blockquote>Future work<br/><blockquote>
-   * The precise hash methodology hasn't been determined yet. This documentation must be updated once it has.
-   * <p>
-   * The type of signature to use hasn't been determined yet. This documentation must be updated once it has.</blockquote></blockquote>
+   * The precise hash methodology hasn't been determined yet. This documentation must be updated once it has.</blockquote></blockquote>
    */
   bytes signature = 2;
 

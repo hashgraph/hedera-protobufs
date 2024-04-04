@@ -2,7 +2,7 @@
  * # Core Event Data
  * A message that describes the metadata for an event.
  *
- * The `CoreEventData` contains a list of the event's parents, as well as the software
+ * The `EventCore` contains a list of the event's parents, as well as the software
  * version, an identifier for the node that created this event, the birth round, and
  * the creation timestamp for the event.
  *
@@ -44,7 +44,7 @@ option java_multiple_files = true;
 /**
  * Contains information about an event and its parents.
  */
-message CoreEventData {
+message EventCore {
   /**
    * The software version of the node at the time the event was created.<br/>
    * This software version SHALL exactly match the software version passed into the platform at construction.
