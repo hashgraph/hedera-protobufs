@@ -46,13 +46,14 @@ message GossipedEvent {
   EventCore event_core = 1;
 
   /**
-   * A node signature.<br/>
+   * A node signature on the event hash.<br/>
    * The signature SHALL be created with the SHA384withRSA algorithm.<br/>
    * The signature MUST verify using the public key belonging to the `event_creator`.<br/>
    * The `event_creator` public key SHALL be read from the address book that corresponds to the event's birth round.<br/>
-   * The signed hash MUST be created using the same methodology as the hash in an EventDescriptor.<br/>
-   * <blockquote>Future work<br/><blockquote>
-   * The precise hash methodology hasn't been determined yet. This documentation must be updated once it has.</blockquote></blockquote>
+   * The signed event hash SHALL be a SHA-384 hash.<br/>
+   * The signed event hash SHALL have the following inputs, in the specified order:<br/>
+   * 1. The bytes of the `event_core` field<br/>
+   * 2. The SHA-384 hash of each individual `EventPayload`, in the order the payloads appear in the `event_payloads` field
    */
   bytes signature = 2;
 

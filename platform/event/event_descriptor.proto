@@ -52,8 +52,9 @@ message EventDescriptor {
   /**
    * The hash of the event.<br/>
    * The hash SHALL be a SHA-384 hash.<br/>
-   * <blockquote>Future work<br/><blockquote>
-   * Future work: the precise hash methodology hasn't been determined yet.</blockquote></blockquote>
+   * The hash SHALL have the following inputs, in the specified order:<br/>
+   * 1. The bytes of the `EventCore` protobuf<br/>
+   * 2. The SHA-384 hash of each individual `EventPayload`, in the order the payloads appear in the `event_payloads` field of the `GossipEvent` protobuf
    */
   bytes hash = 1;
 
