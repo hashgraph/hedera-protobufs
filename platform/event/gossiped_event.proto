@@ -58,7 +58,9 @@ message GossipedEvent {
 
   /**
    * The event payloads.<br/>
-   * This field MAY contain zero payloads.
+   * This field MAY contain zero payloads.<br/>
+   * This field MUST NOT exceed `maxTransactionCountPerEvent` entries, initially `245760`.<br/>
+   * This total size of this field MUST NOT exceed `maxTransactionBytesPerEvent`, initially `245760` bytes.
    */
   repeated EventPayload event_payloads = 3;
 }
