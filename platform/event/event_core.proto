@@ -33,7 +33,7 @@ package com.hedera.hapi.platform.event;
  * limitations under the License.
  */
 
-import "event_descriptor.proto";
+import "event/event_descriptor.proto";
 import "timestamp.proto";
 import "basic_types.proto";
 
