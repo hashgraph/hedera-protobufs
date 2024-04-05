@@ -1,5 +1,5 @@
 /**
- * # Gossiped Event
+ * # Gossip Event
  * An event that is sent and received via gossip
  *
  * ### Keywords
@@ -39,7 +39,7 @@ option java_multiple_files = true;
 /**
  * An event that is sent and received via gossip
  */
-message GossipedEvent {
+message GossipEvent {
   /**
    * The core event data
    */
