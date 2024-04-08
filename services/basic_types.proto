@@ -1215,7 +1215,7 @@ enum HederaFunctionality {
     /**
      * Unlock a Token
      */
-    TokenUnLock = 93;
+    TokenUnlock = 93;
 }
 
 /**

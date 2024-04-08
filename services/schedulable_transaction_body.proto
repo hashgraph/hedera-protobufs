@@ -297,8 +297,6 @@ message SchedulableTransactionBody {
      */
     TokenUpdateNftsTransactionBody token_update_nfts = 41;
 
-
-
     /**
       Create new partition
      */

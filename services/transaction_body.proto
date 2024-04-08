@@ -365,7 +365,6 @@ message TransactionBody {
      */
     TokenUpdateNftsTransactionBody token_update_nfts = 53;
 
-
     /**
      * Create new partition
      */
