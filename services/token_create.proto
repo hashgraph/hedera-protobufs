@@ -200,6 +200,17 @@ message TokenCreateTransactionBody {
     Key pause_key = 22;
 
     /**
+     * Metadata of the created token definition.
+     */
+    bytes metadata = 23;
+
+    /**
+     * The key which can change the metadata of a token
+     * (token definition, partition definition, and individual NFTs).
+     */
+    Key metadata_key = 24;
+
+    /**
    * The key which can lock, unlock, or transfer locked tokens in an account. Each fungible token
    * balance of a token-definition with a lock_key will have both a balance, and a quantity of
    * locked tokens, where the quantity of locked tokens may be 0. If this key is desired, it
@@ -211,7 +222,7 @@ message TokenCreateTransactionBody {
    * If set on a token-definition that also sets the partition_key, then the lock_key may also be
    * used to lock balances on those partitions.
    */
-  Key lock_key = 23;
+  Key lock_key = 25;
 
   /**
    * The key which can create, update, and delete partitions of this token type. If this key is
@@ -220,7 +231,7 @@ message TokenCreateTransactionBody {
    * the update transaction is signed both by the old partition key and the new partition key.
    * Once null, it cannot be set again.
    */
-  Key partition_key = 24;
+  Key partition_key = 26;
 
   /**
    * The key which can move balances from the token type's supply into any partition of any user,
@@ -247,16 +258,16 @@ message TokenCreateTransactionBody {
    * updated, but only if the update transaction is signed both by the old partition move key
    * and the new partition move key. Once null, it cannot be set again.
    */
-  Key partition_move_key = 25;
+  Key partition_move_key = 27;
 
   /**
    * Metadata of the created token definition.
    */
-  bytes metadata = 26;
+  bytes metadata = 28;
 
   /**
    * The key which can change the metadata of a token
    * (token definition, partition definition, and individual NFTs).
    */
-  Key metadata_key = 27;
+  Key metadata_key = 29;
 }

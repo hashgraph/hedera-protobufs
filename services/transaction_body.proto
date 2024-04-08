@@ -76,6 +76,7 @@ import "token_dissociate.proto";
 import "token_fee_schedule_update.proto";
 import "token_pause.proto";
 import "token_unpause.proto";
+import "token_update_nfts.proto";
 
 import "schedule_create.proto";
 import "schedule_delete.proto";
@@ -359,31 +360,36 @@ message TransactionBody {
      */
     UtilPrngTransactionBody util_prng = 52;
 
-    
+    /**
+     * Update the metadata of one or more NFT's of a specific token type.
+     */
+    TokenUpdateNftsTransactionBody token_update_nfts = 53;
+
+
     /**
      * Create new partition
      */
-    TokenCreatePartitionDefinitionTransactionBody token_create_partition = 53;
-    
+    TokenCreatePartitionDefinitionTransactionBody token_create_partition = 54;
+
     /**
      * Update the partition
      */
-    TokenUpdatePartitionTransactionBody token_update_partition = 54;
+    TokenUpdatePartitionTransactionBody token_update_partition = 55;
 
     /**
      * Delete the partition
      */
-    TokenDeletePartitionDefinitionTransactionBody token_delete_partition = 55;
+    TokenDeletePartitionDefinitionTransactionBody token_delete_partition = 56;
 
     /**
      * Lock the token
      */
-    TokenLockTransactionBody token_lock = 56;
+    TokenLockTransactionBody token_lock = 57;
 
     /**
      * Unlock the token
      */
-    TokenUnlockTransactionBody token_unlock = 57;
+    TokenUnlockTransactionBody token_unlock = 58;
 
   }
 }

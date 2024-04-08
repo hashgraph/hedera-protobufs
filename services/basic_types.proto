@@ -423,13 +423,6 @@ enum TokenType {
      * different values.  Individually traced and can carry unique properties (e.g. serial number).
      */
     NON_FUNGIBLE_UNIQUE = 1;
-
-    /**
-    * A special type of token that holds a subset of the supply of a FUNGIBLE_COMMON token, or
-    * a subset of the serial numbers of a NON_FUNGIBLE_UNIQUE token. Partitions are always "children"
-    * of another token such as a FUNGIBLE_COMMON or NON_FUNGIBLE_UNIQUE token.
-    */
-    PARTITION = 2;
 }
 
 /**
@@ -492,6 +485,21 @@ enum TokenSupplyType {
      * provided on token creation.
      */
     FINITE = 1;
+}
+
+/**
+ * Types of validation strategies for token keys.
+ */
+enum TokenKeyValidation {
+    /**
+     * Currently the default behaviour. It will perform all token key validations.
+     */
+    FULL_VALIDATION = 0;
+
+    /**
+     * Perform no validations at all for all passed token keys.
+     */
+    NO_VALIDATION = 1;
 }
 
 /**
@@ -1023,36 +1031,10 @@ enum HederaFunctionality {
     ConsensusSubmitMessage = 54;
 
     UncheckedSubmit = 55;
-
     /**
      * Create Token
      */
     TokenCreate = 56;
-
-    /**
-     * Create a token partition
-     */
-    TokenCreatePartition = 88;
-
-    /**
-     * Delete a token partition
-     */
-    TokenDeletePartition = 89;
-
-    /**
-     * Update a token partition
-     */
-    TokenUpdatePartition = 90;
-
-    /**
-     * Lock a particular user's balance of (a possibly partitioned) token.
-     */
-    TokenLock = 91;
-
-    /**
-     * Unlock a particular user's balance of (a possibly partitioned) token.
-     */
-    TokenUnlock = 92;
 
     /**
      * Get Token information
@@ -1204,6 +1186,11 @@ enum HederaFunctionality {
      * Get a record for a transaction.
      */
     TransactionGetFastRecord = 87;
+
+    /**
+    * Update the metadata of one or more NFT's of a specific token type.
+    */
+    TokenUpdateNfts = 88;
 }
 
 /**

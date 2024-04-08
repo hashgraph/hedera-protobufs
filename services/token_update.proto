@@ -144,16 +144,34 @@ message TokenUpdateTransactionBody {
     Key pause_key = 15;
 
     /**
+     * Metadata of the created token definition
+     */
+    google.protobuf.BytesValue metadata = 16;
+
+    /**
+     * The key which can change the metadata of a token
+     * (token definition, partition definition, and individual NFTs).
+     * If the Token does not have currently a Metadata key,
+     * transaction will resolve to TOKEN_HAS_NO_METADATA_KEY
+     */
+    Key metadata_key = 17;
+
+    /**
+     * Determines whether the system should check the validity of the passed keys for update.
+     */
+    TokenKeyValidation key_verification_mode = 18;
+
+    /**
    * The key which can lock, unlock, or transfer locked tokens in an account. If the Token does not
    * currently have a lock key, transaction will resolve to TOKEN_HAS_NO_LOCK_KEY
    */
-    Key lock_key = 16;
+    Key lock_key = 19;
 
     /**
      * The key which can create, update, and delete partitions of this token type. If the Token does
      * not currently have a partition key, transaction will resolve to TOKEN_HAS_NO_PARTITION_KEY
      */
-    Key partition_key = 17;
+    Key partition_key = 20;
 
     /**
      * The key which can move balances from the token type's supply into any partition of any user,
@@ -162,16 +180,16 @@ message TokenUpdateTransactionBody {
      * If the Token does not currently have a partition move key, transaction will resolve to
      * TOKEN_HAS_NO_PARTITION_MOVE_KEY
      */
-    Key partition_move_key = 18;
+    Key partition_move_key = 21;
 
     /**
      * Metadata of the created token definition
      */
-    google.protobuf.BytesValue metadata = 19;
+    google.protobuf.BytesValue metadata = 22;
 
     /**
      * The key which can change the metadata of a token
      * (token definition, partition definition, and individual NFTs).
      */
-    Key metadata_key = 20;
+    Key metadata_key = 23;
 }

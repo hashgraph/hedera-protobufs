@@ -161,4 +161,15 @@ message Token {
      * (Optional) The custom fees of this token.
      */
     repeated CustomFee custom_fees = 26;
+
+    /**
+     * Metadata of the created token definition
+     */
+    bytes metadata = 27;
+
+    /**
+     * The key which can change the metadata of a token
+     * (token definition and individual NFTs).
+     */
+    Key metadata_key = 28;
 }
