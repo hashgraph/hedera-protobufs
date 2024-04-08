@@ -1191,6 +1191,31 @@ enum HederaFunctionality {
     * Update the metadata of one or more NFT's of a specific token type.
     */
     TokenUpdateNfts = 88;
+
+    /**
+     * Create Partition
+     */
+    TokenCreatePartition = 89;
+
+    /**
+     * Partition Deletion
+     */
+    TokenDeletePartition = 90;
+
+    /**
+     * Update a Partition
+     */
+    TokenUpdatePartition = 91;
+
+    /**
+     * Lock a Token
+     */
+    TokenLock = 92;
+
+    /**
+     * Unlock a Token
+     */
+    TokenUnLock = 93;
 }
 
 /**
