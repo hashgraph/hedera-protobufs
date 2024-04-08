@@ -423,6 +423,8 @@ enum TokenType {
      * different values.  Individually traced and can carry unique properties (e.g. serial number).
      */
     NON_FUNGIBLE_UNIQUE = 1;
+
+    PARTITION = 2;
 }
 
 /**
