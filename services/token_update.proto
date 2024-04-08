@@ -181,15 +181,4 @@ message TokenUpdateTransactionBody {
      * TOKEN_HAS_NO_PARTITION_MOVE_KEY
      */
     Key partition_move_key = 21;
-
-    /**
-     * Metadata of the created token definition
-     */
-    google.protobuf.BytesValue metadata = 22;
-
-    /**
-     * The key which can change the metadata of a token
-     * (token definition, partition definition, and individual NFTs).
-     */
-    Key metadata_key = 23;
 }

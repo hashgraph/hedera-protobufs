@@ -259,15 +259,4 @@ message TokenCreateTransactionBody {
    * and the new partition move key. Once null, it cannot be set again.
    */
   Key partition_move_key = 27;
-
-  /**
-   * Metadata of the created token definition.
-   */
-  bytes metadata = 28;
-
-  /**
-   * The key which can change the metadata of a token
-   * (token definition, partition definition, and individual NFTs).
-   */
-  Key metadata_key = 29;
 }
