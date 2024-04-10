@@ -59,10 +59,11 @@ message EventDescriptor {
   bytes hash = 1;
 
   /**
-   * A Creator Identifier.<br/>
-   * This SHALL be the unique identifier for the node that created the event.
+   * The creator node identifier.<br/>
+   * This SHALL be the unique identifier for the node that created the event.<br/>
+   * This SHALL match the ID of the node as it appears in the address book.
    */
-  int64 creator_id = 2;
+  int64 creator_node_id = 2;
 
   /**
    * The birth round of the event.<br/>
