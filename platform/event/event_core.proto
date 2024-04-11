@@ -35,7 +35,6 @@ package com.hedera.hapi.platform.event;
 
 import "event/event_descriptor.proto";
 import "timestamp.proto";
-import "basic_types.proto";
 
 option java_package = "com.hedera.hapi.platform.event";
 // <<<pbj.java_package = "com.hedera.hapi.platform.event">>> This comment is special code for setting PBJ Compiler java package
@@ -46,30 +45,24 @@ option java_multiple_files = true;
  */
 message EventCore {
   /**
-   * The software version of the node at the time the event was created.<br/>
-   * This software version SHALL exactly match the software version passed into the platform at construction.
-   */
-  proto.SemanticVersion version = 1;
-
-  /**
    * The creator node identifier.<br/>
    * This SHALL be the unique identifier for the node that created the event.<br/>
    * This SHALL match the ID of the node as it appears in the address book.
    */
-  int64 creator_node_id = 2;
+  int64 creator_node_id = 1;
 
   /**
    * The birth round of the event.<br/>
    * The birth round SHALL be the pending consensus round at the time the event is created.<br/>
    * The pending consensus round SHALL be **one greater** than the latest round to reach consensus.
    */
-  int64 birth_round = 3;
+  int64 birth_round = 2;
 
   /**
    * The wall clock time at which the event was created, according to the node creating the event.<br/>
    * If the event has a self parent, this timestamp MUST be strictly greater than the `time_created` of the self parent.
    */
-  proto.Timestamp time_created = 4;
+  proto.Timestamp time_created = 3;
 
   /**
    * A list of EventDescriptors representing the parents of this event.<br/>
@@ -77,5 +70,5 @@ message EventCore {
    * The first element of the list SHALL be the self parent, if one exists.<br/>
    * The list of parents SHALL NOT include more than one parent from the same creator.
    */
-  repeated EventDescriptor parents = 5;
+  repeated EventDescriptor parents = 4;
 }
