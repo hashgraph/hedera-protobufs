@@ -22,7 +22,16 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 <a name="com-hedera-hapi-block-stream-TransactionResult"></a>
 
 ### TransactionResult
+While we have the state changes as part of the block stream,
+we may not have the full data set needed. To surface information
+such as staking rewards, fees, etc. we need to include some of the
+data from the original TransactionRecord.
 
+> REVIEW NOTE
+>> Should we have custom fees here, and remove that from the CryptoTransfer output
+>> message? That would make more sense, as I believe TokenTransfer output would also
+>> need custom fees, and we may wish to add custom fees to other transactions in the
+>> future.
 
 
 | Field | Type | Label | Description |

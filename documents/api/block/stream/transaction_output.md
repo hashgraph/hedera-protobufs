@@ -25,55 +25,81 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### TransactionOutput
 Output from a transaction.
 
-The values in transaction outputs SHALL be data that is not present in the
-original transaction and nor present in state changes.
+The values in transaction outputs SHALL be data that is neither present in the
+original transaction nor present in state changes.
+
+> Note
+>> Only a few transactions produce output that is not in the transaction and
+>> also not reflected in state changes. All other transaction types are _currently_
+>> not included here. We have, however, allocated names and indexes for those
+>> transaction types to preserve consistency if we add them later. We have reserved
+>> field indexes 9 to 43 for this purpose.
+
+<!--
+Reserved definitions:
+import "stream/smart_contract_service.proto";
+   UpdateContractOutput contract_update;
+   DeleteContractOutput contract_delete;
+   SystemDeleteContractOutput
+   SystemUnDeleteContractOutput
+   CreateTopicOutput create_topic;
+   UpdateTopicOutput update_topic;
+
+import "stream/file_service.proto";
+   CreateFileOutput file_create;
+   AppendFileOutput file_append;
+   UpdateFileOutput file_update;
+   DeleteFileOutput file_delete;
+   SystemDeleteOutput system_delete;
+   SystemUndeleteOutput system_undelete;
+
+import "stream/crypto_service.proto";
+   UpdateNodeStakeOutput update_node_stake;
+   ApproveAllowanceOutput approve_allowance;
+   DeleteAllowanceOutput delete_allowance;
+   CreateAccountOutput create_account;
+   UpdateAccountOutput update_account;
+   DeleteAccountOutput delete_account;
+
+import "stream/token_service.proto";
+   CreateTokenOutput create_token;
+   DeleteTokenOutput delete_token;
+   FreezeTokenAccountOutput freeze_token_account;
+   UnfreezeTokenAccountOutput unfreeze_token_account;
+   GrantTokenKycOutput grant_token_account_kyc;
+   RevokeTokenKycOutput revoke_token_account_kyc;
+   UpdateTokenOutput update_token;
+   UpdateTokenNftsOutput update_token_nfts;
+   MintTokenOutput mint_token;
+   BurnTokenOutput burn_token;
+   WipeTokenAccountOutput wipe_token_account;
+   AssociateTokenOutput associate_token;
+   DissociateTokenOutput dissociate_token;
+   UpdateTokenFeeScheduleOutput update_token_fee_schedule;
+   PauseTokenOutput pause_token;
+   UnpauseTokenOutput unpause_token;
+
+import "stream/consensus_service.proto";
+   DeleteTopicOutput delete_topic;
+
+import "stream/schedule_service.proto";
+   DeleteScheduleOutput delete_schedule;
+
+import "stream/network_service.proto";
+   FreezeOutput freeze_network;
+-->
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| contract_call | [CallContractOutput](#com-hedera-hapi-block-stream-CallContractOutput) |  |  |
-| contract_create | [CreateContractOutput](#com-hedera-hapi-block-stream-CreateContractOutput) |  |  |
-| contract_update | [UpdateContractOutput](#com-hedera-hapi-block-stream-UpdateContractOutput) |  |  |
-| contract_delete | [DeleteContractOutput](#com-hedera-hapi-block-stream-DeleteContractOutput) |  |  |
-| ethereum_call | [EthereumOutput](#com-hedera-hapi-block-stream-EthereumOutput) |  |  |
-| approve_allowance | [ApproveAllowanceOutput](#com-hedera-hapi-block-stream-ApproveAllowanceOutput) |  |  |
-| delete_allowance | [DeleteAllowanceOutput](#com-hedera-hapi-block-stream-DeleteAllowanceOutput) |  |  |
-| create_account | [CreateAccountOutput](#com-hedera-hapi-block-stream-CreateAccountOutput) |  |  |
-| delete_account | [DeleteAccountOutput](#com-hedera-hapi-block-stream-DeleteAccountOutput) |  |  |
-| crypto_transfer | [CryptoTransferOutput](#com-hedera-hapi-block-stream-CryptoTransferOutput) |  |  |
-| update_account | [UpdateAccountOutput](#com-hedera-hapi-block-stream-UpdateAccountOutput) |  |  |
-| file_append | [AppendFileOutput](#com-hedera-hapi-block-stream-AppendFileOutput) |  |  |
-| file_create | [CreateFileOutput](#com-hedera-hapi-block-stream-CreateFileOutput) |  |  |
-| file_delete | [DeleteFileOutput](#com-hedera-hapi-block-stream-DeleteFileOutput) |  |  |
-| fileUpdate | [UpdateFileOutput](#com-hedera-hapi-block-stream-UpdateFileOutput) |  |  |
-| systemDelete | [SystemDeleteOutput](#com-hedera-hapi-block-stream-SystemDeleteOutput) |  |  |
-| systemUndelete | [SystemUndeleteOutput](#com-hedera-hapi-block-stream-SystemUndeleteOutput) |  |  |
-| create_topic | [CreateTopicOutput](#com-hedera-hapi-block-stream-CreateTopicOutput) |  |  |
-| update_topic | [UpdateTopicOutput](#com-hedera-hapi-block-stream-UpdateTopicOutput) |  |  |
-| delete_topic | [DeleteTopicOutput](#com-hedera-hapi-block-stream-DeleteTopicOutput) |  |  |
-| submit_message | [SubmitMessageOutput](#com-hedera-hapi-block-stream-SubmitMessageOutput) |  |  |
-| create_token | [CreateTokenOutput](#com-hedera-hapi-block-stream-CreateTokenOutput) |  |  |
-| freeze_token_account | [FreezeTokenAccountOutput](#com-hedera-hapi-block-stream-FreezeTokenAccountOutput) |  |  |
-| unfreeze_token_account | [UnfreezeTokenAccountOutput](#com-hedera-hapi-block-stream-UnfreezeTokenAccountOutput) |  |  |
-| grant_token_account_kyc | [GrantTokenKycOutput](#com-hedera-hapi-block-stream-GrantTokenKycOutput) |  |  |
-| revoke_token_account_kyc | [RevokeTokenKycOutput](#com-hedera-hapi-block-stream-RevokeTokenKycOutput) |  |  |
-| delete_token | [DeleteTokenOutput](#com-hedera-hapi-block-stream-DeleteTokenOutput) |  |  |
-| update_token | [UpdateTokenOutput](#com-hedera-hapi-block-stream-UpdateTokenOutput) |  |  |
-| update_token_nfts | [UpdateTokenNftsOutput](#com-hedera-hapi-block-stream-UpdateTokenNftsOutput) |  |  |
-| mint_token | [MintTokenOutput](#com-hedera-hapi-block-stream-MintTokenOutput) |  |  |
-| burn_token | [BurnTokenOutput](#com-hedera-hapi-block-stream-BurnTokenOutput) |  |  |
-| wipe_token_account | [WipeTokenAccountOutput](#com-hedera-hapi-block-stream-WipeTokenAccountOutput) |  |  |
-| associate_token | [AssociateTokenOutput](#com-hedera-hapi-block-stream-AssociateTokenOutput) |  |  |
-| dissociate_token | [DissociateTokenOutput](#com-hedera-hapi-block-stream-DissociateTokenOutput) |  |  |
-| update_token_fee_schedule | [UpdateTokenFeeScheduleOutput](#com-hedera-hapi-block-stream-UpdateTokenFeeScheduleOutput) |  |  |
-| pause_token | [PauseTokenOutput](#com-hedera-hapi-block-stream-PauseTokenOutput) |  |  |
-| unpause_token | [UnpauseTokenOutput](#com-hedera-hapi-block-stream-UnpauseTokenOutput) |  |  |
-| create_schedule | [CreateScheduleOutput](#com-hedera-hapi-block-stream-CreateScheduleOutput) |  |  |
-| delete_schedule | [DeleteScheduleOutput](#com-hedera-hapi-block-stream-DeleteScheduleOutput) |  |  |
-| sign_schedule | [SignScheduleOutput](#com-hedera-hapi-block-stream-SignScheduleOutput) |  |  |
-| update_node_stake | [UpdateNodeStakeOutput](#com-hedera-hapi-block-stream-UpdateNodeStakeOutput) |  |  |
-| util_prng | [UtilPrngOutput](#com-hedera-hapi-block-stream-UtilPrngOutput) |  |  |
-| freeze_network | [FreezeOutput](#com-hedera-hapi-block-stream-FreezeOutput) |  |  |
+| submit_message | [SubmitMessageOutput](#com-hedera-hapi-block-stream-SubmitMessageOutput) |  | Output from a submit message transaction. |
+| crypto_transfer | [CryptoTransferOutput](#com-hedera-hapi-block-stream-CryptoTransferOutput) |  | Output from a crypto transfer transaction. |
+| util_prng | [UtilPrngOutput](#com-hedera-hapi-block-stream-UtilPrngOutput) |  | Output from a utilPrng transaction to request a deterministic pseudo-random number. |
+| contract_call | [CallContractOutput](#com-hedera-hapi-block-stream-CallContractOutput) |  | Output from a contract call transaction. |
+| ethereum_call | [EthereumOutput](#com-hedera-hapi-block-stream-EthereumOutput) |  | Output from an ethereum call transaction. |
+| contract_create | [CreateContractOutput](#com-hedera-hapi-block-stream-CreateContractOutput) |  | Output from a contract create transaction. |
+| create_schedule | [CreateScheduleOutput](#com-hedera-hapi-block-stream-CreateScheduleOutput) |  | Output from a schedule create transaction that executed immediately on creation. |
+| sign_schedule | [SignScheduleOutput](#com-hedera-hapi-block-stream-SignScheduleOutput) |  | Output from a schedule sign transaction that resulted in executing the scheduled transaction. |
 
 
 
