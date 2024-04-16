@@ -1370,8 +1370,8 @@ message ServiceEndpoint {
     int32 port = 2;
 
     /**
-     * the fully qualified domain name of the node
-     */
+	 * The fully qualified domain name of the node, the maximum size is 253 characters.
+	 */
     string domain_name = 3;
 }
 

@@ -1407,4 +1407,9 @@ enum ResponseCodeEnum {
    * A node is not found
    */
   INVALID_NODE_ID = 339;
+
+  /**
+  * gossip_endpoint has a fully qualified domain name instead or ip
+  */
+  INVALID_GOSSIP_ENDPOINT = 340;
 }

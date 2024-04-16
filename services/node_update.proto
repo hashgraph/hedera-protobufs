@@ -42,37 +42,37 @@ import "timestamp.proto";
 message NodeUpdateTransactionBody {
 
     /**
-     * The unique id of the Node to be updated. This must refer to an existing, non-deleted node.
-     */
+	 * The unique id of the Node to be updated. This must refer to an existing, non-deleted node.
+	 */
     int64 node_id = 1;
 
     /**
-     * If set, the new node account_id
+     * If set, the new node account_id.
      */
     AccountID account_id = 2;
 
     /**
-     * If set, the new description to be associated with the node
+     * If set, the new description to be associated with the node.
      */
     google.protobuf.StringValue description = 3;
 
     /**
-     * The new ip address or FQDN and port, can not be empty
+     * If set, the new ip address or FQDN and port.
      */
-    ServiceEndpoint gossip_endpoint = 4;
+    repeated ServiceEndpoint gossip_endpoint = 4;
 
     /**
-     * A node's service IP addresses and ports
+     * If set, replace the current list of service_endpoints.
      */
     repeated ServiceEndpoint service_endpoint = 5;
 
     /**
-     * If set, the new public_key to be associated with the node, can not be empty
+     * If set, the new public_key to be associated with the node.
      */
-    google.protobuf.StringValue public_key = 6;
+    google.protobuf.BytesValue public_key = 6;
 
     /**
-     * If set, the new node x509 certificate hash to be associated with the node
+     * If set, the new node x509 certificate hash to be associated with the node.
      */
     google.protobuf.BytesValue certificate_hash = 7;
 }

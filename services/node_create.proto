@@ -39,15 +39,14 @@ import "basic_types.proto";
  * for phase 2, this just adds the node to the merkle tree and will be used to write config.txt and public.pfx during prepare freeze
  * the added node will not be active until the network is upgraded.
  * The council has to sign this transaction. This is a privileged transaction.
- * Payer will be 55, addressBookAdmin.
  */
 message NodeCreateTransactionBody {
 
     /**
-     * Node account id, mandatory field, ALIAS is not allowed, only ACCOUNT_NUM
-     * If account_id does not exist, it will reject the transaction.
-     * Multiple nodes can have the same account_id.
-     */
+ * Node account id, mandatory field, ALIAS is not allowed, only ACCOUNT_NUM.
+ * If account_id does not exist, it will reject the transaction.
+ * Multiple nodes can have the same account_id.
+ */
     AccountID account_id = 1;
 
     /**
@@ -56,26 +55,30 @@ message NodeCreateTransactionBody {
     string description = 2;
 
     /**
-     * Ip address or fully qualified domain name and port, ip/port on the local network, mandatory field.
+     * Ip address and port, mandatory field. Fully qualified domain name is
+     * not allowed here. Maximum number of these endpoints is 10.
+     * The first in the list is used as the Internal IP address in config.txt,
+     * the second in the list is used as the External IP address in config.txt,
+     * the rest of IP addresses are ignored for DAB phase 2.
      */
-    ServiceEndpoint gossip_endpoint = 3;
+    repeated ServiceEndpoint gossip_endpoint = 3;
 
     /**
-     * A node's service IP addresses and ports, IP:Port is mandatory, domain name is optional.
+     * A node's grpc service IP addresses and ports, IP:Port is mandatory,
+     * fully qualified domain name is optional. Maximum number of these endpoints is 8.
      */
     repeated ServiceEndpoint service_endpoint = 4;
 
     /**
      * The node's X509 RSA public key used to sign stream files (e.g., record stream
-     * files). Precisely, this field is a string of hexadecimal characters which,
-     * translated to binary, are the public key's DER encoding.,
-     * The public key of this node, as a hex-encoded string, mandatory field.
+     * files). Precisely, this field is the public key's DER encoding.
+     * This is a mandatory field.
      */
-    string public_key = 5;
+    bytes public_key = 5;
 
     /**
      * Hash of the node's TLS certificate. Precisely, this field is a string of
-     * hexadecimal characters which, translated to binary, are the SHA-384 hash of
+     * hexadecimal characters which translated to binary, are the SHA-384 hash of
      * the UTF-8 NFKD encoding of the node's TLS cert in PEM format.
      * Its value can be used to verify the node's certificate it presents
      * during TLS negotiations.node x509 certificate hash, optional field.
