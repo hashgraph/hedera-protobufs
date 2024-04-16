@@ -2,44 +2,6 @@
  * # Block Service
  * The Service API exposed by the Block Nodes.
  *
- * > Review Note
- * >> The payment/auth structure here is not well designed currently. Ideally we will use
- * >> OAUTH2 or other supported gRPC authentication mechanisms, rather than designing our own
- * >> structure.<br/>
- * >> What we want to _recommend_ is an account login with re-authentication (at most)
- * >> every hour or so while streaming block items; OAUTH2 supports that if we implement
- * >> client and server well.
- * >> <p>
- * >> We shouldn't try to specify payment process in the block node specification.
- * >> Payment is an area where block nodes can innovate, so leave it external to the basic
- * >> API, and authentication, in particular, should be specified by the block node vendor
- * >> and not here.
- * >> <p>
- * >> If we want to _suggest_ a particular payment structure, or declare how the SwirldsLabs
- * >> block node handles payment, that should be in a separate _advisory_ document, and
- * >> should not be in the block stream specification.
- *
- * > Thoughts on Payment Design
- * >> Any advisory payment design should not be arbitrary tokens; we should encourage
- * >> HBAR usage. Payment for our own block node, in my opinion, should be based on an
- * >> allowance offered to a defined (published) contract account for a smart contract
- * >> dApp to reduce friction; then the block node executes a smart contract call for
- * >> each API request (or perhaps group of requests) that charges a published rate
- * >> (e.g. 5 HBAR per block, 10 HBAR per filter term, -3 HBAR per block for stream output,
- * >> 1500 HBAR per state snapshot, etc...). Add a fixed rate per API call (perhaps 1 HBAR
- * >> for requests and 0.01 HBAR for state queries) to cover gas cost and other core
- * >> overhead, with some small margin.
- * >> <p>
- * >> Whatever we do I hope it's not based on in-process resource tracking and accounting
- * >> but is just a fixed HBAR cost that is more than sufficient to cover actual costs
- * >> plus a minimum 50% gross margin. I also hope we avoid automatic exchange rates; we
- * >> can adjust fees monthly if we want to keep close to a USD value, but the published
- * >> rate should be a fixed amount of HBAR based on number and type of items in a
- * >> response (e.g. blocks, block items, state snapshots, etc...) or fixed cost for
- * >> state queries. If we need to make state queries "cheap", perhaps a monthly
- * >> "account" charge of a few HBAR, but if queries are really "free" then we invite
- * >> DDOS against the block node (although authentication can mitigate that somewhat).
- *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -74,124 +36,8 @@ option java_multiple_files = true;
 import "stream/block.proto";
 import "stream/block_item.proto";
 
-// ---- Payment ----
-
-// A payment for a request to Block Node.
-message Payment {
-    // The amount to pay for the request.
-    uint64 payment_amount = 1;
-
-    // The max amount the user is willing to pay for the request.
-    uint64 payment_amount_max = 2;
-
-    // The token to pay with.
-    string payment_token = 3;
-
-    // The account to pay from.
-    string payer_account_id = 4;
-
-    // A signature of the payment.
-    bytes payer_signature = 5;
-
-    // A unique nonce for this request.
-    uint64 nonce = 6;
-
-    enum ResponseCode {
-        PAYMENT_UNKNOWN = 0;
-        PAYMENT_SUCCESS = 1;
-        PAYMENT_INVALID_PAYMENT_AMOUNT = 2;
-        PAYMENT_INVALID_PAYMENT_AMOUNT_MAX = 3;
-        PAYMENT_INVALID_TOKEN = 4;
-        PAYMENT_INVALID_PAYER_ACCOUNT_ID = 5;
-        PAYMENT_INVALID_PAYER_SIGNATURE = 6;
-        PAYMENT_INVALID_NONCE = 7;
-        PAYMENT_INSUFFICIENT_PAYMENT_ACCOUNT_BALANCE = 8;
-    }
-}
-
-// ---- AddTokens RPC ----
-
-// Request and response for adding tokens to an account on a Block Node.
-message AddTokensRequest {
-    // The payment for this request.
-    Payment payment = 1;
-
-    // The account in which to add the tokens to.
-    string account_id = 2;
-
-    // The amount of tokens to add.
-    uint64 amount = 3;
-
-    // The token to add.
-    string token_id = 4;
-
-    // TBD signature or a signed transaction to execute.
-}
-
-message AddTokensResponse {
-    // The status of the request.
-    AddTokensResponse.ResponseCode status = 1;
-
-    enum ResponseCode {
-        ADD_TOKENS_UNKNOWN = 0;
-        ADD_TOKENS_SUCCESS = 1;
-        ADD_TOKENS_INVALID_ACCOUNT_ID = 2;
-        ADD_TOKENS_INVALID_AMOUNT = 3;
-        ADD_TOKENS_INVALID_TOKEN_ID = 4;
-        ADD_TOKENS_INVALID_SIGNATURE = 5;
-        ADD_TOKENS_INSUFFICIENT_ACCOUNT_BALANCE = 6;
-    }
-}
-
-// ---- WithdrawTokens RPC ----
-
-// Request and response for withdrawing tokens from an account on a Block Node.
-// NOTE: This is premature.  It is highly likely that block nodes will use smart contracts
-//       to manage payment, and there should be many mechanisms.  We should not specify
-//       block node payment mechanisms here.
-message WithdrawTokensRequest {
-    // The payment for this request.
-    Payment payment = 1;
-
-    // The account from which to withdraw the tokens from.
-    string account_id = 2;
-
-    // The amount of tokens to withdraw.
-    uint64 amount = 3;
-
-    // The token to withdraw.
-    string token_id = 4;
-
-    // TBD signature or a signed transaction to execute.
-}
-
-message WithdrawTokensResponse {
-    // The status of the request.
-    WithdrawTokensResponse.ResponseCode status = 1;
-
-    enum ResponseCode {
-        WITHDRAW_TOKENS_UNKNOWN = 0;
-        WITHDRAW_TOKENS_SUCCESS = 1;
-        WITHDRAW_TOKENS_INVALID_ACCOUNT_ID = 2;
-        WITHDRAW_TOKENS_INVALID_AMOUNT = 3;
-        WITHDRAW_TOKENS_INVALID_TOKEN_ID = 4;
-        WITHDRAW_TOKENS_INVALID_SIGNATURE = 5;
-        WITHDRAW_TOKENS_INSUFFICIENT_ACCOUNT_BALANCE = 6;
-    }
-}
-
 // ---- WriteBlockStream RPC ----
 
-// The client begins by authenticating to the block node server. The client then sends
-// a stream of `WriteStreamRequest`s to the server. The client requires acknowledgement
-// that the block node has persisted the data to disk but gRPC streaming will ACK once
-// the block node has _read_ the message from the stream. Therefore the block node sends
-// a stream of acknowledgement responses at the application level to assert that each
-// item in the stream is verified and added to persistent storage.
-//
-// REVIEWER NOTE: Should payment be presented here?  Can we simplify to just stream the
-//                `BlockItem`s (in a wrapper perhaps for future-proofing)
-//                and use gRPC mTLS authentication?
 /**
  * Write a stream of blocks.
  *
@@ -207,9 +53,6 @@ message WithdrawTokensResponse {
  */
 message WriteStreamRequest {
     oneof data_item {
-        // The payment for this stream.
-        // Do we actually want to have consensus nodes paying to stream block items?
-        Payment payment = 1;
         /**
          * A single item written to the block stream.
          */
@@ -535,12 +378,6 @@ message ReadStreamRequest {
      * "future" streams.
      */
     uint64 end_block_number = 2;
-
-    // The payment for the request. During the course of the stream,
-    // the server may return a ReadBlockStreamResponse with a
-    // status of READ_BLOCK_STREAM_PAYMENT_INSUFFICIENT if the payment
-    // is insufficient to continue streaming.
-    Payment payment = 4;
 }
 
 /**
@@ -643,9 +480,6 @@ message ReadStreamResponse {
  * state known to that block node.
  */
 message StateSnapshotRequest {
-    // The payment for the request.
-    Payment payment = 1;
-
     /**
      * A block number.<br/>
      * This SHALL be the last block number present in the snapshot returned.<br/>
@@ -785,19 +619,6 @@ message ServerStatusResponse {
  * Remote procedure calls (RPCs) for the Block Node.
  */
 service BlockStreamService {
-    /**
-     * Add tokens to an account on the block node.<br/>
-     * This SHALL fund the account for payment of actions on the block node.
-     * This RPC is highly speculative.
-     */
-    rpc addTokens(AddTokensRequest) returns (AddTokensResponse);
-
-    /**
-     * Withdraw tokens from an account on the block node.<br/>
-     * This RPC is highly speculative.
-     */
-    rpc withdrawTokens(WithdrawTokensRequest) returns (WithdrawTokensResponse);
-
     /**
      * Read the status of this block node server.<br/>
      * A client SHOULD request server status prior to requesting
