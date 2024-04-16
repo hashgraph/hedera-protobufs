@@ -488,6 +488,21 @@ enum TokenSupplyType {
 }
 
 /**
+ * Types of validation strategies for token keys.
+ */
+enum TokenKeyValidation {
+    /**
+     * Currently the default behaviour. It will perform all token key validations.
+     */
+    FULL_VALIDATION = 0;
+
+    /**
+     * Perform no validations at all for all passed token keys.
+     */
+    NO_VALIDATION = 1;
+}
+
+/**
  * Possible Freeze statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in
  * TokenRelationship
  */
@@ -1173,19 +1188,24 @@ enum HederaFunctionality {
     TransactionGetFastRecord = 87;
 
     /**
+    * Update the metadata of one or more NFT's of a specific token type.
+    */
+    TokenUpdateNfts = 88;
+
+    /**
     * Create a node
     */
-    NodeCreate = 88;
+    NodeCreate = 89;
 
     /**
-     * Update a node
-     */
-    NodeUpdate = 89;
+    * Update a node
+    */
+    NodeUpdate = 90;
 
     /**
-     * Delete a node
-     */
-    NodeDelete = 90;
+    * Delete a node
+    */
+    NodeDelete = 91;
 }
 
 /**
