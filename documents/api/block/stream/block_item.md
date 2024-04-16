@@ -108,7 +108,7 @@ MAY preclude verification or reconstruction of consensus state.<br/>
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| item_hash | [bytes](#bytes) |  | A SHA384 hash of an item filtered from the stream. |
+| item_hash | [bytes](#bytes) |  | A SHA-384 hash of an item filtered from the stream. |
 
 
 

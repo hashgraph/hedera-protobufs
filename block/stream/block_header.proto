@@ -44,22 +44,18 @@ import "basic_types.proto";
  * and process that block, or stop processing if appropriate.<br/>
  * The block header MUST describe, at minimum, the following items.
  *  - The version of the block stream data
- *  - The Hedera API version
- *  - The Hedera Services version
- *  - The Hedera Platform version
  *  - The block number
  *  - The hash of the previous block
  *  - The hash algorithm used to generate the block hash
- *  - The digital signature algorithm used to sign the block hash
  *
- * All fields of this message are REQUIRED, with the exception that the _algorithms_ MAY
+ * All fields of this message are REQUIRED, with the exception that `hash_algorithm` MAY
  * be _transmitted_ as a default value to improve data efficiency.
  */
 message BlockHeader {
     /**
      * Version of the HAPI specification that was used to serialize the block.
      */
-    proto.SemanticVersion hapi_proto_version = 2;
+    proto.SemanticVersion hapi_proto_version = 1;
 
     /**
      * The block number of this block.<br/>
@@ -68,7 +64,7 @@ message BlockHeader {
      * in `number` sequence, and MAY assume the block stream has encountered data
      * loss, data corruption, or unauthorized modification.
      */
-    uint64 number = 5;
+    uint64 number = 2;
 
     /**
      * The running hash of the previous block.<br/>
@@ -79,12 +75,12 @@ message BlockHeader {
      * does not match the block hash of the previous block and MAY assume the block stream
      * has encountered data loss, data corruption, or unauthorized modification.
      */
-    bytes start_running_hash = 6;
+    bytes start_running_hash = 3;
 
     /**
      * The hash algorithm used in this block.
      */
-    BlockHashAlgorithm hash_algorithm = 7;
+    BlockHashAlgorithm hash_algorithm = 4;
 }
 
 /**
@@ -95,5 +91,10 @@ message BlockHeader {
  * `HASH_ALGORITHM_UNKNOWN` is the default for HashAlgorithm.
  */
 enum BlockHashAlgorithm {
+    /**
+     * A SHA2 algorithm SHA-384 hash.<br/>
+     * This is the default value, if a field of this enumerated type is not set, then
+     * this is the value that will be decoded when the serialized message is read.
+     */
     SHA_384 = 0;
 }

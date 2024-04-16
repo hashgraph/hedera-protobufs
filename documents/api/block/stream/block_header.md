@@ -32,15 +32,11 @@ The block header SHALL provide the base minimum information needed to correctly 
 and process that block, or stop processing if appropriate.<br/>
 The block header MUST describe, at minimum, the following items.
  - The version of the block stream data
- - The Hedera API version
- - The Hedera Services version
- - The Hedera Platform version
  - The block number
  - The hash of the previous block
  - The hash algorithm used to generate the block hash
- - The digital signature algorithm used to sign the block hash
 
-All fields of this message are REQUIRED, with the exception that the _algorithms_ MAY
+All fields of this message are REQUIRED, with the exception that `hash_algorithm` MAY
 be _transmitted_ as a default value to improve data efficiency.
 
 
@@ -69,7 +65,7 @@ if that is the default value then we can save space by not serializing it, where
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| SHA_384 | 0 |  |
+| SHA_384 | 0 | A SHA2 algorithm SHA-384 hash.<br/> This is the default value, if a field of this enumerated type is not set, then this is the value that will be decoded when the serialized message is read. |
 
 
  <!-- end enums -->

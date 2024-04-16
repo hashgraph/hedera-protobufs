@@ -180,7 +180,7 @@ message BlockItem {
  */
 message FilteredBlockItem {
     /**
-     * A SHA384 hash of an item filtered from the stream.
+     * A SHA-384 hash of an item filtered from the stream.
      */
     bytes item_hash = 1;
 }
