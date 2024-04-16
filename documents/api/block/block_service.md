@@ -1,9 +1,6 @@
 ## Table of Contents
 
 - [block_service.proto](#block_service-proto)
-    - [AddTokensRequest](#com-hedera-hapi-block-AddTokensRequest)
-    - [AddTokensResponse](#com-hedera-hapi-block-AddTokensResponse)
-    - [Payment](#com-hedera-hapi-block-Payment)
     - [ReadBlockRequest](#com-hedera-hapi-block-ReadBlockRequest)
     - [ReadBlockResponse](#com-hedera-hapi-block-ReadBlockResponse)
     - [ReadStreamRequest](#com-hedera-hapi-block-ReadStreamRequest)
@@ -13,8 +10,6 @@
     - [ServerStatusResponse.PriceList](#com-hedera-hapi-block-ServerStatusResponse-PriceList)
     - [StateSnapshotRequest](#com-hedera-hapi-block-StateSnapshotRequest)
     - [StateSnapshotResponse](#com-hedera-hapi-block-StateSnapshotResponse)
-    - [WithdrawTokensRequest](#com-hedera-hapi-block-WithdrawTokensRequest)
-    - [WithdrawTokensResponse](#com-hedera-hapi-block-WithdrawTokensResponse)
     - [WriteStreamRequest](#com-hedera-hapi-block-WriteStreamRequest)
     - [WriteStreamResponse](#com-hedera-hapi-block-WriteStreamResponse)
     - [WriteStreamResponse.Acknowledgement](#com-hedera-hapi-block-WriteStreamResponse-Acknowledgement)
@@ -22,12 +17,9 @@
     - [WriteStreamResponse.EndOfStream](#com-hedera-hapi-block-WriteStreamResponse-EndOfStream)
     - [WriteStreamResponse.ItemAcknowledgement](#com-hedera-hapi-block-WriteStreamResponse-ItemAcknowledgement)
   
-    - [AddTokensResponse.ResponseCode](#com-hedera-hapi-block-AddTokensResponse-ResponseCode)
-    - [Payment.ResponseCode](#com-hedera-hapi-block-Payment-ResponseCode)
     - [ReadBlockResponse.ResponseCode](#com-hedera-hapi-block-ReadBlockResponse-ResponseCode)
     - [ReadStreamResponse.ResponseCode](#com-hedera-hapi-block-ReadStreamResponse-ResponseCode)
     - [StateSnapshotResponse.ResponseCode](#com-hedera-hapi-block-StateSnapshotResponse-ResponseCode)
-    - [WithdrawTokensResponse.ResponseCode](#com-hedera-hapi-block-WithdrawTokensResponse-ResponseCode)
     - [WriteStreamResponse.ResponseCode](#com-hedera-hapi-block-WriteStreamResponse-ResponseCode)
   
     - [BlockStreamService](#com-hedera-hapi-block-BlockStreamService)
@@ -42,101 +34,10 @@
 # Block Service
 The Service API exposed by the Block Nodes.
 
-> Review Note
->> The payment/auth structure here is not well designed currently. Ideally we will use
->> OAUTH2 or other supported gRPC authentication mechanisms, rather than designing our own
->> structure.<br/>
->> What we want to _recommend_ is an account login with re-authentication (at most)
->> every hour or so while streaming block items; OAUTH2 supports that if we implement
->> client and server well.
->> <p>
->> We shouldn't try to specify payment process in the block node specification.
->> Payment is an area where block nodes can innovate, so leave it external to the basic
->> API, and authentication, in particular, should be specified by the block node vendor
->> and not here.
->> <p>
->> If we want to _suggest_ a particular payment structure, or declare how the SwirldsLabs
->> block node handles payment, that should be in a separate _advisory_ document, and
->> should not be in the block stream specification.
-
-> Thoughts on Payment Design
->> Any advisory payment design should not be arbitrary tokens; we should encourage
->> HBAR usage. Payment for our own block node, in my opinion, should be based on an
->> allowance offered to a defined (published) contract account for a smart contract
->> dApp to reduce friction; then the block node executes a smart contract call for
->> each API request (or perhaps group of requests) that charges a published rate
->> (e.g. 5 HBAR per block, 10 HBAR per filter term, -3 HBAR per block for stream output,
->> 1500 HBAR per state snapshot, etc...). Add a fixed rate per API call (perhaps 1 HBAR
->> for requests and 0.01 HBAR for state queries) to cover gas cost and other core
->> overhead, with some small margin.
->> <p>
->> Whatever we do I hope it's not based on in-process resource tracking and accounting
->> but is just a fixed HBAR cost that is more than sufficient to cover actual costs
->> plus a minimum 50% gross margin. I also hope we avoid automatic exchange rates; we
->> can adjust fees monthly if we want to keep close to a USD value, but the published
->> rate should be a fixed amount of HBAR based on number and type of items in a
->> response (e.g. blocks, block items, state snapshots, etc...) or fixed cost for
->> state queries. If we need to make state queries "cheap", perhaps a monthly
->> "account" charge of a few HBAR, but if queries are really "free" then we invite
->> DDOS against the block node (although authentication can mitigate that somewhat).
-
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
 document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
-
-
-<a name="com-hedera-hapi-block-AddTokensRequest"></a>
-
-### AddTokensRequest
-Request and response for adding tokens to an account on a Block Node.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| payment | [Payment](#com-hedera-hapi-block-Payment) |  | The payment for this request. |
-| account_id | [string](#string) |  | The account in which to add the tokens to. |
-| amount | [uint64](#uint64) |  | The amount of tokens to add. |
-| token_id | [string](#string) |  | The token to add. |
-
-
-
-
-
-
-<a name="com-hedera-hapi-block-AddTokensResponse"></a>
-
-### AddTokensResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| status | [AddTokensResponse.ResponseCode](#com-hedera-hapi-block-AddTokensResponse-ResponseCode) |  | The status of the request. |
-
-
-
-
-
-
-<a name="com-hedera-hapi-block-Payment"></a>
-
-### Payment
-A payment for a request to Block Node.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| payment_amount | [uint64](#uint64) |  | The amount to pay for the request. |
-| payment_amount_max | [uint64](#uint64) |  | The max amount the user is willing to pay for the request. |
-| payment_token | [string](#string) |  | The token to pay with. |
-| payer_account_id | [string](#string) |  | The account to pay from. |
-| payer_signature | [bytes](#bytes) |  | A signature of the payment. |
-| nonce | [uint64](#uint64) |  | A unique nonce for this request. |
-
-
-
-
 
 
 <a name="com-hedera-hapi-block-ReadBlockRequest"></a>
@@ -147,10 +48,16 @@ A request to read a single block.
 A client system SHALL send this message to request a single block, including the
 block state proof.
 
+> REVIEW NOTE
+>> We _could_ make `block_number` optional and remove `retrieve_latest`. An **unset**
+>> `block_number` would then result in returning the latest block.<br/>
+>> It is not entirely clear which option would be easier for developers to use, but
+>> initial intuition is that a boolean is easier to understand and use.
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| block_number | [uint64](#uint64) |  | The block number of a block to retrieve.<br/> The requested block MUST exist on the block node.<br/> This value MUST NOT be set if `retrieve_latest` is set `true`. |
+| block_number | [uint64](#uint64) |  | The block number of a block to retrieve.<br/> The requested block MUST exist on the block node.<br/> This value MUST NOT be set if `retrieve_latest` is set `true`.<br/> This value MUST be set to a valid block number if `retrieve_latest` is unset or is set `false`. |
 | retrieve_latest | [bool](#bool) |  | A boolean to request the latest available block.<br/> This value MAY be set `true` to request the last block available.<br/> If this value is set to `true` then `block_number` MUST NOT be set and SHALL be ignored. |
 
 
@@ -217,7 +124,6 @@ to determine the available start and end blocks.
 | ----- | ---- | ----- | ----------- |
 | start_block_number | [uint64](#uint64) |  | A block number<br/> This SHALL be the block number of the first block returned.<br/> This field MUST be less than or equal to the latest available block number. |
 | end_block_number | [uint64](#uint64) |  | A block number<br/> This value SHALL be the block number of the last block returned.<br/> This field MUST NOT be less than `start_block_number`.<br/> This SHOULD be a block number that is immediately available from the block node.<br/> A block node SHALL continue to stream blocks until the last requested block is transmitted.<br/> A block node implementation MAY reject a request for a block that is not yet available.<br/> A block node implementation MAY accept future block numbers. Block node implementations SHOULD charge increased fees for such "future" streams. |
-| payment | [Payment](#com-hedera-hapi-block-Payment) |  | The payment for the request. During the course of the stream, the server may return a ReadBlockStreamResponse with a status of READ_BLOCK_STREAM_PAYMENT_INSUFFICIENT if the payment is insufficient to continue streaming. |
 
 
 
@@ -325,7 +231,6 @@ state known to that block node.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| payment | [Payment](#com-hedera-hapi-block-Payment) |  | The payment for the request. |
 | last_block_number | [uint64](#uint64) |  | A block number.<br/> This SHALL be the last block number present in the snapshot returned.<br/> If `retrieve_latest` is set `true` this field SHOULD NOT be set and SHALL be ignored. A block node implementation MAY reject any request with a non-default value for this field, but MUST clearly document that behavior. |
 | retrieve_latest | [bool](#bool) |  | A boolean to request the latest available snapshot.<br/> This value MAY be set `true` to request the most recent state snapshot available.<br/> If this value is set to `true` then `last_block_number` SHOULD NOT be set and SHALL be ignored. A block node implementation MAY reject any request with that does _not_ set this field `true`, but MUST clearly document that behavior. |
 
@@ -354,42 +259,6 @@ This message SHALL deliver a code indicating the reason for failure if unsuccess
 
 
 
-<a name="com-hedera-hapi-block-WithdrawTokensRequest"></a>
-
-### WithdrawTokensRequest
-Request and response for withdrawing tokens from an account on a Block Node.
-NOTE: This is premature.  It is highly likely that block nodes will use smart contracts
-      to manage payment, and there should be many mechanisms.  We should not specify
-      block node payment mechanisms here.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| payment | [Payment](#com-hedera-hapi-block-Payment) |  | The payment for this request. |
-| account_id | [string](#string) |  | The account from which to withdraw the tokens from. |
-| amount | [uint64](#uint64) |  | The amount of tokens to withdraw. |
-| token_id | [string](#string) |  | The token to withdraw. |
-
-
-
-
-
-
-<a name="com-hedera-hapi-block-WithdrawTokensResponse"></a>
-
-### WithdrawTokensResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| status | [WithdrawTokensResponse.ResponseCode](#com-hedera-hapi-block-WithdrawTokensResponse-ResponseCode) |  | The status of the request. |
-
-
-
-
-
-
 <a name="com-hedera-hapi-block-WriteStreamRequest"></a>
 
 ### WriteStreamRequest
@@ -408,7 +277,6 @@ ensure all data was received correctly.<br/>
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| payment | [Payment](#com-hedera-hapi-block-Payment) |  | The payment for this stream. Do we actually want to have consensus nodes paying to stream block items? |
 | block_item | [stream.BlockItem](#com-hedera-hapi-block-stream-BlockItem) |  | A single item written to the block stream. |
 
 
@@ -528,42 +396,6 @@ received and verified.<br/>
  <!-- end messages -->
 
 
-<a name="com-hedera-hapi-block-AddTokensResponse-ResponseCode"></a>
-
-### AddTokensResponse.ResponseCode
-
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| ADD_TOKENS_UNKNOWN | 0 |  |
-| ADD_TOKENS_SUCCESS | 1 |  |
-| ADD_TOKENS_INVALID_ACCOUNT_ID | 2 |  |
-| ADD_TOKENS_INVALID_AMOUNT | 3 |  |
-| ADD_TOKENS_INVALID_TOKEN_ID | 4 |  |
-| ADD_TOKENS_INVALID_SIGNATURE | 5 |  |
-| ADD_TOKENS_INSUFFICIENT_ACCOUNT_BALANCE | 6 |  |
-
-
-
-<a name="com-hedera-hapi-block-Payment-ResponseCode"></a>
-
-### Payment.ResponseCode
-
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| PAYMENT_UNKNOWN | 0 |  |
-| PAYMENT_SUCCESS | 1 |  |
-| PAYMENT_INVALID_PAYMENT_AMOUNT | 2 |  |
-| PAYMENT_INVALID_PAYMENT_AMOUNT_MAX | 3 |  |
-| PAYMENT_INVALID_TOKEN | 4 |  |
-| PAYMENT_INVALID_PAYER_ACCOUNT_ID | 5 |  |
-| PAYMENT_INVALID_PAYER_SIGNATURE | 6 |  |
-| PAYMENT_INVALID_NONCE | 7 |  |
-| PAYMENT_INSUFFICIENT_PAYMENT_ACCOUNT_BALANCE | 8 |  |
-
-
-
 <a name="com-hedera-hapi-block-ReadBlockResponse-ResponseCode"></a>
 
 ### ReadBlockResponse.ResponseCode
@@ -610,23 +442,6 @@ An enumeration indicating the status of this request.
 
 
 
-<a name="com-hedera-hapi-block-WithdrawTokensResponse-ResponseCode"></a>
-
-### WithdrawTokensResponse.ResponseCode
-
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| WITHDRAW_TOKENS_UNKNOWN | 0 |  |
-| WITHDRAW_TOKENS_SUCCESS | 1 |  |
-| WITHDRAW_TOKENS_INVALID_ACCOUNT_ID | 2 |  |
-| WITHDRAW_TOKENS_INVALID_AMOUNT | 3 |  |
-| WITHDRAW_TOKENS_INVALID_TOKEN_ID | 4 |  |
-| WITHDRAW_TOKENS_INVALID_SIGNATURE | 5 |  |
-| WITHDRAW_TOKENS_INSUFFICIENT_ACCOUNT_BALANCE | 6 |  |
-
-
-
 <a name="com-hedera-hapi-block-WriteStreamResponse-ResponseCode"></a>
 
 ### WriteStreamResponse.ResponseCode
@@ -656,8 +471,6 @@ Remote procedure calls (RPCs) for the Block Node.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| addTokens | [AddTokensRequest](#com-hedera-hapi-block-AddTokensRequest) | [AddTokensResponse](#com-hedera-hapi-block-AddTokensResponse) | Add tokens to an account on the block node.<br/> This SHALL fund the account for payment of actions on the block node. This RPC is highly speculative. |
-| withdrawTokens | [WithdrawTokensRequest](#com-hedera-hapi-block-WithdrawTokensRequest) | [WithdrawTokensResponse](#com-hedera-hapi-block-WithdrawTokensResponse) | Withdraw tokens from an account on the block node.<br/> This RPC is highly speculative. |
 | serverStatus | [ServerStatusRequest](#com-hedera-hapi-block-ServerStatusRequest) | [ServerStatusResponse](#com-hedera-hapi-block-ServerStatusResponse) | Read the status of this block node server.<br/> A client SHOULD request server status prior to requesting block stream data or a state snapshot. |
 | readBlock | [ReadBlockRequest](#com-hedera-hapi-block-ReadBlockRequest) | [ReadBlockResponse](#com-hedera-hapi-block-ReadBlockResponse) | Read a block from the block node.<br/> The request SHALL describe the block number of the block to retrieve. |
 | stateSnapshot | [StateSnapshotRequest](#com-hedera-hapi-block-StateSnapshotRequest) | [StateSnapshotResponse](#com-hedera-hapi-block-StateSnapshotResponse) | Read a state snapshot from the block node.<br/> The request SHALL describe the last block number present in the snapshot.<br/> Block node implementations MAY decline a request for a snapshot older than the latest available, but MUST clearly document this behavior. |
