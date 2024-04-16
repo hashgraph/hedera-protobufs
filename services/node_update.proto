@@ -42,8 +42,8 @@ import "timestamp.proto";
 message NodeUpdateTransactionBody {
 
     /**
-	 * The unique id of the Node to be updated. This must refer to an existing, non-deleted node.
-	 */
+	  * The unique id of the Node to be updated. This must refer to an existing, non-deleted node.
+	  */
     int64 node_id = 1;
 
     /**

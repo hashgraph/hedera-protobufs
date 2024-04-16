@@ -1643,13 +1643,13 @@ message StakingInfo {
     oneof staked_id {
 
         /**
-         * The account to which this account or contract is staking.
-         */
+        * The account to which this account or contract is staking.
+        */
         AccountID staked_account_id = 5;
 
         /**
-         * The ID of the node this account or contract is staked to.
-         */
+        * The ID of the node this account or contract is staked to.
+        */
         int64 staked_node_id = 6;
     }
 }
