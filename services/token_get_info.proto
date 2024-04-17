@@ -51,8 +51,10 @@ message TokenGetInfoQuery {
     QueryHeader header = 1;
 
     /**
-     * The token for which information is requested. If invalid token is provided, INVALID_TOKEN_ID
-     * response is returned.
+     * A token identifier.
+     * <p>
+     * This SHALL identify the token to query.<br/>
+     * The identified token MUST exist, and MUST NOT be deleted.
      */
     TokenID token = 2;
 }
@@ -159,7 +161,9 @@ message TokenInfo {
     Timestamp expiry = 17;
 
     /**
-     * The memo associated with the token
+     * A short description of this token.
+     * <p>
+     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
      */
     string memo = 18;
 
@@ -224,7 +228,8 @@ message TokenInfo {
 message TokenGetInfoResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 

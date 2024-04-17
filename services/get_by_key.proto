@@ -1,13 +1,18 @@
 /**
  * # Get By Key
- * An obsolete query to obtain a list of entities that refer to a given Key object.
- *
- * Returned entities may be accounts, files, smart contracts, and/or live hash entries.
+ * An obsolete query to obtain a list of entities that refer to
+ * a given Key object.<br/>
+ * Returned entities may be accounts, files, smart contracts, and/or
+ * live hash entries.
  *
  * > Important
  * >> This query is obsolete and not supported.<br/>
- * >> Any query of this type that is submitted SHALL fail with a `PRE_CHECK` result
- * >> of `NOT_SUPPORTED`.
+ * >> Any query of this type that is submitted SHALL fail with a `PRE_CHECK`
+ * >> result of `NOT_SUPPORTED`.
+ *
+ * > Implementation Note
+ * >> This query is not defined for any service, and while it is implemented
+ * >> in the "Network Admin" service, it may be unnecessary to do so.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -46,8 +51,8 @@ import "response_header.proto";
 import "crypto_add_live_hash.proto";
 
 /**
- * Query all accounts, claims, files, and smart contract instances whose associated keys include the
- * given Key.
+ * Query all accounts, claims, files, and smart contract instances whose
+ * associated keys include the given Key.
  *
  * > This query is no longer supported.
  */
@@ -62,7 +67,8 @@ message GetByKeyQuery {
     QueryHeader header = 1;
 
     /**
-     * The key to search for. It MUST NOT contain a contractID nor a ThresholdKey.
+     * The key to search for. It MUST NOT contain a contractID nor
+     * a ThresholdKey.
      */
     Key key = 2;
 }
@@ -109,12 +115,14 @@ message GetByKeyResponse {
 
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 
     /**
-     * The list of entities that include this public key in their associated Key list
+     * The list of entities that include this public key in their
+     * associated Key list
      */
     repeated EntityID entities = 2;
 }

@@ -36,9 +36,9 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * Two lists of congestion pricing level "start" times. Each list details the start of each time
- * period when the congestion pricing level changed (increasing, or decreasing, the congestion fee
- * multiplier).
+ * Two lists of congestion pricing level "start" times. Each list details the
+ * start of each time period when the congestion pricing level changed
+ * (increasing, or decreasing, the congestion fee multiplier).
  *
  * > Review Question
  * >> What prunes these lists?
@@ -48,15 +48,21 @@ option java_multiple_files = true;
  * >> Are these two lists the same size?
  */
 message CongestionLevelStarts {
-  /**
-   * Timestamps for each point where "entity utilization" congestion pricing levels changed.<br/>
-   * If congestion pricing has not occurred then this SHALL contain a single timestamp of value 0.
-   */
-  repeated Timestamp generic_level_starts = 1;
+    /**
+     * Timestamps for each point where "entity utilization" congestion pricing
+     * levels changed.
+     * <p>
+     * If congestion pricing has not occurred then this SHALL contain a single
+     * timestamp of value 0.
+     */
+    repeated Timestamp generic_level_starts = 1;
 
-  /**
-   * Timestamps for each point where "gas utilization" congestion pricing levels changed.<br/>
-   * If congestion pricing has not occurred then this SHALL contain a single timestamp of value 0.
-   */
-  repeated Timestamp gas_level_starts = 2;
+    /**
+     * Timestamps for each point where "gas utilization" congestion pricing
+     * levels changed.
+     * <p>
+     * If congestion pricing has not occurred then this SHALL contain a single
+     * timestamp of value 0.
+     */
+    repeated Timestamp gas_level_starts = 2;
 }

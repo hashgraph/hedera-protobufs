@@ -2,12 +2,13 @@
  * # Crypto Service
  * A service defining transactions and queries related to accounts.
  *
- * This includes transactions for HBAR transfers and balance queries as well as transactions
- * to manage "allowances" which permit a third party to spend a portion of the HBAR balance
- * in an account.<br/>
+ * This includes transactions for HBAR transfers and balance queries as well as
+ * transactions to manage "allowances" which permit a third party to spend a
+ * portion of the HBAR balance in an account.<br/>
  * Basic account, record, and receipt queries are also defined in this service.
  *
- * Transactions and queries relating to tokens _other than HBAR_ are defined in the Token Service.
+ * Transactions and queries relating to tokens _other than HBAR_ are defined
+ * in the Token Service.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -45,57 +46,62 @@ import "transaction_response.proto";
 import "transaction.proto";
 
 /**
- * Transactions and queries for the Crypto Service
+ * Transactions and queries for the Hedera Crypto Service.
  */
 service CryptoService {
+    // The following queries are permanently removed.
+    // getStakersByAccountID, getFastTransactionRecord
+
     /**
-     * Creates a new account by submitting the transaction
+     * Create a new account by submitting the transaction
      */
     rpc createAccount (Transaction) returns (TransactionResponse);
 
     /**
-     * Updates an account by submitting the transaction
+     * Update an account by submitting the transaction
      */
     rpc updateAccount (Transaction) returns (TransactionResponse);
 
     /**
-     * Initiates a transfer by submitting the transaction
+     * Initiate a transfer by submitting the transaction
      */
     rpc cryptoTransfer (Transaction) returns (TransactionResponse);
 
     /**
-     * Deletes and account by submitting the transaction
+     * Delete an account by submitting the transaction
      */
     rpc cryptoDelete (Transaction) returns (TransactionResponse);
 
     /**
-     * Adds one or more approved allowances for spenders to transfer the paying account's hbar or tokens.
+     * Add one or more approved allowances for spenders to transfer the paying
+     * account's hbar or tokens.
      */
     rpc approveAllowances (Transaction) returns (TransactionResponse);
 
     /**
-     * Deletes one or more of the specific approved NFT serial numbers on an owner account.
+     * Delete one or more of the specific approved NFT serial numbers on an
+     * owner account.
      */
     rpc deleteAllowances (Transaction) returns (TransactionResponse);
 
     /**
-     * Adds a livehash
+     * Add a livehash
      * <blockquote>Important<blockquote>
-     * This transaction is obsolete, not supported, and SHALL fail with a pre-check
-     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
+     * This transaction is obsolete, not supported, and SHALL fail with a
+     * pre-check result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
     rpc addLiveHash (Transaction) returns (TransactionResponse);
 
     /**
-     * Deletes a livehash
+     * Delete a livehash
      * <blockquote>Important<blockquote>
-     * This transaction is obsolete, not supported, and SHALL fail with a pre-check
-     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
+     * This transaction is obsolete, not supported, and SHALL fail with a
+     * pre-check result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
     rpc deleteLiveHash (Transaction) returns (TransactionResponse);
 
     /**
-     * Retrieves a livehash for an account
+     * Retrieve a livehash for an account
      * <blockquote>Important<blockquote>
      * This query is obsolete, not supported, and SHALL fail with a pre-check
      * result of `NOT_SUPPORTED`.</blockquote></blockquote>
@@ -103,47 +109,31 @@ service CryptoService {
     rpc getLiveHash (Query) returns (Response);
 
     /**
-     * Returns all transactions in the last 180s of consensus time for which the given account was
-     * the effective payer <b>and</b> network property <tt>ledger.keepRecordsInState</tt> was
-     * <tt>true</tt>.
+     * Return all transactions in the last 180s of consensus time for which
+     * the given account was the effective payer **and** network property
+     * `ledger.keepRecordsInState` was `true`.
      */
     rpc getAccountRecords (Query) returns (Response);
 
     /**
-     * Retrieves the balance of an account
+     * Retrieve the balance of an account
      */
     rpc cryptoGetBalance (Query) returns (Response);
 
     /**
-     * Retrieves the metadata of an account
+     * Retrieve the metadata of an account
      */
     rpc getAccountInfo (Query) returns (Response);
 
     /**
-     * Retrieves the latest receipt for a transaction that is either awaiting consensus, or reached
-     * consensus in the last 180 seconds
+     * Retrieve the latest receipt for a transaction that is either awaiting
+     * consensus, or reached consensus in the last 180 seconds
      */
     rpc getTransactionReceipts (Query) returns (Response);
 
     /**
-     * Returns the records of transactions recently funded by an account
-     * <blockquote>Important<blockquote>
-     * This query is obsolete, not supported, and SHALL fail with a pre-check
-     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
-     */
-    rpc getFastTransactionRecord (Query) returns (Response);
-
-    /**
-     * Retrieves the record of a transaction that is either awaiting consensus, or reached consensus
-     * in the last 180 seconds
+     * Retrieve the record of a transaction that is either awaiting consensus,
+     * or reached consensus in the last 180 seconds
      */
     rpc getTxRecordByTxID (Query) returns (Response);
-
-    /**
-     * Retrieves the stakers for a node by account id
-     * <blockquote>Important<blockquote>
-     * This query is obsolete, not supported, and SHALL fail with a pre-check
-     * result of `NOT_SUPPORTED`.</blockquote></blockquote>
-     */
-    rpc getStakersByAccountID (Query) returns (Response);
 }

@@ -4,8 +4,8 @@
  *
  * > Important
  * >> This transaction is obsolete and not supported.<br/>
- * >> Any transaction of this type that is submitted SHALL fail with a `PRE_CHECK` result
- * >> of `NOT_SUPPORTED`.
+ * >> Any transaction of this type that is submitted SHALL fail
+ * >> with a `PRE_CHECK` result of `NOT_SUPPORTED`.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -45,9 +45,9 @@ import "duration.proto";
 /**
  * A Live Hash value associating some item of content to an account.
  *
- * This message represents a desired entry in the ledger for a SHA-384 hash of some content,
- * an associated specific account, a list of authorized keys, and a duration the
- * live hash is "valid".
+ * This message represents a desired entry in the ledger for a SHA-384
+ * hash of some content, an associated specific account, a list of authorized
+ * keys, and a duration the live hash is "valid".
  */
 message LiveHash {
     /**
@@ -56,13 +56,16 @@ message LiveHash {
     AccountID accountId = 1;
 
     /**
-     * a SHA-384 hash of some content that is associated to the account or account holder.
+     * A SHA-384 hash of some content that is associated to the account
+     * or account holder.
      */
     bytes hash = 2;
 
     /**
-     * A list of keys, all of which MUST sign the transaction to add the live hash.<br/>
-     * Any one of these keys may, however, remove the live hash to revoke the association.
+     * A list of keys, all of which MUST sign the transaction to add the
+     * live hash.<br/>
+     * Any one of these keys may, however, remove the live hash to revoke
+     * the association.
      */
     KeyList keys = 3;
 
@@ -76,21 +79,23 @@ message LiveHash {
 /**
  * Add a hash value to the ledger and associate it with an account.
  *
- * Create an entry in the ledger for a SHA-384 hash of some content, and associate that with a
- * specific account.  This is sometimes used to associate a credential or certificate with an
- * account as a public record.<br/>
- * The entry created is also associated with a list of keys, all of which MUST sign this
- * transaction.<br/>
+ * Create an entry in the ledger for a SHA-384 hash of some content, and
+ * associate that with a specific account.  This is sometimes used to associate
+ * a credential or certificate with an account as a public record.<br/>
+ * The entry created is also associated with a list of keys, all of which
+ * MUST sign this transaction.<br/>
  * The account key for the associated account MUST sign this transaction.<br/>
  *
- * The live hash, once created, MAY be removed from the ledger with one or more signatures.
+ * The live hash, once created, MAY be removed from the ledger with one
+ * or more signatures.
  * - The account key of the account associated to the live hash.
  * - Any one key from the key list in the live hash entry.
  * - Any combination of keys from the key list in the live hash entry.
  */
 message CryptoAddLiveHashTransactionBody {
     /**
-     * A Live Hash to be added to the ledger and associated with the identified account.
+     * A Live Hash to be added to the ledger and associated with
+     * the identified account.
      */
     LiveHash liveHash = 3;
 }

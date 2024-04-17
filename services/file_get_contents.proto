@@ -1,5 +1,7 @@
 /**
- * #
+ * # File Get Contents
+ * Messages for a query to retrieve the content of a file in the
+ * Hedera File Service (HFS).
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -37,7 +39,7 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Get the contents of a file. The content field is empty (no bytes) if the file is empty.
+ * A query request to the Hedera File Service (HFS) for file content.
  */
 message FileGetContentsQuery {
     /**
@@ -48,35 +50,52 @@ message FileGetContentsQuery {
     QueryHeader header = 1;
 
     /**
-     * The file ID of the file whose contents are requested
+     * A file identifier.
+     * <p>
+     * This MUST be the identifier of a file that exists in HFS.<br/>
+     * This value SHALL identify the file to be queried.
      */
     FileID fileID = 2;
 }
 
 /**
- * Response when the client sends the node FileGetContentsQuery
+ * A response to a query for the content of a file in the
+ * Hedera File Service (HFS).
+ *
+ * This message SHALL contain the full content of the requested file, but
+ * SHALL NOT contain any metadata.
  */
 message FileGetContentsResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 
     message FileContents {
         /**
-         * The file ID of the file whose contents are being returned
+         * A file identifier.
+         * <p>
+         * This SHALL be the identifier of a file that exists in HFS.<br/>
+         * This value SHALL identify the file that was queried.
          */
         FileID fileID = 1;
 
         /**
-         * The bytes contained in the file
+         * A byte array of file content.
+         * <p>
+         * This SHALL contain the full content of the requested file.<br/>
+         * This SHALL be empty if, and only if, the file content is empty.
          */
         bytes contents = 2;
     }
 
     /**
-     * the file ID and contents (a state proof can be generated for this)
+     * A combination of File identifier and content bytes.
+     * <p>
+     * This SHALL NOT be set if the file does not exist.<br/>
+     * The network MAY generate a state proof for this field.
      */
     FileContents fileContents = 2;
 }

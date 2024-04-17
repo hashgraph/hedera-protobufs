@@ -1,5 +1,8 @@
 /**
- * #
+ * # Transaction Contents
+ * The Signed Transaction message which forms the content of a transaction
+ * `signedTransactionBytes`. This message is the result of several changes
+ * to transaction message structure over time.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -34,14 +37,29 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 
+/**
+ * A combination transaction bytes and a map of signatures.<br/>
+ * This message contains a serialized `TransactionBody` in a byte array
+ * and a `SignatureMap` that contains all of the signatures offered to
+ * authenticate the transaction.
+ *
+ * ### Record Stream Effects
+ * This content is recorded in the record stream exactly as received.
+ */
 message SignedTransaction {
     /**
-     * TransactionBody serialized into bytes, which needs to be signed
+     * A byte array containing a serialized `TransactionBody`.
+     * <p>
+     * This content is what the signatures in `sigMap` MUST sign.
      */
     bytes bodyBytes = 1;
 
     /**
-     * The signatures on the body with the new format, to authorize the transaction
+     * A set of cryptographic signatures.
+     * <p>
+     * This set MUST contain all signatures required to authenticate
+     * and authorize the transaction.<br/>
+     * This set MAY contain additional signatures.
      */
     SignatureMap sigMap = 2;
 }

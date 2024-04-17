@@ -2,9 +2,9 @@
  * # Primitives
  * Primitive value wrapper messages.
  *
- * These SHALL be used only for situations where the entire value to be stored in
- * state is a single primitive. These MUST NOT ever be used as components of another
- * message; use the protobuf type instead.
+ * These SHALL be used only for situations where the entire value to be stored
+ * in state is a single primitive. These MUST NOT ever be used as components of
+ * another message; use the protobuf type instead.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",

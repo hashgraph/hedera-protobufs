@@ -56,7 +56,8 @@ message ContractGetRecordsQuery {
     QueryHeader header = 1;
 
     /**
-     * A smart contract ID.<br/>
+     * A smart contract ID.
+     * <p>
      * The network SHALL return information for this smart contract, if successful.
      */
     ContractID contractID = 2;
@@ -70,7 +71,8 @@ message ContractGetRecordsResponse {
     option deprecated = true;
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 

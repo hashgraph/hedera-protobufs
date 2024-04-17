@@ -50,17 +50,23 @@ message TokenGetNftInfoQuery {
     QueryHeader header = 1;
 
     /**
-     * The ID of the NFT
+     * A non-fungible/unique token (NFT) identifier.
+     * <p>
+     * This SHALL identify the NFT to query.<br/>
+     * The identified NFT MUST exist, and MUST NOT be deleted.
      */
     NftID nftID = 2;
 }
 
 /**
- * UNDOCUMENTED
+ * Information for one non-fungible/unique token (NFT).
+ *
  */
 message TokenNftInfo {
     /**
-     * The ID of the NFT
+     * A non-fungible/unique token (NFT) identifier.
+     * <p>
+     * This SHALL match the NFT requested.<br/>
      */
     NftID nftID = 1;
 
@@ -80,7 +86,17 @@ message TokenNftInfo {
     bytes metadata = 4;
 
     /**
-     * The ledger ID the response was returned from; please see <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md">HIP-198</a> for the network-specific IDs.
+     * The ledger ID of the network that generated this response.<br/>
+     * This is originally defined in `HIP-198` and depends on network
+     * configuration.<br/>
+     * The current values, as of Q1 2024, are
+     * <dl>
+     *   <dt>Mainnet</dt><dd>0x00</dd>
+     *   <dt>Testnet</dt><dd>0x01</dd>
+     *   <dt>Previewnet</dt><dd>0x02</dd>
+     *   <dt>Undefined</dt><dd>0x03</dd>
+     *   <dt>Reserved</dt><dd>0x04</dd>
+     * </dl>
      */
     bytes ledger_id = 5;
 
@@ -96,7 +112,8 @@ message TokenNftInfo {
 message TokenGetNftInfoResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 

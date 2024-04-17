@@ -1,5 +1,6 @@
 /**
  * #
+ * Deprecated and permanently disabled
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -88,7 +89,8 @@ message TokenGetAccountNftInfosQuery {
 message TokenGetAccountNftInfosResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 

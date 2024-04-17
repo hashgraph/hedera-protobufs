@@ -42,128 +42,150 @@ option java_multiple_files = true;
  */
 message Schedule {
     /**
-     * This schedule's ID within the global network state.<br/>
+     * This schedule's ID within the global network state.
+     * <p>
      * This value SHALL be unique within the network.
      */
     ScheduleID schedule_id = 1;
 
     /**
-     * A flag indicating this schedule is deleted.<br/>
+     * A flag indicating this schedule is deleted.
+     * <p>
      * A schedule SHALL either be executed or deleted, but never both.
      */
     bool deleted = 2;
 
     /**
-     * A flag indicating this schedule has executed.<br/>
+     * A flag indicating this schedule has executed.
+     * <p>
      * A schedule SHALL either be executed or deleted, but never both.
      */
     bool executed = 3;
 
     /**
      * A schedule flag to wait for expiration before executing.
-     * A schedule SHALL be executed immediately when all necessary signatures are gathered, unless
-     * this flag is set.<br/>
-     * If this flag is set, the schedule SHALL wait until the consensus time reaches
-     * `expiration_time_provided`, when signatures MUST again be verified, and if all
-     * required signatures are present at that time, the schedule SHALL be executed. Otherwise
-     * the schedule SHALL expire without execution.
      * <p>
-     * Note that a schedule is always removed from state after it expires, regardless of whether it
-     * was executed or not.
+     * A schedule SHALL be executed immediately when all necessary signatures
+     * are gathered, unless this flag is set.<br/>
+     * If this flag is set, the schedule SHALL wait until the consensus time
+     * reaches `expiration_time_provided`, when signatures MUST again be
+     * verified. If all required signatures are present at that time, the
+     * schedule SHALL be executed. Otherwise the schedule SHALL expire without
+     * execution.
+     * <p>
+     * Note that a schedule is always removed from state after it expires,
+     * regardless of whether it was executed or not.
      */
     bool wait_for_expiry = 4;
 
     /**
-     * The memo associated with this schedule.<br/>
-     * This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
+     * A short description for this schedule.
+     * <p>
+     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
      */
     string memo = 5;
 
     /**
-     * The scheduler account for this schedule.<br/>
-     * This SHALL be the account that submitted the original ScheduleCreate transaction.
+     * The scheduler account for this schedule.
+     * <p>
+     * This SHALL be the account that submitted the original
+     * ScheduleCreate transaction.
      */
     AccountID scheduler_account_id = 6;
 
     /**
-     * The explicit payer account for the scheduled transaction.<br/>
-     * If set, this account SHALL be added to the accounts that MUST sign the schedule before it
-     * may execute.
+     * The explicit payer account for the scheduled transaction.
+     * <p>
+     * If set, this account SHALL be added to the accounts that MUST sign the
+     * schedule before it may execute.
      */
     AccountID payer_account_id = 7;
 
     /**
-     * The admin key for this schedule.<br/>
+     * The admin key for this schedule.
+     * <p>
      * This key, if set, MUST sign any `schedule_delete` transaction.<br/>
-     * If not set, then this schedule SHALL NOT be deleted, and any `schedule_delete` transaction
-     * for this schedule SHALL fail.
+     * If not set, then this schedule SHALL NOT be deleted, and any
+     * `schedule_delete` transaction for this schedule SHALL fail.
      */
     Key admin_key = 8;
 
     /**
-     * The transaction valid start value for this schedule.<br/>
-     * This MUST be set, and SHALL be copied from the `TransactionID` of the original
-     * `schedule_create` transaction.
+     * The transaction valid start value for this schedule.
+     * <p>
+     * This MUST be set, and SHALL be copied from the `TransactionID` of
+     * the original `schedule_create` transaction.
      */
     Timestamp schedule_valid_start = 9;
 
     /**
-     * The requested expiration time of the schedule if provided by the user.<br/>
-     * If not provided in the `schedule_create` transaction, this SHALL be set to a default value
-     * equal to the current consensus time, forward offset by the maximum schedule expiration time
-     * in the current dynamic network configuration (typically 62 days).<br/>
-     * The actual `calculated_expiration_second` MAY be "earlier" than this, but MUST NOT be later.
+     * The requested expiration time of the schedule if provided by the user.
+     * <p>
+     * If not provided in the `schedule_create` transaction, this SHALL be set
+     * to a default value equal to the current consensus time, forward offset by
+     * the maximum schedule expiration time in the current dynamic network
+     * configuration (typically 62 days).<br/>
+     * The actual `calculated_expiration_second` MAY be "earlier" than this,
+     * but MUST NOT be later.
      */
     int64 provided_expiration_second = 10;
 
     /**
-     * The calculated expiration time of the schedule.<br/>
-     * This SHALL be calculated from the requested expiration time in the `schedule_create`
-     * transaction, and limited by the maximum expiration time in the current dynamic network
-     * configuration (typically 62 days).
+     * The calculated expiration time of the schedule.
      * <p>
-     * The schedule SHALL be removed from global network state after the network reaches a consensus
-     * time greater than or equal to this value.
+     * This SHALL be calculated from the requested expiration time in the
+     * `schedule_create` transaction, and limited by the maximum expiration time
+     * in the current dynamic network configuration (typically 62 days).
+     * <p>
+     * The schedule SHALL be removed from global network state after the network
+     * reaches a consensus time greater than or equal to this value.
      */
     int64 calculated_expiration_second = 11;
 
     /**
-     * The consensus timestamp of the transaction that executed or deleted this schedule.<br/>
-     * This value SHALL be set to the `current_consensus_time` when a `schedule_delete` transaction
-     * is completed.<br/>
-     * This value SHALL be set to the `current_consensus_time` when the scheduled transaction is
-     * executed, either as a result of gathering the final required signature, or, if
-     * long-term schedule execution is enabled, at the requested execution time.
+     * The consensus timestamp of the transaction that executed or deleted this schedule.
+     * <p>
+     * This value SHALL be set to the `current_consensus_time` when a
+     * `schedule_delete` transaction is completed.<br/>
+     * This value SHALL be set to the `current_consensus_time` when the
+     * scheduled transaction is executed, either as a result of gathering the
+     * final required signature, or, if long-term schedule execution is enabled,
+     * at the requested execution time.
      */
     Timestamp resolution_time = 12;
 
     /**
-     * The scheduled transaction to execute.<br/>
-     * This MUST be one of the transaction types permitted in the current value of the
-     * `schedule.whitelist` in the dynamic network configuration.<br/>
+     * The scheduled transaction to execute.
+     * <p>
+     * This MUST be one of the transaction types permitted in the current value
+     * of the `schedule.whitelist` in the dynamic network configuration.
      */
     SchedulableTransactionBody scheduled_transaction = 13;
 
     /**
-     * The full transaction that created this schedule.<br/>
-     * This is primarily used for duplicate schedule create detection. This is also the source
-     * of the parent transaction ID, from which the child transaction ID is derived when the
-     * `scheduled_transaction` is executed.
+     * The full transaction that created this schedule.
+     * <p>
+     * This is primarily used for duplicate schedule create detection. This is
+     * also the source of the parent transaction ID, from which the child
+     * transaction ID is derived when the `scheduled_transaction` is executed.
      */
     TransactionBody original_create_transaction = 14;
 
     /**
-     * All of the "primitive" keys that have already signed this schedule.<br/>
-     * The scheduled transaction will not be executed before this list is
-     * sufficient to "activate" the required keys for the scheduled transaction.<br/>
-     * A Key SHALL NOT be stored in this list unless the corresponding private key has
-     * signed either the original `schedule_create` transaction or a subsequent `schedule_sign`
-     * transaction intended for, and referencing to, this specific schedule.
+     * All of the "primitive" keys that have already signed this schedule.
      * <p>
-     * The only keys stored are "primitive" keys (ED25519 or ECDSA_SECP256K1) in order to ensure
-     * that any key list or threshold keys are correctly handled, regardless of signing order,
-     * intervening changes, or other situations. The `scheduled_transaction` SHALL execute only
-     * if, at the time of execution, this list contains sufficient public keys to satisfy the
+     * The scheduled transaction SHALL NOT be executed before this list is
+     * sufficient to "activate" the required keys for the scheduled transaction.<br/>
+     * A Key SHALL NOT be stored in this list unless the corresponding private
+     * key has signed either the original `schedule_create` transaction or a
+     * subsequent `schedule_sign` transaction intended for, and referencing to,
+     * this specific schedule.
+     * <p>
+     * The only keys stored are "primitive" keys (ED25519 or ECDSA_SECP256K1) in
+     * order to ensure that any key list or threshold keys are correctly handled,
+     * regardless of signing order, intervening changes, or other situations.
+     * The `scheduled_transaction` SHALL execute only if, at the time of
+     * execution, this list contains sufficient public keys to satisfy the
      * full requirements for signature on that transaction.
      */
     repeated Key signatories = 15;
@@ -172,8 +194,8 @@ message Schedule {
 /**
  * A message for storing a list of schedules in state.
  *
- * This is used to store lists of schedules that expire at a particular time or that have the same
- * simplified hash code.
+ * This is used to store lists of schedules that expire at a particular time or
+ * that have the same simplified hash code.
  */
 message ScheduleList {
   /**

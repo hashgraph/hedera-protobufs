@@ -51,8 +51,10 @@ message ContractGetInfoQuery {
     QueryHeader header = 1;
 
     /**
-     * A smart contract ID.<br/>
-     * The network SHALL return information for this smart contract, if successful.
+     * A smart contract ID.
+     * <p>
+     * The network SHALL return information for this smart contract,
+     * if successful.
      */
     ContractID contractID = 2;
 }
@@ -63,7 +65,8 @@ message ContractGetInfoQuery {
 message ContractGetInfoResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 
@@ -80,19 +83,23 @@ message ContractGetInfoResponse {
         ContractID contractID = 1;
 
         /**
-         * The Account ID for the account entry associated with this smart contract.
+         * The Account ID for the account entry associated with this
+         * smart contract.
          */
         AccountID accountID = 2;
 
         /**
-         * The "Solidity" form contract and account ID value that refers to this smart contract.
+         * The "Solidity" form contract and account ID value that refers to
+         * this smart contract.
          */
         string contractAccountID = 3;
 
         /**
-         * The key that MUST sign any transaction to update or modify this smart contract.<br/>
-         * If this value is null, or is an empty `KeyList` then the contract CANNOT be deleted,
-         * modified, or updated, but MAY still expire.
+         * The key that MUST sign any transaction to update or modify this
+         * smart contract.
+         * <p>
+         * If this value is null, or is an empty `KeyList` then the contract
+         * CANNOT be deleted, modified, or updated, but MAY still expire.
          */
         Key adminKey = 4;
 
@@ -102,9 +109,9 @@ message ContractGetInfoResponse {
         Timestamp expirationTime = 5;
 
         /**
-         * The duration, in seconds, for which the contract lifetime will be automatically
-         * extended upon expiration, provide sufficient HBAR is available at that time to pay
-         * the renewal fee.<br/>
+         * The duration, in seconds, for which the contract lifetime will be
+         * automatically extended upon expiration, provide sufficient HBAR is
+         * available at that time to pay the renewal fee.<br/>
          * See `auto_renew_account_id` for additional conditions.
          */
         Duration autoRenewPeriod = 6;
@@ -115,8 +122,9 @@ message ContractGetInfoResponse {
         int64 storage = 7;
 
         /**
-         * A short description of this smart contract.<br/>
-         * This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
+         * A short description of this smart contract.
+         * <p>
+         * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
          */
         string memo = 8;
 
@@ -131,16 +139,19 @@ message ContractGetInfoResponse {
         bool deleted = 10;
 
         /**
-         * Because <a href="https://hips.hedera.com/hip/hip-367">HIP-367</a>, which allows
-         * an account to be associated to an unlimited number of tokens, it became necessary to
-         * only provide this information from a Mirror Node.<br/>
+         * Because <a href="https://hips.hedera.com/hip/hip-367">HIP-367</a>,
+         * which allows an account to be associated to an unlimited number of
+         * tokens, it became necessary to only provide this information from
+         * a Mirror Node.<br/>
          * The list of tokens associated to this contract.
          */
         repeated TokenRelationship tokenRelationships = 11 [deprecated = true];
 
         /**
-         * The ledger ID of the network that generated this response.<br/>
-         * This is originally defined in HIP-198 and depends on network configuration.<br/>
+         * The ledger ID of the network that generated this response.
+         *
+         * This is originally defined in HIP-198 and depends on network
+         * configuration.<br/>
          * The current values, as of Q1 2024, are
          * <dl>
          *   <dt>Mainnet</dt><dd>0x00</dd>
@@ -154,14 +165,17 @@ message ContractGetInfoResponse {
 
         /**
          * An account designated to pay the renewal fee upon automatic renewal
-         * of this contract.<br/>
-         * If this is not set, or is set to an account with zero HBAR available, the HBAR
-         * balance of the contract, if available, SHALL be used to pay the renewal fee.
+         * of this contract.
+         * <p>
+         * If this is not set, or is set to an account with zero HBAR
+         * available, the HBAR balance of the contract, if available,
+         * SHALL be used to pay the renewal fee.
          */
         AccountID auto_renew_account_id = 13;
 
         /**
-         * The maximum number of tokens that the contract can be associated to automatically.
+         * The maximum number of tokens that the contract can be
+         * associated to automatically.
          */
         int32 max_automatic_token_associations = 14;
 

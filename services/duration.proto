@@ -36,8 +36,8 @@ option java_multiple_files = true;
 /**
  * A length of time in seconds.
  *
- * It is RECOMMENDED that this message be used whenever an amount of time, rather than a specific
- * point in time, is needed.
+ * It is RECOMMENDED that this message be used whenever an amount of time,
+ * rather than a specific point in time, is needed.
  */
 message Duration {
     /**

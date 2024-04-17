@@ -41,8 +41,10 @@ import "consensus_topic_info.proto";
 /**
  * Retrieve the latest state of a topic.
  *
- * This method is unrestricted and allowed on any topic by any payer account.<br/>
- * A query for a deleted topic MAY succeed if the topic is within the "autorenew grace period".<br/>
+ * This method is unrestricted and allowed on any topic by any payer
+ * account.<br/>
+ * A query for a deleted topic MAY succeed if the topic is within the
+ * "autorenew grace period".<br/>
  * A query for a topic removed from state SHALL NOT succeed.
  */
 message ConsensusGetTopicInfoQuery {
@@ -54,19 +56,22 @@ message ConsensusGetTopicInfoQuery {
     QueryHeader header = 1;
 
     /**
-     * A topic ID.<br/>
+     * A topic ID.
+     * <p>
      * The network SHALL return information for this topic, if successful.
      */
     TopicID topicID = 2;
 }
 
 /**
- * Returns the current state of a topic in the Hedera Consensus Service(HCS).
+ * Query response to describe the current state of a topic in the Hedera
+ * Consensus Service(HCS).
  */
 message ConsensusGetTopicInfoResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 

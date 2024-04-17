@@ -1,8 +1,10 @@
 /**
  * # Exchange Rates
- * Exchange rates that define ratios between HBAR and USD.<br/>
- * Fees are denominated in USD, but paid in HBAR, so accurate exchange rates are important and
- * the exchange rates kept in state are updated frequently.<br/>
+ * Exchange rates that define ratios between HBAR and USD.
+ *
+ * Fees are denominated in USD, but paid in HBAR, so accurate exchange
+ * rates are important and the exchange rates kept in state are updated
+ * frequently.<br/>
  * Exchange rates are also reported in every receipt for fee transparency.
  *
  * ### Keywords
@@ -41,14 +43,15 @@ import "timestamp.proto";
 /**
  * An exchange rate as a ratio of USD cents per HBAR.
  *
- * This ratio SHALL be used to convert tinycent (<tt>10<sup>-8</sup></tt> USD cent) to
- * tinybar for fees and other purposes.<br/>
- * When applying an `ExchangeRate`, implementations SHOULD ensure input values are `tinycent`
- * and/or `tinybar` before applying the exchange ratio. Exchange results MAY be converted
- * to USD or HBAR via division if whole unit values are required.
+ * This ratio SHALL be used to convert tinycent (`10<sup>-8</sup>` USD cent)
+ * to tinybar for fees and other purposes.<br/>
+ * When applying an `ExchangeRate`, implementations SHOULD ensure input values
+ * are `tinycent` and/or `tinybar` before applying the exchange ratio.<br/>
+ * Exchange results MAY be converted to USD or HBAR via division if whole
+ * unit values are required.
  *
- * The ratio described here SHALL be assigned such that a value in `tinybar` may be obtained with
- * the following equation.
+ * The ratio described here SHALL be assigned such that a value in `tinybar`
+ * may be obtained with the following equation.
  * ```
  *   amountInTinybar = (amountInTinycent * hbarEquiv) / centEquiv
  * ```
@@ -71,27 +74,31 @@ message ExchangeRate {
 }
 
 /**
- * A set of two exchange rates.
+ * A set of two exchange rates.<br/>
+ * The exchange rate for the network is stored and reported as a set of
+ * two rates; current and next. This structure supports the network cleanly
+ * switching between exchange rates when necessary. This also provides clear
+ * notice to clients when the exchange rate rate will change and the exchange
+ * rate that will be applied for the next time period.
  *
- * The exchange rate for the network SHALL be stored and reported as a set of two rates;
- * current and next. This structure supports the network cleanly switching between exchange
- * rates when necessary. This also provides clear notice to clients when the exchange rate
- * rate will change and the exchange rate that will be applied for the next time period.
- *
- * The difference in rate between `currentRate` and `nextRate` MUST NOT exceed the configured
- * maximum percentage change. This limit SHALL be a network configuration value.
+ * The difference in rate between `currentRate` and `nextRate` MUST NOT exceed
+ * the configured maximum percentage change. This limit SHALL be a
+ * network configuration value.
  */
 message ExchangeRateSet {
     /**
-     * A current exchange rate.<br/>
-     * When present in a receipt, this SHALL be the exchange rate used to compute the
-     * fees for that transaction.
+     * A current exchange rate.
+     * <p>
+     * When present in a receipt, this SHALL be the exchange rate used to
+     * compute the fees for that transaction.
      */
     ExchangeRate currentRate = 1;
 
     /**
-     * A future exchange rate.<br/>
-     * This exchange rate SHALL be applied after the current exchange rate expires.
+     * A future exchange rate.
+     * <p>
+     * This exchange rate SHALL be applied after the current exchange
+     * rate expires.
      */
     ExchangeRate nextRate = 2;
 }

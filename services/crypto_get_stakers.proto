@@ -4,8 +4,8 @@
  *
  * > Important
  * >> This query is obsolete and not supported.<br/>
- * >> Any query of this type that is submitted SHALL fail with a `PRE_CHECK` result
- * >> of `NOT_SUPPORTED`.
+ * >> Any query of this type that is submitted SHALL fail with a `PRE_CHECK`
+ * >> result of `NOT_SUPPORTED`.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -43,8 +43,8 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Get all the accounts that are proxy staking to this account. For each of them, give the amount
- * currently staked. This was never implemented.
+ * Get all the accounts that are proxy staking to this account. For each of
+ * them, give the amount currently staked. This was never implemented.
  */
 message CryptoGetStakersQuery {
     /**
@@ -76,7 +76,8 @@ message ProxyStaker {
 }
 
 /**
- * all of the accounts proxy staking to a given account, and the amounts proxy staked
+ * All of the accounts proxy staking to a given account, and the amounts proxy
+ * staked
  */
 message AllProxyStakers {
     /**
@@ -96,13 +97,14 @@ message AllProxyStakers {
 message CryptoGetStakersResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 
     /**
-     * List of accounts proxy staking to this account, and the amount each is currently proxy
-     * staking
+     * List of accounts proxy staking to this account, and the amount each is
+     * currently proxy staking
      */
     AllProxyStakers stakers = 3;
 }

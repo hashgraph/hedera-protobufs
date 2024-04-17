@@ -35,8 +35,8 @@ option java_multiple_files = true;
 /**
  * The bytecode for a contract account.
  *
- * This is not referenced in any other protocol buffer, but is used internally within the
- * Hedera Node software.
+ * This is not referred to by any other protocol buffer, but is used internally
+ * within the Hedera Node software.
  */
 message Bytecode {
     /**

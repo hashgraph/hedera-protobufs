@@ -39,13 +39,14 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * Call a function of a given smart contract, providing function parameter inputs as needed.
+ * Call a function of a given smart contract, providing function parameter
+ * inputs as needed.
  *
- * Resource ("gas") charges SHALL include all relevant fees incurred by the contract execution,
- * including any storage required.
- *
- * The total transaction fee SHALL incorporate all of the "gas" actually consumed as well as the
- * standard fees for transaction handling, data transfers, signature verification, etc...
+ * Resource ("gas") charges SHALL include all relevant fees incurred by the
+ * contract execution, including any storage required.<br/>
+ * The total transaction fee SHALL incorporate all of the "gas" actually
+ * consumed as well as the standard fees for transaction handling, data
+ * transfers, signature verification, etc...
  */
 message ContractCallTransactionBody {
     /**
@@ -54,26 +55,30 @@ message ContractCallTransactionBody {
     ContractID contractID = 1;
 
     /**
-     * A maximum limit to the amount of gas to use for this call.<br/>
-     * The network SHALL charge the greater of the following, but SHALL NOT charge more than
-     * the value of this field.
+     * A maximum limit to the amount of gas to use for this call.
+     * <p>
+     * The network SHALL charge the greater of the following, but
+     * SHALL NOT charge more than the value of this field.
      * <ol>
      *   <li>The actual gas consumed by the smart contract call.</li>
      *   <li>`80%` of this value.</li>
      * </ol>
-     * The `80%` factor encourages reasonable estimation, while allowing for some overage
-     * to ensure successful execution.
+     * The `80%` factor encourages reasonable estimation, while allowing for
+     * some overage to ensure successful execution.
      */
     int64 gas = 2 /*[(buf.validate.field).int64 = {gte: 0}]*/;
 
     /**
-     * An amount of tinybar sent via this contract call.<br/>
+     * An amount of tinybar sent via this contract call.
+     * <p>
      * If this is non-zero, the function MUST be `payable`.
      */
     int64 amount = 3;
 
     /**
-     * The smart contract function to call, and the parameters to pass to that function.<br/>
+     * The smart contract function to call, and the parameters to pass to that
+     * function.
+     * <p>
      * These MUST be presented in EVM bytecode function call format.
      */
     bytes functionParameters = 4;

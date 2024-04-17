@@ -1,7 +1,7 @@
 /**
  * # Get By Solidity
- * A standard query to obtain account and contract identifiers for a smart contract, given the
- * Solidity identifier for that contract.
+ * A standard query to obtain account and contract identifiers for a smart
+ * contract, given the Solidity identifier for that contract.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -39,8 +39,8 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Query to read Contract, Account, and File identifiers for a smart contract given a Solidity
- * identifier.
+ * Query to read Contract, Account, and File identifiers for a smart
+ * contract given a Solidity identifier.
  */
 message GetBySolidityIDQuery {
     /**
@@ -51,7 +51,9 @@ message GetBySolidityIDQuery {
     QueryHeader header = 1;
 
     /**
-     * A contract ID in the format used by Solidity
+     * A contract ID in the format used by Solidity.
+     * <p>
+     * This field is REQUIRED.
      */
     string solidityID = 2;
 }
@@ -59,27 +61,36 @@ message GetBySolidityIDQuery {
 /**
  * Response to a getBySolidityId query.
  *
- * This message returns the account, contract, and file identifiers for a smart contract.
+ * This message returns the account, contract, and file identifiers for
+ * a smart contract.
  */
 message GetBySolidityIDResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 
     /**
-     * The Account ID of the account supporting the requested smart contract.
+     * An account identifier.
+     * <p>
+     * This SHALL identify an account that backs the requested smart contract.
      */
     AccountID accountID = 2;
 
     /**
-     * The file ID of the file supporting the requested smart contract.
+     * A file identifier.
+     * <p>
+     * This SHALL identify a file, the contents of which are the EVM
+     * bytecode for the requested smart contract.
      */
     FileID fileID = 3;
 
     /**
-     * The contract ID of the requested smart contract.
+     * A contract identifier.
+     * <p>
+     * This SHALL identify the requested smart contract.
      */
     ContractID contractID = 4;
 }

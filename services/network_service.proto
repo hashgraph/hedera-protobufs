@@ -40,7 +40,8 @@ import "transaction.proto";
 /**
  * Basic "network information" queries.
  *
- * This service supports queries for the active services and API versions, and account details.
+ * This service supports queries for the active services and API versions,
+ * and a query for account details.
  */
 service NetworkService {
     /**
@@ -49,22 +50,25 @@ service NetworkService {
     rpc getVersionInfo (Query) returns (Response);
 
     /**
-     * Request detail information about an account.<br/>
+     * Request detail information about an account.
+     * <p>
      * The returned information SHALL include balance and allowances.<br/>
      * The returned information SHALL NOT include a list of account records.
      */
     rpc getAccountDetails (Query) returns (Response);
 
     /**
-     * Retrieve the time, in nanoseconds, spent in direct processing for one or more
-     * recent transactions.<br/>
-     * For each transaction identifier provided, if that transaction is sufficiently recent
-     * (that is, it is within the range of the configuration value
-     * `stats.executionTimesToTrack`), the node SHALL return the time, in nanoseconds, spent
-     * to directly process that transaction (that is, excluding time to reach consensus).<br/>
-     * Note that because each node processes every transaction for the Hedera network, this
-     * query MAY be sent to any node.
-     * &nbsp;
+     * Retrieve the time, in nanoseconds, spent in direct processing for one or
+     * more recent transactions.
+     * <p>
+     * For each transaction identifier provided, if that transaction is
+     * sufficiently recent (that is, it is within the range of the
+     * configuration value `stats.executionTimesToTrack`), the node SHALL
+     * return the time, in nanoseconds, spent to directly process that
+     * transaction (that is, excluding time to reach consensus).<br/>
+     * Note that because each node processes every transaction for the Hedera
+     * network, this query MAY be sent to any node.
+     * <p>
      * <blockquote>Important<blockquote>
      * This query is obsolete, not supported, and SHALL fail with a pre-check
      * result of `NOT_SUPPORTED`.</blockquote></blockquote>
@@ -72,11 +76,15 @@ service NetworkService {
     rpc getExecutionTime (Query) returns (Response);
 
     /**
-     * Submit a transaction that wraps another transaction which will skip most validation.<br/>
+     * Submit a transaction that wraps another transaction which will
+     * skip most validation.
+     * <p>
      * <blockquote>Important<blockquote>
-     * This transaction SHALL NOT, under any circumstances, be enabled in mainnet.<br/>
-     * The `uncheckedSubmit` transaction SHALL NOT be accepted unless signed by the `treasury`
-     * account or the `systemAdmin` account.</blockquote></blockquote>
+     * This transaction SHALL NOT, under any circumstances, be
+     * enabled in mainnet.<br/>
+     * The `uncheckedSubmit` transaction SHALL NOT be accepted unless signed
+     * by the `treasury` account or the `systemAdmin` account.
+     * </blockquote></blockquote>
      */
     rpc uncheckedSubmit (Transaction) returns (TransactionResponse);
 }

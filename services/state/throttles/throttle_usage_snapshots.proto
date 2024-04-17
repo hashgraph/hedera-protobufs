@@ -35,14 +35,18 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * All point-in-time snapshots of throttle usage for TPS and "gas" throttle values for a given point in time.
+ * All point-in-time snapshots of throttle usage for TPS and "gas" throttle
+ * values for a given point in time.
  *
- * {{Question: What point in time?  Should this store consensus timestamp here?}}
+ * > Question:
+ * >> What point in time?  Should this store consensus timestamp here?
  */
 message ThrottleUsageSnapshots {
 
     /**
-     * A list of snapshots for TPS throttles. {{Question: What is the order?}}
+     * A list of snapshots for TPS throttles.
+     * <p>
+     * <blockquote>Question:<blockquote>What is the order?</blockquote></blockquote>
      */
     repeated ThrottleUsageSnapshot tps_throttles = 1;
 
@@ -53,8 +57,11 @@ message ThrottleUsageSnapshots {
 }
 
 /**
- * A single snapshot of the used throttle capacity for a throttle and point in time.
- * {{Question: What throttle does this apply to? How is that determined?}}
+ * A single snapshot of the used throttle capacity for a throttle and point in
+ * time.
+ *
+ * > Question:
+ * >> What throttle does this apply to? How is that determined?
  */
 message ThrottleUsageSnapshot {
     /**
@@ -63,8 +70,9 @@ message ThrottleUsageSnapshot {
     int64 used = 1;
 
     /**
-     * The time at which the this snapshot of capacity was calculated.
+     * The time at which the this snapshot of capacity was calculated.<br/>
      * Stored as an offset from the `epoch`.
+     * <p>
      * For this purpose, `epoch` SHALL be the UNIX epoch with 0 at `1970-01-01T00:00:00.000Z`.
      */
     Timestamp last_decision_time = 2;

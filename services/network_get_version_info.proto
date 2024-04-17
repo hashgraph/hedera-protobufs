@@ -38,7 +38,8 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Query the deployed versions of Hedera Services and the HAPI proto in semantic version format
+ * Query the deployed versions of Hedera Services and the API definitions in
+ * semantic version format
  */
 message NetworkGetVersionInfoQuery {
     /**
@@ -52,27 +53,31 @@ message NetworkGetVersionInfoQuery {
 /**
  * A response to a `NetworkGetVersionInfoQuery`.
  *
- * This SHALL return `SemanticVersion` information for both Hedera API (HAPI) and Hedera Services.
+ * This SHALL return `SemanticVersion` information for both Hedera API (HAPI)
+ * and Hedera Services.
  *
- * Note that the Hedera software may use the fields of the `SemanticVersion` in a somewhat
- * unorthodox manner.
+ * > Note that the Hedera software MAY use the fields of the `SemanticVersion`
+ * > in a somewhat unorthodox manner.
  */
 message NetworkGetVersionInfoResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`; cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
     ResponseHeader header = 1;
 
     /**
-     * An API version.<br/>
+     * An API version.
+     * <p>
      * This SHALL be the current Hedera API (HAPI) protobuf message version
      * accepted by the network.
      */
     SemanticVersion hapiProtoVersion = 2;
 
     /**
-     * A Services version.<br/>
+     * A Services version.
+     * <p>
      * This SHALL be the current version of the Hedera Services software
      * operating the network.
      */

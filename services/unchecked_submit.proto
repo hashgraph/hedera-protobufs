@@ -1,6 +1,7 @@
 /**
  * # Unchecked Submit
- * Submit a transaction to the network, bypassing all but the most minimal validation.
+ * Submit a transaction to the network, bypassing all but the most minimal
+ * validation.
  *
  * This is used for testing only and MUST NOT be enabled in mainnet.
  *
@@ -36,18 +37,21 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * Submit an arbitrary (serialized) Transaction to the network without prechecks.
+ * Submit an arbitrary (serialized) Transaction to the network
+ * without pre-check.
  *
  * This transaction SHALL require `superuser` privileges
  * (e.g. the `treasury` or `systemAdmin` accounts).
  */
 message UncheckedSubmitBody {
     /**
-     * The serialized bytes of a `Transaction`.<br/>
-     * This transaction SHALL be deserialized and submitted for consensus with no further
-     * validation.<br/>
-     * Specifically, the transaction may violate basic limits and constraints such as
-     * size limits, minimum or maximum values, valid start time, fee calculations, etc...
+     * The serialized bytes of a `Transaction`.
+     * <p>
+     * This transaction SHALL be deserialized and submitted for consensus
+     * with no further validation.<br/>
+     * Specifically, the transaction may violate basic limits and
+     * constraints such as size limits, minimum or maximum values,
+     * valid start time, fee calculations, etc...
      */
     bytes transactionBytes = 1;
 }

@@ -44,8 +44,10 @@ import "google/protobuf/wrappers.proto";
  * Updating the metadata of an NFT does not affect its ownership or transferability.
  * This operation is intended for updating attributes of individual NFTs in a collection.
  *
- * --- Signing Requirements ---
- * 1. To update metadata of an NFT, the metadata_key of the token should sign the transaction.
+ * This transaction SHALL update NFT metadata.<br/>
+ * This transaction MUST be signed by the token `metadata_key`.<br/>
+ * The token `metadata_key` MUST be set to a valid `Key`.<br/>
+ * The token `metadata_key` MUST NOT be an empty `KeyList`.
  */
 message TokenUpdateNftsTransactionBody {
     /**

@@ -1,8 +1,8 @@
 /**
  * # Record Cache
- * The Record Cache holds transaction records for a short time, and is the source for responses to
- * `transactionGetRecord` and `transactionGetReceipt` queries.
- *
+ * The Record Cache holds transaction records for a short time, and is the
+ * source for responses to `transactionGetRecord` and `transactionGetReceipt`
+ * queries.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -38,23 +38,28 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * As transactions are handled and records and receipts are created, they are stored in state for a
- * configured time period (for example, 3 minutes). During this time, any client can query the node
- * and get the record or receipt for the transaction. The `TransactionRecordEntry` is the object
- * stored in state with this information.
+ * As transactions are handled and records and receipts are created, they are
+ * stored in state for a configured time period (for example, 3 minutes).
+ * During this time, any client can query the node and get the record or receipt
+ * for the transaction. The `TransactionRecordEntry` is the object stored in
+ * state with this information.
  */
 message TransactionRecordEntry {
     /**
-     * The ID of the node that submitted the transaction to consensus.<br/>
-     * The ID is the ID of the node as known by the address book. Valid node IDs are whole numbers.
+     * The ID of the node that submitted the transaction to consensus.
+     * <p>
+     * The ID is the ID of the node as known by the address book. Valid node
+     * IDs are whole numbers.
      */
     int64 node_id = 1;
 
     /**
-     * The AccountID of the payer of the transaction.<br/>
-     * This MAY be the same as the account ID within the Transaction ID of the record, or it MAY be
-     * the account ID of the node that submitted the transaction to consensus if the account
-     * ID in the Transaction ID was not able to pay.
+     * The AccountID of the payer of the transaction.
+     * <p>
+     * This MAY be the same as the account ID within the Transaction ID of the
+     * record, or it MAY be the account ID of the node that submitted the
+     * transaction to consensus if the account ID in the Transaction ID was
+     * not able to pay.
      */
     AccountID payer_account_id = 2;
 
