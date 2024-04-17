@@ -61,10 +61,4 @@ message StateSignaturePayload {
    * This hash MUST be a SHA-384 hash.
    */
   bytes hash = 3;
-
-  /**
-   * The hash of the epoch to which this signature corresponds to.<br/>
-   * This hash MUST be a SHA-384 hash.
-   */
-  bytes epoch_hash = 4;
 }
