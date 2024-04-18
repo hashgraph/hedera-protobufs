@@ -1188,9 +1188,29 @@ enum HederaFunctionality {
     TransactionGetFastRecord = 87;
 
     /**
-    * Update the metadata of one or more NFT's of a specific token type.
-    */
+     * Update the metadata of one or more NFT's of a specific token type.
+     */
     TokenUpdateNfts = 88;
+
+    /**
+     * Airdrops one or more tokens to one or more accounts.
+     */
+    TokenAirdrop = 89;
+
+    /**
+     * Remove one or more pending airdrops from state on behalf of the sender(s) for each airdrop.
+     */
+    TokenCancelAirdrop = 90;
+
+    /**
+     * Complete one or more pending transfers on behalf of the recipient(s) for each airdrop.
+     */
+    TokenClaimAirdrop = 91;
+
+    /**
+     * Transfer one or more token balances held by the requesting account to the treasury for each token type.
+     */
+    TokenReject = 92;
 }
 
 /**
