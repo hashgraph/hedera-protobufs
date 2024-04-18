@@ -38,7 +38,7 @@ import "basic_types.proto";
  * to claim again.
  *
  * Each claim SHALL be represented in the transaction body and SHALL NOT be restated
- * in the record file.<br/>
+ * in the transaction record.<br/>
  * All claims MUST succeed for this transaction to succeed.
  */
 message TokenClaimAirdropTransactionBody {
