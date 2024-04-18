@@ -50,37 +50,21 @@ message Node {
     string description = 3;
 
     /**
-     * the node operator account key
-     */
-    Key operator_key = 4;
-
-    /**
-     * the council account key
-     */
-    Key council_key = 5;
-
-    /**
      * Node Gossip Endpoints, ip address or FQDN and port
      */
-    ServiceEndpoint gossip_endpoint = 6;
+    repeated ServiceEndpoint gossip_endpoint = 4;
 
     /**
      * A node's service Endpoints, ip address or FQDN and port
      */
-    repeated ServiceEndpoint service_endpoint = 7;
+    repeated ServiceEndpoint service_endpoint = 5;
 
     /**
      * node’s public key within the Address Book used for signing.
      * The node's X509 RSA public key used to sign stream files (e.g., record stream
-     * files). Precisely, this field is a string of hexadecimal characters which,
-     * translated to binary, are the public key's DER encoding.
+     * files).
     */
-    string public_key = 8;
-
-    /**
-     * The consensus weight of this node in the network.
-     */
-    int64 weight = 9;
+    bytes public_key = 6;
 
     /**
      * node x509 certificate hash. Hash of the node's TLS certificate. Precisely, this field is a string of
@@ -88,12 +72,18 @@ message Node {
      * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
      * used to verify the node's certificate it presents during TLS negotiations.
      */
-    bytes certificate_hash = 10;
+    bytes certificate_hash = 7;
+
+    /**
+    * The consensus weight of this node in the network.
+    */
+    int64 weight = 8;
 
     /**
      * an enum to indicate the status of the node
      */
-//    NodeStatus status = 12; not used in phase 2
+    //    NodeStatus status = 9; not used in phase 2
+
 }
 
 enum NodeStatus {
