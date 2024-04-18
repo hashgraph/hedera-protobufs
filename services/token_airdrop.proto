@@ -62,7 +62,7 @@ import "basic_types.proto";
  * pending airdrop.
  *
  * Any airdrop that completes immediately SHALL be irreversible. Any airdrop that results in a
- * "Pending Airdrop" MAY be canceled via a `cancelAirdrop` transaction.<
+ * "Pending Airdrop" MAY be canceled via a `cancelAirdrop` transaction.
  *
  * All transfer fees (including custom fees and royalties), as well as the rent cost for the
  * first auto-renewal period for any automatic-association slot occupied by the airdropped

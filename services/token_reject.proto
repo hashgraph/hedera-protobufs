@@ -50,7 +50,8 @@ message TokenRejectTransactionBody {
 }
 
 /**
- * A union token identifier.<br/>
+ * A union token identifier.
+ *
  * Identify a fungible/common token type, or a single non-fungible/unique token serial.
  */
 message TokenReference {
