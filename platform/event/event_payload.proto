@@ -9,7 +9,7 @@
  */
 syntax = "proto3";
 
-package com.hedera.hapi.platform.event;
+package proto;
 
 /*
  * Hedera Network Services Protobuf
@@ -31,8 +31,8 @@ package com.hedera.hapi.platform.event;
 
 import "event/state_signature_payload.proto";
 
-option java_package = "com.hedera.hapi.platform.event";
-// <<<pbj.java_package = "com.hedera.hapi.platform.event">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.swirlds.proto.legacy.event";
+// <<<pbj.java_package = "com.swirlds.proto.event">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 /**
