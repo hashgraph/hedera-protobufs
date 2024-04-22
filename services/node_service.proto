@@ -58,4 +58,9 @@ service NodeService {
 	   * The node will not be updated until the network is upgraded.
      */
     rpc updateNode (Transaction) returns (TransactionResponse);
+
+    /**
+     * Retrieves the node information by node Id.
+     */
+    rpc getNodeInfo (Query) returns (Response);
 }
