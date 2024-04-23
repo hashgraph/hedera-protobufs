@@ -12,10 +12,7 @@ syntax = "proto3";
 package proto;
 
 /*
- *
- * Hedera Network Services Protobuf
- *
- * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * Copyright (C) 2023-2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +25,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 import "timestamp.proto";
@@ -42,9 +38,12 @@ option java_multiple_files = true;
  * An Hedera Token Service non-fungible token (NFT).<br/>
  * Every NFT is a unique instance of a token with non-fungible type.<br/>
  * The NFT SHALL be identified by token ID and serial number.<br/>
- * The token treasury account SHALL own all minted NFTs of that token type initially.<br/>
- * NFTs owned by the token treasury SHALL NOT be linked into that account's virtual linked list of NFTs.<br/>
- * NFTs not owned by the token treasury SHALL be linked into the owner account's virtual linked list of NFTs.
+ * The token treasury account SHALL own all minted NFTs of that token type
+ * initially.<br/>
+ * NFTs owned by the token treasury SHALL NOT be linked into that account's
+ * virtual linked list of NFTs.<br/>
+ * NFTs not owned by the token treasury SHALL be linked into the owner
+ * account's virtual linked list of NFTs.
  */
 message Nft {
 
@@ -55,13 +54,14 @@ message Nft {
 
     /**
      * The account or contract id that owns this NFT.<br/>
-     * If this NFT is owned by its token type's current treasury account, this value SHALL be zero.
+     * If this NFT is owned by its token type's current treasury account,
+     * this value SHALL be zero.
      */
     AccountID owner_id = 2;
 
     /**
      * The account or contract id approved to spend this NFT.<br/>
-     * If there is no approved spender, this value SHALL be zero.
+     * If there is no approved spender, this value SHALL be null.
      */
     AccountID spender_id = 3;
 
@@ -73,18 +73,21 @@ message Nft {
 
     /**
      * The metadata bytes for this NFT. This is often a URI value.<br/>
-     * This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes when so encoded.
+     * This value, if set, SHALL be encoded UTF-8 and SHALL NOT exceed 100 bytes
+     * when so encoded.
      */
     bytes metadata = 5;
 
     /**
-     * The NFT ID of the previous entry in the current owner's "virtual double-linked list" of owned NFTs.
+     * The NFT ID of the previous entry in the current owner's "virtual
+     * double-linked list" of owned NFTs.<br/>
      * If the owner of this NFT is the token treasury, this SHALL be unset.
      */
     NftID owner_previous_nft_id = 6;
 
     /**
-     * The NFT ID of the next entry in the current owner's "virtual double-linked list" of owned NFTs.
+     * The NFT ID of the next entry in the current owner's "virtual
+     * double-linked list" of owned NFTs.<br/>
      * If the owner of this NFT is the token treasury, this SHALL be unset.
      */
     NftID owner_next_nft_id = 7;

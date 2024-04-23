@@ -39,10 +39,7 @@ syntax = "proto3";
 package proto;
 
 /*
- *
- * Hedera Network Services Protobuf
- *
- * Copyright (C) 2018 - 2022 Hedera Hashgraph, LLC
+ * Copyright (C) 2018-2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +52,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 import "timestamp.proto";
@@ -372,7 +368,7 @@ message TransactionID {
      * calls one or more HTS precompiled contracts; each of the "child"
      * transactions spawned for a precompile has a transaction id with a different nonce.
      * <p>
-     * This value SHALL be unset for user-submitted transactions.
+     * This value MUST be unset for user-submitted transactions.
      */
     int32 nonce = 4;
 }

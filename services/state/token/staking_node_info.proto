@@ -1,6 +1,7 @@
 /**
  * # Staking Node Information
- * This is an entry describing the staking characteristics of a single active node.
+ * This is an entry describing the staking characteristics of a single active
+ * node.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -12,10 +13,7 @@ syntax = "proto3";
 package proto;
 
 /*
- *
- * Hedera Network Services Protobuf
- *
- * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * Copyright (C) 2023-2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +26,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -38,13 +35,14 @@ option java_multiple_files = true;
 /**
  * An Hedera Token Service staking info entity.
  *
- * Staking info is per node. Shard and Realm are implied based on the network address book entry
- * for this node.
+ * Staking info is per node. Shard and Realm are implied based on the network
+ * address book entry for this node.
  */
 message StakingNodeInfo {
     /**
      * The entity number of this node.<br/>
-     * The shard and realm numbers are implied, based on the network address book entry for this node.
+     * The shard and realm numbers are implied, based on the network address book
+     * entry for this node.
      * <p>
      * This value SHALL be unique within a given shard and realm.<br/>
      * This value MAY be repeated across shards and/or realms.
@@ -52,45 +50,45 @@ message StakingNodeInfo {
     int64 node_number = 1;
 
     /**
-     * The minimum stake, in tinybar, that is required for this node to have a non-zero weight
-     * in the network consensus.<br/>
-     * If the current value of `stake` is below this value, this node SHALL have a zero weight in
-     * network consensus.
+     * The minimum stake, in tinybar, that is required for this node to have a
+     * non-zero weight in the network consensus.<br/>
+     * If the current value of `stake` is below this value, this node SHALL have
+     * a zero weight in network consensus.
      */
     int64 min_stake = 2;
 
     /**
-     * The maximum stake to this node that is considered to calculate its weight in the network
-     * consensus.<br/>
-     * If the current `stake` value is above this limit, the excess staked HBAR SHALL NOT be
-     * considered when determining consensus weight.
+     * The maximum stake to this node that is considered to calculate its weight
+     * in the network consensus.<br/>
+     * If the current `stake` value is above this limit, the excess staked HBAR
+     * SHALL NOT be considered when determining consensus weight.
      */
     int64 max_stake = 3;
 
     /**
-     * The sum of balances of all accounts staked to this node, considering only accounts that
-     * choose to receive rewards.
+     * The sum of balances of all accounts staked to this node, considering only
+     * accounts that choose to receive rewards.
      */
     int64 stake_to_reward = 4;
 
     /**
-     * The sum of balances of all accounts staked to this node, considering only accounts that
-     * decline to receive rewards.
+     * The sum of balances of all accounts staked to this node, considering only
+     * accounts that decline to receive rewards.
      */
     int64 stake_to_not_reward = 5;
 
     /**
      * The snapshot of stake_to_reward value at the beginning of the current staking period.<br/>
-     * This is needed for calculating rewards for current staking period without considering
-     * changes to `stake_to_reward` within the current staking period.<br/>
+     * This is needed for calculating rewards for current staking period without
+     * considering changes to `stake_to_reward` within the current staking period.<br/>
      * This value is reset at the beginning of every staking period.
      */
     int64 stake_reward_start = 6;
 
     /**
-     * The amount of staked HBAR from `stake_reward_start` that will have unclaimed rewards due to
-     * accounts changing their staking metadata in a way that disqualifies them for the current
-     * staking period.<br/>
+     * The amount of staked HBAR from `stake_reward_start` that will have
+     * unclaimed rewards due to accounts changing their staking metadata in a
+     * way that disqualifies them for the current staking period.<br/>
      * This value is reset at the beginning of every staking period.
      */
     int64 unclaimed_stake_reward_start = 7;
@@ -98,15 +96,17 @@ message StakingNodeInfo {
     /**
      * The total amount of HBAR staked to this node.<br/>
      * This is sum of stake_to_reward and stake_to_not_reward.<br/>
-     * If the sum is greater than `max_stake`, then the _effective_ stake is `max_stake`.
-     * If the sum is less than `min_stake`, then the _effective_ stake is `0`.
+     * If the sum is greater than `max_stake`, then the _effective_ stake SHALL be `max_stake`.<br/>
+     * If the sum is less than `min_stake`, then the _effective_ stake SHALL be `0`.
      */
     int64 stake = 8;
 
     /**
      * A running list of reward amounts for the last 365+1 staking periods
-     * (typically a year and a day). The first element is the reward up to and including the
-     * last full period prior to the present reward period. Second element is the reward up to and
+     * (typically a year and a day).<br/>
+     * The first element SHALL be the reward up to and including the last full
+     * period prior to the present reward period.<br/>
+     * The second element is the reward up to and
      * including the period before that. The list continues in reverse chronological order until
      * the reward history limit is reached.
      */

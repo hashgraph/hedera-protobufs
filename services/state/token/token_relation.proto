@@ -1,7 +1,7 @@
 /**
  * # Token Relationship.
- * This is a connection between one Account, one _fungible_ Token, and associated balance
- * within the Hedera network.
+ * This is a connection between one Account, one _fungible_ Token, and
+ * associated balance within the Hedera network.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -13,10 +13,7 @@ syntax = "proto3";
 package proto;
 
 /*
- *
- * Hedera Network Services Protobuf
- *
- * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * Copyright (C) 2023-2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +26,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 import "basic_types.proto";
@@ -68,9 +64,9 @@ message TokenRelation {
     int64 balance = 3;
 
     /**
-     * A flag specifying that this token relationship is frozen.<br/>
-     * When a token relationship is frozen the associated account SHALL NOT be permitted to transfer
-     * to or from the associated balance.
+     * A flag indicating that this token relationship is frozen.<br/>
+     * When a token relationship is frozen the associated account SHALL NOT be
+     * permitted to transfer to or from the associated balance.
      * <p>
      * This flag is associated with the Token value `freeze_key`, and any transaction to set this
      * flag MUST be signed by that key. If the Token does not have a `freeze_key` set,
