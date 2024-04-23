@@ -1193,18 +1193,18 @@ enum HederaFunctionality {
     TokenUpdateNfts = 88;
 
     /**
-    * Create a node
-    */
+     * Create a node
+     */
     NodeCreate = 89;
 
     /**
-    * Update a node
-    */
+     * Update a node
+     */
     NodeUpdate = 90;
 
     /**
-    * Delete a node
-    */
+     * Delete a node
+     */
     NodeDelete = 91;
 }
 
