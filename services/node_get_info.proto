@@ -2,12 +2,11 @@ syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
+/*
  * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+ *
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,11 +18,10 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.node.node">>> This comment is special code for setting PBJ Compiler java package
+// <<<pbj.java_package = "com.hedera.hapi.node.dynamic">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "basic_types.proto";
@@ -32,7 +30,7 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Gets information about Node instance
+ * Gets information about Node instance. This needs super use privileges to succeed or should be a node operator.
  */
 message NodeGetInfoQuery {
     /**
@@ -71,7 +69,7 @@ message NodeInfo {
     string description = 3;
 
     /**
-     * A node's Gossip Endpoints, ip address nd port
+     * A node's Gossip Endpoints, ip address and port
      */
     repeated ServiceEndpoint gossip_endpoint = 4;
 
@@ -98,7 +96,7 @@ message NodeInfo {
     /**
      * The consensus weight of this node in the network.
      */
-    int64 weight = 8;
+    uint64 weight = 8;
 
     /**
      * Whether the node has been deleted

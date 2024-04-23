@@ -18,11 +18,10 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.node.node">>> This comment is special code for setting PBJ Compiler java package
+// <<<pbj.java_package = "com.hedera.hapi.node.dynamic">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "google/protobuf/wrappers.proto";
@@ -40,9 +39,9 @@ import "timestamp.proto";
 message NodeUpdateTransactionBody {
 
     /**
-	   * The unique id of the Node to be updated. This must refer to an existing, non-deleted node.
-	   */
-    int64 node_id = 1;
+     * The unique id of the Node to be updated. This must refer to an existing, non-deleted node.
+     */
+    uint64 node_id = 1;
 
     /**
      * If set, the new node account_id.

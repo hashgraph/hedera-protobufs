@@ -18,7 +18,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 option java_package = "com.hederahashgraph.service.proto.java";
@@ -48,14 +47,14 @@ service NodeService {
 
     /**
      * Prepare to delete the node to the network.
-	   * The deleted node will not be deleted until the network is upgraded.
+     * The deleted node will not be deleted until the network is upgraded.
      * Such a deleted node can never be reused.
      */
     rpc deleteNode (Transaction) returns (TransactionResponse);
 
     /**
      * Prepare to update the node to the network.
-	   * The node will not be updated until the network is upgraded.
+     * The node will not be updated until the network is upgraded.
      */
     rpc updateNode (Transaction) returns (TransactionResponse);
 
