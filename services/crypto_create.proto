@@ -132,7 +132,8 @@ message CryptoCreateTransactionBody {
      * If this is less than or equal to `used_auto_associations`, or 0, then this account
      * MUST manually associate with a token before transacting in that token.<br/>
      * This value MAY also be `-1` to indicate no limit.<br/>
-     * This value MUST NOT be less than `-1`.
+     * This value MUST NOT be less than `-1`.<br/>
+     * By default this value is 0 for accounts except for auto-created accounts which default -1.
      */
     int32 max_automatic_token_associations = 14;
 
