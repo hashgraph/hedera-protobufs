@@ -69,7 +69,7 @@ import "basic_types.proto";
  * tokens, SHALL be charged to the account paying for this transaction.
  *
  * ### Record Stream Effects
- * - Each successful transfer SHALL populate that transfer in `token_transfer_list` for the record.
+ * - Each successful transfer SHALL be recorded in `token_transfer_list` for the transaction record.
  * - Each successful transfer that consumes an automatic association slot SHALL populate the
  *   `automatic_association` field for the record.
  * - Each pending transfer _created_ SHALL be added to the `pending_airdrops` field for the record.
