@@ -29,16 +29,17 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * See [NodeService.createNode()](#proto.NodeService)
- * Create a new node. After the node is created, the node_id for it is in the receipt.
- * This HAPI APIs to facilitate changes to the address book used across the Hedera network.
- * As a council member, I want the ability to submit signed HAPI transactions to add a new consensus node
- * to the Hedera network within 24 hours, so that I can perform operations independently.
- * When a valid council member initiates a HAPI transaction to add a new node, then the network should
- * acknowledge the transaction and update the network’s Address Book within 24 hours.
- * for phase 2, this just adds the node to the merkle tree and will be used to write config.txt and public.pfx during prepare freeze
- * the added node will not be active until the network is upgraded.
- * The council has to sign this transaction. This is a privileged transaction.
+ * A transaction body to add a new node to the network.
+ *
+ * This transaction body SHALL be considered a "privileged transaction".
+ *
+ * This message supports a transaction to create a new node in the network.
+ * The transaction, once complete, enables a new consensus node
+ * to join the network, and requires governing council authorization.
+ *
+ * A `NodeCreateTransactionBody` MUST be signed by the governing council.<br/>
+ * The newly created node information will be used to generate config.txt and public.pfx during phase 2,<br>
+ * not active until next freeze upgrade
  */
 message NodeCreateTransactionBody {
 

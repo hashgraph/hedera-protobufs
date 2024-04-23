@@ -88,7 +88,7 @@ message Node {
 
 enum NodeStatus {
     /**
-     * node deleted
+     * node in this state is deleted
      */
     DELETED = 0;
 
@@ -103,7 +103,8 @@ enum NodeStatus {
     PENDING_DELETION = 2;
 
     /**
-     * join in the consensus
+     * node in this state is active on the network and participating
+     * in network consensus.
      */
     IN_CONSENSUS = 3;
 }
