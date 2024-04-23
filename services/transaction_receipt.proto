@@ -168,5 +168,5 @@ message TransactionReceipt {
     /**
      * In the receipt of a NodeCreate, the id of the newly created node.
      */
-    int64 node_id = 15;
+    uint64 node_id = 15;
 }

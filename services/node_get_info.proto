@@ -36,24 +36,27 @@ import "response_header.proto";
  */
 message NodeGetInfoQuery {
     /**
-     * Standard info sent from client to node, including the signed payment, and what kind of
-     * response is requested (cost, state proof, both, or neither)
+     * Standard information sent with every query operation.<br/>
+     * This includes the signed payment and what kind of response is requested
+     * (cost, state proof, both, or neither).
      */
     QueryHeader header = 1;
 
     /**
-     * The node for which information is requested. If invalid node is provided, INVALID_NODE_ID
-     * response is returned.
+     * A node identifier for which information is requested.<br/>
+     * If the identified node is not valid, this request SHALL fail with
+     * a response code `INVALID_NODE_ID`.
      */
     uint64 node_id = 2;
 }
 
 /**
- * The metadata about a Node instance
+ * A query response describing the current state of a node
  */
 message NodeInfo {
     /**
-     * ID of the node instance
+     * A numeric node identifier.<br/>
+     * This value identifies this node within the network address book.
      */
     uint64 node_id = 1;
 
@@ -63,12 +66,12 @@ message NodeInfo {
     AccountID account_id = 2;
 
     /**
-     * A description of the node, with UTF-8 encoding up to 100 bytes
+     * A description of the node with UTF-8 encoding up to 100 bytes
      */
     string description = 3;
 
     /**
-     * Node Gossip Endpoints, ip address or FQDN and port
+     * A node's Gossip Endpoints, ip address nd port
      */
     repeated ServiceEndpoint gossip_endpoint = 4;
 
@@ -103,7 +106,10 @@ message NodeInfo {
     bool deleted = 10;
 
     /**
-     * The ledger ID the response was returned from; please see <a href="https://github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md">HIP-198</a> for the network-specific IDs.
+     * A ledger ID.<br/>
+     * This identifies the network that responded to this query.
+     * The specific values are documented in [HIP-198]
+     * (https://hips.hedera.com/hip/hip-198).
      */
     bytes ledger_id = 9;
 }
@@ -113,8 +119,9 @@ message NodeInfo {
  */
 message NodeGetInfoResponse {
     /**
-     * Standard response from node to client, including the requested fields: cost, or state proof,
-     * or both, or neither
+     * The standard response information for queries.<br/>
+     * This includes the values requested in the `QueryHeader`;
+     * cost, state proof, both, or neither.
      */
     ResponseHeader header = 1;
 

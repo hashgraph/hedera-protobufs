@@ -1399,7 +1399,7 @@ enum ResponseCodeEnum {
   TOKEN_HAS_NO_ADMIN_KEY = 337;
 
   /**
-   * A node is already deleted
+   * The node has been marked as deleted
    */
   NODE_DELETED = 338;
 
@@ -1409,7 +1409,7 @@ enum ResponseCodeEnum {
   INVALID_NODE_ID = 339;
 
   /**
-  * gossip_endpoint has a fully qualified domain name instead or ip
+  * gossip_endpoint has a fully qualified domain name instead of ip
   */
   INVALID_GOSSIP_ENDPOINT = 340;
 }

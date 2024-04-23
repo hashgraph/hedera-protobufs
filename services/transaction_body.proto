@@ -362,17 +362,17 @@ message TransactionBody {
     TokenUpdateNftsTransactionBody token_update_nfts = 53;
 
     /**
-    * Create a node
-    */
+     * A transaction body for a `createNode` request.
+     */
     NodeCreateTransactionBody nodeCreate = 54;
 
     /**
-     * Update a node
+     * A transaction body for an `updateNode` request.
      */
     NodeUpdateTransactionBody nodeUpdate = 55;
 
     /**
-     * Delete a node
+     * A transaction body for a `deleteNode` request.
      */
     NodeDeleteTransactionBody nodeDelete = 56;
   }

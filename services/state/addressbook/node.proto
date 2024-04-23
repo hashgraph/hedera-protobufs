@@ -37,7 +37,7 @@ message Node {
     /**
      * The unique id of the Node.
      */
-    int64 node_id = 1;
+    uint64 node_id = 1;
 
     /**
      * The account is charged for transactions submitted by the node that fail due diligence
@@ -77,7 +77,7 @@ message Node {
     /**
     * The consensus weight of this node in the network.
     */
-    int64 weight = 8;
+    uint64 weight = 8;
 
     /**
      * an enum to indicate the status of the node
@@ -93,12 +93,12 @@ enum NodeStatus {
     DELETED = 0;
 
     /**
-     * pending to be added
+     * node in this state is waiting to be added by consensus roster
      */
     PENDING_ADDITION = 1;
 
     /**
-     * pending to be deleted
+     *  node in this state is waiting to be deleted by consensus roster
      */
     PENDING_DELETION = 2;
 

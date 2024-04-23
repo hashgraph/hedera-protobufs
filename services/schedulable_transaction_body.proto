@@ -295,17 +295,17 @@ message SchedulableTransactionBody {
     TokenUpdateNftsTransactionBody token_update_nfts = 41;
 
     /**
-    * Create a node
-    */
+     * Transaction body for a scheduled transaction to create a new node.
+     */
     NodeCreateTransactionBody nodeCreate = 53;
 
     /**
-     * Update a node
+     * Transaction body for a scheduled transaction to modify an existing node.
      */
     NodeUpdateTransactionBody nodeUpdate = 54;
 
     /**
-     * Delete a node
+     * Transaction body for a scheduled transaction to remove a node.
      */
     NodeDeleteTransactionBody nodeDelete = 55;
   }

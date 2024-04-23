@@ -1370,7 +1370,7 @@ message ServiceEndpoint {
     int32 port = 2;
 
     /**
-	   * A node domain name
+     * A node domain name
      * This MUST be the fully qualified domain name of the node.
      * This value MUST NOT be more than 253 characters.
 	   */
