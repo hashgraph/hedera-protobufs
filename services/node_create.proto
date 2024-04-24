@@ -28,6 +28,7 @@ import "basic_types.proto";
 
 /**
  * A transaction body to add a new node to the network.
+ * After the node is created, the node_id for it is in the receipt.
  *
  * This transaction body SHALL be considered a "privileged transaction".
  *

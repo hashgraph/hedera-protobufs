@@ -297,16 +297,16 @@ message SchedulableTransactionBody {
     /**
      * Transaction body for a scheduled transaction to create a new node.
      */
-    NodeCreateTransactionBody nodeCreate = 53;
+    NodeCreateTransactionBody nodeCreate = 42;
 
     /**
      * Transaction body for a scheduled transaction to modify an existing node.
      */
-    NodeUpdateTransactionBody nodeUpdate = 54;
+    NodeUpdateTransactionBody nodeUpdate = 43;
 
     /**
      * Transaction body for a scheduled transaction to remove a node.
      */
-    NodeDeleteTransactionBody nodeDelete = 55;
+    NodeDeleteTransactionBody nodeDelete = 44;
   }
 }

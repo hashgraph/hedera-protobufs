@@ -36,7 +36,8 @@ import "basic_types.proto";
  */
 message NodeDeleteTransactionBody {
     /**
-     * The unique id of the node to be deleted
+     * The unique id of the node to be deleted. If invalid node is specified, transaction will
+     * result in INVALID_NODE_ID.
      */
     uint64 node_id = 1;
 }
