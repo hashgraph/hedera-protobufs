@@ -70,11 +70,11 @@ message NodeCreateTransactionBody {
     repeated ServiceEndpoint service_endpoint = 4;
 
     /**
-     * The node's X509 RSA public key used to sign stream files (e.g., record stream
-     * files). Precisely, this field is the public key's DER encoding.
+     * The node's X509 certificate used to sign stream files (e.g., record stream
+     * files). Precisely, this field is the DER encoding of gossip X509 certificate.
      * This is a mandatory field.
      */
-    bytes public_key = 5;
+    bytes gossip_ca_certificate = 5;
 
     /**
      * Hash of the node's TLS certificate. Precisely, this field is a string of
@@ -83,5 +83,5 @@ message NodeCreateTransactionBody {
      * Its value can be used to verify the node's certificate it presents
      * during TLS negotiations.node x509 certificate hash, optional field.
      */
-    bytes certificate_hash = 6;
+    bytes grpc_certificate_hash = 6;
 }

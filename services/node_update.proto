@@ -64,12 +64,12 @@ message NodeUpdateTransactionBody {
     repeated ServiceEndpoint service_endpoint = 5;
 
     /**
-     * If set, the new public_key to be associated with the node.
+     * If set, the new X509 certificate of the gossip node.
      */
-    google.protobuf.BytesValue public_key = 6;
+    google.protobuf.BytesValue gossip_ca_certificate = 6;
 
     /**
-     * If set, the new node x509 certificate hash to be associated with the node.
+     * If set, the new grpc x509 certificate hash.
      */
-    google.protobuf.BytesValue certificate_hash = 7;
+    google.protobuf.BytesValue grpc_certificate_hash = 7;
 }
