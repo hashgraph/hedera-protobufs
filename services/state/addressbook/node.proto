@@ -29,7 +29,7 @@ option java_multiple_files = true;
 /**
  * Representation of a Node in the network Merkle tree
  *
- * As with all network entities, a Node has a unique nodeId, which is a long type
+ * A Node is identified by a single uint64 number, which is unique among all nodes.
  */
 message Node {
     /**
