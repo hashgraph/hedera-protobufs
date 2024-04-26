@@ -21,7 +21,7 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.service.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.node.node">>> This comment is special code for setting PBJ Compiler java package
+// <<<pbj.java_package = "com.hedera.hapi.node.addressbook">>> This comment is special code for setting PBJ Compiler java package
 
 import "query.proto";
 import "response.proto";
@@ -29,14 +29,14 @@ import "transaction_response.proto";
 import "transaction.proto";
 
 /**
- * Transactions for the Node Service, those HAPI APIs facilitate changes to the nodes used across the Hedera network.
+ * Transactions for the AddressBook Service, those HAPI APIs facilitate changes to the nodes used across the Hedera network.
  * All those transactions needs to be signed by the Hedera Council. Steps needed below:
  * 1. The node operator creates and signs the transaction with their key (the key on the node operator account)
  * 2. The node operator hands this transaction to Alex, who then gives it to the council to sign
  * 3. When signed and submitted, the server will verify that account 2 keys have signed, and the keys on the operator account have signed.
  * Hedera council should have ability to make all edits in addition to add/remove nodes
  */
-service NodeService {
+service AddressBookService {
     /**
       * Prepare to add a new node to the network.
       * When a valid council member initiates a HAPI transaction to add a new node,

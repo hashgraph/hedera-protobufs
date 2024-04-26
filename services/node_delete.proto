@@ -21,7 +21,7 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.node.roster">>> This comment is special code for setting PBJ Compiler java package
+// <<<pbj.java_package = "com.hedera.hapi.node.addressbook">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "basic_types.proto";
@@ -29,9 +29,10 @@ import "basic_types.proto";
 /**
  * Delete the given node. After deletion, it will be marked as deleted.
  * But information about it will continue to exist for a year.
- * for phase 2, this marks the node to be deleted in the merkle tree and will be used to write config.txt and public.pfx during prepare freeze
- * the deleted node will not be deleted until the network is upgraded.
- * such a deleted node can never be reused.
+ * For phase 2, this marks the node to be deleted in the merkle tree and will be used to write config.txt and
+ * a-pulbic-NodeAlias.pem file per each node during prepare freeze.
+ * The deleted node will not be deleted until the network is upgraded.
+ * Such a deleted node can never be reused.
  * The council has to sign this transaction. This is a privileged transaction.
  */
 message NodeDeleteTransactionBody {
