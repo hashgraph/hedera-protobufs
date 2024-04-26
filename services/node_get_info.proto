@@ -78,11 +78,11 @@ message NodeInfo {
     repeated ServiceEndpoint service_endpoint = 5;
 
     /**
-     * node’s public key within the Address Book used for signing.
-     * The node's X509 RSA public key used to sign stream files (e.g., record stream
+     * The node's X509 certificate used to sign stream files (e.g., record stream
+     * files). Precisely, this field is the DER encoding of gossip X509 certificate.
      * files).
      */
-    bytes public_key = 6;
+    bytes gossip_ca_certificate = 6;
 
     /**
      * node x509 certificate hash. Hash of the node's TLS certificate. Precisely, this field is a string of
@@ -90,7 +90,7 @@ message NodeInfo {
      * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
      * used to verify the node's certificate it presents during TLS negotiations.
      */
-    bytes certificate_hash = 7;
+    bytes grpc_certificate_hash = 7;
 
     /**
      * The consensus weight of this node in the network.
