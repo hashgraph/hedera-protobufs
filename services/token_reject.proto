@@ -53,13 +53,18 @@ import "basic_types.proto";
  */
 message TokenRejectTransactionBody {
   /**
+   * An account holding the tokens to be rejected.
+   */
+  AccountID owner = 1;
+
+  /**
    * A list of one or more token rejections.<br/>
    * On success each rejected token serial number or balance SHALL be transferred from
    * the requesting account to the treasury account for that token type.<br/>
    * After rejection the requesting account SHALL continue to be associated with the token.<br/>
    * if dissociation is desired then a separate TokenDissociate transaction MUST be submitted to remove the association.
    */
-  repeated TokenReference rejections = 1;
+  repeated TokenReference rejections = 2;
 }
 
 /**
