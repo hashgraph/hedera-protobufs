@@ -1206,6 +1206,11 @@ enum HederaFunctionality {
      * Delete a node
      */
     NodeDelete = 91;
+
+    /**
+   * Get Node information
+   */
+    NodeGetInfo = 92;
 }
 
 /**
