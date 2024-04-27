@@ -78,4 +78,5 @@ secring.*
 ### Custom items
 .idea
 *.sw*
+*.iml
 
