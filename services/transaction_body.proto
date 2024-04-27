@@ -2,12 +2,9 @@ syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
- * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+/*
+ * Copyright (C) 2018-2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +16,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -332,6 +328,11 @@ message TransactionBody {
     TokenUnpauseTransactionBody token_unpause = 47;
 
     /**
+     * Update the metadata of one or more NFT's of a specific token type.
+     */
+    TokenUpdateNftsTransactionBody token_update_nfts = 53;
+
+    /**
      * Creates a schedule in the network's action queue
      */
     ScheduleCreateTransactionBody scheduleCreate = 42;
@@ -357,23 +358,18 @@ message TransactionBody {
     UtilPrngTransactionBody util_prng = 52;
 
     /**
-     * Update the metadata of one or more NFT's of a specific token type.
-     */
-    TokenUpdateNftsTransactionBody token_update_nfts = 53;
-
-    /**
      * A transaction body for a `createNode` request.
      */
-    NodeCreateTransactionBody nodeCreate = 54;
+    com.hedera.hapi.node.addressbook.NodeCreateTransactionBody nodeCreate = 54;
 
     /**
      * A transaction body for an `updateNode` request.
      */
-    NodeUpdateTransactionBody nodeUpdate = 55;
+    com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody nodeUpdate = 55;
 
     /**
      * A transaction body for a `deleteNode` request.
      */
-    NodeDeleteTransactionBody nodeDelete = 56;
+    com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 56;
   }
 }

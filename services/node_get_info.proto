@@ -1,10 +1,8 @@
 syntax = "proto3";
 
-package proto;
+package com.hedera.hapi.node.addressbook;
 
 /*
- * Hedera Network Services Protobuf
- *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +27,21 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Gets information about Node instance. This needs super use privileges to succeed or should be a node operator.
+ * A transaction body for a `getNodeInfo ` node information query request.
+ *
+ * This transaction body SHALL be considered a "privileged transaction".
+ *
+ * - A `NodeGetInfoQuery` MUST be signed by the governing council.
+ * - This query requests details for a single consensus node entry in the
+ *   network state.
+ * - The node identifier `node_id` is REQUIRED, and identifies the node for
+ *   which details are requested.
+ *
+ * > Note
+ * >> Requiring governing council signature for a query like this seems quite
+ * >> unusual.  Further detail for _why_ only the governing council is permitted
+ * >> to query this information would be helpful (particularly as the block
+ * >> stream and mirror node make it trivial to obtain the same information).
  */
 message NodeGetInfoQuery {
     /**
@@ -37,68 +49,106 @@ message NodeGetInfoQuery {
      * This includes the signed payment and what kind of response is requested
      * (cost, state proof, both, or neither).
      */
-    QueryHeader header = 1;
+    proto.QueryHeader header = 1;
 
     /**
-     * A node identifier for which information is requested.<br/>
+     * A consensus node identifier for which information is requested.<br/>
      * If the identified node is not valid, this request SHALL fail with
-     * a response code `INVALID_NODE_ID`.
+     * a response code `INVALID_NODE_ID`.<br/>
+     * If the identified node is not present in the network state,
+     * this request SHALL fail with a response code `INVALID_NODE_ID`.
      */
     uint64 node_id = 2;
 }
 
 /**
- * A query response describing the current state of a node
+ * A query response describing the current state of a consensus node entry in
+ * the network state.
  */
 message NodeInfo {
     /**
-     * A numeric node identifier.<br/>
-     * This value identifies this node within the network address book.
+     * A consensus node identifier in the network state.<br/>
+     * This value identifies this node within the network address book.<br/>
+     * This value is REQUIRED.
      */
     uint64 node_id = 1;
 
     /**
-     * The account is charged for transactions submitted by the node that fail due diligence
+     * An account identifier.<br/>
+     * This account MUST be owned by the entity responsible for the node.<br/>
+     * This account SHALL be charged transaction fees for any transactions that
+     * are submitted to the network by this node and fail due diligence checks.
      */
-    AccountID account_id = 2;
+    proto.AccountID account_id = 2;
 
     /**
-     * A description of the node with UTF-8 encoding up to 100 bytes
+     * A short description of the consensus node.<br/>
+     * This value, if present, MUST NOT exceed 100 bytes when encoded as UTF-8.
      */
     string description = 3;
 
     /**
-     * A node's Gossip Endpoints, ip address and port
+     * A list of service endpoints.<br/>
+     * These endpoints SHALL specify address and port.<br/>
+     * These endpoints SHALL NOT specify a DNS name.<br/>
+     * This list SHALL NOT be empty.<br/>
+     * This list SHALL NOT contain more than `10` entries.<br/>
+     * The first entry in this list SHALL be the endpoint published to all
+     * consensus nodes.<br/>
+     * All other entries SHALL be reserved for future use.
      */
-    repeated ServiceEndpoint gossip_endpoint = 4;
+    repeated proto.ServiceEndpoint gossip_endpoint = 4;
 
     /**
-     * A node's service Endpoints, ip address or FQDN and port
+     * A list of service endpoints.<br/>
+     * These endpoints SHALL represent the published endpoints to which clients
+     * may submit transactions.<br/>
+     * These endpoints SHALL specify address and port.<br/>
+     * These endpoints SHALL NOT specify DNS name.<br/>
+     * This list SHALL NOT be empty.<br/>
+     * This list SHALL NOT contain more than `8` entries.
      */
-    repeated ServiceEndpoint service_endpoint = 5;
+    repeated proto.ServiceEndpoint service_endpoint = 5;
 
     /**
-     * The node's X509 certificate used to sign stream files (e.g., record stream
-     * files). Precisely, this field is the DER encoding of gossip X509 certificate.
-     * files).
+     * A certificate used to sign gossip events.<br/>
+     * This value SHALL be a certificate of a type permitted for gossip
+     * signatures.<br/>
+     * The value presented SHALL be a UTF-8 NFKD encoding of the TLS
+     * certificate.<br/>
+     * The certificate encoded SHALL be in PEM format.<br/>
+     * This field is REQUIRED and MUST NOT be empty.
      */
     bytes gossip_ca_certificate = 6;
 
     /**
-     * node x509 certificate hash. Hash of the node's TLS certificate. Precisely, this field is a string of
-     * hexadecimal characters which, translated to binary, are the SHA-384 hash of
-     * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
-     * used to verify the node's certificate it presents during TLS negotiations.
+     * A hash of the node gRPC TLS certificate.<br/>
+     * This value MAY be used to verify the certificate presented by the node
+     * during TLS negotiation for gRPC.<br/>
+     * This value MUST be a SHA-384 hash.<br/>
+     * The value to be hashed MUST be a UTF-8 NFKD encoding of the TLS
+     * certificate.<br/>
+     * The certificate to be encoded MUST be in PEM format.<br/>
+     * This field is OPTIONAL.
      */
     bytes grpc_certificate_hash = 7;
 
     /**
-     * The consensus weight of this node in the network.
+     * A consensus weight.<br/>
+     * Each node SHALL have a weight in consensus calculations.<br/>
+     * The consensus weight of a node SHALL be calculated based on the amount
+     * of HBAR staked to that node.<br/>
+     * Consensus SHALL be calculated based on agreement of greater than `2/3`
+     * of the total `weight` value of all nodes on the network.
      */
     uint64 weight = 8;
 
     /**
-     * Whether the node has been deleted
+     * A flag indicating this node was removed from the network.<br/>
+     * This flag SHALL NOT be set unless a `deleteNode` transaction previously
+     * succeeded identifying that node.<br/>
+     * If this flag is set, the associated node SHALL NOT participate in the
+     * network.
      */
     bool deleted = 10;
 
@@ -112,18 +162,20 @@ message NodeInfo {
 }
 
 /**
- * Response when the client sends the node NodeGetInfoQuery
+ * Response body for a `getNodeInfo` node information query.
  */
 message NodeGetInfoResponse {
     /**
      * The standard response information for queries.<br/>
-     * This includes the values requested in the `QueryHeader`;
-     * cost, state proof, both, or neither.
+     * This includes the values requested in the `QueryHeader`
+     * (cost, state proof, both, or neither).
      */
-    ResponseHeader header = 1;
+    proto.ResponseHeader header = 1;
 
     /**
-     * The information requested about this node instance
+     * The requested detail information.<br/>
+     * This message SHALL contain the full detail for the node identified in the
+     * query request.
      */
     NodeInfo nodeInfo = 2;
 }
