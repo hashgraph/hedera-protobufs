@@ -53,7 +53,9 @@ import "basic_types.proto";
  */
 message TokenRejectTransactionBody {
   /**
-   * An account holding the tokens to be rejected.
+   * An account holding the tokens to be rejected.<br/>
+   * If set, this account MUST sign this transaction.
+   * If not set, the payer for this transaction SHALL be the account rejecting tokens.
    */
   AccountID owner = 1;
 
