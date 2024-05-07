@@ -1397,4 +1397,19 @@ enum ResponseCodeEnum {
    * Admin key is not set on token
    */
   TOKEN_HAS_NO_ADMIN_KEY = 337;
+
+  /**
+   * Value less than -1 was provided for maxAutoAssociations
+   */
+  INVALID_MAX_AUTO_ASSOCIATIONS = 338;
+
+  /**
+   * TokenCancelAirdrop or TokenClaimAirdrop referred to non-existing pending airdrop
+   */
+  PENDING_AIRDROP_DOES_NOT_EXIST = 339;
+
+  /**
+   * TokenAirdrop for same NFT serial number more than once is not allowed
+   */
+   PENDING_NFT_AIRDROP_ALREADY_EXISTS = 340;
 }
