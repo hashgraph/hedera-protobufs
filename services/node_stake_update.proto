@@ -4,7 +4,9 @@
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
- * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ * document are to be interpreted as described in
+ * [RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+ * [RFC8174](https://www.ietf.org/rfc/rfc8174).
  */
 syntax = "proto3";
 
@@ -84,30 +86,35 @@ message NodeStakeUpdateTransactionBody {
   /**
    * (DEPRECATED) The maximum total number of tinybars to be distributed as staking rewards in the
    * ending period. Please consult the max_total_reward field instead.
+   * c.f. HIP-786 (for deprecation reason)
    */
   int64 staking_reward_rate = 9 [deprecated = true];
 
   /**
    * The amount of the staking reward funds (account 0.0.800) reserved to pay pending rewards that
    * have been earned but not collected.
+   * c.f. HIP-786
    */
   int64 reserved_staking_rewards = 10;
 
   /**
    * The unreserved balance of account 0.0.800 at the close of the just-ending period; this value is
    * used to compute the HIP-782 balance ratio.
+   * c.f. HIP-786
    */
   int64 unreserved_staking_reward_balance = 11;
 
   /**
    * The unreserved tinybar balance of account 0.0.800 required to achieve the maximum per-hbar reward
    * rate in any period; please see HIP-782 for details.
+   * c.f. HIP-786
    */
   int64 reward_balance_threshold = 12;
 
   /**
    * The maximum amount of tinybar that can be staked for reward while still achieving the maximum
    * per-hbar reward rate in any period; please see HIP-782 for details.
+   * c.f. HIP-786
    */
   int64 max_stake_rewarded = 13;
 
@@ -117,6 +124,7 @@ message NodeStakeUpdateTransactionBody {
    * field replaces the deprecated field staking_reward_rate. It is only for convenience, since a
    * mirror node could also calculate its value by iterating the node_stake list and summing
    * stake_rewarded fields; then multiplying this sum by the max_staking_reward_rate_per_hbar.
+   * c.f. HIP-786
    */
   int64 max_total_reward = 14;
 }
