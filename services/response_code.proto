@@ -1437,4 +1437,10 @@ enum ResponseCodeEnum {
    * grpc_certificate_hash is invalid
    */
   INVALID_GRPC_CERTIFICATE = 345;
+
+  /**
+   * The transaction attempted to use duplicate `TokenReference`.<br/>
+   * This affects `TokenReject` attempting to reject same token reference more than once.
+   */
+  TOKEN_REFERENCE_REPEATED = 346;
 }
