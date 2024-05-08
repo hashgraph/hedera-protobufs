@@ -1399,17 +1399,25 @@ enum ResponseCodeEnum {
   TOKEN_HAS_NO_ADMIN_KEY = 337;
 
   /**
-   * Value less than -1 was provided for maxAutoAssociations
+   * The maximum automatic associations value is not valid.<br/>
+   * The most common cause for this error is a value less than `-1`.
    */
   INVALID_MAX_AUTO_ASSOCIATIONS = 338;
 
   /**
-   * TokenCancelAirdrop or TokenClaimAirdrop referred to non-existing pending airdrop
+   * The transaction refers to a `PendingAirdrop` that does not exist.<br/>
+   * This generally affects `TokenCancelAirdrop` and `TokenClaimAirdrop` and often
+   * occurs when a pending airdrop is already claimed or cancelled. The ID values
+   * in the transaction may also be incorrect.
    */
   PENDING_AIRDROP_DOES_NOT_EXIST = 339;
 
   /**
-   * TokenAirdrop for same NFT serial number more than once is not allowed
+   * The transaction attempted to airdrop the same non-fungible/unique (NFT)
+   * token more than once.<br/>
+   * Each unique token may only be sent one time. The caller may need to
+   * cancel a pending airdrop and then send to a different account, or
+   * may have unintentionally submitted a duplicate transfer.
    */
    PENDING_NFT_AIRDROP_ALREADY_EXISTS = 340;
 }
