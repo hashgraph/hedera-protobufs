@@ -1420,4 +1420,10 @@ enum ResponseCodeEnum {
    * may have unintentionally submitted a duplicate transfer.
    */
    PENDING_NFT_AIRDROP_ALREADY_EXISTS = 340;
+
+  /**
+   * The transaction attempted to use duplicate `TokenReference`.<br/>
+   * This affects `TokenReject` attempting to reject same token reference more than once.
+   */
+   TOKEN_REFERENCE_REPEATED = 341;
 }
