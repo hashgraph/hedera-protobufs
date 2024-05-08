@@ -1,0 +1,261 @@
+/**
+ * PlatformState
+ *
+ * Describes the current state of the platform entity.
+ *
+ * The state MUST contain address books, round information,
+ * event hashes, consensus snapshots, and software versions.
+ * The state SHALL accurately represent the latest round's
+ * consensus. <br>
+ * MUST ensure consistency and provide critical data for restarts
+ * and reconnects.
+ *
+ * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+ * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+ * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119)
+ * and clarified in [RFC8174](https://www.ietf.org/rfc/rfc8174).
+ */
+syntax = "proto3";
+
+package com.hedera.hapi.platform.state;
+
+/*
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+option java_package = "com.hedera.hapi.platform.state.legacy";
+// <<<pbj.java_package = "com.hedera.hapi.platform.state">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+import "basic_types.proto";
+import "timestamp.proto";
+
+/**
+ * PlatformState MUST represent the current consensus state of the platform entity.
+ * The state SHOULD contain the following components:
+ */
+message PlatformState {
+    /**
+     * The address book for this round.
+     *
+     * The address book MUST represent the latest consensus view of node
+     * addresses.
+     */
+    proto.NodeAddressBook address_book = 1;
+
+    /**
+     * The previous address book.
+     *
+     * A temporary workaround until dynamic address books are supported.
+     * If present, the previous address book SHOULD reflect the address
+     * book from the preceding round.
+     */
+    proto.NodeAddressBook previous_address_book = 2;
+
+    /**
+     * The round of this state.
+     *
+     * MUST represent the handling of all transactions reaching
+     * consensus in all previous rounds. <br>
+     * The first state (genesis state) SHALL have a round of 0, because
+     * the first round is defined as round 1.
+     */
+    uint64 round = 3;
+
+    /**
+     * The running event hash.
+     *
+     * Computed by the consensus event stream. <br>
+     * SHOULD be deleted once the consensus event stream is retired.
+     */
+    bytes legacy_running_event_hash = 4;
+
+    /**
+     * The consensus timestamp for this signed state.
+     *
+     * MUST represent the consensus of the first transaction in this round.
+     */
+    proto.Timestamp consensus_timestamp = 5;
+
+    /**
+     * The version of the application software.
+     *
+     * MUST accurately reflect the software version that created this state.
+     */
+    SoftwareVersion creation_software_version = 6;
+
+    /**
+     * The epoch hash of this state.
+     *
+     * MUST be updated whenever emergency recovery is performed.
+     */
+    bytes epoch_hash = 7;
+
+    /**
+     * The next epoch hash.
+     *
+     * Used to update the epoch hash at the next round boundary. <br>
+     * SHOULD NOT be part of the hash and MUST NOT be serialized.
+     */
+    bytes next_epoch_hash = 8;
+
+    /**
+     * The number of non-ancient rounds.
+     *
+     * MUST accurately reflect the count of rounds considered non-ancient.
+     */
+    uint32 rounds_non_ancient = 9;
+
+    /**
+     * A snapshot of the consensus state at the end of the round.
+     *
+     * MUST be used for restart/reconnect.
+     */
+    ConsensusSnapshot consensus_snapshot = 10;
+
+    /**
+     * The time when the freeze starts.
+     *
+     * If null, a freeze SHOULD NOT be scheduled.
+     */
+    proto.Timestamp freeze_time = 11;
+
+    /**
+     * The last time a freeze was performed.
+     *
+     * If null, there has never been a freeze.
+     */
+    proto.Timestamp last_frozen_time = 12;
+
+    /**
+     * Null if birth round migration has not yet happened.
+     *
+     * Otherwise, MUST represent the software version that first
+     * enabled birth round mode.
+     */
+    SoftwareVersion first_version_in_birth_round_mode = 13;
+
+    /**
+     * The last round before the birth round mode was enabled.
+     *
+     * MUST be -1 if birth round mode has not yet been enabled.
+     */
+    uint64 last_round_before_birth_round_mode = 14;
+
+    /**
+     * The lowest judge generation before birth round mode was enabled.
+     *
+     * MUST be -1 if birth round mode has not yet been enabled.
+     */
+    uint64 lowest_judge_generation_before_birth_round_mode = 15;
+}
+
+
+/**
+ * SoftwareVersion
+ *
+ * Contains the software version details of the platform entity.
+ */
+message SoftwareVersion {
+    /**
+     * The config version.
+     *
+     * MUST reflect the current configuration version.
+     */
+    uint32 config_version = 1;
+
+    /**
+     * The version of the HAPI module (Hedera API).
+     *
+     * MUST accurately reflect the Hedera API version.
+     */
+    proto.SemanticVersion hapi_version = 2;
+
+    /**
+     * The version of the services module.
+     *
+     * MUST accurately reflect the services version.
+     */
+    proto.SemanticVersion services_version = 3;
+}
+
+
+/**
+ * ConsensusSnapshot
+ *
+ * Stores a snapshot of the consensus state for the current round.
+ *
+ * SHALL accurately represent consensus data necessary for restart
+ * and reconnect.
+ */
+message ConsensusSnapshot {
+    /**
+     * The round number of this snapshot.
+     *
+     * MUST accurately reflect the round number.
+     */
+    uint64 round = 1;
+
+    /**
+     * The hashes of all judges for this round.
+     *
+     * Ordered by their creator ID. MUST be correctly ordered.
+     */
+    repeated bytes judge_hashes = 2;
+
+    /**
+     * Minimum ancient indicators for non-ancient rounds.
+     *
+     * MUST reflect the minimum ancient indicator of each round's judges.
+     */
+    repeated MinimumJudgeInfo minimum_judge_info_list = 3;
+
+    /**
+     * The consensus order of the next event to reach consensus.
+     *
+     * MUST accurately represent the consensus order.
+     */
+    uint64 next_consensus_number = 4;
+
+    /**
+     * The consensus timestamp of this snapshot.
+     *
+     * MUST accurately reflect the consensus time.
+     */
+    proto.Timestamp consensus_timestamp = 5;
+}
+
+
+/**
+ * MinimumJudgeInfo
+ *
+ * Records the minimum ancient indicator for all judges in a round.
+ */
+message MinimumJudgeInfo {
+    /**
+     * The round number.
+     *
+     * MUST represent the correct round number.
+     */
+    uint64 round = 1;
+
+    /**
+     * Minimum ancient threshold for all judges in a round.
+     *
+     * MUST reflect the minimum threshold accurately, whether
+     * generation-based or birth-round-based.
+     */
+    uint64 minimum_judge_ancient_threshold = 2;
+}
