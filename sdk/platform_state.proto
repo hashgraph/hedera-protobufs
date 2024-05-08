@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package proto;
+
+option java_package = "com.hedera.hashgraph.sdk.proto";
+option java_multiple_files = true;
+
+import "basic_types.proto";
+import "timestamp.proto";
+
+/**
+ * State managed and used by the platform.
+ */
+message PlatformState {
+  /**
+  * The address book for this round.
+  */
+  NodeAddressBook addressBook = 1;
+
+  /**
+  * The previous address book. A temporary workaround until dynamic address books are supported.
+  */
+  NodeAddressBook previousAddressBook = 2;
+
+  /**
+ * The round of this state. This state represents the handling of all transactions that have reached consensus in
+ * all previous rounds. All transactions from this round will eventually be applied to this state. The first state
+ * (genesis state) has a round of 0 because the first round is defined as round 1, and the genesis state is before
+ * any transactions are handled.
+ */
+  int64 round = 3;
+
+  /**
+ * The running event hash computed by the consensus event stream. This should be deleted once the consensus event
+ * stream is retired.
+ */
+  bytes legacyRunningEventHash = 4;
+
+  /**
+ * the consensus timestamp for this signed state
+ */
+  Timestamp consensusTimestamp = 5;
+  /**
+   * The version of the application software that was responsible for creating this state.
+   */
+  SoftwareVersion creationSoftwareVersion = 6;
+
+  /**
+   * The epoch hash of this state. Updated every time emergency recovery is performed.
+   */
+  bytes epochHash = 7;
+  /**
+   * The next epoch hash, used to update the epoch hash at the next round boundary. This field is not part of the hash
+   * and is not serialized.
+   */
+  bytes nextEpochHash = 8;
+
+  /**
+    * The number of non-ancient rounds.
+    */
+  int32 roundsNonAncient = 9;
+
+  /**
+   * A snapshot of the consensus state at the end of the round, used for restart/reconnect
+   */
+  ConsensusSnapshot consensusSnapshot = 10;
+
+  /**
+   * the time when the freeze starts
+   */
+  Timestamp freezeTime = 11;
+
+  /**
+   * the last time when a freeze was performed
+   */
+  Timestamp lastFrozenTime = 12;
+
+  /**
+   * Null if birth round migration has not yet happened, otherwise the software version that was first used when the
+   * birth round migration was performed.
+  */
+  SoftwareVersion firstVersionInBirthRoundMode = 13;
+
+  /**
+   * The last round before the birth round mode was enabled, or -1 if birth round mode has not yet been enabled.
+  */
+  int64 lastRoundBeforeBirthRoundMode = 14;
+
+  /**
+   * The lowest judge generation before the birth round mode was enabled, or -1 if birth round mode has not yet been
+   * enabled.
+   */
+  int64 lowestJudgeGenerationBeforeBirthRoundMode = 15;
+}
+
+
+message SoftwareVersion {
+  /**
+   * The config version
+   */
+  int32 configVersion = 1;
+
+  /**
+   * The version of the HAPI module (Hedera API)
+   */
+  SemanticVersion hapiVersion = 2;
+
+  /**
+    * The version of the services module
+   */
+  SemanticVersion servicesVersion = 3;
+}
+
+message ConsensusSnapshot {
+  /**
+   * the round number of this snapshot
+   */
+  int64 round = 1;
+  /**
+   * the hashes of all the judges for this round, ordered by their creator ID
+   */
+  repeated bytes judgeHashes = 2;
+  /**
+   * for each non-ancient round, the minimum ancient indicator of the round's judges
+   */
+  repeated MinimumJudgeInfo minimumJudgeInfoList = 3;
+  /**
+   * the consensus order of the next event that will reach consensus
+   */
+  int64 nextConsensusNumber = 4;
+  /**
+   * the consensus time of this snapshot
+   */
+  Timestamp consensusTimestamp = 5;
+}
+
+/**
+ * Records the minimum ancient indicator for all judges in a particular round.
+ */
+message MinimumJudgeInfo {
+  /**
+   * The round number
+   */
+  int64 round = 1;
+  /**
+   *  the minimum ancient threshold for all judges for a given round.
+   * Will be a generation if the birth round migration has not yet happened,
+   * will be a birth round otherwise.
+   */
+  int64 minimumJudgeAncientThreshold = 2;
+}
