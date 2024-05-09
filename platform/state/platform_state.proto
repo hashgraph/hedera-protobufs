@@ -159,7 +159,7 @@ message PlatformState {
      *
      * MUST be -1 if birth round mode has not yet been enabled.
      */
-    uint64 lowest_judge_generation_before_birth_round_mode = 15;
+    int64 lowest_judge_generation_before_birth_round_mode = 15;
 }
 
 
