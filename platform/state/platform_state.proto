@@ -53,7 +53,7 @@ message PlatformState {
      * The address book MUST represent the latest consensus view of node
      * addresses.
      */
-    proto.NodeAddressBook address_book = 1;
+    AddressBook address_book = 1;
 
     /**
      * The previous address book.
@@ -62,7 +62,7 @@ message PlatformState {
      * If present, the previous address book SHOULD reflect the address
      * book from the preceding round.
      */
-    proto.NodeAddressBook previous_address_book = 2;
+    AddressBook previous_address_book = 2;
 
     /**
      * The round of this state.
@@ -258,4 +258,116 @@ message MinimumJudgeInfo {
      * generation-based or birth-round-based.
      */
     uint64 minimum_judge_ancient_threshold = 2;
+}
+/**
+ * AddressBook
+ *
+ * Contains the address of every known member of the swirld. <br>
+ * Getters SHALL be public, and setters SHALL NOT be public, making it read-only
+ * for apps. <br>
+ * When `enableEventStreaming` is set to true, the memo field MUST be required
+ * and SHOULD be unique.
+ */
+message AddressBook {
+    /**
+     * The round when this address book was created.
+     */
+    int64 round = 1;
+
+    /**
+     * The node ID of the next address that can be added.
+     *
+     * MUST be greater than or equal to this value.
+     * <br>INVARIANT: `next_node_id` SHALL be greater than the node IDs
+     * of all addresses in the address book.
+     */
+    NodeId next_node_id = 2;
+
+    /**
+     * A list of all the addresses.
+     */
+    repeated Address addresses = 3;
+}
+
+/**
+ * Address
+ *
+ * Represents one address in an address book, including all the info about a member.
+ *
+ */
+message Address {
+    /**
+     * The ID of this member.
+     *
+     * SHALL be agreed upon by all members.
+     */
+    NodeId id = 1;
+
+    /**
+     * The nickname this member uses to refer to another member.
+     */
+    string nickname = 2;
+
+    /**
+     * The name that a member uses to refer to themselves.
+     */
+    string self_name = 3;
+
+    /**
+     * The member's nonnegative weight.
+     *
+     * SHALL be used for weighted voting.
+     */
+    uint64 weight = 4;
+
+    /**
+     * The IP or DNS name on the local network.
+     */
+    string hostname_internal = 5;
+
+    /**
+     * Port used on the local network.
+     */
+    uint32 port_internal = 6;
+
+    /**
+     * The IP or DNS name outside the NAT firewall.
+     */
+    string hostname_external = 7;
+
+    /**
+     * Port used outside the NAT firewall.
+     */
+    uint32 port_external = 8;
+
+    /**
+     * The signing x509 certificate of the member.
+     *
+     * SHALL contain the public key used for signing.
+     */
+    bytes sig_cert = 9;
+
+    /**
+     * The agreement x509 certificate of the member.
+     *
+     * SHALL be used for establishing TLS connections.
+     */
+    bytes agree_cert = 10;
+
+    /**
+     * A string that provides additional information about the node.
+     */
+    string memo = 11;
+}
+
+/**
+ * NodeId
+ *
+ * Uniquely identifies a Swirlds node.
+ */
+message NodeId {
+    /**
+     * The ID number.
+     */
+    uint64 id = 1;
 }
