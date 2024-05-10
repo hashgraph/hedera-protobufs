@@ -1,14 +1,6 @@
 /**
- * PlatformState
- *
- * Describes the current state of the platform entity.
- *
- * The state MUST contain address books, round information,
- * event hashes, consensus snapshots, and software versions.
- * The state SHALL accurately represent the latest round's
- * consensus. <br>
- * MUST ensure consistency and provide critical data for restarts
- * and reconnects.
+ * # PlatformState
+ * Messages that hold platform state in the network state.
  *
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -43,331 +35,357 @@ import "basic_types.proto";
 import "timestamp.proto";
 
 /**
- * PlatformState MUST represent the current consensus state of the platform entity.
- * The state SHOULD contain the following components:
+ * The current state of platform consensus.<br/>
+ * This message stores the current consensus data for the platform
+ * in network state.
+ *
+ * The platform state SHALL represent the latest round's consensus.<br/>
+ * This data SHALL be used to ensure consistency and provide critical data for
+ * restart and reconnect.
  */
 message PlatformState {
     /**
-     * The address book for this round.
-     *
-     * The address book MUST represent the latest consensus view of node
-     * addresses.
+     * An address book for this round.
+     * <p>
+     * This SHALL be the latest network-consensus view of consensus nodes.
      */
     AddressBook address_book = 1;
 
     /**
-     * The previous address book.
-     *
-     * A temporary workaround until dynamic address books are supported.
-     * If present, the previous address book SHOULD reflect the address
-     * book from the preceding round.
+     * A previous address book.
+     * <p>
+     * If present, the previous address book SHALL be the address book from the
+     * most recent preceding round.
+     * <p>
+     * This is a temporary workaround until dynamic address books are supported.
      */
     AddressBook previous_address_book = 2;
 
     /**
-     * The round of this state.
-     *
-     * MUST represent the handling of all transactions reaching
-     * consensus in all previous rounds. <br>
-     * The first state (genesis state) SHALL have a round of 0, because
-     * the first round is defined as round 1.
+     * A consensus round.<br/>
+     * The round represented by this state.
+     * <p>
+     * This message SHALL represent the network state after handling of all
+     * transactions reaching consensus in all previous rounds.<br/>
+     * The first state (genesis state) SHALL have a round of 0.<br/>
+     * The first round to handle transactions is defined as round `1`.
      */
     uint64 round = 3;
 
     /**
-     * The running event hash.
-     *
-     * Computed by the consensus event stream. <br>
-     * SHOULD be deleted once the consensus event stream is retired.
+     * A running event hash.<br/>
+     * This is computed by the consensus event stream.
+     * <p>
+     * This will be _deprecated_ once the consensus event stream is retired.
      */
     bytes legacy_running_event_hash = 4;
 
     /**
-     * The consensus timestamp for this signed state.
-     *
-     * MUST represent the consensus of the first transaction in this round.
+     * A consensus timestamp for this state.
+     * <p>
+     * This SHALL be the consensus timestamp of the first transaction in
+     * the current round.
      */
     proto.Timestamp consensus_timestamp = 5;
 
     /**
-     * The version of the application software.
-     *
-     * MUST accurately reflect the software version that created this state.
+     * A version describing the current version of application software.
+     * <p>
+     * This SHALL be the software version that created this state.
      */
     SoftwareVersion creation_software_version = 6;
 
     /**
-     * The epoch hash of this state.
-     *
-     * MUST be updated whenever emergency recovery is performed.
+     * A SHA-384 hash that is the "epoch" hash of this state.
+     * <p>
+     * This SHALL be updated whenever emergency recovery is performed.
      */
     bytes epoch_hash = 7;
 
     /**
-     * The next epoch hash.
-     *
-     * Used to update the epoch hash at the next round boundary. <br>
-     * SHOULD NOT be part of the hash and MUST NOT be serialized.
+     * A SHA-384 hash that will be the next "epoch" hash.
+     * <p>
+     * This SHALL be used to update the epoch hash at the next round boundary.<br/>
+     * This SHALL NOT be part of the hash and SHALL NOT be serialized.
      */
     bytes next_epoch_hash = 8;
 
     /**
-     * The number of non-ancient rounds.
-     *
-     * MUST accurately reflect the count of rounds considered non-ancient.
+     * A number of non-ancient rounds.
+     * <p>
+     * This SHALL be the count of rounds considered non-ancient.
      */
     uint32 rounds_non_ancient = 9;
 
     /**
      * A snapshot of the consensus state at the end of the round.
-     *
-     * MUST be used for restart/reconnect.
+     * <p>
+     * This SHALL be used for restart/reconnect.
      */
     ConsensusSnapshot consensus_snapshot = 10;
 
     /**
-     * The time when the freeze starts.
-     *
-     * If null, a freeze SHOULD NOT be scheduled.
+     * A timestamp for the next scheduled time when a freeze will start.
+     * <p>
+     * If a freeze is not scheduled, this SHALL NOT be set.
      */
     proto.Timestamp freeze_time = 11;
 
     /**
-     * The last time a freeze was performed.
-     *
-     * If null, there has never been a freeze.
+     * A timestamp for the last time a freeze was performed.<br/>
+     * If not set, there has never been a freeze.
      */
     proto.Timestamp last_frozen_time = 12;
 
     /**
-     * Null if birth round migration has not yet happened.
-     *
-     * Otherwise, MUST represent the software version that first
-     * enabled birth round mode.
+     * A consensus node software version.<br/>
+     * The software version that enabled birth round mode.
+     * <p>
+     * This SHALL be unset if birth round migration has not yet happened.<br/>
+     * Otherwise, this SHALL be the _first_ software version that enabled birth
+     * round mode.
      */
     SoftwareVersion first_version_in_birth_round_mode = 13;
 
     /**
+     * A consensus round.<br/>
      * The last round before the birth round mode was enabled.
-     *
-     * MUST be -1 if birth round mode has not yet been enabled.
+     * <p>
+     * This SHALL be -1 if birth round mode has not yet been enabled.
      */
-    uint64 last_round_before_birth_round_mode = 14;
+    int64 last_round_before_birth_round_mode = 14;
 
     /**
+     * A consensus generation.<br/>
      * The lowest judge generation before birth round mode was enabled.
-     *
-     * MUST be -1 if birth round mode has not yet been enabled.
+     * <p>
+     * This SHALL be -1 if birth round mode has not yet been enabled.
      */
     int64 lowest_judge_generation_before_birth_round_mode = 15;
 }
 
 
 /**
- * SoftwareVersion
+ * A consensus node software version.
  *
- * Contains the software version details of the platform entity.
+ * This message records version information for configuration, the Hedera
+ * API, and the "Services" subsystems.
  */
 message SoftwareVersion {
     /**
-     * The config version.
-     *
-     * MUST reflect the current configuration version.
+     * A single numeric version.<br/>
+     * This is the current configuration version read on node startup.
      */
     uint32 config_version = 1;
 
     /**
-     * The version of the HAPI module (Hedera API).
-     *
-     * MUST accurately reflect the Hedera API version.
+     * A semantic version entry.<br/>
+     * This is the version of the HAPI module (Hedera API).
      */
     proto.SemanticVersion hapi_version = 2;
 
     /**
-     * The version of the services module.
-     *
-     * MUST accurately reflect the services version.
+     * A semantic version entry.<br/>
+     * This is the version of the services module.
      */
     proto.SemanticVersion services_version = 3;
 }
 
 
 /**
- * ConsensusSnapshot
+ * A consensus snapshot.<br/>
+ * This is a snapshot of the consensus state for a particular round.
  *
- * Stores a snapshot of the consensus state for the current round.
- *
- * SHALL accurately represent consensus data necessary for restart
+ * This message SHALL record consensus data necessary for restart
  * and reconnect.
  */
 message ConsensusSnapshot {
     /**
+     * A consensus round.<br/>
      * The round number of this snapshot.
-     *
-     * MUST accurately reflect the round number.
      */
     uint64 round = 1;
 
     /**
+     * A list of SHA-384 hash values.<br/>
      * The hashes of all judges for this round.
-     *
-     * Ordered by their creator ID. MUST be correctly ordered.
+     * <p>
+     * This list SHALL be ordered by creator ID.<br/>
+     * This list MUST be deterministically ordered.
      */
     repeated bytes judge_hashes = 2;
 
     /**
-     * Minimum ancient indicators for non-ancient rounds.
-     *
-     * MUST reflect the minimum ancient indicator of each round's judges.
+     * A list of minimum judge information entries.<br/>
+     * These are "minimum ancient" entries for non-ancient rounds.
      */
     repeated MinimumJudgeInfo minimum_judge_info_list = 3;
 
     /**
+     * A single consensus number.<br/>
      * The consensus order of the next event to reach consensus.
-     *
-     * MUST accurately represent the consensus order.
      */
     uint64 next_consensus_number = 4;
 
     /**
+     * A "consensus" timestamp.<br/>
      * The consensus timestamp of this snapshot.
-     *
-     * MUST accurately reflect the consensus time.
+     * <p>
+     * This SHALL be a consensus value and MAY NOT correspond to an actual
+     * "wall clock" timestamp.<br/>
+     * Consensus Timestamps SHALL always increase.
      */
     proto.Timestamp consensus_timestamp = 5;
 }
 
-
 /**
- * MinimumJudgeInfo
- *
- * Records the minimum ancient indicator for all judges in a round.
+ * Minimum ancient threshold information for round judges.
+ * This message records the minimum ancient threshold agreed by all judges in
+ * a round.
  */
 message MinimumJudgeInfo {
     /**
-     * The round number.
-     *
-     * MUST represent the correct round number.
+     * A consensus round.<br/>
+     * The round this judge information applies to.
      */
     uint64 round = 1;
 
     /**
-     * Minimum ancient threshold for all judges in a round.
-     *
-     * MUST reflect the minimum threshold accurately, whether
+     * Minimum ancient threshold for all judges in the round.
+     * <p>
+     * This SHALL reflect the relevant minimum threshold, whether
      * generation-based or birth-round-based.
      */
     uint64 minimum_judge_ancient_threshold = 2;
 }
+
 /**
- * AddressBook
- *
- * Contains the address of every known member of the swirld. <br>
- * Getters SHALL be public, and setters SHALL NOT be public, making it read-only
- * for apps. <br>
- * When `enableEventStreaming` is set to true, the memo field MUST be required
- * and SHOULD be unique.
+ * A network address book.<br/>
+ * The address book records the address of every known consensus node that
+ * participates in the network, including `0 weight` nodes.<br/>
  */
 message AddressBook {
     /**
+     * A consensus round.<br/>
      * The round when this address book was created.
      */
     int64 round = 1;
 
     /**
      * The node ID of the next address that can be added.
-     *
-     * MUST be greater than or equal to this value.
-     * <br>INVARIANT: `next_node_id` SHALL be greater than the node IDs
-     * of all addresses in the address book.
+     * <p>
+     * The next node identifier assigned SHALL be equal to this value.<br/>
+     * All existing node identifiers SHALL be strictly less than this value.<br/>
      */
     NodeId next_node_id = 2;
 
     /**
-     * A list of all the addresses.
+     * A list of all consensus node addresses.
+     * <p>
+     * This list SHALL NOT be empty.
+     * If a consensus node is not in this list it SHALL NOT participate in the
+     * network.
      */
     repeated Address addresses = 3;
 }
 
 /**
- * Address
+ * A single network address.
+ * This is one address in the network address book, including all required
+ * information to include that consensus node in the consensus gossip.
  *
- * Represents one address in an address book, including all the info about a member.
- *
+ * ### Implementation Detail
+ * When `enableEventStreaming` is set to true, the memo field is REQUIRED
+ * and MUST be unique.
  */
 message Address {
     /**
      * The ID of this member.
-     *
-     * SHALL be agreed upon by all members.
+     * <p>
+     * This identifier SHALL be agreed upon by all consensus nodes.
      */
     NodeId id = 1;
 
     /**
-     * The nickname this member uses to refer to another member.
+     * The nickname this consensus node uses to refer to another consensus node.
      */
     string nickname = 2;
 
     /**
-     * The name that a member uses to refer to themselves.
+     * The name that a consensus node uses to refer to themselves.
      */
     string self_name = 3;
 
     /**
-     * The member's nonnegative weight.
-     *
-     * SHALL be used for weighted voting.
+     * A consensus weight.<br/>
+     * This value is the relative weight for this consensus node in the
+     * consensus voting algorithm.
      */
     uint64 weight = 4;
 
     /**
-     * The IP or DNS name on the local network.
+     * A string network address.<br/>
+     * This value is the hostname assigned on the "internal" network
+     * interface behind any network firewalls, protocol gateways, or
+     * DNS translations.
+     * <p>
+     * This value SHALL be either a FQDN host name or an IPv4 address.
      */
     string hostname_internal = 5;
 
     /**
-     * Port used on the local network.
+     * Network port number.<br/>
+     * This value is the "translated" port number assigned on the "internal"
+     * network behind any network firewalls or other address translations.
+     * <p>
+     * This value SHALL be between 1 and 65535.
      */
     uint32 port_internal = 6;
 
     /**
-     * The IP or DNS name outside the NAT firewall.
+     * A string network address.<br/>
+     * This value is the hostname assigned on the "public" network
+     * interface visible to the general internet.
+     * <p>
+     * This value SHALL be either a FQDN host name or an IPv4 address.
      */
     string hostname_external = 7;
 
     /**
-     * Port used outside the NAT firewall.
+     * Network port number.<br/>
+     * This value is the port number visible to the general internet.
+     * <p>
+     * This value SHALL be between 1 and 65535.
      */
     uint32 port_external = 8;
 
     /**
-     * The signing x509 certificate of the member.
-     *
-     * SHALL contain the public key used for signing.
+     * The signing x509 certificate of the consensus node.
+     * <p>
+     * This SHALL provide the public key used for signing.
      */
     bytes sig_cert = 9;
 
     /**
-     * The agreement x509 certificate of the member.
-     *
-     * SHALL be used for establishing TLS connections.
+     * The agreement x509 certificate of the consensus node.
+     * <p>
+     * This SHALL be used for establishing TLS connections.
      */
     bytes agree_cert = 10;
 
     /**
-     * A string that provides additional information about the node.
+     * A string that provides additional information about this consensus node.
      */
     string memo = 11;
 }
 
 /**
- * NodeId
- *
- * Uniquely identifies a Swirlds node.
+ * A consensus node identifier.<br/>
+ * This value uniquely identifies a single consensus node within the network.
  */
 message NodeId {
     /**
-     * The ID number.
+     * A numeric identifier.
      */
     uint64 id = 1;
 }
