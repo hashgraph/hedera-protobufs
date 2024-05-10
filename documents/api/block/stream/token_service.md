@@ -26,12 +26,15 @@
 
 ## stream/token_service.proto
 # Token Service
-Block stream messages that report the results of transactions handled by the `Token` service.
+Block stream messages that report the results of transactions
+handled by the `Token` service.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-AssociateTokenOutput"></a>
@@ -39,7 +42,8 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### AssociateTokenOutput
 Block Stream data for an `associateTokens` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -51,7 +55,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### BurnTokenOutput
 Block Stream data for a `burnToken` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -63,7 +68,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### CreateTokenOutput
 Block Stream data for a `createToken` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -75,7 +81,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### DeleteTokenOutput
 Block Stream data for a `deleteToken` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -87,7 +94,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### DissociateTokenOutput
 Block Stream data for a `dissociateTokens` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -99,7 +107,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### FreezeTokenAccountOutput
 Block Stream data for a `freezeTokenAccount` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -111,7 +120,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### GrantTokenKycOutput
 Block Stream data for a `grantKycToTokenAccount` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -123,7 +133,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### MintTokenOutput
 Block Stream data for a `mintToken` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -135,7 +146,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### PauseTokenOutput
 Block Stream data for a `pauseToken` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -147,7 +159,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### RevokeTokenKycOutput
 Block Stream data for a `revokeKycFromTokenAccount` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -159,7 +172,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UnfreezeTokenAccountOutput
 Block Stream data for an `unfreezeTokenAccount` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -171,7 +185,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UnpauseTokenOutput
 Block Stream data for an `unpauseToken` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -183,7 +198,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UpdateTokenFeeScheduleOutput
 Block Stream data for an `updateTokenFeeSchedule` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -195,7 +211,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UpdateTokenNftsOutput
 Block Stream data for an `updateNfts` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -207,7 +224,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UpdateTokenOutput
 Block Stream data for an `updateToken` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -219,7 +237,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### WipeTokenAccountOutput
 Block Stream data for a `wipeTokenAccount` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 

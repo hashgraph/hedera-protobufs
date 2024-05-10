@@ -17,18 +17,21 @@
 
 ## stream/smart_contract_service.proto
 #  Service
-Block stream messages that report the results of transactions handled by the `` service.
+Block stream messages that report the results of transactions handled
+by the `` service.
 
 > REVIEW NOTE
->> The use of sidecar records is a bit odd here. We may find it more effective to extract
->> the actual changes into proper output messages and fields included in the ethereum
->> call output and/or related state changes items, and remove the whole sidecar concept
->> going forward.
+>> The use of sidecar records is a bit odd here. We may find it more
+>> effective to extract the actual changes into proper output messages
+>> and fields included in the ethereum call output and/or related state
+>> changes items, and remove the whole sidecar concept going forward.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-CallContractOutput"></a>
@@ -36,13 +39,14 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### CallContractOutput
 Block Stream data for a `contractCallMethod` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | sidecars | [proto.TransactionSidecarRecord](#proto-TransactionSidecarRecord) | repeated |  |
-| contract_call_result | [proto.ContractFunctionResult](#proto-ContractFunctionResult) |  | An EVM contract call result. This field SHALL contain all of the data produced by the contract call transaction as well as basic accounting results. |
+| contract_call_result | [proto.ContractFunctionResult](#proto-ContractFunctionResult) |  | An EVM contract call result. <p> This field SHALL contain all of the data produced by the contract call transaction as well as basic accounting results. |
 
 
 
@@ -54,13 +58,14 @@ This message SHALL NOT duplicate information already contained in the original t
 ### CreateContractOutput
 Block Stream data for a `createContract` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | sidecars | [proto.TransactionSidecarRecord](#proto-TransactionSidecarRecord) | repeated |  |
-| contract_create_result | [proto.ContractFunctionResult](#proto-ContractFunctionResult) |  | An EVM contract call result. This field SHALL contain all of the data produced by the contract create transaction as well as basic accounting results. |
+| contract_create_result | [proto.ContractFunctionResult](#proto-ContractFunctionResult) |  | An EVM contract call result. <p> This field SHALL contain all of the data produced by the contract create transaction as well as basic accounting results. |
 
 
 
@@ -72,7 +77,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### DeleteContractOutput
 Block Stream data for a `deleteContract` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -84,13 +90,14 @@ This message SHALL NOT duplicate information already contained in the original t
 ### EthereumOutput
 Block Stream data for a `callEthereum` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| sidecars | [proto.TransactionSidecarRecord](#proto-TransactionSidecarRecord) | repeated | A list of additional outputs.<br/> This field MAY record one or more additional outputs and smart contract state changes produced during the ethereum call transaction handling.<br/> This field SHALL NOT be set if the transaction handling did not produce additional outputs.<br/> This field is not settled and MAY be removed or modified. |
-| ethereum_hash | [bytes](#bytes) |  | An ethereum hash value.<br/> This SHALL be a keccak256 hash of the ethereumData.<br/> |
+| sidecars | [proto.TransactionSidecarRecord](#proto-TransactionSidecarRecord) | repeated | A list of additional outputs. <p> This field MAY record one or more additional outputs and smart contract state changes produced during the ethereum call transaction handling.<br/> This field SHALL NOT be set if the transaction handling did not produce additional outputs.<br/> This field is not settled and MAY be removed or modified. |
+| ethereum_hash | [bytes](#bytes) |  | An ethereum hash value. <p> This SHALL be a keccak256 hash of the ethereumData. |
 
 
 
@@ -102,7 +109,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### SystemDeleteContractOutput
 Block Stream data for a contract `systemDelete` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -114,7 +122,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### SystemUnDeleteContractOutput
 Block Stream data for a contract `systemUndelete` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -126,7 +135,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UpdateContractOutput
 Block Stream data for a `updateContract` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 

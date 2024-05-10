@@ -1,21 +1,23 @@
 /**
  * # Event Metadata
  * Messages for Event block items.
- * NOTE: This may need to change substantially as platform creates the event protobufs for gossip.
+ *
+ * NOTE: This may need to change substantially as platform creates the event
+ * protobufs for gossip.
  *
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
- * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ * document are to be interpreted as described in
+ * [RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+ * [RFC8174](https://www.ietf.org/rfc/rfc8174).
  */
 syntax = "proto3";
 
 package com.hedera.hapi.block.stream;
 
 /*
- * Hedera Network Services Protobuf
- *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,59 +41,61 @@ import "basic_types.proto";
 import "timestamp.proto";
 
 /**
- *
+ * Contains information about an event and its parents.
  */
 message EventMetadata {
-  /**
-   * The software version of the node that created this event.
-   */
-  proto.SemanticVersion software_version = 1;
+    /**
+     * The software version of the node that created this event.
+     */
+    proto.SemanticVersion software_version = 1;
 
-  /**
-   * ID of this event's creator (translated before sending).
-   */
-  uint64 creator_id = 2;
+    /**
+     * ID of this event's creator (translated before sending).
+     */
+    uint64 creator_id = 2;
 
-  /**
-   * The generation of this event.
-   */
-  uint64 generation = 3;
+    /**
+     * The generation of this event.
+     */
+    uint64 generation = 3;
 
-  /**
-   * The birth round of this event, the round that has most recently reached consensus on the creating node when the
-   * event was created.
-   */
-  uint64 birth_round = 4;
+    /**
+     * The birth round of this event, the round that has most recently
+     * reached consensus on the creating node when the event was created.
+     */
+    uint64 birth_round = 4;
 
-  /**
-   * A descriptor that describes this event's self parent as claimed by the event creator.
-   */
-  EventDescriptor self_parent = 5;
+    /**
+     * A descriptor that describes this event's self parent as claimed
+     * by the event creator.
+     */
+    EventDescriptor self_parent = 5;
 
-  /**
-   * A list of descriptors that describe this event's other parent(s) as claimed by the event creator.
-   */
-  repeated EventDescriptor other_parents = 6;
+    /**
+     * A list of descriptors that describe this event's other parent(s)
+     * as claimed by the event creator.
+     */
+    repeated EventDescriptor other_parents = 6;
 
-  /**
-   * Creation time, as claimed by its creator.
-   */
-  proto.Timestamp time_created = 7;
+    /**
+     * Creation time, as claimed by its creator.
+     */
+    proto.Timestamp time_created = 7;
 
-  /**
-   * The event creator's hash of this event.
-   */
-  bytes hash = 8;
+    /**
+     * The event creator's hash of this event.
+     */
+    bytes hash = 8;
 
-  /**
-   * The event creator's signature of this event.
-   */
-  bytes signature = 9;
+    /**
+     * The event creator's signature of this event.
+     */
+    bytes signature = 9;
 
-  /**
-   * The consensus data for this event.
-   */
-  ConsensusData consensus_data = 10;
+    /**
+     * The consensus data for this event.
+     */
+    ConsensusData consensus_data = 10;
 }
 
 /**
@@ -99,45 +103,47 @@ message EventMetadata {
  */
 message ConsensusData {
 
-  /**
-   * The consensus timestamp for this event.
-   */
-  proto.Timestamp consensusTimestamp = 1;
+    /**
+     * The consensus timestamp for this event.
+     */
+    proto.Timestamp consensusTimestamp = 1;
 
-  /**
-   * The round in which this event reached consensus.
-   */
-  uint64 round = 2;
+    /**
+     * The round in which this event reached consensus.
+     */
+    uint64 round = 2;
 
-  /**
-   * The consensus order of this event. The first event ever to reach
-   * consensus has an order of 0. This number increases monotonically.
-   */
-  uint64 order = 3;
+    /**
+     * The consensus order of this event. The first event ever to reach
+     * consensus has an order of 0. This number increases monotonically.
+     */
+    uint64 order = 3;
 }
 
 /**
- * An abbreviated version of an event used to describe an event's parents as claimed by the child event.
+ * An abbreviated version of an event used to describe an event's parents
+ * as claimed by the child event.
  */
 message EventDescriptor {
 
-  /**
-   * The hash of the parent event. The hash algorithm is specified in the BlockHeader.
-   */
-  bytes hash = 1;
+    /**
+     * The hash of the parent event. The hash algorithm is specified
+     * in the BlockHeader.
+     */
+    bytes hash = 1;
 
-  /**
-   * The ID of the node that created the parent event.
-   */
-  uint64 creator_id = 2;
+    /**
+     * The ID of the node that created the parent event.
+     */
+    uint64 creator_id = 2;
 
-  /**
-   * The generation of the parent event as claimed by the child event.
-   */
-  uint64 generation = 3;
+    /**
+     * The generation of the parent event as claimed by the child event.
+     */
+    uint64 generation = 3;
 
-  /**
-   * The birth round of the parent event as claimed by the child event.
-   */
-  uint64 birth_round = 4;
+    /**
+     * The birth round of the parent event as claimed by the child event.
+     */
+    uint64 birth_round = 4;
 }

@@ -1,28 +1,29 @@
 /**
  * # Block Item
- * A single item in the block stream, such as transaction data, event metadata, or a
- * a system transaction.
- *
+ * A single item in the block stream, such as transaction data, event metadata,
+ * or a a system transaction.<br/>
  * Each block consists of a block header, one or more block items,
  * and a block state proof. Within the block are a series of events delimited
  * by start_event block items.
  *
- * This structure here MUST support a stream of block items with no enclosing message.<br/>
- * The design SHOULD be reasonable if used in a gRPC bidirectional streaming RPC similar to
- * `rpc processBlockStream(stream BlockItem) returns (stream BlockAcknowledgement);`.
+ * This structure here MUST support a stream of block items with no enclosing
+ * message.<br/>
+ * The design SHOULD be reasonable if used in a gRPC bidirectional streaming
+ * RPC similar to
+ * `rpc processBlocks(stream BlockItem) returns (stream Acknowledgement);`.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
- * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ * document are to be interpreted as described in
+ * [RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+ * [RFC8174](https://www.ietf.org/rfc/rfc8174).
  */
 syntax = "proto3";
 
 package com.hedera.hapi.block.stream;
 
 /*
- * Hedera Network Services Protobuf
- *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,21 +55,23 @@ import "stream/transaction_result.proto";
 /**
  * A single item within a block stream.
  *
- * Each item in the block stream SHALL be self-contained and independent, with the following
- * constraints applicable to the _unfiltered_ stream.
+ * Each item in the block stream SHALL be self-contained and independent,
+ * with the following constraints applicable to the _unfiltered_ stream.
  * - A block SHALL start with a `header`.
  * - A block SHALL end with a `state_proof`.
  * - A `header` SHALL be followed by a `start_event`.
- * - A `start_event` SHALL be followed by one or more `system_transaction` or `transaction` items.
+ * - A `start_event` SHALL be followed by one or more `system_transaction`
+ *   or `transaction` items.
  * - A `transaction` SHALL be followed by a `transaction_result`.
  * - A `transaction_result` MAY be followed by a `transaction_output`.
  * - A `transaction_result` (or a `transaction_output`, if present) MAY be
  *     followed by a `state_changes`.
  *
- * This forms the following required sequence for each block, which is then repeated within the
- * block stream, indefinitely.  Note that there is no container structure in the stream,
- * the indentation below is only to highlight repeated subsequences. The order of items
- * within each block below is REQUIRED and SHALL NOT change.
+ * This forms the following required sequence for each block, which is then
+ * repeated within the block stream, indefinitely.  Note that there is no
+ * container structure in the stream, the indentation below is only to
+ * highlight repeated subsequences.<br/>
+ * The order of items within each block below is REQUIRED and SHALL NOT change.
  *
  * ```text
  * header
@@ -84,12 +87,14 @@ import "stream/transaction_result.proto";
  *   }
  * state_proof
  * ```
- * A filtered stream may exclude some items above, depending on filter criteria.  A filtered
- * item is replaced with its merkle path to maintain block stream verifiability.
+ * A filtered stream may exclude some items above, depending on filter
+ * criteria. A filtered item is replaced with its merkle path to maintain
+ * block stream verifiability.
  *
- * A BlockItem SHALL be individually and directly processed to create the running hash.
- * Items to be hashed MUST NOT be contained within another item, and items which might be
- * filtered out of the stream MUST NOT be contained in other items.
+ * A BlockItem SHALL be individually and directly processed to create the
+ * running hash. Items to be hashed MUST NOT be contained within another
+ * item, and items which might be filtered out of the stream MUST NOT be
+ * contained in other items.
  */
 message BlockItem {
     oneof items {
@@ -99,84 +104,99 @@ message BlockItem {
         BlockHeader header = 1;
 
         /**
-         * An item emitted at the start of a new network "event".<br/>
+         * An item emitted at the start of a new network "event".
          */
         EventMetadata start_event = 2;
 
         /**
-         * A system transaction.<br/>
+         * A system transaction.
+         * <p>
          * This item MAY be removed as the platform removes the concept.
          */
         SystemTransaction system_transaction = 3;
 
         /**
          * A raw network transaction.<br/>
-         * A raw transaction is just a legacy container for bytes representing
+         * This is just a legacy container for bytes representing
          * a serialized `SignedTransaction`.
          */
         proto.Transaction transaction = 4;
 
         /**
-         * The result of running a transaction.<br/>
-         * This item SHALL be present immediately after a `transaction` item.<br/>
-         * This item MAY be redacted in some circumstances, and SHALL be replaced with a
-         * `filtered_item` if removed.
+         * The result of running a transaction.
+         * <p>
+         * This item SHALL be present immediately after a
+         * `transaction` item.<br/>
+         * This item MAY be redacted in some circumstances, and SHALL be
+         * replaced with a `filtered_item` if removed.
          */
         TransactionResult transaction_result = 5;
 
         /**
-         * The transaction output.<br/>
-         * This item MAY not be present if a transaction does not produce an output.<br/>
-         * If a transaction does produce an output that is not reflected in state changes,
-         * then this item MUST be present after the `transaction_result` for
-         * that transaction.
+         * A transaction output.
+         * <p>
+         * This item MAY not be present if a transaction does not produce
+         * an output.<br/>
+         * If a transaction does produce an output that is not reflected
+         * in state changes, then this item MUST be present after the
+         * `transaction_result` for that transaction.
          */
         TransactionOutput transaction_output = 6;
 
         /**
-         * A set of state changes.<br/>
-         * All changes to values in network state SHALL be described by stream items
-         * of this type.<br/>
-         * The source of these state changes SHALL be described by the `reason`
-         * enumeration.
+         * A set of state changes.
+         * <p>
+         * All changes to values in network state SHALL be described by
+         * stream items of this type.<br/>
+         * The source of these state changes SHALL be described by the
+         * `reason` enumeration.
          */
         StateChanges state_changes = 7;
 
         /**
-         * A State Proof for the BlockInfo node in the network state at the end of this block.<br/>
-         * This item is not part of the block stream hash chain/tree, and marks the end of a block.
+         * A block state proof.<br/>
+         * The state proof for the BlockInfo node in the network state at
+         * the end of this block.<br/>
+         * This item is not part of the block stream hash chain/tree, and
+         * marks the end of a block.
          */
         BlockStateProof state_proof = 8;
 
         /**
-         * Verification data for an item filtered from the stream.<br/>
-         * Items of this type SHALL NOT be present in the full (unfiltered) block stream.<br/>
-         * Items of this type SHALL replace any item removed from a partial (filtered)
+         * Verification data for an item filtered from the stream.
+         * <p>
+         * Items of this type SHALL NOT be present in the full (unfiltered)
          * block stream.<br/>
-         * Presence of `filtered_item` entries SHALL NOT prevent verification of a block, but
-         * MAY preclude verification or reconstruction of consensus state.<br/>
+         * Items of this type SHALL replace any item removed from a partial
+         * (filtered) block stream.<br/>
+         * Presence of `filtered_item` entries SHALL NOT prevent verification
+         * of a block, but MAY preclude verification or reconstruction of
+         * consensus state.<br/>
          */
         FilteredBlockItem filtered_item = 9;
     }
 
-    // REVIEWER NOTE: Do we need a "End Stream" item? How else does a block node know when the
-    // source *intends* to end the stream (which should happen regularly, perhaps every hour or
-    // every fifteen minutes)?
+    // REVIEWER NOTE: Do we need a "End Stream" item? How else does a block
+    // node know when the source *intends* to end the stream (which should
+    // happen regularly, perhaps every hour or every fifteen minutes)?
 }
 
 /**
  * Verification data for an item filtered from the stream.
  *
  * > Note:
- * >> This may change. We are exploring options that may change this value to work with,
- * >> merkle hashing rather than a running hash chain; the change is expected to
- * >> improve some forms of verification and resolve edge cases with running hashes.
+ * >> This may change. We are exploring options that may change this value to
+ * >> work with, merkle hashing rather than a running hash chain; the change
+ * >> is expected to improve some forms of verification and resolve edge
+ * >> cases with running hashes.
  *
- * Items of this type SHALL NOT be present in the full (unfiltered) block stream.<br/>
+ * Items of this type SHALL NOT be present in the full (unfiltered) block
+ * stream.<br/>
  * Items of this type SHALL replace any item removed from a partial (filtered)
  * block stream.<br/>
- * Presence of `filtered_item` entries SHALL NOT prevent verification of a block, but
- * MAY preclude verification or reconstruction of consensus state.<br/>
+ * Presence of `filtered_item` entries SHALL NOT prevent verification
+ * of a block, but MAY preclude verification or reconstruction
+ * of consensus state.<br/>
  */
 message FilteredBlockItem {
     /**

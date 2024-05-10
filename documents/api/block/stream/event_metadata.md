@@ -14,13 +14,17 @@
 ## stream/event_metadata.proto
 # Event Metadata
 Messages for Event block items.
-NOTE: This may need to change substantially as platform creates the event protobufs for gossip.
+
+NOTE: This may need to change substantially as platform creates the event
+protobufs for gossip.
 
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-ConsensusData"></a>
@@ -43,7 +47,8 @@ The consensus data calculated for an event.
 <a name="com-hedera-hapi-block-stream-EventDescriptor"></a>
 
 ### EventDescriptor
-An abbreviated version of an event used to describe an event's parents as claimed by the child event.
+An abbreviated version of an event used to describe an event's parents
+as claimed by the child event.
 
 
 | Field | Type | Label | Description |
@@ -61,7 +66,7 @@ An abbreviated version of an event used to describe an event's parents as claime
 <a name="com-hedera-hapi-block-stream-EventMetadata"></a>
 
 ### EventMetadata
-
+Contains information about an event and its parents.
 
 
 | Field | Type | Label | Description |

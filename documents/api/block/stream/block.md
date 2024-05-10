@@ -12,18 +12,20 @@
 ## stream/block.proto
 # Block Stream
 The base element of the block stream _at rest_.
-A `Block` contains a record of all transactions, results, and outputs for a block in the chain.
-Each `Block` also contains a state proof for validation and a header with version and
-algorithm information.
+A `Block` contains a record of all transactions, results, and outputs for
+a block in the chain. Each `Block` also contains a state proof for
+validation and a header with version and algorithm information.
 
-Block entries are not designed for streaming, but for storing blocks in persistent
-storage, verifying block stream data, and as query responses when a block is
-requested from a block node.
+Block entries are not designed for streaming, but for storing blocks in
+persistent storage, verifying block stream data, and as query responses
+when a block is requested from a block node.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-Block"></a>
@@ -31,12 +33,12 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### Block
 A single complete Hedera block chain block.
 
-This is a single block structure and SHALL NOT represent the primary mechanism to
-transmit a block stream.<br/>
-The primary mechanism for transmitting block stream data SHALL be to stream individual
-block items to the block node(s).<br/>
-The only delimiter between blocks when streamed SHALL be the `BlockHeader` item and
-`BlockStateProof` item.
+This is a single block structure and SHALL NOT represent the primary
+mechanism to transmit a block stream.<br/>
+The primary mechanism for transmitting block stream data SHALL be to
+stream individual block items to the block node(s).<br/>
+The only delimiter between blocks when streamed SHALL be the `BlockHeader`
+item and `BlockStateProof` item.
 
 This block SHALL be verifiable as correct using only data in the block,
 including the `BlockStateProof`, and public keys for the consensus nodes.

@@ -1,10 +1,12 @@
 /**
  * # File Service
- * Block stream messages that report the results of transactions handled by the `File` service.
+ * Block stream messages that report the results of transactions handled
+ * by the `File` service.
  *
- * A `file` in Hedera is an arbitrary sequence of bytes and may be up to `1048576` total bytes.
- * Files are used anywhere a transaction requires a large amount of data (anything that would not
- * fit within the transaction size limit).
+ * A `file` in Hedera is an arbitrary sequence of bytes and may be up to
+ * `1048576` total bytes. Files are used anywhere a transaction requires a
+ * large amount of data (anything that would not fit within the
+ * transaction size limit).
  *
  * Examples
  *  - smart contract bytecode
@@ -17,15 +19,15 @@
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
- * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ * document are to be interpreted as described in
+ * [RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+ * [RFC8174](https://www.ietf.org/rfc/rfc8174).
  */
 syntax = "proto3";
 
 package com.hedera.hapi.block.stream;
 
 /*
- * Hedera Network Services Protobuf
- *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,41 +50,47 @@ option java_multiple_files = true;
 /**
  * Block Stream data for a `fileAppend` transaction.
  *
- * This message SHALL NOT duplicate information already contained in the original transaction.
+ * This message SHALL NOT duplicate information already contained
+ * in the original transaction.
  */
 message AppendFileOutput {}
 
 /**
  * Block Stream data for a `fileCreate` transaction.
  *
- * This message SHALL NOT duplicate information already contained in the original transaction.
+ * This message SHALL NOT duplicate information already contained in
+ * the original transaction.
  */
 message CreateFileOutput {}
 
 /**
  * Block Stream data for a `fileDelete` transaction.
  *
- * This message SHALL NOT duplicate information already contained in the original transaction.
+ * This message SHALL NOT duplicate information already contained in
+ * the original transaction.
  */
 message DeleteFileOutput {}
 
 /**
  * Block Stream data for a `fileUpdate` transaction.
  *
- * This message SHALL NOT duplicate information already contained in the original transaction.
+ * This message SHALL NOT duplicate information already contained in
+ * the original transaction.
  */
 message UpdateFileOutput {}
 
 /**
  * Block Stream data for a `systemDelete` transaction.
  *
- * This message SHALL NOT duplicate information already contained in the original transaction.
+ * This message SHALL NOT duplicate information already contained in
+ * the original transaction.
  */
 message SystemDeleteOutput {}
 
 /**
  * Block Stream data for a `systemUndelete` transaction.
  *
- * This message SHALL NOT duplicate information already contained in the original transaction.
+ * This message SHALL NOT duplicate information already contained in
+ * the original transaction.
  */
 message SystemUndeleteOutput {}

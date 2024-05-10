@@ -1,28 +1,30 @@
 /**
  * # Block State Proof
- * A state proof for the block information in state at the end of an Hedera block.
+ * A state proof for the block information in state at the end of an
+ * Hedera block.
  *
- * The basic process for a state proof (which provides cryptographic assurance that
- * a particular value is present in the network state) is as follows.
- * Compute the SHA384 hash of the value to be proven, then take that and the sibling
- * hashes and compute a SHA384 hash of those values to produce the hash at the next
- * level up the tree. Repeat this until you have the root hash of the merkle tree.
- * The signatures on that root hash are proof that the hash (and hence the contents of
- * the merkle path to the leaf value to be proven) is attested by sufficient consensus
- * nodes to be considered the actual state of the network.
+ * The basic process for a state proof (which provides cryptographic assurance
+ * that a particular value is present in the network state) is as follows.<br/>
+ * Compute the SHA384 hash of the value to be proven, then take that and
+ * the sibling hashes and compute a SHA384 hash of those values to produce
+ * the hash at the next level up the tree. Repeat this until you have the root
+ * hash of the merkle tree. The signatures on that root hash are proof that
+ * the hash (and hence the contents of the merkle path to the leaf value to
+ * be proven) is attested by sufficient consensus nodes to be considered the
+ * actual state of the network.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
- * document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+ * document are to be interpreted as described in
+ * [RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+ * [RFC8174](https://www.ietf.org/rfc/rfc8174).
  */
 syntax = "proto3";
 
 package com.hedera.hapi.block.stream;
 
 /*
- * Hedera Network Services Protobuf
- *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,40 +49,41 @@ option java_multiple_files = true;
 /**
  * A state proof for the `BlockInfo` singleton in network state.
  *
- * This message SHALL offer a state proof for the `BlockInfo` singleton at the end
- * of a block. The information in the `BlockInfo` singleton SHALL be used to validate the
- * full content of the most recent block, and, with chained validation, all prior blocks.
+ * This message SHALL offer a state proof for the `BlockInfo` singleton at
+ * the end of a block. The information in the `BlockInfo` singleton SHALL be
+ * used to validate the full content of the most recent block, and, with
+ * chained validation, all prior blocks.
  */
 message BlockStateProof {
     /**
      * The `BlockInfo` from state.<br/>
-     * This state proof SHALL be proof that this `BlockInfo` value is in state at the end of
-     * the "proven" block.
+     * This state proof SHALL be proof that this `BlockInfo` value is in
+     * state at the end of the "proven" block.
      */
     proto.BlockInfo state_block_info = 1;
 
     /**
      * A list of sibling hashes.<br/>
-     * This SHALL contain sibling hashes at each level of tree from the `BlockInfo` leaf up to
-     * the root of the merkle tree.<br/>
+     * This SHALL contain sibling hashes at each level of tree from the
+     * `BlockInfo` leaf up to the root of the merkle tree.<br/>
      * These values MUST be in the same "merkle path" order as present in state.
      */
     repeated SiblingHashList sibling_hashes = 2;
 
     /**
      * A list of consensus node signatures over the state merkle tree root.<br/>
-     * This MUST contain signatures from strictly greater than two-thirds of all consensus
-     * nodes active in the network address book present in network state at the beginning of
-     * the current block.<br/>
-     * This MAY be a different valid subset of all active consensus nodes for each such node
-     * that produces a block stream.<br/>
-     * All signatures MUST be RSA signatures over the SHA2-384 hash at the root of the merkle
-     * tree.<br/>
+     * This MUST contain signatures from strictly greater than two-thirds
+     * of all consensus nodes active in the network address book present in
+     * network state at the beginning of the current block.<br/>
+     * This MAY be a different valid subset of all active consensus nodes for
+     * each such node that produces a block stream.<br/>
+     * All signatures MUST be RSA signatures over the SHA2-384 hash at the
+     * root of the merkle tree.<br/>
      * These signatures SHOULD be verified before accepting this state proof.
      * <p>
      * <blockquote>Note<blockquote>
-     * We intend to replace this field with a different structure; most likely a hinTS threshold
-     * signature.
+     * We intend to replace this field with a different structure; most likely
+     * a TSS-BLS threshold signature.
      * </blockquote></blockquote>
      */
     repeated NodeSignature node_signatures = 3;
@@ -89,34 +92,37 @@ message BlockStateProof {
 /**
  * A state signature.
  *
- * This value is a cryptographic signature (RSA_DSS, edDSA, or ECDSA) over the hash at the
- * root of the network state merkle tree.
- * Each such signature SHALL serve as assertion by a particular node that the given hash is
- * the actual root hash of the network merkle state as observed by that node at the time
- * the signature is generated.
+ * This value is a cryptographic signature (RSA_DSS, edDSA, or ECDSA) over the
+ * hash at the root of the network state merkle tree.
+ * Each such signature SHALL serve as assertion by a particular node that the
+ * given hash is the actual root hash of the network merkle state as observed
+ * by that node at the time the signature is generated.
  *
  * > REVIEW QUESTION
- * >> Do we need time (e.g. consensus time or round)? The address book varies over time, and we
- * >> require, here, the address book _as of_ the moment when the signature was generated, not
- * >> necessarily the address book at some later instant.
+ * >> Do we need time (e.g. consensus time or round)? The address book varies
+ * >> over time, and we require, here, the address book _as of_ the moment
+ * >> when the signature was generated, not necessarily the address book
+ * >> at some later instant.
  */
 message NodeSignature {
     /**
-     * A cryptographic signature.<br/>
+     * A cryptographic signature.
+     * <p>
      * This value MUST be generated using the private key of the node
      * recorded in `node_id`.<br/>
      * This value MUST be generated by signing the SHA2-384 hash at the root of
      * the merkle tree network state.<br/>
-     * This value MUST be generated using the current accepted signature algorithm.<br/>
-     * The current signature algorithm is RSA_DSS.
+     * This value MUST be generated using the current accepted signature
+     * algorithm. The current signature algorithm is RSA_DSS.
      */
     bytes signature = 1;
 
     /**
-     * The node that generated this signature.<br/>
-     * This SHALL provide the reference required to look up that node's public key
-     * in the address book at the time of signature. The correct node public key is
-     * REQUIRED in order to verify this signature.
+     * The node that generated this signature.
+     * <p>
+     * This SHALL provide the reference required to look up that node's
+     * public key in the address book at the time of signature. The correct
+     * node public key is REQUIRED in order to verify this signature.
      */
     uint64 node_id = 2;
 }
@@ -124,51 +130,62 @@ message NodeSignature {
 /**
  * Sibling hashes at one level in the merkle tree.
  *
- * The set of hash values "adjacent" to a particular tree node are REQUIRED to generate the
- * hash value of the "parent" tree node.<br/>
+ * The set of hash values "adjacent" to a particular tree node are REQUIRED
+ * to generate the hash value of the "parent" tree node.<br/>
  * This message SHALL contain the list of all such "sibling" hash values for
  * a given node (not referenced here).<br/>
- * This message MUST record the sibling hashes in the same "merkle tree order" as those hash
- * values are stored in the network state.
+ * This message MUST record the sibling hashes in the same "merkle tree order"
+ * as those hash values are stored in the network state.
  *
  * > REVIEW NOTE
- * >> We need to identify where, in a list of sibling hashes, the current "target" hash belongs.
- * >> For a purely binary tree, that would be are we the "left" or the "right" node. For an
- * >> n-ary tree that's 'which siblings are to our "left", which are to our "right"?'.<br/>
+ * >> We need to identify where, in a list of sibling hashes, the current
+ * >> "target" hash belongs. For a purely binary tree, that would be are we
+ * >> the "left" or the "right" node. For an n-ary tree that's 'which
+ * >> siblings are to our "left", which are to our "right"?'.<br/>
  * >> Options:
  * >> <ol>
  * >>   <li>Include the "target" hash in the list at the correct location.</li>
- * >>   <li>For each sibling hash (which becomes a message), have a boolean for left/right.</li>
- * >>   <li>For each sibling hash (which becomes a message), have a oneof with left_hash
- * >>       and right_hash.</li>
+ * >>   <li>For each sibling hash (which becomes a message), have a boolean for
+ * >>       left/right.</li>
+ * >>   <li>For each sibling hash (which becomes a message), have a oneof with
+ * >>       left_hash and right_hash.</li>
  * >> </ol>
- * >> Option (1) is simple, works for n-ary trees, and makes parent hash calculation very simple.
- * >> It does require more data (one added hash per level, which is expensive for a pure binary
- * >> tree structure).<br/>
- * >> Option (2) is slightly more complex, works well for a pure binary tree structure, but
- * >> requires an added boolean field.<br/>
- * >> Option (3) is slightly more complex, works well for a pure binary tree structure, and
- * >> is the most data-efficient option. This also works for n-ary trees, with slightly more
- * >> complex validation logic and a more complex specification of requirements.
+ * >> Option (1) is simple, works for n-ary trees, and makes parent hash
+ * >> calculation very simple. It does require more data (one added hash per
+ * >> level, which is expensive for a pure binary tree structure).<br/>
+ * >> Option (2) is slightly more complex, works well for a pure binary tree
+ * >> structure, but requires an added boolean field.<br/>
+ * >> Option (3) is slightly more complex, works well for a pure binary tree
+ * >> structure, and is the most data-efficient option. This also works for
+ * >> n-ary trees, with slightly more complex validation logic and a more
+ * >> complex specification of requirements.
  */
 message SiblingHashList {
     /**
-     * A list of hash values.<br/>
-     * Each hash value in this list MUST be generated using the SHA384 algorithm.
-     * This list determines right-left ordering by including the target hash in the list in
-     * the correct merkle-tree-ordered location.
+     * A list of hash values.
+     * <p>
+     * Each hash value in this list MUST be generated using the
+     * SHA384 algorithm. This list determines right-left ordering by
+     * including the target hash in the list in the correct
+     * merkle-tree-ordered location.
      */
     repeated bytes sibling_hash = 1;
+
     /**
-     * A list of hash values.<br/>
-     * Each hash value in this list MUST be generated using the SHA384 algorithm.
-     * This list determines right-left by setting a boolean value.
+     * A list of hash values.
+     * <p>
+     * Each hash value in this list MUST be generated using the
+     * SHA384 algorithm. This list determines right-left by setting
+     * a boolean value.
      */
     repeated BinarySiblingHash sibling_hashes_bool = 2;
+
     /**
-     * A list of hash values.<br/>
-     * Each hash value in this list MUST be generated using the SHA384 algorithm.
-     * This list determines right-left by using different fields in a `oneof`.
+     * A list of hash values.
+     * <p>
+     * Each hash value in this list MUST be generated using the
+     * SHA384 algorithm. This list determines right-left by using
+     * different fields in a `oneof`.
      */
     repeated SiblingHash sibling_hashes_oneof = 3;
 }
@@ -176,21 +193,24 @@ message SiblingHashList {
 /**
  * A single "sibling" hash.
  *
- * Sibling hashes have an order from "left" to "right". This message SHALL enable the specification
- * of order as a matter of message schema.<br/>
- * A system sending sibling hash data MUST structure any `repeated` field to contain all sibling
- * hashes "left" of a target hash first, in tree order, and add all sibling hashes "right" of the
- * target hash second, also in tree order.
+ * Sibling hashes have an order from "left" to "right". This message
+ * SHALL enable the specification of order as a matter of message schema.<br/>
+ * A system sending sibling hash data MUST structure any `repeated` field
+ * to contain all sibling hashes "left" of a target hash first, in tree
+ * order, and add all sibling hashes "right" of the target hash second,
+ * also in tree order.
  */
 message SiblingHash {
     oneof sibling_hash {
         /**
-         * A "sibling" hash that is "left" of the target item hash in merkle-tree order.
+         * A "sibling" hash that is "left" of the target item hash in
+         * merkle-tree order.
          */
         bytes left_sibling_hash = 1;
 
         /**
-         * A "sibling" hash that is "right" of the target item hash in merkle-tree order.
+         * A "sibling" hash that is "right" of the target item hash in
+         * merkle-tree order.
          */
         bytes right_sibling_hash = 2;
     }
@@ -199,13 +219,16 @@ message SiblingHash {
 /**
  * A single "sibling" hash.
  *
- * Sibling hashes have an order from "left" to "right". This message SHALL enable the specification
- * of order as an explicit left/right boolean.<br/>
- * A system sending sibling hash data MUST structure any `repeated` field to contain all sibling
- * hashes "left" of a target hash first, in tree order, and add all sibling hashes "right" of the
- * target hash second, also in tree order.<br/>
- * Any sibling hash "left" of the target hash MUST set `is_left_hash` to `true`.<br/>
- * Any sibling hash "right" of the target hash MUST set `is_left_hash` to `false`.
+ * Sibling hashes have an order from "left" to "right". This message SHALL
+ * enable the specification of order as an explicit left/right boolean.<br/>
+ * A system sending sibling hash data MUST structure any `repeated` field
+ * to contain all sibling hashes "left" of a target hash first, in tree
+ * order, and add all sibling hashes "right" of the target hash second,
+ * also in tree order.<br/>
+ * Any sibling hash "left" of the target hash MUST set `is_left_hash` to
+ * `true`.<br/>
+ * Any sibling hash "right" of the target hash MUST set `is_left_hash` to
+ * `false`.
  */
 message BinarySiblingHash {
     /**
@@ -214,8 +237,8 @@ message BinarySiblingHash {
     bytes sibling_hash = 1;
 
     /**
-     * A flag indicating that this "sibling" hash that is "left" of the target item
-     * hash in merkle-tree order.
+     * A flag indicating that this "sibling" hash that is "left" of the target
+     * item hash in merkle-tree order.
      */
     bool is_left_hash = 2;
 }
