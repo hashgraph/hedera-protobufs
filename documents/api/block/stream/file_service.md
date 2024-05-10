@@ -16,11 +16,13 @@
 
 ## stream/file_service.proto
 # File Service
-Block stream messages that report the results of transactions handled by the `File` service.
+Block stream messages that report the results of transactions handled
+by the `File` service.
 
-A `file` in Hedera is an arbitrary sequence of bytes and may be up to `1048576` total bytes.
-Files are used anywhere a transaction requires a large amount of data (anything that would not
-fit within the transaction size limit).
+A `file` in Hedera is an arbitrary sequence of bytes and may be up to
+`1048576` total bytes. Files are used anywhere a transaction requires a
+large amount of data (anything that would not fit within the
+transaction size limit).
 
 Examples
  - smart contract bytecode
@@ -33,7 +35,9 @@ There are many other uses; these examples are illustrative.
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-AppendFileOutput"></a>
@@ -41,7 +45,8 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### AppendFileOutput
 Block Stream data for a `fileAppend` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained
+in the original transaction.
 
 
 
@@ -53,7 +58,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### CreateFileOutput
 Block Stream data for a `fileCreate` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -65,7 +71,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### DeleteFileOutput
 Block Stream data for a `fileDelete` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -77,7 +84,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### SystemDeleteOutput
 Block Stream data for a `systemDelete` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -89,7 +97,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### SystemUndeleteOutput
 Block Stream data for a `systemUndelete` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -101,7 +110,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UpdateFileOutput
 Block Stream data for a `fileUpdate` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 

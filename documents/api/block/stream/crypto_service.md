@@ -16,8 +16,9 @@
 
 ## stream/crypto_service.proto
 # Crypto Service
-Block stream messages that report the results of transactions handled by the `Crypto` service.
-This service primarily handles account management and HBAR transfers.
+Block stream messages that report the results of transactions handled by
+the `Crypto` service. This service primarily handles account management
+and HBAR transfers.
 
 > Note
 >> Tokens other than HBAR, including all NFTs, are managed by the `Token` Service.
@@ -25,7 +26,9 @@ This service primarily handles account management and HBAR transfers.
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-ApproveAllowanceOutput"></a>
@@ -33,7 +36,8 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### ApproveAllowanceOutput
 Block Stream data for a `approveAllowances` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -45,7 +49,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### CreateAccountOutput
 Block Stream data for a `createAccount` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -57,12 +62,13 @@ This message SHALL NOT duplicate information already contained in the original t
 ### CryptoTransferOutput
 Block Stream data for a `cryptoTransfer` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| assessed_custom_fees | [proto.AssessedCustomFee](#proto-AssessedCustomFee) | repeated | Custom fees assessed during a CryptoTransfer.<br/> These fees SHALL be present in the full transfer list for the transaction. |
+| assessed_custom_fees | [proto.AssessedCustomFee](#proto-AssessedCustomFee) | repeated | Custom fees assessed during a CryptoTransfer. <p> These fees SHALL be present in the full transfer list for the transaction. |
 
 
 
@@ -74,7 +80,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### DeleteAccountOutput
 Block Stream data for a `cryptoDelete` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -86,7 +93,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### DeleteAllowanceOutput
 Block Stream data for a `deleteAllowances` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 
@@ -98,7 +106,8 @@ This message SHALL NOT duplicate information already contained in the original t
 ### UpdateAccountOutput
 Block Stream data for a `updateAccount` transaction.
 
-This message SHALL NOT duplicate information already contained in the original transaction.
+This message SHALL NOT duplicate information already contained in
+the original transaction.
 
 
 

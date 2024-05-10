@@ -14,14 +14,16 @@
 # Network Admin
 Network Admin service transactions.
 
-The network service handles certain critical transactions, but the transaction
-output for those transactions is complex and may be difficult to handle, so this
-file is not yet filled in.
+The network service handles certain critical transactions, but the
+transaction output for those transactions is complex and may be difficult
+to handle, so this file is not yet filled in.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-FreezeOutput"></a>

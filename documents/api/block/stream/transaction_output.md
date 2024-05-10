@@ -11,13 +11,16 @@
 
 ## stream/transaction_output.proto
 # Transaction Output
-Messages that describe the output of a transaction; data reported in the block
-stream that is not in the transaction body and is not reported in state changes.
+Messages that describe the output of a transaction; data reported
+in the block stream that is not in the transaction body and is
+not reported in state changes.
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-TransactionOutput"></a>
@@ -25,15 +28,15 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### TransactionOutput
 Output from a transaction.
 
-The values in transaction outputs SHALL be data that is neither present in the
-original transaction nor present in state changes.
+The values in transaction outputs SHALL be data that is neither present
+in the original transaction nor present in state changes.
 
 > Note
->> Only a few transactions produce output that is not in the transaction and
->> also not reflected in state changes. All other transaction types are _currently_
->> not included here. We have, however, allocated names and indexes for those
->> transaction types to preserve consistency if we add them later. We have reserved
->> field indexes 9 to 43 for this purpose.
+>> Only a few transactions produce output that is not in the transaction
+>> and also not reflected in state changes. All other transaction types
+>> are _currently_ not included here. We have, however, allocated names
+>> and indexes for those transaction types to preserve consistency if we
+>> add them later. We have reserved field indexes 9 to 43 for this purpose.
 
 <!--
 Reserved definitions:

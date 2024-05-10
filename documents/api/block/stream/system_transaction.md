@@ -16,7 +16,7 @@
 # System Transaction
 Block data for a system transaction.
 System transactions are a small set of items that are purely internal to the
-DLT system, but still impact state.
+DLT system, but still impact state.<br/>
 The messages defined here are sent from a consensus node to a block node
 to ensure the block node may record these internal details for later query
 or independent verification.
@@ -36,7 +36,9 @@ System transactions include
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119](https://www.ietf.org/rfc/rfc2119).
+document are to be interpreted as described in
+[RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
+[RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
 <a name="com-hedera-hapi-block-stream-BitsPerSecondSystemTransaction"></a>
@@ -44,14 +46,14 @@ document are to be interpreted as described in [RFC2119](https://www.ietf.org/rf
 ### BitsPerSecondSystemTransaction
 A network throughput system transaction.
 
-This type of system-internal transaction SHALL be shared via gossip between all consensus nodes
-at the end of each consensus round to maintain visibility to network throughput statistics
-for the network.
+This type of system-internal transaction SHALL be shared via gossip
+between all consensus nodes at the end of each consensus round to maintain
+visibility to network throughput statistics for the network.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| avg_bits_per_sec_sent | [uint64](#uint64) | repeated | Network throughput measurements.<br/> This field SHALL contain one measurement for each consensus node present in the network address book at the end of the corresponding round.<br/> These values SHALL be computed from the metric information gathered during regular gossip communications. |
+| avg_bits_per_sec_sent | [uint64](#uint64) | repeated | Network throughput measurements. <p> This field SHALL contain one measurement for each consensus node present in the network address book at the end of the corresponding round.<br/> These values SHALL be computed from the metric information gathered during regular gossip communications. |
 
 
 
@@ -63,14 +65,14 @@ for the network.
 ### PingSystemTransaction
 A network latency system transaction.
 
-This type of system-internal transaction SHALL be shared via gossip between all consensus nodes
-at the end of each consensus round to maintain visibility to network latency statistics
-for the network.
+This type of system-internal transaction SHALL be shared via gossip
+between all consensus nodes at the end of each consensus round to maintain
+visibility to network latency statistics for the network.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| avg_ping_milliseconds | [uint32](#uint32) | repeated | Network latency measurements.<br/> This field SHALL contain one measurement for each consensus node present in the network address book at the end of the corresponding round.<br/> These values SHALL be computed from the metric information gathered during regular gossip communications. |
+| avg_ping_milliseconds | [uint32](#uint32) | repeated | Network latency measurements. <p> This field SHALL contain one measurement for each consensus node present in the network address book at the end of the corresponding round.<br/> These values SHALL be computed from the metric information gathered during regular gossip communications. |
 
 
 
@@ -82,15 +84,15 @@ for the network.
 ### StateSignatureSystemTransaction
 A state signature transaction.
 
-This type of system-internal transaction SHALL be shared via gossip between all consensus nodes
-to validate the consensus state of the network.
+This type of system-internal transaction SHALL be shared via gossip
+between all consensus nodes to validate the consensus state of the network.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| state_signature | [bytes](#bytes) |  | A state signature from a single node.<br/> The algorithm used to create this signature SHALL be determined by current network configuration.<br/> The signature algorithms used for network state and block stream SHALL be independent and MAY be different. |
-| state_hash | [bytes](#bytes) |  | A hash value at the root of the state merkle tree.<br/> This value SHALL be the current Merkle root hash at the end of the signed round.<br/> This value SHALL be computed according to the current merkle hash algorithm configured for the network.<br/> The hash algorithms used for network state and block stream SHALL be independent and MAY be different. |
-| epoch_hash | [bytes](#bytes) |  | A hash value for the epoch to which this signature corresponds.<br/> This value SHALL be computed according to the current epoch hash algorithm configured for the network.<br/> The hash algorithms used for network state and block stream SHALL be independent and MAY be different. |
+| state_signature | [bytes](#bytes) |  | A state signature from a single node. <p> The algorithm used to create this signature SHALL be determined by current network configuration.<br/> The signature algorithms used for network state and block stream SHALL be independent and MAY be different. |
+| state_hash | [bytes](#bytes) |  | A hash value at the root of the state merkle tree. <p> This value SHALL be the current Merkle root hash at the end of the signed round.<br/> This value SHALL be computed according to the current merkle hash algorithm configured for the network.<br/> The hash algorithms used for network state and block stream SHALL be independent and MAY be different. |
+| epoch_hash | [bytes](#bytes) |  | A hash value for the epoch to which this signature corresponds. <p> This value SHALL be computed according to the current epoch hash algorithm configured for the network.<br/> The hash algorithms used for network state and block stream SHALL be independent and MAY be different. |
 | round | [uint64](#uint64) |  | Round number of this state signature. |
 
 
@@ -101,21 +103,20 @@ to validate the consensus state of the network.
 <a name="com-hedera-hapi-block-stream-SystemTransaction"></a>
 
 ### SystemTransaction
-A system-internal transaction to maintain network state across nodes.
+A system-internal transaction to maintain network state across nodes.<br/>
+These transactions maintain the integrity of the distributed ledger and
+support metrics to determine the network of consensus nodes are all well
+connected to the other consensus nodes.
 
-These transactions maintain the integrity of the distributed ledger and support
-metrics to determine the network of consensus nodes are all well connected to the
-other consensus nodes.
-
-This message SHALL be sent to record the result of these internal consensus transactions
-to the block nodes.
+This message SHALL be sent to record the result of these internal
+consensus transactions to the block nodes.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| state_signature | [StateSignatureSystemTransaction](#com-hedera-hapi-block-stream-StateSignatureSystemTransaction) |  | A single state signature.<br/> A state SHALL be complete when the network has successfully gathered state signatures from greater than two thirds of consensus nodes listed in the network address book.<br/> The network has successfully gathered a signature when greater than two thirds of consensus nodes listed in the network address book have received and verified that signature. |
-| bits_per_second | [BitsPerSecondSystemTransaction](#com-hedera-hapi-block-stream-BitsPerSecondSystemTransaction) |  | A metric sharing transaction.<br/> Each node SHALL calculate the observed network throughput to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
-| ping | [PingSystemTransaction](#com-hedera-hapi-block-stream-PingSystemTransaction) |  | A metric sharing transaction.<br/> Each node SHALL calculate the observed network latency to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
+| state_signature | [StateSignatureSystemTransaction](#com-hedera-hapi-block-stream-StateSignatureSystemTransaction) |  | A single state signature. <p> A state SHALL be complete when the network has successfully gathered state signatures from greater than two thirds of consensus nodes listed in the network address book.<br/> The network has successfully gathered a signature when greater than two thirds of consensus nodes listed in the network address book have received and verified that signature. |
+| bits_per_second | [BitsPerSecondSystemTransaction](#com-hedera-hapi-block-stream-BitsPerSecondSystemTransaction) |  | A metric sharing transaction. <p> Each node SHALL calculate the observed network throughput to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
+| ping | [PingSystemTransaction](#com-hedera-hapi-block-stream-PingSystemTransaction) |  | A metric sharing transaction. <p> Each node SHALL calculate the observed network latency to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
 
 
 
