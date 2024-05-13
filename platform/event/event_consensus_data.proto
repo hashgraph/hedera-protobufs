@@ -41,20 +41,29 @@ option java_package = "com.hedera.hapi.platform.event.legacy";
 option java_multiple_files = true;
 
 /**
- * Contains information an event's consensus data.
+ * Event Consensus Data.<br/>
+ * This message records the critical values produced by consensus for an event.
  */
 message EventConsensusData {
-  /**
-   * The network's consensus timestamp for this event.<br/>
-   * This timestamp MUST be strictly greater than the `consensus_timestamp` of
-   * the previous consensus event.
-   */
-  proto.Timestamp consensus_timestamp = 1;
-  /**
-   * The consensus order sequence number. A non-negative sequence number that
-   * identifies an event's consensus order since genesis.<br/>
-   * This SHALL be the unique for each consensus event.<br/>
-   * This SHALL increment by one for each consensus event.
-   */
-  int64 consensus_order = 2;
+    /**
+     * A consensus timestamp.<br/>
+     * The network's consensus agreement on a timestamp for this event.
+     * <p>
+     * This timestamp MUST be strictly greater than the `consensus_timestamp` of
+     * the previous consensus event.<br/>
+     * This is a consensus value and MAY NOT match real-world "wall clock" time.
+     */
+    proto.Timestamp consensus_timestamp = 1;
+
+    /**
+     * A consensus order sequence number.<br/>
+     * A non-negative sequence number that identifies an event's consensus order
+     * since genesis.
+     * <p>
+     * This SHALL be the unique for each consensus event.<br/>
+     * This SHALL always increase, and SHALL NOT decrease.<br/>
+     * This SHALL increment by one for each consensus event.
+     */
+    uint64 consensus_order = 2;
 }
+
