@@ -1449,4 +1449,9 @@ enum ResponseCodeEnum {
    * This affects `TokenReject` attempting to reject same token reference more than once.
    */
   TOKEN_REFERENCE_REPEATED = 347;
+
+  /**
+   * The account id specified as the owner in `TokenReject` is invalid or does not exist.
+   */
+  INVALID_OWNER_ID = 348;
 }
