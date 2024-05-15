@@ -46,7 +46,7 @@ import "duration.proto";
  * used to extend its expiration as long as possible. If it is has a zero balance when it expires,
  * then it is deleted. This transaction must be signed by the payer account. If receiverSigRequired
  * is false, then the transaction does not have to be signed by the keys in the keys field. If it is
- * true, then it must be signed by them, in addition to the keys of the payer account. If the 
+ * true, then it must be signed by them, in addition to the keys of the payer account. If the
  * auto_renew_account field is set, the key of the referenced account must sign.
  *
  * An entity (account, file, or smart contract instance) must be created in a particular realm. If
@@ -62,6 +62,13 @@ import "duration.proto";
  * multiple shards.
  */
 message CryptoCreateTransactionBody {
+    // Removed auto_renew_account_id "temporarily" in January 2023.
+    // Removed evm_address February 2023 to compress HIP 583/631
+    //     into the single immutable alias field.
+    reserved 19,20;
+    // Removed prior to oldest available history
+    reserved 4,5;
+
     /**
      * The key that must sign each transfer out of the account. If receiverSigRequired is true, then
      * it must also sign any transfer into the account.
@@ -169,7 +176,7 @@ message CryptoCreateTransactionBody {
      * A given alias can map to at most one account on the network at a time. This uniqueness will be enforced
      * relative to aliases currently on the network at alias assignment.
      *
-     * If a transaction creates an account using an alias, any further crypto transfers to that alias will 
+     * If a transaction creates an account using an alias, any further crypto transfers to that alias will
      * simply be deposited in that account, without creating anything, and with no creation fee being charged.
      */
      bytes alias = 18;

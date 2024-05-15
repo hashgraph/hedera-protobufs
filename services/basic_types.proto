@@ -111,6 +111,10 @@ message AccountID {
          */
         bytes alias = 4;
     }
+
+    // Removed evm_address February 2023 to compress HIP 583/631
+    //     into the single immutable alias field.
+    reserved 5;
 }
 
 /**
