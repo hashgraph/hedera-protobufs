@@ -1443,4 +1443,15 @@ enum ResponseCodeEnum {
    * The most common cause for this error is a value less than `-1`.
    */
   INVALID_MAX_AUTO_ASSOCIATIONS = 346;
+
+  /**
+   * The transaction attempted to use duplicate `TokenReference`.<br/>
+   * This affects `TokenReject` attempting to reject same token reference more than once.
+   */
+  TOKEN_REFERENCE_REPEATED = 347;
+
+  /**
+   * The account id specified as the owner in `TokenReject` is invalid or does not exist.
+   */
+  INVALID_OWNER_ID = 348;
 }

@@ -1211,6 +1211,11 @@ enum HederaFunctionality {
      * Get Node information
      */
     NodeGetInfo = 92;
+
+    /**
+     * Transfer one or more token balances held by the requesting account to the treasury for each token type.
+     */
+    TokenReject = 93;
 }
 
 /**
