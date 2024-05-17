@@ -77,6 +77,7 @@ import "token_fee_schedule_update.proto";
 import "token_pause.proto";
 import "token_unpause.proto";
 import "token_update_nfts.proto";
+import "token_reject.proto";
 
 import "schedule_create.proto";
 import "schedule_delete.proto";
@@ -375,5 +376,10 @@ message TransactionBody {
      * A transaction body for a `deleteNode` request.
      */
     NodeDeleteTransactionBody nodeDelete = 56;
+
+    /**
+     * A transaction body for a `tokenReject` request.
+     */
+    TokenRejectTransactionBody tokenReject = 57;
   }
 }
