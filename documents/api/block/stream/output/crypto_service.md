@@ -1,20 +1,20 @@
 ## Table of Contents
 
-- [stream/crypto_service.proto](#stream_crypto_service-proto)
-    - [ApproveAllowanceOutput](#com-hedera-hapi-block-stream-ApproveAllowanceOutput)
-    - [CreateAccountOutput](#com-hedera-hapi-block-stream-CreateAccountOutput)
-    - [CryptoTransferOutput](#com-hedera-hapi-block-stream-CryptoTransferOutput)
-    - [DeleteAccountOutput](#com-hedera-hapi-block-stream-DeleteAccountOutput)
-    - [DeleteAllowanceOutput](#com-hedera-hapi-block-stream-DeleteAllowanceOutput)
-    - [UpdateAccountOutput](#com-hedera-hapi-block-stream-UpdateAccountOutput)
+- [stream/output/crypto_service.proto](#stream_output_crypto_service-proto)
+    - [ApproveAllowanceOutput](#com-hedera-hapi-block-stream-output-ApproveAllowanceOutput)
+    - [CreateAccountOutput](#com-hedera-hapi-block-stream-output-CreateAccountOutput)
+    - [CryptoTransferOutput](#com-hedera-hapi-block-stream-output-CryptoTransferOutput)
+    - [DeleteAccountOutput](#com-hedera-hapi-block-stream-output-DeleteAccountOutput)
+    - [DeleteAllowanceOutput](#com-hedera-hapi-block-stream-output-DeleteAllowanceOutput)
+    - [UpdateAccountOutput](#com-hedera-hapi-block-stream-output-UpdateAccountOutput)
   
 
 
 
-<a name="stream_crypto_service-proto"></a>
+<a name="stream_output_crypto_service-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/crypto_service.proto
+## stream/output/crypto_service.proto
 # Crypto Service
 Block stream messages that report the results of transactions handled by
 the `Crypto` service. This service primarily handles account management
@@ -31,7 +31,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-ApproveAllowanceOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-ApproveAllowanceOutput"></a>
 
 ### ApproveAllowanceOutput
 Block Stream data for a `approveAllowances` transaction.
@@ -44,7 +44,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-CreateAccountOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-CreateAccountOutput"></a>
 
 ### CreateAccountOutput
 Block Stream data for a `createAccount` transaction.
@@ -57,7 +57,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-CryptoTransferOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-CryptoTransferOutput"></a>
 
 ### CryptoTransferOutput
 Block Stream data for a `cryptoTransfer` transaction.
@@ -75,7 +75,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-DeleteAccountOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-DeleteAccountOutput"></a>
 
 ### DeleteAccountOutput
 Block Stream data for a `cryptoDelete` transaction.
@@ -88,7 +88,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-DeleteAllowanceOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-DeleteAllowanceOutput"></a>
 
 ### DeleteAllowanceOutput
 Block Stream data for a `deleteAllowances` transaction.
@@ -101,7 +101,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-UpdateAccountOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-UpdateAccountOutput"></a>
 
 ### UpdateAccountOutput
 Block Stream data for a `updateAccount` transaction.

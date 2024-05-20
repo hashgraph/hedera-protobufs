@@ -1,26 +1,26 @@
 ## Table of Contents
 
-- [stream/state_changes.proto](#stream_state_changes-proto)
-    - [MapChangeKey](#com-hedera-hapi-block-stream-MapChangeKey)
-    - [MapChangeValue](#com-hedera-hapi-block-stream-MapChangeValue)
-    - [MapDeleteChange](#com-hedera-hapi-block-stream-MapDeleteChange)
-    - [MapUpdateChange](#com-hedera-hapi-block-stream-MapUpdateChange)
-    - [QueuePopChange](#com-hedera-hapi-block-stream-QueuePopChange)
-    - [QueuePushChange](#com-hedera-hapi-block-stream-QueuePushChange)
-    - [SingletonDeleteChange](#com-hedera-hapi-block-stream-SingletonDeleteChange)
-    - [SingletonUpdateChange](#com-hedera-hapi-block-stream-SingletonUpdateChange)
-    - [StateChange](#com-hedera-hapi-block-stream-StateChange)
-    - [StateChanges](#com-hedera-hapi-block-stream-StateChanges)
+- [stream/output/state_changes.proto](#stream_output_state_changes-proto)
+    - [MapChangeKey](#com-hedera-hapi-block-stream-output-MapChangeKey)
+    - [MapChangeValue](#com-hedera-hapi-block-stream-output-MapChangeValue)
+    - [MapDeleteChange](#com-hedera-hapi-block-stream-output-MapDeleteChange)
+    - [MapUpdateChange](#com-hedera-hapi-block-stream-output-MapUpdateChange)
+    - [QueuePopChange](#com-hedera-hapi-block-stream-output-QueuePopChange)
+    - [QueuePushChange](#com-hedera-hapi-block-stream-output-QueuePushChange)
+    - [SingletonDeleteChange](#com-hedera-hapi-block-stream-output-SingletonDeleteChange)
+    - [SingletonUpdateChange](#com-hedera-hapi-block-stream-output-SingletonUpdateChange)
+    - [StateChange](#com-hedera-hapi-block-stream-output-StateChange)
+    - [StateChanges](#com-hedera-hapi-block-stream-output-StateChanges)
   
-    - [StateChangesCause](#com-hedera-hapi-block-stream-StateChangesCause)
+    - [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause)
   
 
 
 
-<a name="stream_state_changes-proto"></a>
+<a name="stream_output_state_changes-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/state_changes.proto
+## stream/output/state_changes.proto
 # State Changes
 Serialization of change records which describe the mutation of state
 during a block.
@@ -51,7 +51,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-MapChangeKey"></a>
+<a name="com-hedera-hapi-block-stream-output-MapChangeKey"></a>
 
 ### MapChangeKey
 A key identifying a specific entry in a key-value "virtual map".
@@ -77,7 +77,7 @@ A key identifying a specific entry in a key-value "virtual map".
 
 
 
-<a name="com-hedera-hapi-block-stream-MapChangeValue"></a>
+<a name="com-hedera-hapi-block-stream-output-MapChangeValue"></a>
 
 ### MapChangeValue
 A value updated in, or added to, a virtual map.
@@ -117,7 +117,7 @@ A value updated in, or added to, a virtual map.
 
 
 
-<a name="com-hedera-hapi-block-stream-MapDeleteChange"></a>
+<a name="com-hedera-hapi-block-stream-output-MapDeleteChange"></a>
 
 ### MapDeleteChange
 A removal of a single item from a `VirtualMap`.
@@ -125,14 +125,14 @@ A removal of a single item from a `VirtualMap`.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [MapChangeKey](#com-hedera-hapi-block-stream-MapChangeKey) |  | A key in a virtual map. <p> This key SHALL be removed. The mapped value, also, SHALL be removed.<br/> This field is REQUIRED. |
+| key | [MapChangeKey](#com-hedera-hapi-block-stream-output-MapChangeKey) |  | A key in a virtual map. <p> This key SHALL be removed. The mapped value, also, SHALL be removed.<br/> This field is REQUIRED. |
 
 
 
 
 
 
-<a name="com-hedera-hapi-block-stream-MapUpdateChange"></a>
+<a name="com-hedera-hapi-block-stream-output-MapUpdateChange"></a>
 
 ### MapUpdateChange
 An update to a single item in a `VirtualMap`.<br/>
@@ -149,15 +149,15 @@ an addition for the new key.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [MapChangeKey](#com-hedera-hapi-block-stream-MapChangeKey) |  | A key in a virtual map. <p> This key MUST be mapped to the value added or updated.<br/> This field is REQUIRED. |
-| value | [MapChangeValue](#com-hedera-hapi-block-stream-MapChangeValue) |  | A value in a virtual map. <p> This value MUST correctly represent the state of the map entry _after_ the asserted update.<br/> This value MAY be reduced to only transmit fields that differ from the prior state.<br/> This field is REQUIRED. |
+| key | [MapChangeKey](#com-hedera-hapi-block-stream-output-MapChangeKey) |  | A key in a virtual map. <p> This key MUST be mapped to the value added or updated.<br/> This field is REQUIRED. |
+| value | [MapChangeValue](#com-hedera-hapi-block-stream-output-MapChangeValue) |  | A value in a virtual map. <p> This value MUST correctly represent the state of the map entry _after_ the asserted update.<br/> This value MAY be reduced to only transmit fields that differ from the prior state.<br/> This field is REQUIRED. |
 
 
 
 
 
 
-<a name="com-hedera-hapi-block-stream-QueuePopChange"></a>
+<a name="com-hedera-hapi-block-stream-output-QueuePopChange"></a>
 
 ### QueuePopChange
 Removal of an item from a `Queue` state.<br/>
@@ -171,7 +171,7 @@ information beyond the path and state name common to all state changes.
 
 
 
-<a name="com-hedera-hapi-block-stream-QueuePushChange"></a>
+<a name="com-hedera-hapi-block-stream-output-QueuePushChange"></a>
 
 ### QueuePushChange
 Addition of an item to a `Queue` state.<br/>
@@ -192,7 +192,7 @@ The new item MUST be the same type of value as all other items in the queue.
 
 
 
-<a name="com-hedera-hapi-block-stream-SingletonDeleteChange"></a>
+<a name="com-hedera-hapi-block-stream-output-SingletonDeleteChange"></a>
 
 ### SingletonDeleteChange
 A removal of a `Singleton` state.
@@ -205,7 +205,7 @@ information beyond the path and state name common to all state changes.
 
 
 
-<a name="com-hedera-hapi-block-stream-SingletonUpdateChange"></a>
+<a name="com-hedera-hapi-block-stream-output-SingletonUpdateChange"></a>
 
 ### SingletonUpdateChange
 An update to a `Singleton` state.
@@ -229,7 +229,7 @@ An update to a `Singleton` state.
 
 
 
-<a name="com-hedera-hapi-block-stream-StateChange"></a>
+<a name="com-hedera-hapi-block-stream-output-StateChange"></a>
 
 ### StateChange
 A change to any item in the merkle tree.
@@ -247,19 +247,19 @@ SHALL match the network state at the end of the round.
 | ----- | ---- | ----- | ----------- |
 | merkle_tree_path | [uint64](#uint64) |  | The numeric merkle path from the root of the tree to the leaf to be modified. |
 | state_name | [string](#string) |  | A state name. <p> This name SHALL identify the merkle subtree "state" to be modified and often corresponds to a `VirtualMap` name. |
-| singleton_update | [SingletonUpdateChange](#com-hedera-hapi-block-stream-SingletonUpdateChange) |  | An update to a `Singleton` state. |
-| singleton_delete | [SingletonDeleteChange](#com-hedera-hapi-block-stream-SingletonDeleteChange) |  | A removal of a `Singleton` state. |
-| map_update | [MapUpdateChange](#com-hedera-hapi-block-stream-MapUpdateChange) |  | An update to a single item in a `VirtualMap`. |
-| map_delete | [MapDeleteChange](#com-hedera-hapi-block-stream-MapDeleteChange) |  | A removal of a single item from a `VirtualMap`. |
-| queue_push | [QueuePushChange](#com-hedera-hapi-block-stream-QueuePushChange) |  | Addition of an item to a `Queue` state. |
-| queue_pop | [QueuePopChange](#com-hedera-hapi-block-stream-QueuePopChange) |  | Removal of an item from a `Queue` state. |
+| singleton_update | [SingletonUpdateChange](#com-hedera-hapi-block-stream-output-SingletonUpdateChange) |  | An update to a `Singleton` state. |
+| singleton_delete | [SingletonDeleteChange](#com-hedera-hapi-block-stream-output-SingletonDeleteChange) |  | A removal of a `Singleton` state. |
+| map_update | [MapUpdateChange](#com-hedera-hapi-block-stream-output-MapUpdateChange) |  | An update to a single item in a `VirtualMap`. |
+| map_delete | [MapDeleteChange](#com-hedera-hapi-block-stream-output-MapDeleteChange) |  | A removal of a single item from a `VirtualMap`. |
+| queue_push | [QueuePushChange](#com-hedera-hapi-block-stream-output-QueuePushChange) |  | Addition of an item to a `Queue` state. |
+| queue_pop | [QueuePopChange](#com-hedera-hapi-block-stream-output-QueuePopChange) |  | Removal of an item from a `Queue` state. |
 
 
 
 
 
 
-<a name="com-hedera-hapi-block-stream-StateChanges"></a>
+<a name="com-hedera-hapi-block-stream-output-StateChanges"></a>
 
 ### StateChanges
 A set of state changes.
@@ -277,9 +277,9 @@ determined by network consensus.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| cause | [StateChangesCause](#com-hedera-hapi-block-stream-StateChangesCause) |  | The proximate source of this state change set. <p> This field describes the source (e.g. user transaction, system "housekeeping", end of block, etc...) of the changes included in this change set. |
+| cause | [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause) |  | The proximate source of this state change set. <p> This field describes the source (e.g. user transaction, system "housekeeping", end of block, etc...) of the changes included in this change set. |
 | consensus_timestamp | [proto.Timestamp](#proto-Timestamp) |  | The consensus timestamp of this set of changes. <p> This value SHALL be the same value the network used to order events in this block. |
-| state_changes | [StateChange](#com-hedera-hapi-block-stream-StateChange) | repeated | An ordered list of individual changes. <p> These changes MUST be applied in the order listed to produce a correct modified state. |
+| state_changes | [StateChange](#com-hedera-hapi-block-stream-output-StateChange) | repeated | An ordered list of individual changes. <p> These changes MUST be applied in the order listed to produce a correct modified state. |
 
 
 
@@ -288,7 +288,7 @@ determined by network consensus.
  <!-- end messages -->
 
 
-<a name="com-hedera-hapi-block-stream-StateChangesCause"></a>
+<a name="com-hedera-hapi-block-stream-output-StateChangesCause"></a>
 
 ### StateChangesCause
 The "cause" of a state change.

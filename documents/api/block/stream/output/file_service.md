@@ -1,20 +1,20 @@
 ## Table of Contents
 
-- [stream/file_service.proto](#stream_file_service-proto)
-    - [AppendFileOutput](#com-hedera-hapi-block-stream-AppendFileOutput)
-    - [CreateFileOutput](#com-hedera-hapi-block-stream-CreateFileOutput)
-    - [DeleteFileOutput](#com-hedera-hapi-block-stream-DeleteFileOutput)
-    - [SystemDeleteOutput](#com-hedera-hapi-block-stream-SystemDeleteOutput)
-    - [SystemUndeleteOutput](#com-hedera-hapi-block-stream-SystemUndeleteOutput)
-    - [UpdateFileOutput](#com-hedera-hapi-block-stream-UpdateFileOutput)
+- [stream/output/file_service.proto](#stream_output_file_service-proto)
+    - [AppendFileOutput](#com-hedera-hapi-block-stream-output-AppendFileOutput)
+    - [CreateFileOutput](#com-hedera-hapi-block-stream-output-CreateFileOutput)
+    - [DeleteFileOutput](#com-hedera-hapi-block-stream-output-DeleteFileOutput)
+    - [SystemDeleteOutput](#com-hedera-hapi-block-stream-output-SystemDeleteOutput)
+    - [SystemUndeleteOutput](#com-hedera-hapi-block-stream-output-SystemUndeleteOutput)
+    - [UpdateFileOutput](#com-hedera-hapi-block-stream-output-UpdateFileOutput)
   
 
 
 
-<a name="stream_file_service-proto"></a>
+<a name="stream_output_file_service-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/file_service.proto
+## stream/output/file_service.proto
 # File Service
 Block stream messages that report the results of transactions handled
 by the `File` service.
@@ -40,7 +40,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-AppendFileOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-AppendFileOutput"></a>
 
 ### AppendFileOutput
 Block Stream data for a `fileAppend` transaction.
@@ -53,7 +53,7 @@ in the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-CreateFileOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-CreateFileOutput"></a>
 
 ### CreateFileOutput
 Block Stream data for a `fileCreate` transaction.
@@ -66,7 +66,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-DeleteFileOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-DeleteFileOutput"></a>
 
 ### DeleteFileOutput
 Block Stream data for a `fileDelete` transaction.
@@ -79,7 +79,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-SystemDeleteOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-SystemDeleteOutput"></a>
 
 ### SystemDeleteOutput
 Block Stream data for a `systemDelete` transaction.
@@ -92,7 +92,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-SystemUndeleteOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-SystemUndeleteOutput"></a>
 
 ### SystemUndeleteOutput
 Block Stream data for a `systemUndelete` transaction.
@@ -105,7 +105,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-UpdateFileOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-UpdateFileOutput"></a>
 
 ### UpdateFileOutput
 Block Stream data for a `fileUpdate` transaction.

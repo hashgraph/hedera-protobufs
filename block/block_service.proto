@@ -2,6 +2,39 @@
  * # Block Service
  * The Service API exposed by the Block Nodes.
  *
+ * ## Workarounds
+ * > There are incorrect elements in this file to work around bugs in the
+ * > PBJ Compiler.
+ * >> Issues 262, 263, 240, 218, 217, and 216 are related.
+ * >
+ * > Issue 263
+ * >> A number of fields reference child messages, these _should_ specify
+ * >> the parent message (i.e. `Parent.child field = #;`) but do not do
+ * >> so due to issue 263.
+ * >
+ * > Issue 262
+ * >> Some fields reference messages defined in other packages that share
+ * >> a common prefix (e.g. `com.hedera.hapi.block.stream`). These fields
+ * >> specify the entire package instead of the shorter and clearer suffix
+ * >> due to issue 262
+ * >
+ * > Issue 240
+ * >> These files currently cause PBJ integration tests to fail if included
+ * >> due to issue 240.
+ * >
+ * > Issue 218
+ * >> These files have the same value for package and java_package. Ideally
+ * >> we would not specify `java_package` or the pbj comment in that situation,
+ * >> but Issue 218 prevents eliding the unnecessary directives.
+ * >
+ * > Issue 217
+ * >> These files may cause PBJ to fail compilation due to comments preceeding
+ * >> the `syntax` keyword.
+ * >
+ * > Issue 216
+ * >> These files would do well with validation support, but cannot make
+ * >> use of validation, even as an advisory element, due to Issue 216.
+ *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -55,7 +88,7 @@ message PublishStreamRequest {
     /**
      * A single item written to the block stream.
      */
-    stream.BlockItem block_item = 2;
+    com.hedera.hapi.block.stream.BlockItem block_item = 2;
 }
 
 /**
@@ -79,12 +112,12 @@ message PublishStreamResponse {
         /**
          * A response sent for each item and for each block.
          */
-        PublishStreamResponse.Acknowledgement acknowledgement = 1;
+        Acknowledgement acknowledgement = 1;
 
         /**
          * A response sent when a stream ends.
          */
-        PublishStreamResponse.EndOfStream status = 2;
+        EndOfStream status = 2;
     }
 
     /**
@@ -96,12 +129,12 @@ message PublishStreamResponse {
             /**
              * A response type to acknowledge a full and complete block.
              */
-            PublishStreamResponse.BlockAcknowledgement block_ack = 1;
+            BlockAcknowledgement block_ack = 1;
 
             /**
              * A response type to acknowledge a single `BlockItem`.
              */
-            PublishStreamResponse.ItemAcknowledgement item_ack = 2;
+            ItemAcknowledgement item_ack = 2;
         }
     }
 
@@ -173,7 +206,7 @@ message PublishStreamResponse {
          * This code indicates the reason the stream ended.<br/>
          * This value MUST be set to a non-default value.
          */
-        PublishStreamResponse.ResponseCode status = 1;
+        ResponseCode status = 1;
 
         /**
          * The number of the last completed and _verified_ block.
@@ -283,7 +316,7 @@ message SingleBlockResponse {
      * The reported status SHALL reflect the success of the request, or
      * a detailed reason the request failed.
      */
-    SingleBlockResponse.ResponseCode status = 1;
+    ResponseCode status = 1;
 
     /**
      * The requested block.
@@ -295,7 +328,7 @@ message SingleBlockResponse {
      * The items in this message SHALL begin with a `BlockHeader` and end with
      * a `BlockStateProof` applicable to this block.
      */
-    stream.Block block = 2;
+    com.hedera.hapi.block.stream.Block block = 2;
 
     /**
      * An enumeration indicating the status of this request.
@@ -429,7 +462,7 @@ message SubscribeStreamResponse {
          * <p>
          * The block node server SHALL end the stream following this message.
          */
-        SubscribeStreamResponse.ResponseCode status = 1;
+        ResponseCode status = 1;
 
         /**
          * A stream response item containing a single `BlockItem`.
@@ -437,7 +470,7 @@ message SubscribeStreamResponse {
          * The full response SHALL consist of many `block_item` messages
          * followed by a single `status` message.
          */
-        stream.BlockItem block_item = 2;
+        com.hedera.hapi.block.stream.BlockItem block_item = 2;
     }
 
     /**
@@ -545,7 +578,7 @@ message StateSnapshotResponse {
      * This code SHALL indicate a successful call, or the detailed
      * reason for failure.
      */
-    StateSnapshotResponse.ResponseCode status = 1;
+    ResponseCode status = 1;
 
     /**
      * A block number.

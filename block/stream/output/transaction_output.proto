@@ -13,7 +13,7 @@
  */
 syntax = "proto3";
 
-package com.hedera.hapi.block.stream;
+package com.hedera.hapi.block.stream.output;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -31,15 +31,15 @@ package com.hedera.hapi.block.stream;
  * limitations under the License.
  */
 
-option java_package = "com.hedera.hapi.block.stream";
-// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.hedera.hapi.block.stream.output";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream.output">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
-import "stream/schedule_service.proto";
-import "stream/util_service.proto";
-import "stream/consensus_service.proto";
-import "stream/crypto_service.proto";
-import "stream/smart_contract_service.proto";
+import "stream/output/schedule_service.proto";
+import "stream/output/util_service.proto";
+import "stream/output/consensus_service.proto";
+import "stream/output/crypto_service.proto";
+import "stream/output/smart_contract_service.proto";
 
 /**
  * Output from a transaction.

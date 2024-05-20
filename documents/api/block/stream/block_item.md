@@ -20,8 +20,8 @@ by start_event block items.
 
 This structure here MUST support a stream of block items with no enclosing
 message.<br/>
-The design SHOULD be reasonable if used in a gRPC bidirectional streaming
-RPC similar to
+Implementations SHOULD behave in a reasonable manner if used in a gRPC
+bidirectional streaming RPC similar to
 `rpc processBlocks(stream BlockItem) returns (stream Acknowledgement);`.
 
 ### Keywords
@@ -47,7 +47,7 @@ with the following constraints applicable to the _unfiltered_ stream.
 - A `transaction` SHALL be followed by a `transaction_result`.
 - A `transaction_result` MAY be followed by a `transaction_output`.
 - A `transaction_result` (or a `transaction_output`, if present) MAY be
-    followed by a `state_changes`.
+    followed by one or more `state_changes`.
 
 This forms the following required sequence for each block, which is then
 repeated within the block stream, indefinitely.  Note that there is no
@@ -64,7 +64,7 @@ header
       transaction
       transaction_result
       (optional) transaction_output
-      (optional) state_changes
+      (optional) repeated state_changes
     }
   }
 state_proof
@@ -83,11 +83,11 @@ contained in other items.
 | ----- | ---- | ----- | ----------- |
 | header | [BlockHeader](#com-hedera-hapi-block-stream-BlockHeader) |  | A header for the block, marking the start of a new block. |
 | start_event | [EventMetadata](#com-hedera-hapi-block-stream-EventMetadata) |  | An item emitted at the start of a new network "event". |
-| system_transaction | [SystemTransaction](#com-hedera-hapi-block-stream-SystemTransaction) |  | A system transaction. <p> This item MAY be removed as the platform removes the concept. |
+| system_transaction | [input.SystemTransaction](#com-hedera-hapi-block-stream-input-SystemTransaction) |  | A system transaction. <p> This item MAY be removed as the platform removes the concept. |
 | transaction | [proto.Transaction](#proto-Transaction) |  | A raw network transaction.<br/> This is just a legacy container for bytes representing a serialized `SignedTransaction`. |
-| transaction_result | [TransactionResult](#com-hedera-hapi-block-stream-TransactionResult) |  | The result of running a transaction. <p> This item SHALL be present immediately after a `transaction` item.<br/> This item MAY be redacted in some circumstances, and SHALL be replaced with a `filtered_item` if removed. |
-| transaction_output | [TransactionOutput](#com-hedera-hapi-block-stream-TransactionOutput) |  | A transaction output. <p> This item MAY not be present if a transaction does not produce an output.<br/> If a transaction does produce an output that is not reflected in state changes, then this item MUST be present after the `transaction_result` for that transaction. |
-| state_changes | [StateChanges](#com-hedera-hapi-block-stream-StateChanges) |  | A set of state changes. <p> All changes to values in network state SHALL be described by stream items of this type.<br/> The source of these state changes SHALL be described by the `reason` enumeration. |
+| transaction_result | [output.TransactionResult](#com-hedera-hapi-block-stream-output-TransactionResult) |  | The result of running a transaction. <p> This item SHALL be present immediately after a `transaction` item.<br/> This item MAY be redacted in some circumstances, and SHALL be replaced with a `filtered_item` if removed. |
+| transaction_output | [output.TransactionOutput](#com-hedera-hapi-block-stream-output-TransactionOutput) |  | A transaction output. <p> This item MAY not be present if a transaction does not produce an output.<br/> If a transaction does produce an output that is not reflected in state changes, then this item MUST be present after the `transaction_result` for that transaction. |
+| state_changes | [output.StateChanges](#com-hedera-hapi-block-stream-output-StateChanges) |  | A set of state changes. <p> All changes to values in network state SHALL be described by stream items of this type.<br/> The source of these state changes SHALL be described by the `reason` enumeration. |
 | state_proof | [BlockStateProof](#com-hedera-hapi-block-stream-BlockStateProof) |  | A block state proof.<br/> The state proof for the BlockInfo node in the network state at the end of this block.<br/> This item is not part of the block stream hash chain/tree, and marks the end of a block. |
 | filtered_item | [FilteredBlockItem](#com-hedera-hapi-block-stream-FilteredBlockItem) |  | Verification data for an item filtered from the stream. <p> Items of this type SHALL NOT be present in the full (unfiltered) block stream.<br/> Items of this type SHALL replace any item removed from a partial (filtered) block stream.<br/> Presence of `filtered_item` entries SHALL NOT prevent verification of a block, but MAY preclude verification or reconstruction of consensus state.<br/> |
 
@@ -103,9 +103,9 @@ Verification data for an item filtered from the stream.
 
 > Note:
 >> This may change. We are exploring options that may change this value to
->> work with, merkle hashing rather than a running hash chain; the change
->> is expected to improve some forms of verification and resolve edge
->> cases with running hashes.
+>> work with merkle hashing rather than a simple running hash chain; the
+>> change is expected to improve some forms of verification and resolve
+>> edge cases with simple running hashes.
 
 Items of this type SHALL NOT be present in the full (unfiltered) block
 stream.<br/>

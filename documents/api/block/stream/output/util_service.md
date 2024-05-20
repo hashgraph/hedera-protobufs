@@ -1,15 +1,15 @@
 ## Table of Contents
 
-- [stream/util_service.proto](#stream_util_service-proto)
-    - [UtilPrngOutput](#com-hedera-hapi-block-stream-UtilPrngOutput)
+- [stream/output/util_service.proto](#stream_output_util_service-proto)
+    - [UtilPrngOutput](#com-hedera-hapi-block-stream-output-UtilPrngOutput)
   
 
 
 
-<a name="stream_util_service-proto"></a>
+<a name="stream_output_util_service-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/util_service.proto
+## stream/output/util_service.proto
 # Util Service
 Block stream messages that report the results of transactions handled by
 the `Util` service.
@@ -22,7 +22,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-UtilPrngOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-UtilPrngOutput"></a>
 
 ### UtilPrngOutput
 Block data produced by `prng` transactions submitted to the `Util` service.

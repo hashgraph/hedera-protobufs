@@ -1,21 +1,21 @@
 ## Table of Contents
 
-- [stream/smart_contract_service.proto](#stream_smart_contract_service-proto)
-    - [CallContractOutput](#com-hedera-hapi-block-stream-CallContractOutput)
-    - [CreateContractOutput](#com-hedera-hapi-block-stream-CreateContractOutput)
-    - [DeleteContractOutput](#com-hedera-hapi-block-stream-DeleteContractOutput)
-    - [EthereumOutput](#com-hedera-hapi-block-stream-EthereumOutput)
-    - [SystemDeleteContractOutput](#com-hedera-hapi-block-stream-SystemDeleteContractOutput)
-    - [SystemUnDeleteContractOutput](#com-hedera-hapi-block-stream-SystemUnDeleteContractOutput)
-    - [UpdateContractOutput](#com-hedera-hapi-block-stream-UpdateContractOutput)
+- [stream/output/smart_contract_service.proto](#stream_output_smart_contract_service-proto)
+    - [CallContractOutput](#com-hedera-hapi-block-stream-output-CallContractOutput)
+    - [CreateContractOutput](#com-hedera-hapi-block-stream-output-CreateContractOutput)
+    - [DeleteContractOutput](#com-hedera-hapi-block-stream-output-DeleteContractOutput)
+    - [EthereumOutput](#com-hedera-hapi-block-stream-output-EthereumOutput)
+    - [SystemDeleteContractOutput](#com-hedera-hapi-block-stream-output-SystemDeleteContractOutput)
+    - [SystemUnDeleteContractOutput](#com-hedera-hapi-block-stream-output-SystemUnDeleteContractOutput)
+    - [UpdateContractOutput](#com-hedera-hapi-block-stream-output-UpdateContractOutput)
   
 
 
 
-<a name="stream_smart_contract_service-proto"></a>
+<a name="stream_output_smart_contract_service-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/smart_contract_service.proto
+## stream/output/smart_contract_service.proto
 #  Service
 Block stream messages that report the results of transactions handled
 by the `` service.
@@ -34,7 +34,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-CallContractOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-CallContractOutput"></a>
 
 ### CallContractOutput
 Block Stream data for a `contractCallMethod` transaction.
@@ -53,7 +53,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-CreateContractOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-CreateContractOutput"></a>
 
 ### CreateContractOutput
 Block Stream data for a `createContract` transaction.
@@ -72,7 +72,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-DeleteContractOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-DeleteContractOutput"></a>
 
 ### DeleteContractOutput
 Block Stream data for a `deleteContract` transaction.
@@ -85,7 +85,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-EthereumOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-EthereumOutput"></a>
 
 ### EthereumOutput
 Block Stream data for a `callEthereum` transaction.
@@ -104,7 +104,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-SystemDeleteContractOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-SystemDeleteContractOutput"></a>
 
 ### SystemDeleteContractOutput
 Block Stream data for a contract `systemDelete` transaction.
@@ -117,7 +117,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-SystemUnDeleteContractOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-SystemUnDeleteContractOutput"></a>
 
 ### SystemUnDeleteContractOutput
 Block Stream data for a contract `systemUndelete` transaction.
@@ -130,7 +130,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-UpdateContractOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-UpdateContractOutput"></a>
 
 ### UpdateContractOutput
 Block Stream data for a `updateContract` transaction.

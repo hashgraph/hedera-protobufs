@@ -28,7 +28,7 @@
  */
 syntax = "proto3";
 
-package com.hedera.hapi.block.stream;
+package com.hedera.hapi.block.stream.input;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -46,8 +46,8 @@ package com.hedera.hapi.block.stream;
  * limitations under the License.
  */
 
-option java_package = "com.hedera.hapi.block.stream";
-// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.hedera.hapi.block.stream.input";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream.input">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 /**

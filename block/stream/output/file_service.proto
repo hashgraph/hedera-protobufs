@@ -1,11 +1,20 @@
 /**
- * # Crypto Service
- * Block stream messages that report the results of transactions handled by
- * the `Crypto` service. This service primarily handles account management
- * and HBAR transfers.
+ * # File Service
+ * Block stream messages that report the results of transactions handled
+ * by the `File` service.
  *
- * > Note
- * >> Tokens other than HBAR, including all NFTs, are managed by the `Token` Service.
+ * A `file` in Hedera is an arbitrary sequence of bytes and may be up to
+ * `1048576` total bytes. Files are used anywhere a transaction requires a
+ * large amount of data (anything that would not fit within the
+ * transaction size limit).
+ *
+ * Examples
+ *  - smart contract bytecode
+ *  - network configuration updates
+ *  - network fee schedules
+ *  - image files for NFTs
+ *  - property title documents
+ * There are many other uses; these examples are illustrative.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -16,7 +25,7 @@
  */
 syntax = "proto3";
 
-package com.hedera.hapi.block.stream;
+package com.hedera.hapi.block.stream.output;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -34,63 +43,54 @@ package com.hedera.hapi.block.stream;
  * limitations under the License.
  */
 
-option java_package = "com.hedera.hapi.block.stream";
-// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.hedera.hapi.block.stream.output";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream.output">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
-import "custom_fees.proto";
+/**
+ * Block Stream data for a `fileAppend` transaction.
+ *
+ * This message SHALL NOT duplicate information already contained
+ * in the original transaction.
+ */
+message AppendFileOutput {}
 
 /**
- * Block Stream data for a `approveAllowances` transaction.
+ * Block Stream data for a `fileCreate` transaction.
  *
  * This message SHALL NOT duplicate information already contained in
  * the original transaction.
  */
-message ApproveAllowanceOutput {}
+message CreateFileOutput {}
 
 /**
- * Block Stream data for a `deleteAllowances` transaction.
+ * Block Stream data for a `fileDelete` transaction.
  *
  * This message SHALL NOT duplicate information already contained in
  * the original transaction.
  */
-message DeleteAllowanceOutput {}
+message DeleteFileOutput {}
 
 /**
- * Block Stream data for a `createAccount` transaction.
+ * Block Stream data for a `fileUpdate` transaction.
  *
  * This message SHALL NOT duplicate information already contained in
  * the original transaction.
  */
-message CreateAccountOutput {}
+message UpdateFileOutput {}
 
 /**
- * Block Stream data for a `cryptoDelete` transaction.
+ * Block Stream data for a `systemDelete` transaction.
  *
  * This message SHALL NOT duplicate information already contained in
  * the original transaction.
  */
-message DeleteAccountOutput {}
+message SystemDeleteOutput {}
 
 /**
- * Block Stream data for a `cryptoTransfer` transaction.
+ * Block Stream data for a `systemUndelete` transaction.
  *
  * This message SHALL NOT duplicate information already contained in
  * the original transaction.
  */
-message CryptoTransferOutput {
-  /**
-   * Custom fees assessed during a CryptoTransfer.
-   * <p>
-   * These fees SHALL be present in the full transfer list for the transaction.
-   */
-  repeated proto.AssessedCustomFee assessed_custom_fees = 1;
-}
-
-/**
- * Block Stream data for a `updateAccount` transaction.
- *
- * This message SHALL NOT duplicate information already contained in
- * the original transaction.
- */
-message UpdateAccountOutput {}
+message SystemUndeleteOutput {}
