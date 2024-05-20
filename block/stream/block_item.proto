@@ -8,8 +8,8 @@
  *
  * This structure here MUST support a stream of block items with no enclosing
  * message.<br/>
- * The design SHOULD be reasonable if used in a gRPC bidirectional streaming
- * RPC similar to
+ * Implementations SHOULD behave in a reasonable manner if used in a gRPC
+ * bidirectional streaming RPC similar to
  * `rpc processBlocks(stream BlockItem) returns (stream Acknowledgement);`.
  *
  * ### Keywords
@@ -47,10 +47,10 @@ import "transaction.proto";
 import "stream/block_header.proto";
 import "stream/block_state_proof.proto";
 import "stream/event_metadata.proto";
-import "stream/state_changes.proto";
-import "stream/system_transaction.proto";
-import "stream/transaction_output.proto";
-import "stream/transaction_result.proto";
+import "stream/output/state_changes.proto";
+import "stream/input/system_transaction.proto";
+import "stream/output/transaction_output.proto";
+import "stream/output/transaction_result.proto";
 
 /**
  * A single item within a block stream.
@@ -65,7 +65,7 @@ import "stream/transaction_result.proto";
  * - A `transaction` SHALL be followed by a `transaction_result`.
  * - A `transaction_result` MAY be followed by a `transaction_output`.
  * - A `transaction_result` (or a `transaction_output`, if present) MAY be
- *     followed by a `state_changes`.
+ *     followed by one or more `state_changes`.
  *
  * This forms the following required sequence for each block, which is then
  * repeated within the block stream, indefinitely.  Note that there is no
@@ -82,7 +82,7 @@ import "stream/transaction_result.proto";
  *       transaction
  *       transaction_result
  *       (optional) transaction_output
- *       (optional) state_changes
+ *       (optional) repeated state_changes
  *     }
  *   }
  * state_proof
@@ -113,7 +113,7 @@ message BlockItem {
          * <p>
          * This item MAY be removed as the platform removes the concept.
          */
-        SystemTransaction system_transaction = 3;
+        com.hedera.hapi.block.stream.input.SystemTransaction system_transaction = 3;
 
         /**
          * A raw network transaction.<br/>
@@ -130,7 +130,7 @@ message BlockItem {
          * This item MAY be redacted in some circumstances, and SHALL be
          * replaced with a `filtered_item` if removed.
          */
-        TransactionResult transaction_result = 5;
+        com.hedera.hapi.block.stream.output.TransactionResult transaction_result = 5;
 
         /**
          * A transaction output.
@@ -141,7 +141,7 @@ message BlockItem {
          * in state changes, then this item MUST be present after the
          * `transaction_result` for that transaction.
          */
-        TransactionOutput transaction_output = 6;
+        com.hedera.hapi.block.stream.output.TransactionOutput transaction_output = 6;
 
         /**
          * A set of state changes.
@@ -151,7 +151,7 @@ message BlockItem {
          * The source of these state changes SHALL be described by the
          * `reason` enumeration.
          */
-        StateChanges state_changes = 7;
+        com.hedera.hapi.block.stream.output.StateChanges state_changes = 7;
 
         /**
          * A block state proof.<br/>
@@ -186,9 +186,9 @@ message BlockItem {
  *
  * > Note:
  * >> This may change. We are exploring options that may change this value to
- * >> work with, merkle hashing rather than a running hash chain; the change
- * >> is expected to improve some forms of verification and resolve edge
- * >> cases with running hashes.
+ * >> work with merkle hashing rather than a simple running hash chain; the
+ * >> change is expected to improve some forms of verification and resolve
+ * >> edge cases with simple running hashes.
  *
  * Items of this type SHALL NOT be present in the full (unfiltered) block
  * stream.<br/>

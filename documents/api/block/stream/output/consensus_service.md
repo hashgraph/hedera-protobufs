@@ -1,20 +1,20 @@
 ## Table of Contents
 
-- [stream/consensus_service.proto](#stream_consensus_service-proto)
-    - [CreateTopicOutput](#com-hedera-hapi-block-stream-CreateTopicOutput)
-    - [DeleteTopicOutput](#com-hedera-hapi-block-stream-DeleteTopicOutput)
-    - [SubmitMessageOutput](#com-hedera-hapi-block-stream-SubmitMessageOutput)
-    - [UpdateTopicOutput](#com-hedera-hapi-block-stream-UpdateTopicOutput)
+- [stream/output/consensus_service.proto](#stream_output_consensus_service-proto)
+    - [CreateTopicOutput](#com-hedera-hapi-block-stream-output-CreateTopicOutput)
+    - [DeleteTopicOutput](#com-hedera-hapi-block-stream-output-DeleteTopicOutput)
+    - [SubmitMessageOutput](#com-hedera-hapi-block-stream-output-SubmitMessageOutput)
+    - [UpdateTopicOutput](#com-hedera-hapi-block-stream-output-UpdateTopicOutput)
   
-    - [SubmitMessageOutput.RunningHashVersion](#com-hedera-hapi-block-stream-SubmitMessageOutput-RunningHashVersion)
+    - [SubmitMessageOutput.RunningHashVersion](#com-hedera-hapi-block-stream-output-SubmitMessageOutput-RunningHashVersion)
   
 
 
 
-<a name="stream_consensus_service-proto"></a>
+<a name="stream_output_consensus_service-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/consensus_service.proto
+## stream/output/consensus_service.proto
 # Consensus Service
 Block stream messages that report the results of transactions handled
 by the `Consensus` service.
@@ -32,7 +32,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-CreateTopicOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-CreateTopicOutput"></a>
 
 ### CreateTopicOutput
 Block Stream data for a `createTopic` transaction.
@@ -45,7 +45,7 @@ original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-DeleteTopicOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-DeleteTopicOutput"></a>
 
 ### DeleteTopicOutput
 Block Stream data for a `deleteTopic` transaction.
@@ -58,7 +58,7 @@ original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-SubmitMessageOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-SubmitMessageOutput"></a>
 
 ### SubmitMessageOutput
 Block Stream data for a `submitMessage` transaction.
@@ -71,14 +71,14 @@ item, and is not duplicated here.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| topic_running_hash_version | [SubmitMessageOutput.RunningHashVersion](#com-hedera-hapi-block-stream-SubmitMessageOutput-RunningHashVersion) |  | The version of inputs to the SHA-384 running hash. <p> For all current transactions, this value SHALL be `WITH_MESSAGE_DIGEST_AND_PAYER`. |
+| topic_running_hash_version | [SubmitMessageOutput.RunningHashVersion](#com-hedera-hapi-block-stream-output-SubmitMessageOutput-RunningHashVersion) |  | The version of inputs to the SHA-384 running hash. <p> For all current transactions, this value SHALL be `WITH_MESSAGE_DIGEST_AND_PAYER`. |
 
 
 
 
 
 
-<a name="com-hedera-hapi-block-stream-UpdateTopicOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-UpdateTopicOutput"></a>
 
 ### UpdateTopicOutput
 Block Stream data for a `updateTopic` transaction.
@@ -93,7 +93,7 @@ original transaction.
  <!-- end messages -->
 
 
-<a name="com-hedera-hapi-block-stream-SubmitMessageOutput-RunningHashVersion"></a>
+<a name="com-hedera-hapi-block-stream-output-SubmitMessageOutput-RunningHashVersion"></a>
 
 ### SubmitMessageOutput.RunningHashVersion
 A version of the topic running hash.

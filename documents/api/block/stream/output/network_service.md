@@ -1,16 +1,16 @@
 ## Table of Contents
 
-- [stream/network_service.proto](#stream_network_service-proto)
-    - [FreezeOutput](#com-hedera-hapi-block-stream-FreezeOutput)
-    - [UpdateNodeStakeOutput](#com-hedera-hapi-block-stream-UpdateNodeStakeOutput)
+- [stream/output/network_service.proto](#stream_output_network_service-proto)
+    - [FreezeOutput](#com-hedera-hapi-block-stream-output-FreezeOutput)
+    - [UpdateNodeStakeOutput](#com-hedera-hapi-block-stream-output-UpdateNodeStakeOutput)
   
 
 
 
-<a name="stream_network_service-proto"></a>
+<a name="stream_output_network_service-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/network_service.proto
+## stream/output/network_service.proto
 # Network Admin
 Network Admin service transactions.
 
@@ -26,7 +26,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-FreezeOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-FreezeOutput"></a>
 
 ### FreezeOutput
 
@@ -36,7 +36,7 @@ document are to be interpreted as described in
 
 
 
-<a name="com-hedera-hapi-block-stream-UpdateNodeStakeOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-UpdateNodeStakeOutput"></a>
 
 ### UpdateNodeStakeOutput
 

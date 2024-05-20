@@ -33,6 +33,39 @@
 # Block Service
 The Service API exposed by the Block Nodes.
 
+## Workarounds
+> There are incorrect elements in this file to work around bugs in the
+> PBJ Compiler.
+>> Issues 262, 263, 240, 218, 217, and 216 are related.
+>
+> Issue 263
+>> A number of fields reference child messages, these _should_ specify
+>> the parent message (i.e. `Parent.child field = #;`) but do not do
+>> so due to issue 263.
+>
+> Issue 262
+>> Some fields reference messages defined in other packages that share
+>> a common prefix (e.g. `com.hedera.hapi.block.stream`). These fields
+>> specify the entire package instead of the shorter and clearer suffix
+>> due to issue 262
+>
+> Issue 240
+>> These files currently cause PBJ integration tests to fail if included
+>> due to issue 240.
+>
+> Issue 218
+>> These files have the same value for package and java_package. Ideally
+>> we would not specify `java_package` or the pbj comment in that situation,
+>> but Issue 218 prevents eliding the unnecessary directives.
+>
+> Issue 217
+>> These files may cause PBJ to fail compilation due to comments preceeding
+>> the `syntax` keyword.
+>
+> Issue 216
+>> These files would do well with validation support, but cannot make
+>> use of validation, even as an advisory element, due to Issue 216.
+
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this

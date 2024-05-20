@@ -1,15 +1,15 @@
 ## Table of Contents
 
-- [stream/transaction_result.proto](#stream_transaction_result-proto)
-    - [TransactionResult](#com-hedera-hapi-block-stream-TransactionResult)
+- [stream/output/transaction_result.proto](#stream_output_transaction_result-proto)
+    - [TransactionResult](#com-hedera-hapi-block-stream-output-TransactionResult)
   
 
 
 
-<a name="stream_transaction_result-proto"></a>
+<a name="stream_output_transaction_result-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/transaction_result.proto
+## stream/output/transaction_result.proto
 # Transaction Result
 The result of a transaction, sometimes called a receipt.
 
@@ -21,7 +21,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-TransactionResult"></a>
+<a name="com-hedera-hapi-block-stream-output-TransactionResult"></a>
 
 ### TransactionResult
 While we have the state changes as part of the block stream,

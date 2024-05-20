@@ -1,17 +1,17 @@
 ## Table of Contents
 
-- [stream/schedule_service.proto](#stream_schedule_service-proto)
-    - [CreateScheduleOutput](#com-hedera-hapi-block-stream-CreateScheduleOutput)
-    - [DeleteScheduleOutput](#com-hedera-hapi-block-stream-DeleteScheduleOutput)
-    - [SignScheduleOutput](#com-hedera-hapi-block-stream-SignScheduleOutput)
+- [stream/output/schedule_service.proto](#stream_output_schedule_service-proto)
+    - [CreateScheduleOutput](#com-hedera-hapi-block-stream-output-CreateScheduleOutput)
+    - [DeleteScheduleOutput](#com-hedera-hapi-block-stream-output-DeleteScheduleOutput)
+    - [SignScheduleOutput](#com-hedera-hapi-block-stream-output-SignScheduleOutput)
   
 
 
 
-<a name="stream_schedule_service-proto"></a>
+<a name="stream_output_schedule_service-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/schedule_service.proto
+## stream/output/schedule_service.proto
 # Schedule Service
 Block stream messages that report the results of transactions handled by
 the `Schedule` service.
@@ -45,7 +45,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-CreateScheduleOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-CreateScheduleOutput"></a>
 
 ### CreateScheduleOutput
 Block Stream data for a `createSchedule` transaction.
@@ -63,7 +63,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-DeleteScheduleOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-DeleteScheduleOutput"></a>
 
 ### DeleteScheduleOutput
 Block Stream data for a `deleteSchedule` transaction.
@@ -76,7 +76,7 @@ the original transaction.
 
 
 
-<a name="com-hedera-hapi-block-stream-SignScheduleOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-SignScheduleOutput"></a>
 
 ### SignScheduleOutput
 Block Stream data for a `signSchedule` transaction.

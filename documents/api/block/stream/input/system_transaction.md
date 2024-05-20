@@ -1,18 +1,18 @@
 ## Table of Contents
 
-- [stream/system_transaction.proto](#stream_system_transaction-proto)
-    - [BitsPerSecondSystemTransaction](#com-hedera-hapi-block-stream-BitsPerSecondSystemTransaction)
-    - [PingSystemTransaction](#com-hedera-hapi-block-stream-PingSystemTransaction)
-    - [StateSignatureSystemTransaction](#com-hedera-hapi-block-stream-StateSignatureSystemTransaction)
-    - [SystemTransaction](#com-hedera-hapi-block-stream-SystemTransaction)
+- [stream/input/system_transaction.proto](#stream_input_system_transaction-proto)
+    - [BitsPerSecondSystemTransaction](#com-hedera-hapi-block-stream-input-BitsPerSecondSystemTransaction)
+    - [PingSystemTransaction](#com-hedera-hapi-block-stream-input-PingSystemTransaction)
+    - [StateSignatureSystemTransaction](#com-hedera-hapi-block-stream-input-StateSignatureSystemTransaction)
+    - [SystemTransaction](#com-hedera-hapi-block-stream-input-SystemTransaction)
   
 
 
 
-<a name="stream_system_transaction-proto"></a>
+<a name="stream_input_system_transaction-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/system_transaction.proto
+## stream/input/system_transaction.proto
 # System Transaction
 Block data for a system transaction.
 System transactions are a small set of items that are purely internal to the
@@ -41,7 +41,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-BitsPerSecondSystemTransaction"></a>
+<a name="com-hedera-hapi-block-stream-input-BitsPerSecondSystemTransaction"></a>
 
 ### BitsPerSecondSystemTransaction
 A network throughput system transaction.
@@ -60,7 +60,7 @@ visibility to network throughput statistics for the network.
 
 
 
-<a name="com-hedera-hapi-block-stream-PingSystemTransaction"></a>
+<a name="com-hedera-hapi-block-stream-input-PingSystemTransaction"></a>
 
 ### PingSystemTransaction
 A network latency system transaction.
@@ -79,7 +79,7 @@ visibility to network latency statistics for the network.
 
 
 
-<a name="com-hedera-hapi-block-stream-StateSignatureSystemTransaction"></a>
+<a name="com-hedera-hapi-block-stream-input-StateSignatureSystemTransaction"></a>
 
 ### StateSignatureSystemTransaction
 A state signature transaction.
@@ -100,7 +100,7 @@ between all consensus nodes to validate the consensus state of the network.
 
 
 
-<a name="com-hedera-hapi-block-stream-SystemTransaction"></a>
+<a name="com-hedera-hapi-block-stream-input-SystemTransaction"></a>
 
 ### SystemTransaction
 A system-internal transaction to maintain network state across nodes.<br/>
@@ -114,9 +114,9 @@ consensus transactions to the block nodes.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| state_signature | [StateSignatureSystemTransaction](#com-hedera-hapi-block-stream-StateSignatureSystemTransaction) |  | A single state signature. <p> A state SHALL be complete when the network has successfully gathered state signatures from greater than two thirds of consensus nodes listed in the network address book.<br/> The network has successfully gathered a signature when greater than two thirds of consensus nodes listed in the network address book have received and verified that signature. |
-| bits_per_second | [BitsPerSecondSystemTransaction](#com-hedera-hapi-block-stream-BitsPerSecondSystemTransaction) |  | A metric sharing transaction. <p> Each node SHALL calculate the observed network throughput to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
-| ping | [PingSystemTransaction](#com-hedera-hapi-block-stream-PingSystemTransaction) |  | A metric sharing transaction. <p> Each node SHALL calculate the observed network latency to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
+| state_signature | [StateSignatureSystemTransaction](#com-hedera-hapi-block-stream-input-StateSignatureSystemTransaction) |  | A single state signature. <p> A state SHALL be complete when the network has successfully gathered state signatures from greater than two thirds of consensus nodes listed in the network address book.<br/> The network has successfully gathered a signature when greater than two thirds of consensus nodes listed in the network address book have received and verified that signature. |
+| bits_per_second | [BitsPerSecondSystemTransaction](#com-hedera-hapi-block-stream-input-BitsPerSecondSystemTransaction) |  | A metric sharing transaction. <p> Each node SHALL calculate the observed network throughput to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
+| ping | [PingSystemTransaction](#com-hedera-hapi-block-stream-input-PingSystemTransaction) |  | A metric sharing transaction. <p> Each node SHALL calculate the observed network latency to all other nodes each round.<br/> This information SHALL be shared with all other nodes via this transaction type. The aggregate of these measurements MAY be used to determine if one or more nodes is losing or has lost full connectivity to the network. |
 
 
 

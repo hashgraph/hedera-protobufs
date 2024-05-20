@@ -1,15 +1,15 @@
 ## Table of Contents
 
-- [stream/transaction_output.proto](#stream_transaction_output-proto)
-    - [TransactionOutput](#com-hedera-hapi-block-stream-TransactionOutput)
+- [stream/output/transaction_output.proto](#stream_output_transaction_output-proto)
+    - [TransactionOutput](#com-hedera-hapi-block-stream-output-TransactionOutput)
   
 
 
 
-<a name="stream_transaction_output-proto"></a>
+<a name="stream_output_transaction_output-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## stream/transaction_output.proto
+## stream/output/transaction_output.proto
 # Transaction Output
 Messages that describe the output of a transaction; data reported
 in the block stream that is not in the transaction body and is
@@ -23,7 +23,7 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
-<a name="com-hedera-hapi-block-stream-TransactionOutput"></a>
+<a name="com-hedera-hapi-block-stream-output-TransactionOutput"></a>
 
 ### TransactionOutput
 Output from a transaction.
@@ -95,14 +95,14 @@ import "stream/network_service.proto";
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| submit_message | [SubmitMessageOutput](#com-hedera-hapi-block-stream-SubmitMessageOutput) |  | Output from a submit message transaction. |
-| crypto_transfer | [CryptoTransferOutput](#com-hedera-hapi-block-stream-CryptoTransferOutput) |  | Output from a crypto transfer transaction. |
-| util_prng | [UtilPrngOutput](#com-hedera-hapi-block-stream-UtilPrngOutput) |  | Output from a utilPrng transaction to request a deterministic pseudo-random number. |
-| contract_call | [CallContractOutput](#com-hedera-hapi-block-stream-CallContractOutput) |  | Output from a contract call transaction. |
-| ethereum_call | [EthereumOutput](#com-hedera-hapi-block-stream-EthereumOutput) |  | Output from an ethereum call transaction. |
-| contract_create | [CreateContractOutput](#com-hedera-hapi-block-stream-CreateContractOutput) |  | Output from a contract create transaction. |
-| create_schedule | [CreateScheduleOutput](#com-hedera-hapi-block-stream-CreateScheduleOutput) |  | Output from a schedule create transaction that executed immediately on creation. |
-| sign_schedule | [SignScheduleOutput](#com-hedera-hapi-block-stream-SignScheduleOutput) |  | Output from a schedule sign transaction that resulted in executing the scheduled transaction. |
+| submit_message | [SubmitMessageOutput](#com-hedera-hapi-block-stream-output-SubmitMessageOutput) |  | Output from a submit message transaction. |
+| crypto_transfer | [CryptoTransferOutput](#com-hedera-hapi-block-stream-output-CryptoTransferOutput) |  | Output from a crypto transfer transaction. |
+| util_prng | [UtilPrngOutput](#com-hedera-hapi-block-stream-output-UtilPrngOutput) |  | Output from a utilPrng transaction to request a deterministic pseudo-random number. |
+| contract_call | [CallContractOutput](#com-hedera-hapi-block-stream-output-CallContractOutput) |  | Output from a contract call transaction. |
+| ethereum_call | [EthereumOutput](#com-hedera-hapi-block-stream-output-EthereumOutput) |  | Output from an ethereum call transaction. |
+| contract_create | [CreateContractOutput](#com-hedera-hapi-block-stream-output-CreateContractOutput) |  | Output from a contract create transaction. |
+| create_schedule | [CreateScheduleOutput](#com-hedera-hapi-block-stream-output-CreateScheduleOutput) |  | Output from a schedule create transaction that executed immediately on creation. |
+| sign_schedule | [SignScheduleOutput](#com-hedera-hapi-block-stream-output-SignScheduleOutput) |  | Output from a schedule sign transaction that resulted in executing the scheduled transaction. |
 
 
 
