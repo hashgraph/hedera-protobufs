@@ -378,7 +378,7 @@ message TransactionBody {
     NodeDeleteTransactionBody nodeDelete = 56;
 
     /**
-     * A transaction body for a `rejectToken` request.
+     * Rejects undesired tokens from an account by returning them to the treasury.
      */
     TokenRejectTransactionBody tokenReject = 57;
   }

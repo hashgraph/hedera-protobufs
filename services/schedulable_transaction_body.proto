@@ -69,6 +69,7 @@ import "token_fee_schedule_update.proto";
 import "token_pause.proto";
 import "token_unpause.proto";
 import "token_update_nfts.proto";
+import "token_reject.proto";
 
 import "schedule_delete.proto";
 import "util_prng.proto";
@@ -308,5 +309,10 @@ message SchedulableTransactionBody {
      * Transaction body for a scheduled transaction to remove a node.
      */
     NodeDeleteTransactionBody nodeDelete = 44;
+
+    /**
+     * Rejects undesired tokens from an account by returning them to the treasury.
+     */
+    TokenRejectTransactionBody tokenReject = 45;
   }
 }
