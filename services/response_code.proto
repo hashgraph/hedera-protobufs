@@ -1443,4 +1443,9 @@ enum ResponseCodeEnum {
    * The most common cause for this error is a value less than `-1`.
    */
   INVALID_MAX_AUTO_ASSOCIATIONS = 346;
+
+  /**
+   * The maximum number of nodes allowed in the address book have been created.
+   */
+  MAX_NODE_HAVE_BEEN_CREATED = 347;
 }
