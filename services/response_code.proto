@@ -1448,4 +1448,9 @@ enum ResponseCodeEnum {
    * The maximum number of nodes allowed in the address book have been created.
    */
   MAX_NODE_HAVE_BEEN_CREATED = 347;
+
+  /**
+   * In ServiceEndpoint, domain_name and ipAddressV4 are mutually exclusive
+   */
+  IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT = 348;
 }
