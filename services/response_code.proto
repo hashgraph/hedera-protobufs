@@ -1399,8 +1399,73 @@ enum ResponseCodeEnum {
   TOKEN_HAS_NO_ADMIN_KEY = 337;
 
   /**
+   * The node has been marked as deleted
+   */
+  NODE_DELETED = 338;
+
+  /**
+   * A node is not found during update and delete node transaction
+   */
+  INVALID_NODE_ID = 339;
+
+  /**
+   * gossip_endpoint has a fully qualified domain name instead of ip
+   */
+  INVALID_GOSSIP_ENDPOINT = 340;
+
+  /**
+   * The node account_id is invalid
+   */
+  INVALID_NODE_ACCOUNT_ID = 341;
+
+  /**
+   * The node description is invalid
+   */
+  INVALID_NODE_DESCRIPTION = 342;
+
+  /**
+   * service_endpoint is invalid
+   */
+  INVALID_SERVICE_ENDPOINT = 343;
+
+  /**
+   * gossip_ca_certificate is invalid
+   */
+  INVALID_GOSSIP_CAE_CERTIFICATE = 344;
+
+  /**
+   * grpc_certificate_hash is invalid
+   */
+  INVALID_GRPC_CERTIFICATE = 345;
+
+  /**
    * The maximum automatic associations value is not valid.<br/>
    * The most common cause for this error is a value less than `-1`.
    */
   INVALID_MAX_AUTO_ASSOCIATIONS = 346;
+
+  /**
+   * The maximum number of nodes allowed in the address book have been created.
+   */
+  MAX_NODE_HAVE_BEEN_CREATED = 347;
+
+  /**
+   * In ServiceEndpoint, domain_name and ipAddressV4 are mutually exclusive
+   */
+  IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT = 348;
+
+  /**
+   *  Fully qualified domain name is not allowed in gossip_endpoint
+   */
+  GOSSIP_ENDPOINT_CANNOT_HAVE_FQDN = 349;
+
+  /**
+   * In ServiceEndpoint, domain_name size too large
+   */
+  FQDN_SIZE_TOO_LARGE = 350;
+
+  /**
+   * ServiceEndpoint is invalid
+   */
+  INVALID_ENDPOINT = 351;
 }
