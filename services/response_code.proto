@@ -1463,4 +1463,9 @@ enum ResponseCodeEnum {
    * In ServiceEndpoint, domain_name size too large
    */
   FQDN_SIZE_TOO_LARGE = 350;
+
+  /**
+   * ServiceEndpoint is invalid
+   */
+  INVALID_ENDPOINT = 351;
 }
