@@ -1447,7 +1447,7 @@ enum ResponseCodeEnum {
   /**
    * The maximum number of nodes allowed in the address book have been created.
    */
-  MAX_NODES_HAVE_BEEN_CREATED = 347;
+  MAX_NODES_CREATED = 347;
 
   /**
    * In ServiceEndpoint, domain_name and ipAddressV4 are mutually exclusive
@@ -1468,6 +1468,7 @@ enum ResponseCodeEnum {
    * ServiceEndpoint is invalid
    */
   INVALID_ENDPOINT = 351;
+
   /**
    * The number of gossip endpoints exceeds the limit
    */
