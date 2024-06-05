@@ -1454,4 +1454,9 @@ enum ResponseCodeEnum {
    * The account id specified as the owner in `TokenReject` is invalid or does not exist.
    */
   INVALID_OWNER_ID = 348;
+
+  /**
+   * The transaction attempted to use more than the allowed number of `TokenReference`.
+   */
+  TOKEN_REFERENCE_LIST_SIZE_LIMIT_EXCEEDED = 349;
 }
