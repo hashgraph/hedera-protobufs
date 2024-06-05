@@ -1437,4 +1437,9 @@ enum ResponseCodeEnum {
    * grpc_certificate_hash is invalid
    */
   INVALID_GRPC_CERTIFICATE = 345;
+
+  /**
+   * The transaction attempted to use more than the allowed number of `TokenReference`
+   */
+  TOKEN_REFERENCE_LIST_SIZE_LIMIT_EXCEEDED = 349;
 }
