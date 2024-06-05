@@ -647,7 +647,7 @@ message Key {
          * contractID key, which also requires the code in the active message frame belong to the
          * the contract with the given id.)
          */
-        ContractID delegatable_contract_id = 8;
+        ContractID delegatable_contract_id = 8; 
     }
 }
 
@@ -1383,6 +1383,9 @@ message ServiceEndpoint {
      * A node domain name
      * This MUST be the fully qualified domain name of the node.
      * This value MUST NOT be more than 253 characters.
+     * domain_name and ipAddressV4 are mutually exclusive.
+     * When the `domain_name` field is set, the `ipAddressV4` field MUST NOT be set.<br/>
+     * When the `ipAddressV4` field is set, the `domain_name` field MUST NOT be set.
      */
     string domain_name = 3;
 }

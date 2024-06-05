@@ -77,9 +77,14 @@ message Node {
     uint64 weight = 8;
 
     /**
+     * Whether this node is deleted.
+     */
+    bool deleted = 9;
+
+    /**
      * an enum to indicate the status of the node, not used in phase 2
      */
-    //NodeStatus status = 9;
+    //NodeStatus status = 10;
 
 }
 
