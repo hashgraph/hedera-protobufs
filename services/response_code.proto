@@ -1473,4 +1473,14 @@ enum ResponseCodeEnum {
    * The number of gossip endpoints exceeds the limit
    */
   GOSSIP_ENDPOINTS_EXCEEDED_LIMIT = 352;
+
+  /**
+   * The number of service endpoints exceeds the limit
+   */
+  SERVICE_ENDPOINTS_EXCEEDED_LIMIT = 353;
+
+  /*
+   * The IPv4 address is invalid
+   */
+  INVALID_IPV4_ADDRESS = 354;
 }
