@@ -1216,6 +1216,21 @@ enum HederaFunctionality {
      * Transfer one or more token balances held by the requesting account to the treasury for each token type.
      */
     TokenReject = 93;
+
+    /**
+     * Airdrops one or more tokens to one or more accounts.
+     */
+    TokenAirdrop = 94;
+
+    /**
+     * Remove one or more pending airdrops from state on behalf of the sender(s) for each airdrop.
+     */
+    TokenCancelAirdrop = 95;
+
+    /**
+     * Complete one or more pending transfers on behalf of the recipient(s) for each airdrop.
+     */
+    TokenClaimAirdrop = 96;
 }
 
 /**
