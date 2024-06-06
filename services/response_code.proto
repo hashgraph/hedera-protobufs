@@ -63,9 +63,9 @@ enum ResponseCodeEnum {
   INVALID_TRANSACTION_START = 5;
 
   /**
-   * The given transactionValidDuration was either non-positive, or greater than the maximum 
+   * The given transactionValidDuration was either non-positive, or greater than the maximum
    * valid duration of 180 secs.
-   * 
+   *
    */
   INVALID_TRANSACTION_DURATION = 6;
 
@@ -1008,7 +1008,7 @@ enum ResponseCodeEnum {
   EXISTING_AUTOMATIC_ASSOCIATIONS_EXCEED_GIVEN_LIMIT = 263;
 
   /**
-   * Cannot set the number of automatic associations for an account more than the maximum allowed 
+   * Cannot set the number of automatic associations for an account more than the maximum allowed
    * token associations <tt>tokens.maxPerAccount</tt>.
    */
   REQUESTED_NUM_AUTOMATIC_ASSOCIATIONS_EXCEEDS_ASSOCIATION_LIMIT = 264;
@@ -1028,63 +1028,63 @@ enum ResponseCodeEnum {
    */
   INVALID_PAUSE_KEY = 267;
 
-  /** 
+  /**
    * The update file in a freeze transaction body must exist.
    */
   FREEZE_UPDATE_FILE_DOES_NOT_EXIST = 268;
 
-  /** 
+  /**
    * The hash of the update file in a freeze transaction body must match the in-memory hash.
    */
   FREEZE_UPDATE_FILE_HASH_DOES_NOT_MATCH = 269;
 
-  /** 
+  /**
    * A FREEZE_UPGRADE transaction was handled with no previous update prepared.
    */
   NO_UPGRADE_HAS_BEEN_PREPARED = 270;
 
-  /** 
+  /**
    * A FREEZE_ABORT transaction was handled with no scheduled freeze.
    */
   NO_FREEZE_IS_SCHEDULED = 271;
 
-  /** 
+  /**
    * The update file hash when handling a FREEZE_UPGRADE transaction differs from the file
    * hash at the time of handling the PREPARE_UPGRADE transaction.
    */
   UPDATE_FILE_HASH_CHANGED_SINCE_PREPARE_UPGRADE = 272;
 
-  /** 
+  /**
    * The given freeze start time was in the (consensus) past.
    */
   FREEZE_START_TIME_MUST_BE_FUTURE = 273;
 
-  /** 
+  /**
    * The prepared update file cannot be updated or appended until either the upgrade has
    * been completed, or a FREEZE_ABORT has been handled.
    */
   PREPARED_UPDATE_FILE_IS_IMMUTABLE = 274;
 
-  /** 
+  /**
    * Once a freeze is scheduled, it must be aborted before any other type of freeze can
    * can be performed.
    */
   FREEZE_ALREADY_SCHEDULED = 275;
 
-  /** 
+  /**
    * If an NMT upgrade has been prepared, the following operation must be a FREEZE_UPGRADE.
    * (To issue a FREEZE_ONLY, submit a FREEZE_ABORT first.)
    */
   FREEZE_UPGRADE_IN_PROGRESS = 276;
 
-  /** 
-   * If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must 
+  /**
+   * If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must
    * confirm the id of the file to be used in the upgrade.
    */
   UPDATE_FILE_ID_DOES_NOT_MATCH_PREPARED = 277;
 
-  /** 
-   * If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must 
+  /**
+   * If an NMT upgrade has been prepared, the subsequent FREEZE_UPGRADE transaction must
    * confirm the hash of the file to be used in the upgrade.
    */
   UPDATE_FILE_HASH_DOES_NOT_MATCH_PREPARED = 278;
@@ -1107,13 +1107,13 @@ enum ResponseCodeEnum {
 
   /**
    * An alias used in a CryptoTransfer transaction is not the serialization of a primitive Key
-   * message--that is, a Key with a single Ed25519 or ECDSA(secp256k1) public key and no 
+   * message--that is, a Key with a single Ed25519 or ECDSA(secp256k1) public key and no
    * unknown protobuf fields.
    */
   INVALID_ALIAS_KEY = 282;
 
   /**
-   * A fungible token transfer expected a different number of decimals than the involved 
+   * A fungible token transfer expected a different number of decimals than the involved
    * type actually has.
    */
   UNEXPECTED_TOKEN_DECIMALS = 283;
@@ -1262,12 +1262,12 @@ enum ResponseCodeEnum {
    * EthereumTransaction was signed against a chainId that this network does not support.
    */
   WRONG_CHAIN_ID = 311;
-  
+
   /**
    * This transaction specified an ethereumNonce that is not the current ethereumNonce of the account.
    */
   WRONG_NONCE = 312;
-  
+
   /**
    * The ethereum transaction specified an access list, which the network does not support.
    */
@@ -1286,7 +1286,7 @@ enum ResponseCodeEnum {
   /**
    * A selfdestruct or ContractDelete targeted a contract with non-zero token balances.
    */
-  CONTRACT_HAS_NON_ZERO_TOKEN_BALANCES = 316;  
+  CONTRACT_HAS_NON_ZERO_TOKEN_BALANCES = 316;
 
   /**
    * A contract referenced by a transaction is "detached"; that is, expired and lacking any
@@ -1295,13 +1295,13 @@ enum ResponseCodeEnum {
   CONTRACT_EXPIRED_AND_PENDING_REMOVAL = 317;
 
   /**
-   * A ContractUpdate requested removal of a contract's auto-renew account, but that contract has  
+   * A ContractUpdate requested removal of a contract's auto-renew account, but that contract has
    * no auto-renew account.
    */
   CONTRACT_HAS_NO_AUTO_RENEW_ACCOUNT = 318;
 
   /**
-   * A delete transaction submitted via HAPI set permanent_removal=true 
+   * A delete transaction submitted via HAPI set permanent_removal=true
    */
   PERMANENT_REMOVAL_REQUIRES_SYSTEM_INITIATION = 319;
 
@@ -1359,7 +1359,7 @@ enum ResponseCodeEnum {
   INSUFFICIENT_BALANCES_FOR_RENEWAL_FEES = 329;
 
   /**
-  * A transaction's protobuf message includes unknown fields; could mean that a client 
+  * A transaction's protobuf message includes unknown fields; could mean that a client
   * expects not-yet-released functionality to be available.
   */
   TRANSACTION_HAS_UNKNOWN_FIELDS = 330;
@@ -1399,10 +1399,91 @@ enum ResponseCodeEnum {
   TOKEN_HAS_NO_ADMIN_KEY = 337;
 
   /**
+   * The node has been marked as deleted
+   */
+  NODE_DELETED = 338;
+
+  /**
+   * A node is not found during update and delete node transaction
+   */
+  INVALID_NODE_ID = 339;
+
+  /**
+   * gossip_endpoint has a fully qualified domain name instead of ip
+   */
+  INVALID_GOSSIP_ENDPOINT = 340;
+
+  /**
+   * The node account_id is invalid
+   */
+  INVALID_NODE_ACCOUNT_ID = 341;
+
+  /**
+   * The node description is invalid
+   */
+  INVALID_NODE_DESCRIPTION = 342;
+
+  /**
+   * service_endpoint is invalid
+   */
+  INVALID_SERVICE_ENDPOINT = 343;
+
+  /**
+   * gossip_ca_certificate is invalid
+   */
+  INVALID_GOSSIP_CAE_CERTIFICATE = 344;
+
+  /**
+   * grpc_certificate_hash is invalid
+   */
+  INVALID_GRPC_CERTIFICATE = 345;
+
+  /**
    * The maximum automatic associations value is not valid.<br/>
    * The most common cause for this error is a value less than `-1`.
    */
-  INVALID_MAX_AUTO_ASSOCIATIONS = 338;
+  INVALID_MAX_AUTO_ASSOCIATIONS = 346;
+
+  /**
+   * The maximum number of nodes allowed in the address book have been created.
+   */
+  MAX_NODES_CREATED = 347;
+
+  /**
+   * In ServiceEndpoint, domain_name and ipAddressV4 are mutually exclusive
+   */
+  IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT = 348;
+
+  /**
+   *  Fully qualified domain name is not allowed in gossip_endpoint
+   */
+  GOSSIP_ENDPOINT_CANNOT_HAVE_FQDN = 349;
+
+  /**
+   * In ServiceEndpoint, domain_name size too large
+   */
+  FQDN_SIZE_TOO_LARGE = 350;
+
+  /**
+   * ServiceEndpoint is invalid
+   */
+  INVALID_ENDPOINT = 351;
+
+  /**
+   * The number of gossip endpoints exceeds the limit
+   */
+  GOSSIP_ENDPOINTS_EXCEEDED_LIMIT = 352;
+
+  /**
+   * The transaction attempted to use duplicate `TokenReference`.<br/>
+   * This affects `TokenReject` attempting to reject same token reference more than once.
+   */
+  TOKEN_REFERENCE_REPEATED = 353;
+
+  /**
+   * The account id specified as the owner in `TokenReject` is invalid or does not exist.
+   */
+  INVALID_OWNER_ID = 354;
 
   /**
    * The transaction refers to a `PendingAirdrop` that does not exist.<br/>
@@ -1410,7 +1491,7 @@ enum ResponseCodeEnum {
    * occurs when a pending airdrop is already claimed or cancelled. The ID values
    * in the transaction may also be incorrect.
    */
-  PENDING_AIRDROP_DOES_NOT_EXIST = 339;
+  PENDING_AIRDROP_DOES_NOT_EXIST = 355;
 
   /**
    * The transaction attempted to airdrop the same non-fungible/unique (NFT)
@@ -1419,11 +1500,5 @@ enum ResponseCodeEnum {
    * cancel a pending airdrop and then send to a different account, or
    * may have unintentionally submitted a duplicate transfer.
    */
-   PENDING_NFT_AIRDROP_ALREADY_EXISTS = 340;
-
-  /**
-   * The transaction attempted to use duplicate `TokenReference`.<br/>
-   * This affects `TokenReject` attempting to reject same token reference more than once.
-   */
-   TOKEN_REFERENCE_REPEATED = 341;
+  PENDING_NFT_AIRDROP_ALREADY_EXISTS = 356;
 }

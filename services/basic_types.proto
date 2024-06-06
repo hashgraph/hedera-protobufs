@@ -1193,24 +1193,44 @@ enum HederaFunctionality {
     TokenUpdateNfts = 88;
 
     /**
-     * Airdrops one or more tokens to one or more accounts.
+     * Create a node
      */
-    TokenAirdrop = 89;
+    NodeCreate = 89;
 
     /**
-     * Remove one or more pending airdrops from state on behalf of the sender(s) for each airdrop.
+     * Update a node
      */
-    TokenCancelAirdrop = 90;
+    NodeUpdate = 90;
 
     /**
-     * Complete one or more pending transfers on behalf of the recipient(s) for each airdrop.
+     * Delete a node
      */
-    TokenClaimAirdrop = 91;
+    NodeDelete = 91;
+
+    /**
+     * Get Node information
+     */
+    NodeGetInfo = 92;
 
     /**
      * Transfer one or more token balances held by the requesting account to the treasury for each token type.
      */
-    TokenReject = 92;
+    TokenReject = 93;
+
+    /**
+     * Airdrops one or more tokens to one or more accounts.
+     */
+    TokenAirdrop = 94;
+
+    /**
+     * Remove one or more pending airdrops from state on behalf of the sender(s) for each airdrop.
+     */
+    TokenCancelAirdrop = 95;
+
+    /**
+     * Complete one or more pending transfers on behalf of the recipient(s) for each airdrop.
+     */
+    TokenClaimAirdrop = 96;
 }
 
 /**
@@ -1288,7 +1308,7 @@ message TransactionFeeSchedule {
     /**
      * Resource price coefficients
      */
-    FeeData feeData = 2 [deprecated=true];
+    FeeData feeData = 2 [deprecated = true];
 
     /**
      * Resource price coefficients. Supports subtype price definition.
@@ -1373,6 +1393,16 @@ message ServiceEndpoint {
      * The port of the node
      */
     int32 port = 2;
+
+    /**
+     * A node domain name
+     * This MUST be the fully qualified domain name of the node.
+     * This value MUST NOT be more than 253 characters.
+     * domain_name and ipAddressV4 are mutually exclusive.
+     * When the `domain_name` field is set, the `ipAddressV4` field MUST NOT be set.<br/>
+     * When the `ipAddressV4` field is set, the `domain_name` field MUST NOT be set.
+     */
+    string domain_name = 3;
 }
 
 /**
@@ -1390,18 +1420,18 @@ message NodeAddress {
      * The IP address of the Node with separator & octets encoded in UTF-8.  Usage is deprecated,
      * ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports
      */
-    bytes ipAddress = 1 [deprecated=true];
+    bytes ipAddress = 1 [deprecated = true];
 
     /**
      * The port number of the grpc server for the node.  Usage is deprecated, ServiceEndpoint is
      * preferred to retrieve a node's list of IP addresses and ports
      */
-    int32 portno = 2 [deprecated=true];
+    int32 portno = 2 [deprecated = true];
 
     /**
      * Usage is deprecated, nodeAccountId is preferred to retrieve a node's account ID
      */
-    bytes memo = 3 [deprecated=true];
+    bytes memo = 3 [deprecated = true];
 
     /**
      * The node's X509 RSA public key used to sign stream files (e.g., record stream 

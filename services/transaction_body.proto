@@ -77,6 +77,7 @@ import "token_fee_schedule_update.proto";
 import "token_pause.proto";
 import "token_unpause.proto";
 import "token_update_nfts.proto";
+import "token_reject.proto";
 
 import "schedule_create.proto";
 import "schedule_delete.proto";
@@ -84,6 +85,10 @@ import "schedule_sign.proto";
 
 import "node_stake_update.proto";
 import "util_prng.proto";
+
+import "node_create.proto";
+import "node_update.proto";
+import "node_delete.proto";
 
 /**
  * A single transaction. All transaction types are possible here.
@@ -356,5 +361,39 @@ message TransactionBody {
      * Update the metadata of one or more NFT's of a specific token type.
      */
     TokenUpdateNftsTransactionBody token_update_nfts = 53;
+
+    /**
+     * A transaction body for a `createNode` request.
+     */
+    NodeCreateTransactionBody nodeCreate = 54;
+
+    /**
+     * A transaction body for an `updateNode` request.
+     */
+    NodeUpdateTransactionBody nodeUpdate = 55;
+
+    /**
+     * A transaction body for a `deleteNode` request.
+     */
+    NodeDeleteTransactionBody nodeDelete = 56;
+
+    /**
+     * A transaction body to "reject" undesired tokens.<br/>
+     * This transaction will transfer one or more tokens or token
+     * balances held by the requesting account to the treasury
+     * for each token type.
+     * <p>
+     * Each transfer MUST be one of the following:
+     * <ul>
+     *   <li>A single non-fungible/unique token.</li>
+     *   <li>The full balance held for a fungible/common
+     *       token type.</li>
+     * </ul>
+     * When complete, the requesting account SHALL NOT hold the
+     * rejected tokens.<br/>
+     * Custom fees and royalties defined for the tokens rejected
+     * SHALL NOT be charged for this transaction.
+     */
+    TokenRejectTransactionBody tokenReject = 57;
   }
 }
