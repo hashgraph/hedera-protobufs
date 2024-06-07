@@ -89,16 +89,16 @@ import "basic_types.proto";
  */
 message TokenAirdropTransactionBody {
   /**
-   * A list of token transfers representing one or more airdrops.<br/>
+   * A list of token transfers representing one or more airdrops.
    * The sender for each transfer MUST have sufficient balance to complete the transfers.
-   * <p>
+   *
    * All token transfers MUST successfully transfer tokens or create a pending airdrop
-   * for this transaction to succeed.<br/>
+   * for this transaction to succeed.
    * This list MUST contain between 1 and 10 transfers, inclusive.
-   * <p>
-   * <blockquote>Note that each transfer of fungible/common tokens requires both a debit and
+   *
+   * Note that each transfer of fungible/common tokens requires both a debit and
    * a credit, so each _fungible_ token transfer MUST have _balanced_ entries in the
-   * TokenTransferList for that transfer.</blockquote>
+   * TokenTransferList for that transfer.
    */
   repeated TokenTransferList token_transfers = 1;
 }

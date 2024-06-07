@@ -154,15 +154,15 @@ message TransactionRecord {
     bytes evm_address = 21;
 
     /**
-     * A list of pending token airdrops.</br>
+     * A list of pending token airdrops.
      * Each pending airdrop represents a single requested transfer from a
      * sending account to a recipient account. These pending transfers are
      * issued unilaterally by the sending account, and MUST be claimed by the
-     * recipient account before the transfer MAY complete.<br/>
-     * A sender MAY cancel a pending airdrop before it is claimed.<br/>
+     * recipient account before the transfer MAY complete.
+     * A sender MAY cancel a pending airdrop before it is claimed.
      * An airdrop transaction SHALL emit a pending airdrop when the recipient has no
      * available automatic association slots available or when the recipient
-     * has set `receiver_sig_required`.<br/>
+     * has set `receiver_sig_required`.
      */
     repeated PendingAirdropRecord new_pending_airdrops = 22;
 }
@@ -178,9 +178,9 @@ message PendingAirdropRecord {
     PendingAirdropId pending_airdrop_id = 1;
 
     /**
-     * A single pending airdrop amount.<br/>
+     * A single pending airdrop amount.
      * If the pending airdrop is for a fungible/common token this field is REQUIRED
-     * and SHALL be the current amount of tokens offered.<br/>
+     * and SHALL be the current amount of tokens offered.
      * If the pending airdrop is for a non-fungible/unique token, this field SHALL NOT
      * be set.
      */
