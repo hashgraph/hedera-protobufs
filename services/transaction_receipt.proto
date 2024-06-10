@@ -145,7 +145,7 @@ message TransactionReceipt {
      * supply of this token. For non fungible tokens - the total number of NFTs issued for a given
      * tokenID
      */
-    uint64 newTotalSupply = 11;
+    int64 newTotalSupply = 11;
 
     /**
      * In the receipt of a ScheduleCreate, the id of the newly created Scheduled Entity
