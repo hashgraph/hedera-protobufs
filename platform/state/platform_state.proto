@@ -45,23 +45,6 @@ import "timestamp.proto";
  */
 message PlatformState {
     /**
-     * An address book for this round.
-     * <p>
-     * This SHALL be the latest network-consensus view of consensus nodes.
-     */
-    AddressBook address_book = 1;
-
-    /**
-     * A previous address book.
-     * <p>
-     * If present, the previous address book SHALL be the address book from the
-     * most recent preceding round.
-     * <p>
-     * This is a temporary workaround until dynamic address books are supported.
-     */
-    AddressBook previous_address_book = 2;
-
-    /**
      * A consensus round.<br/>
      * The round represented by this state.
      * <p>
@@ -70,15 +53,7 @@ message PlatformState {
      * The first state (genesis state) SHALL have a round of 0.<br/>
      * The first round to handle transactions is defined as round `1`.
      */
-    uint64 round = 3;
-
-    /**
-     * A running event hash.<br/>
-     * This is computed by the consensus event stream.
-     * <p>
-     * This will be _deprecated_ once the consensus event stream is retired.
-     */
-    bytes legacy_running_event_hash = 4;
+    uint64 round = 1;
 
     /**
      * A consensus timestamp for this state.
@@ -86,56 +61,41 @@ message PlatformState {
      * This SHALL be the consensus timestamp of the first transaction in
      * the current round.
      */
-    proto.Timestamp consensus_timestamp = 5;
+    proto.Timestamp consensus_timestamp = 3;
 
     /**
      * A version describing the current version of application software.
      * <p>
      * This SHALL be the software version that created this state.
      */
-    SoftwareVersion creation_software_version = 6;
-
-    /**
-     * A SHA-384 hash that is the "epoch" hash of this state.
-     * <p>
-     * This SHALL be updated whenever emergency recovery is performed.
-     */
-    bytes epoch_hash = 7;
-
-    /**
-     * A SHA-384 hash that will be the next "epoch" hash.
-     * <p>
-     * This SHALL be used to update the epoch hash at the next round boundary.<br/>
-     * This SHALL NOT be part of the hash and SHALL NOT be serialized.
-     */
-    bytes next_epoch_hash = 8;
+    SoftwareVersion creation_software_version = 4;
 
     /**
      * A number of non-ancient rounds.
      * <p>
      * This SHALL be the count of rounds considered non-ancient.
      */
-    uint32 rounds_non_ancient = 9;
+    uint32 rounds_non_ancient = 5;
 
     /**
      * A snapshot of the consensus state at the end of the round.
      * <p>
      * This SHALL be used for restart/reconnect.
      */
-    ConsensusSnapshot consensus_snapshot = 10;
+    ConsensusSnapshot consensus_snapshot = 6;
 
     /**
      * A timestamp for the next scheduled time when a freeze will start.
      * <p>
      * If a freeze is not scheduled, this SHALL NOT be set.
      */
-    proto.Timestamp freeze_time = 11;
+    proto.Timestamp freeze_time = 7;
 
     /**
      * A timestamp for the last time a freeze was performed.<br/>
      * If not set, there has never been a freeze.
      */
-    proto.Timestamp last_frozen_time = 12;
+    proto.Timestamp last_frozen_time = 8;
 
     /**
      * A consensus node software version.<br/>
@@ -145,7 +105,7 @@ message PlatformState {
      * Otherwise, this SHALL be the _first_ software version that enabled birth
      * round mode.
      */
-    SoftwareVersion first_version_in_birth_round_mode = 13;
+    SoftwareVersion first_version_in_birth_round_mode = 9;
 
     /**
      * A consensus round.<br/>
@@ -153,7 +113,17 @@ message PlatformState {
      * <p>
      * This SHALL be -1 if birth round mode has not yet been enabled.
      */
-    int64 last_round_before_birth_round_mode = 14;
+    int64 last_round_before_birth_round_mode = 10;
+
+    // Fields below are to be deprecated in the foreseeable future.
+
+    /**
+     * A running event hash.<br/>
+     * This is computed by the consensus event stream.
+     * <p>
+     * This will be _deprecated_ once the consensus event stream is retired.
+     */
+     bytes legacy_running_event_hash = 10000;
 
     /**
      * A consensus generation.<br/>
@@ -161,7 +131,7 @@ message PlatformState {
      * <p>
      * This SHALL be -1 if birth round mode has not yet been enabled.
      */
-    int64 lowest_judge_generation_before_birth_round_mode = 15;
+    int64 lowest_judge_generation_before_birth_round_mode = 10001;
 }
 
 
@@ -264,7 +234,7 @@ message MinimumJudgeInfo {
  * The address book records the address of every known consensus node that
  * participates in the network, including `0 weight` nodes.<br/>
  */
-message AddressBook {
+message Roster {
     /**
      * A consensus round.<br/>
      * The round when this address book was created.
@@ -307,21 +277,11 @@ message Address {
     NodeId id = 1;
 
     /**
-     * The nickname this consensus node uses to refer to another consensus node.
-     */
-    string nickname = 2;
-
-    /**
-     * The name that a consensus node uses to refer to themselves.
-     */
-    string self_name = 3;
-
-    /**
      * A consensus weight.<br/>
      * This value is the relative weight for this consensus node in the
      * consensus voting algorithm.
      */
-    uint64 weight = 4;
+    uint64 weight = 3;
 
     /**
      * A string network address.<br/>
@@ -331,7 +291,7 @@ message Address {
      * <p>
      * This value SHALL be either a FQDN host name or an IPv4 address.
      */
-    string hostname_internal = 5;
+    string hostname_internal = 4;
 
     /**
      * Network port number.<br/>
@@ -340,7 +300,7 @@ message Address {
      * <p>
      * This value SHALL be between 1 and 65535.
      */
-    uint32 port_internal = 6;
+    uint32 port_internal = 5;
 
     /**
      * A string network address.<br/>
@@ -349,7 +309,7 @@ message Address {
      * <p>
      * This value SHALL be either a FQDN host name or an IPv4 address.
      */
-    string hostname_external = 7;
+    string hostname_external = 6;
 
     /**
      * Network port number.<br/>
@@ -357,26 +317,33 @@ message Address {
      * <p>
      * This value SHALL be between 1 and 65535.
      */
-    uint32 port_external = 8;
+    uint32 port_external = 7;
 
     /**
      * The signing x509 certificate of the consensus node.
      * <p>
      * This SHALL provide the public key used for signing.
      */
-    bytes sig_cert = 9;
+    bytes sig_cert = 8;
 
-    /**
-     * The agreement x509 certificate of the consensus node.
-     * <p>
-     * This SHALL be used for establishing TLS connections.
-     */
-    bytes agree_cert = 10;
+    // Fields below are to be deprecated in the foreseeable future.
 
-    /**
-     * A string that provides additional information about this consensus node.
-     */
-    string memo = 11;
+  /**
+   * The name that a consensus node uses to refer to themselves.
+   */
+    string self_name = 10000;
+
+
+  /**
+   * The nickname this consensus node uses to refer to another consensus node.
+   */
+    string nickname = 10001;
+
+  /**
+   * A string that provides additional information about this consensus node.
+   */
+    string memo = 10002;
+
 }
 
 /**
