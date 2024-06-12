@@ -113,9 +113,9 @@ message PlatformState {
      * A consensus round.<br/>
      * The last round before the birth round mode was enabled.
      * <p>
-     * This SHALL be -1 if birth round mode has not yet been enabled.
+     * This SHALL be `MAX_UNSIGNED` if birth round mode has not yet been enabled.
      */
-    int64 last_round_before_birth_round_mode = 9;
+    uint64 last_round_before_birth_round_mode = 9;
 
     // Fields below are to be deprecated in the foreseeable future.
 
@@ -125,15 +125,15 @@ message PlatformState {
      * <p>
      * This will be _deprecated_ once the consensus event stream is retired.
      */
-     bytes legacy_running_event_hash = 10000;
+     bytes legacy_running_event_hash = 10000 [deprecated = true];
 
     /**
      * A consensus generation.<br/>
      * The lowest judge generation before birth round mode was enabled.
      * <p>
-     * This SHALL be -1 if birth round mode has not yet been enabled.
+     * This SHALL be `MAX_UNSIGNED` if birth round mode has not yet been enabled.
      */
-    int64 lowest_judge_generation_before_birth_round_mode = 10001;
+    uint64 lowest_judge_generation_before_birth_round_mode = 10001 [deprecated = true];
 }
 
 
