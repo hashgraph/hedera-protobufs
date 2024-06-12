@@ -51,7 +51,7 @@ message PlatformState {
      * This message SHALL represent the network state after handling of all
      * transactions reaching consensus in all previous rounds.<br/>
      * The first state (genesis state) SHALL have a round of 0.<br/>
-     * The first round to handle transactions is defined as round `1`.
+     * The first round to handle transactions SHALL be round `1`.
      */
     uint64 round = 1;
 
@@ -87,7 +87,9 @@ message PlatformState {
     /**
      * A timestamp for the next scheduled time when a freeze will start.
      * <p>
-     * If a freeze is not scheduled, this SHALL NOT be set.
+     * If a freeze is not scheduled, this SHALL NOT be set.<br/>
+     * If a freeze is currently scheduled, this MUST be set, and MUST
+     * match the timestamp requested for that freeze.
      */
     proto.Timestamp freeze_time = 6;
 
@@ -102,8 +104,8 @@ message PlatformState {
      * The software version that enabled birth round mode.
      * <p>
      * This SHALL be unset if birth round migration has not yet happened.<br/>
-     * Otherwise, this SHALL be the _first_ software version that enabled birth
-     * round mode.
+     * If birth round migration is complete, this SHALL be the _first_ software
+     * version that enabled birth round mode.
      */
     SoftwareVersion first_version_in_birth_round_mode = 8;
 
@@ -209,7 +211,7 @@ message ConsensusSnapshot {
 }
 
 /**
- * Minimum ancient threshold information for round judges.
+ * Minimum ancient threshold information for round judges.<br/>
  * This message records the minimum ancient threshold agreed by all judges in
  * a round.
  */
