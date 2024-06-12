@@ -2,12 +2,9 @@ syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
- * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+/*
+ * Copyright (C) 2018-2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +16,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -297,16 +293,16 @@ message SchedulableTransactionBody {
     /**
      * Transaction body for a scheduled transaction to create a new node.
      */
-    NodeCreateTransactionBody nodeCreate = 42;
+    com.hedera.hapi.node.addressbook.NodeCreateTransactionBody nodeCreate = 42;
 
     /**
      * Transaction body for a scheduled transaction to modify an existing node.
      */
-    NodeUpdateTransactionBody nodeUpdate = 43;
+    com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody nodeUpdate = 43;
 
     /**
      * Transaction body for a scheduled transaction to remove a node.
      */
-    NodeDeleteTransactionBody nodeDelete = 44;
+    com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 44;
   }
 }
