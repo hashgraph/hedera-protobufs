@@ -123,7 +123,8 @@ message PlatformState {
      * A running event hash.<br/>
      * This is computed by the consensus event stream.
      * <p>
-     * This will be _deprecated_ once the consensus event stream is retired.
+     * This will be _removed_ and the field number reserved once the consensus
+     * event stream is retired.
      */
      bytes legacy_running_event_hash = 10000 [deprecated = true];
 
