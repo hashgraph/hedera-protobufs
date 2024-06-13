@@ -70,16 +70,16 @@ message BlockHeader {
     uint64 number = 2;
 
     /**
-     * The running hash of the previous block.
+     * The block proof hash for the previous block.
      * <p>
-     * This value MUST match the block hash of the previous block in the
-     * block stream.<br/>
+     * This value MUST match the block merkle tree root hash of the previous
+     * block in the block stream.<br/>
      * This value SHALL be empty for the genesis block, and SHALL NOT be empty
      * for any other block.<br/>
      * Client systems SHOULD optimistically reject any block with a
-     * `start_running_hash` that does not match the block hash of the previous
-     * block and MAY assume the block stream has encountered data loss,
-     * data corruption, or unauthorized modification.
+     * `previous_block_proof_hash` that does not match the block hash of the
+     * previous block and MAY assume the block stream has encountered data
+     * loss, data corruption, or unauthorized modification.
      * <p>
      * The process for computing a block hash is somewhat complex, and involves
      * creating a "virtual" merkle tree to obtain the root merkle hash of
@@ -127,12 +127,22 @@ message BlockHeader {
      *       of this merkle tree.</li>
      * </ul>
      */
-    bytes start_running_hash = 3;
+    bytes previous_block_proof_hash = 3;
 
     /**
      * The hash algorithm used in this block.
      */
     BlockHashAlgorithm hash_algorithm = 4;
+
+    /**
+     * A version for the network address book.<br/>
+     * The address book version is needed to determine the correct public
+     * key(s) to use to validate block signatures and state proofs.
+     * <p>
+     * This MUST be the version of the address book that signed this
+     * block.
+     */
+    proto.SemanticVersion address_book_version = 5;
 }
 
 /**

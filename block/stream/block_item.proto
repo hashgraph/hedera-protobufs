@@ -45,7 +45,7 @@ option java_multiple_files = true;
 
 import "transaction.proto";
 import "stream/block_header.proto";
-import "stream/block_state_proof.proto";
+import "stream/block_proof.proto";
 import "stream/event_metadata.proto";
 import "stream/output/state_changes.proto";
 import "stream/input/system_transaction.proto";
@@ -160,7 +160,7 @@ message BlockItem {
          * This item is not part of the block stream hash chain/tree, and
          * marks the end of a block.
          */
-        BlockStateProof state_proof = 8;
+        BlockProof state_proof = 8;
 
         /**
          * Verification data for an item filtered from the stream.
@@ -175,10 +175,6 @@ message BlockItem {
          */
         FilteredBlockItem filtered_item = 9;
     }
-
-    // REVIEWER NOTE: Do we need a "End Stream" item? How else does a block
-    // node know when the source *intends* to end the stream (which should
-    // happen regularly, perhaps every hour or every fifteen minutes)?
 }
 
 /**
