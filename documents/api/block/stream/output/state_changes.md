@@ -5,13 +5,15 @@
     - [MapChangeValue](#com-hedera-hapi-block-stream-output-MapChangeValue)
     - [MapDeleteChange](#com-hedera-hapi-block-stream-output-MapDeleteChange)
     - [MapUpdateChange](#com-hedera-hapi-block-stream-output-MapUpdateChange)
+    - [NewStateChange](#com-hedera-hapi-block-stream-output-NewStateChange)
     - [QueuePopChange](#com-hedera-hapi-block-stream-output-QueuePopChange)
     - [QueuePushChange](#com-hedera-hapi-block-stream-output-QueuePushChange)
-    - [SingletonDeleteChange](#com-hedera-hapi-block-stream-output-SingletonDeleteChange)
+    - [RemovedStateChange](#com-hedera-hapi-block-stream-output-RemovedStateChange)
     - [SingletonUpdateChange](#com-hedera-hapi-block-stream-output-SingletonUpdateChange)
     - [StateChange](#com-hedera-hapi-block-stream-output-StateChange)
     - [StateChanges](#com-hedera-hapi-block-stream-output-StateChanges)
   
+    - [NewStateChange.NewStateType](#com-hedera-hapi-block-stream-output-NewStateChange-NewStateType)
     - [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause)
   
 
@@ -157,6 +159,26 @@ an addition for the new key.
 
 
 
+<a name="com-hedera-hapi-block-stream-output-NewStateChange"></a>
+
+### NewStateChange
+An addition of a new named state.
+
+Adding a new named state SHALL only require the name and type.<br/>
+The content of the new state SHALL be filled in via subsequent
+state change items specific to the type of state
+(e.g. SingletonUpdateChange or MapUpdateChange).
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| state_type | [NewStateChange.NewStateType](#com-hedera-hapi-block-stream-output-NewStateChange-NewStateType) |  | The type (e.g. Singleton, Virtual Map, Queue) of state to add. |
+
+
+
+
+
+
 <a name="com-hedera-hapi-block-stream-output-QueuePopChange"></a>
 
 ### QueuePopChange
@@ -164,7 +186,7 @@ Removal of an item from a `Queue` state.<br/>
 
 The item removed SHALL be the current "front" (or "head") of the queue.<br/>
 Removing from a queue "head" does not, currently, require additional
-information beyond the path and state name common to all state changes.
+information beyond the state name common to all state changes.
 
 
 
@@ -192,13 +214,14 @@ The new item MUST be the same type of value as all other items in the queue.
 
 
 
-<a name="com-hedera-hapi-block-stream-output-SingletonDeleteChange"></a>
+<a name="com-hedera-hapi-block-stream-output-RemovedStateChange"></a>
 
-### SingletonDeleteChange
-A removal of a `Singleton` state.
+### RemovedStateChange
+A removal of a named state.
 
-Removing a singleton state does not, currently, require additional
-information beyond the path and state name common to all state changes.
+Removing a named state does not, currently, require additional
+information beyond the state name common to all state changes.<br/>
+A named state, other than a singleton, SHOULD be empty before it is removed.
 
 
 
@@ -241,15 +264,17 @@ initial state to a destination state.<br/>
 When the full set of state change items from the block stream for a round
 is applied to the network state at the start of that round the result
 SHALL match the network state at the end of the round.
+TODO: Need documentation for how the merkle tree is constructed.
+      Need to reference that document, stored in platform docs, here.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| merkle_tree_path | [uint64](#uint64) |  | The numeric merkle path from the root of the tree to the leaf to be modified. |
 | state_name | [string](#string) |  | A state name. <p> This name SHALL identify the merkle subtree "state" to be modified and often corresponds to a `VirtualMap` name. |
-| singleton_update | [SingletonUpdateChange](#com-hedera-hapi-block-stream-output-SingletonUpdateChange) |  | An update to a `Singleton` state. |
-| singleton_delete | [SingletonDeleteChange](#com-hedera-hapi-block-stream-output-SingletonDeleteChange) |  | A removal of a `Singleton` state. |
-| map_update | [MapUpdateChange](#com-hedera-hapi-block-stream-output-MapUpdateChange) |  | An update to a single item in a `VirtualMap`. |
+| state_add | [NewStateChange](#com-hedera-hapi-block-stream-output-NewStateChange) |  | Addition of a new state.<br/> This may be a singleton, virtual map, or queue state. |
+| state_remove | [RemovedStateChange](#com-hedera-hapi-block-stream-output-RemovedStateChange) |  | Removal of an existing state.<br/> The entire singleton, virtual map, or queue state is removed, and not just the contents. |
+| singleton_update | [SingletonUpdateChange](#com-hedera-hapi-block-stream-output-SingletonUpdateChange) |  | An add or update to a `Singleton` state. |
+| map_update | [MapUpdateChange](#com-hedera-hapi-block-stream-output-MapUpdateChange) |  | An add or update to a single item in a `VirtualMap`. |
 | map_delete | [MapDeleteChange](#com-hedera-hapi-block-stream-output-MapDeleteChange) |  | A removal of a single item from a `VirtualMap`. |
 | queue_push | [QueuePushChange](#com-hedera-hapi-block-stream-output-QueuePushChange) |  | Addition of an item to a `Queue` state. |
 | queue_pop | [QueuePopChange](#com-hedera-hapi-block-stream-output-QueuePopChange) |  | Removal of an item from a `Queue` state. |
@@ -286,6 +311,21 @@ determined by network consensus.
 
 
  <!-- end messages -->
+
+
+<a name="com-hedera-hapi-block-stream-output-NewStateChange-NewStateType"></a>
+
+### NewStateChange.NewStateType
+An enumeration of the types of named states.<br/>
+The default, Singleton, is the type of state most frequently
+added and removed.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SINGLETON | 0 |  |
+| VIRTUAL_MAP | 1 |  |
+| QUEUE | 2 |  |
+
 
 
 <a name="com-hedera-hapi-block-stream-output-StateChangesCause"></a>

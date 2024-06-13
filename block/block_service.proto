@@ -88,7 +88,7 @@ message PublishStreamRequest {
     /**
      * A single item written to the block stream.
      */
-    com.hedera.hapi.block.stream.BlockItem block_item = 2;
+    com.hedera.hapi.block.stream.BlockItem block_item = 1;
 }
 
 /**

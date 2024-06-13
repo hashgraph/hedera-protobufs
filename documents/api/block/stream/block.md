@@ -38,15 +38,15 @@ mechanism to transmit a block stream.<br/>
 The primary mechanism for transmitting block stream data SHALL be to
 stream individual block items to the block node(s).<br/>
 The only delimiter between blocks when streamed SHALL be the `BlockHeader`
-item and `BlockStateProof` item.
+item and `BlockProof` item.
 
 This block SHALL be verifiable as correct using only data in the block,
-including the `BlockStateProof`, and public keys for the consensus nodes.
+including the `BlockProof`, and public keys for the consensus nodes.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| items | [BlockItem](#com-hedera-hapi-block-stream-BlockItem) | repeated | A list of items that, together, make up this block. <p> This list SHALL begin with a `BlockHeader`.<br/> This list SHALL end with a `BlockStateProof`.<br/> Items in this list SHALL be in exactly the same order produced by consensus.<br/> Items in this list MAY be filtered, if so requested.<br/> If this list is filtered, removed items SHALL be replaced with `FilteredBlockItem` entries.<br/> |
+| items | [BlockItem](#com-hedera-hapi-block-stream-BlockItem) | repeated | A list of items that, together, make up this block. <p> This list SHALL begin with a `BlockHeader`.<br/> This list SHALL end with a `BlockProof`.<br/> Items in this list SHALL be in exactly the same order produced by consensus.<br/> Items in this list MAY be filtered, if so requested.<br/> If this list is filtered, removed items SHALL be replaced with `FilteredBlockItem` entries.<br/> |
 
 
 

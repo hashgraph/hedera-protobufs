@@ -163,38 +163,39 @@ message StateChanges {
  * When the full set of state change items from the block stream for a round
  * is applied to the network state at the start of that round the result
  * SHALL match the network state at the end of the round.
+ * TODO: Need documentation for how the merkle tree is constructed.
+ *       Need to reference that document, stored in platform docs, here.
  */
 message StateChange {
-    /**
-     * The numeric merkle path from the root of the tree to the leaf
-     * to be modified.
-     */
-    uint64 merkle_tree_path = 1;
-
-    // TODO: We will need a way to initialize new named states.
-    // nft, account, etc.. ...maybe we should an enum for which
-    // one of the Named States, i.e. the table name?
     /**
      * A state name.
      * <p>
      * This name SHALL identify the merkle subtree "state" to be modified and
      * often corresponds to a `VirtualMap` name.
      */
-    string state_name = 2;
+    string state_name = 1;
 
     oneof change_operation {
         /**
-         * An update to a `Singleton` state.
+         * Addition of a new state.<br/>
+         * This may be a singleton, virtual map, or queue state.
          */
-        SingletonUpdateChange singleton_update = 3;
+        NewStateChange state_add = 2;
 
         /**
-         * A removal of a `Singleton` state.
+         * Removal of an existing state.<br/>
+         * The entire singleton, virtual map, or queue state is removed,
+         * and not just the contents.
          */
-        SingletonDeleteChange singleton_delete = 4;
+        RemovedStateChange state_remove = 3;
 
         /**
-         * An update to a single item in a `VirtualMap`.
+         * An add or update to a `Singleton` state.
+         */
+        SingletonUpdateChange singleton_update = 4;
+
+        /**
+         * An add or update to a single item in a `VirtualMap`.
          */
         MapUpdateChange map_update = 5;
 
@@ -213,6 +214,42 @@ message StateChange {
          */
         QueuePopChange queue_pop = 8;
     }
+}
+
+/**
+ * An addition of a new named state.
+ *
+ * Adding a new named state SHALL only require the name and type.<br/>
+ * The content of the new state SHALL be filled in via subsequent
+ * state change items specific to the type of state
+ * (e.g. SingletonUpdateChange or MapUpdateChange).
+ */
+message NewStateChange {
+    /**
+     * The type (e.g. Singleton, Virtual Map, Queue) of state to add.
+     */
+    NewStateType state_type = 1;
+
+    /**
+     * An enumeration of the types of named states.<br/>
+     * The default, Singleton, is the type of state most frequently
+     * added and removed.
+     */
+    enum NewStateType {
+        SINGLETON = 0;
+        VIRTUAL_MAP = 1;
+        QUEUE = 2;
+    }
+}
+
+/**
+ * A removal of a named state.
+ *
+ * Removing a named state does not, currently, require additional
+ * information beyond the state name common to all state changes.<br/>
+ * A named state, other than a singleton, SHOULD be empty before it is removed.
+ */
+message RemovedStateChange {
 }
 
 /**
@@ -315,15 +352,6 @@ message SingletonUpdateChange {
          */
         proto.Timestamp timestamp_value = 10;
     }
-}
-
-/**
- * A removal of a `Singleton` state.
- *
- * Removing a singleton state does not, currently, require additional
- * information beyond the path and state name common to all state changes.
- */
-message SingletonDeleteChange {
 }
 
 /**
@@ -488,7 +516,7 @@ message MapChangeValue {
          * Do we want to structure file changes separately?<br/>
          * Perhaps a file metadata update and a separate byte array for
          * just the bytes appended (or initial bytes on create). We only
-         *allow create/append/delete, so the separate byte array would work
+         * allow create/append/delete, so the separate byte array would work
          * and keep the size below 6K per state change.
          * </blockquote></blockquote>
          */
@@ -585,7 +613,7 @@ message QueuePushChange {
  *
  * The item removed SHALL be the current "front" (or "head") of the queue.<br/>
  * Removing from a queue "head" does not, currently, require additional
- * information beyond the path and state name common to all state changes.
+ * information beyond the state name common to all state changes.
  */
 message QueuePopChange {
 }
