@@ -147,11 +147,6 @@ message PlatformState {
  * and reconnect.
  */
 message ConsensusSnapshot {
-    /**
-     * A consensus round.<br/>
-     * The round number of this snapshot.
-     */
-    uint64 round = 1;
 
     /**
      * A list of SHA-384 hash values.<br/>
@@ -160,29 +155,20 @@ message ConsensusSnapshot {
      * This list SHALL be ordered by creator ID.<br/>
      * This list MUST be deterministically ordered.
      */
-    repeated bytes judge_hashes = 2;
+    repeated bytes judge_hashes = 1;
 
     /**
      * A list of minimum judge information entries.<br/>
      * These are "minimum ancient" entries for non-ancient rounds.
      */
-    repeated MinimumJudgeInfo minimum_judge_info_list = 3;
+    repeated MinimumJudgeInfo minimum_judge_info_list = 2;
 
     /**
      * A single consensus number.<br/>
      * The consensus order of the next event to reach consensus.
      */
-    uint64 next_consensus_number = 4;
+    uint64 next_consensus_number = 3;
 
-    /**
-     * A "consensus" timestamp.<br/>
-     * The consensus timestamp of this snapshot.
-     * <p>
-     * This SHALL be a consensus value and MAY NOT correspond to an actual
-     * "wall clock" timestamp.<br/>
-     * Consensus Timestamps SHALL always increase.
-     */
-    proto.Timestamp consensus_timestamp = 5;
 }
 
 /**
