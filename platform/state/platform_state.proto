@@ -172,9 +172,7 @@ message ConsensusSnapshot {
 }
 
 /**
- * Minimum ancient threshold information for round judges.<br/>
- * This message records the minimum ancient threshold agreed by all judges in
- * a round.
+ * Records the minimum ancient indicator for all judges in a particular round.
  */
 message MinimumJudgeInfo {
     /**
