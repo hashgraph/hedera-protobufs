@@ -198,7 +198,9 @@ message MinimumJudgeInfo {
     uint64 round = 1;
 
     /**
-     * Minimum ancient threshold for all judges in the round.
+     *  The minimum ancient threshold for all judges for a given round.<br/>
+     *  Will be a generation if the birth round migration has not yet happened,
+     *  will be a birth round otherwise.
      * <p>
      * This SHALL reflect the relevant minimum threshold, whether
      * generation-based or birth-round-based.
