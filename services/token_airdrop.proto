@@ -41,7 +41,7 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * Airdrops one or more tokens to one or more accounts.
+ * Airdrop one or more tokens to one or more accounts.
  *
  * ### Effects
  * This distributes tokens from the balance of one or more sending account(s) to the balance

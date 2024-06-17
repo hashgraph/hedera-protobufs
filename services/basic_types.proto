@@ -1218,7 +1218,7 @@ enum HederaFunctionality {
     TokenReject = 93;
 
     /**
-     * Airdrops one or more tokens to one or more accounts.
+     * Airdrop one or more tokens to one or more accounts.
      */
     TokenAirdrop = 94;
 }
