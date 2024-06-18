@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get PR branch name
-        id: pr_branch
-        run: echo "branch=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-
       - name: Checkout hedera-services
         uses: actions/checkout@v3
         with:
@@ -22,7 +18,7 @@ jobs:
 
       - name: Update hedera-services branch
         run: |
-          sed -i 's/branch = "main"/branch = "${{ env.branch }}"/' hedera-services/hapi/build.gradle.kts
+          sed -i.bak "s/branch = \".*\"/branch = \"${GITHUB_HEAD_REF}\"/" hedera-services/hapi/build.gradle.kts
 
       - name: Run Gradle assemble
         run: ./gradlew assemble
