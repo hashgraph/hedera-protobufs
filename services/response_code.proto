@@ -1493,7 +1493,6 @@ enum ResponseCodeEnum {
    * The number of gossip endpoints exceeds the limit
    */
   GOSSIP_ENDPOINTS_EXCEEDED_LIMIT = 352;
-
   /**
    * The transaction attempted to use duplicate `TokenReference`.<br/>
    * This affects `TokenReject` attempting to reject same token reference more than once.

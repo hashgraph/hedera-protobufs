@@ -305,7 +305,6 @@ message SchedulableTransactionBody {
      * Transaction body for a scheduled transaction to remove a node.
      */
     com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 44;
-
     /**
      * A transaction body to "reject" undesired tokens.<br/>
      * This transaction will transfer one or more tokens or token
