@@ -1,0 +1,29 @@
+name: Validate Protobufs Compilation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-protobufs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get PR branch name
+        id: pr_branch
+        run: echo "branch=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+
+      - name: Checkout hedera-services
+        uses: actions/checkout@v3
+        with:
+          repository: hashgraph/hedera-services
+          path: hedera-services
+
+      - name: Update hedera-services branch
+        run: |
+          sed -i 's/branch = "main"/branch = "${{ env.branch }}"/' hedera-services/hapi/build.gradle.kts
+
+      - name: Run Gradle assemble
+        run: ./gradlew assemble
+        working-directory: hedera-services
