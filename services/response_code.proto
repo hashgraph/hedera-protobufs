@@ -1446,7 +1446,7 @@ enum ResponseCodeEnum {
      * The certificate encoded MUST be in PEM format.<br/>
      * The `gossip_ca_certificate` field is REQUIRED and MUST NOT be empty.
      */
-    INVALID_GOSSIP_CAE_CERTIFICATE = 344;
+    INVALID_GOSSIP_CA_CERTIFICATE = 344;
 
     /**
      * A transaction failed because the hash provided for the gRPC certificate
