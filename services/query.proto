@@ -2,12 +2,9 @@ syntax = "proto3";
 
 package proto;
 
-/*-
- * ‌
- * Hedera Network Services Protobuf
- * ​
- * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
- * ​
+/*
+ * Copyright (C) 2018-2024 Hedera Hashgraph, LLC
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +16,6 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ‍
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -161,18 +157,15 @@ message Query {
          */
         NetworkGetVersionInfoQuery networkGetVersionInfo = 51;
 
-
         /**
          * Get all information about a token
          */
         TokenGetInfoQuery tokenGetInfo = 52;
 
-
         /**
          * Get all information about a scheduled entity
          */
         ScheduleGetInfoQuery scheduleGetInfo = 53;
-
 
         /**
          * Get a list of NFTs associated with the account
@@ -200,8 +193,17 @@ message Query {
         GetAccountDetailsQuery accountDetails = 58;
 
         /**
-         * Get all information about a node
+         * Request detail information for a consensus node within the network
+         * address book.
+         * <p>
+         * This query is a privileged action that requires signature from the
+         * Hedera governing council.<br/>
+         * The response, when successful, SHALL contain the full information
+         * currently available, including current status, for the single
+         * consensus node identifier provided.<br/>
+         * The node queried MAY be active, inactive, deleted, or pending a
+         * change at the next network upgrade.
          */
-        NodeGetInfoQuery nodeGetInfo = 59;
+        com.hedera.hapi.node.addressbook.NodeGetInfoQuery nodeGetInfo = 59;
     }
 }
