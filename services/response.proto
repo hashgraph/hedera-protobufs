@@ -194,8 +194,12 @@ message Response {
         GetAccountDetailsResponse accountDetails = 158;
 
         /**
-         * Get all information about a node
+         * A response to a query of the current state of a consensus node
+         * in the network address book state.
+         * <p>
+         * Hedera governing council authorization is REQUIRED for
+         * this transaction.
          */
-        NodeGetInfoResponse nodeGetInfo = 159;
+        com.hedera.hapi.node.addressbook.NodeGetInfoResponse nodeGetInfo = 159;
     }
 }
