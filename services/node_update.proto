@@ -154,9 +154,9 @@ message NodeUpdateTransactionBody {
      * A new administrative key for the node address book entry.
      * <p>
      * If this field is set, that key MUST sign this transaction.<br/>
-     * If this field was previously set, that key MUST also sign
-     * this transaction.<br/>
+     * The previously key MUST also sign this transaction.<br/>
      * This field MUST NOT be set to an empty `KeyList`.
+     * This key MUST be valid.
      */
     Key admin_key = 8;
 }

@@ -134,6 +134,7 @@ message NodeCreateTransactionBody {
     * This key MUST sign this transaction.<br/>
     * This key MUST sign each transaction to update this node.<br/>
     * This field is REQUIRED and MUST NOT be set to an empty `KeyList`.
+    * This key MUST be valid.
     */
     Key admin_key = 7;
 }

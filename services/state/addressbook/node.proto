@@ -143,6 +143,7 @@ message Node {
     * <p>
     * This key MUST sign each transaction to update this node.<br/>
     * This field SHALL be set and SHALL NOT be an empty `KeyList`.
+    * This key MUST be valid.
     */
     Key admin_key = 10;
 }
