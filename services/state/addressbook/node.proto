@@ -139,11 +139,10 @@ message Node {
     bool deleted = 9;
 
     /**
-    * An administrative key for the node address book entry.
-    * <p>
-    * This key MUST sign each transaction to update this node.<br/>
-    * This field SHALL be set and SHALL NOT be an empty `KeyList`.
-    * This key MUST be valid.
-    */
+     * The administrative key for the node address book entry.
+     * <p>
+     * This field is REQUIRED. It MUST be a valid key. Setting this to an invalid key or an empty `KeyList` will fail the transaction.<br/>
+     * This key MUST sign this transaction and each transaction to update this node.<br/>
+     */
     Key admin_key = 10;
 }

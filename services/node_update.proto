@@ -151,12 +151,10 @@ message NodeUpdateTransactionBody {
     google.protobuf.BytesValue grpc_certificate_hash = 7;
 
     /**
-     * A new administrative key for the node address book entry.
+     * The administrative key for the node address book entry.
      * <p>
-     * If this field is set, that key MUST sign this transaction.<br/>
-     * The previously key MUST also sign this transaction.<br/>
-     * This field MUST NOT be set to an empty `KeyList`.
-     * This key MUST be valid.
+     * This field is REQUIRED. It MUST be a valid key. Setting this to an invalid key or an empty `KeyList` will fail the transaction.<br/>
+     * This key MUST sign this transaction and each transaction to update this node.<br/>
      */
     Key admin_key = 8;
 }
