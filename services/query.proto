@@ -56,7 +56,6 @@ import "token_get_nft_info.proto";
 import "token_get_nft_infos.proto";
 
 import "get_account_details.proto";
-import "node_get_info.proto";
 
 /**
  * A single query, which is sent from the client to a node. This includes all possible queries. Each
@@ -191,19 +190,5 @@ message Query {
          * Gets all information about an account including allowances granted by the account
          */
         GetAccountDetailsQuery accountDetails = 58;
-
-        /**
-         * Request detail information for a consensus node within the network
-         * address book.
-         * <p>
-         * This query is a privileged action that requires signature from the
-         * Hedera governing council.<br/>
-         * The response, when successful, SHALL contain the full information
-         * currently available, including current status, for the single
-         * consensus node identifier provided.<br/>
-         * The node queried MAY be active, inactive, deleted, or pending a
-         * change at the next network upgrade.
-         */
-        com.hedera.hapi.node.addressbook.NodeGetInfoQuery nodeGetInfo = 59;
     }
 }
