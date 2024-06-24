@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.hedera.hapi.node.addressbook;
+package proto;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -29,9 +29,10 @@ import "basic_types.proto";
  * Transaction body to modify address book node attributes.
  *
  * - This transaction SHALL enable the node operator, as identified by the
- *   node account, to modify operational attributes of the node.
- * - This transaction MUST be signed by the active `key` for the current node
- *   account or by the Hedera governing council.
+ *   `admin_key`, to modify operational attributes of the node.
+ * - This transaction MUST be signed by the active `admin_key` for the node.
+ * - If this transaction sets a new value for the `admin_key`, then both the
+ *   current `admin_key`, and the new `admin_key` MUST sign this transaction.
  * - This transaction SHALL NOT change any field that is not set (is null) in
  *   this transaction body.
  * - This SHALL create a pending update to the node, but the change SHALL NOT
@@ -148,4 +149,14 @@ message NodeUpdateTransactionBody {
      * If set, the new value SHALL replace the existing hash value.
      */
     google.protobuf.BytesValue grpc_certificate_hash = 7;
+
+    /**
+     * A new administrative key for the node address book entry.
+     * <p>
+     * If this field is set, that key MUST sign this transaction.<br/>
+     * If this field was previously set, that key MUST also sign
+     * this transaction.<br/>
+     * This field MUST NOT be set to an empty `KeyList`.
+     */
+    Key admin_key = 8;
 }

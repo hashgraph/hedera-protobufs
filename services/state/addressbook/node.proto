@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.hedera.hapi.node.state.addressbook;
+package proto;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -137,4 +137,12 @@ message Node {
      * node SHALL fail.
      */
     bool deleted = 9;
+
+    /**
+    * An administrative key for the node address book entry.
+    * <p>
+    * This key MUST sign each transaction to update this node.<br/>
+    * This field SHALL be set and SHALL NOT be an empty `KeyList`.
+    */
+    Key admin_key = 10;
 }
