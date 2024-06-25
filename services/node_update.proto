@@ -153,10 +153,12 @@ message NodeUpdateTransactionBody {
     /**
     * An administrative key controlled by the node operator.
      * <p>
-     * This key MUST sign this transaction.<br/>
-     * This key MUST sign each transaction to update this node.<br/>
-     * This field MUST contain a valid `Key` value.<br/>
-     * This field is REQUIRED and MUST NOT be set to an empty `KeyList`.
+     * This field is OPTIONAL.<br/>
+     * If set, this key MUST sign this transaction.<br/>
+     * If set, this key MUST sign each subsequent transaction to
+     * update this node.<br/>
+     * If set, this field MUST contain a valid `Key` value.<br/>
+     * If set, this field MUST NOT be set to an empty `KeyList`.
      */
     proto.Key admin_key = 8;
 }

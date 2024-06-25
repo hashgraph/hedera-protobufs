@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.hedera.hapi.node.addressbook;
+package com.hedera.hapi.node.state.addressbook;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -141,7 +141,6 @@ message Node {
     /**
     * An administrative key controlled by the node operator.
      * <p>
-     * This key MUST sign this transaction.<br/>
      * This key MUST sign each transaction to update this node.<br/>
      * This field MUST contain a valid `Key` value.<br/>
      * This field is REQUIRED and MUST NOT be set to an empty `KeyList`.
