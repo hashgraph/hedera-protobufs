@@ -1519,4 +1519,9 @@ enum ResponseCodeEnum {
      * The IPv4 address is invalid
      */
     INVALID_IPV4_ADDRESS = 357;
+
+    /**
+     * The transaction attempted to use empty `TokenReference` list.
+     */
+    EMPTY_TOKEN_REFERENCE_LIST = 358;
 }
