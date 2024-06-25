@@ -1503,4 +1503,9 @@ enum ResponseCodeEnum {
    * The IPv4 address is invalid
    */
   INVALID_IPV4_ADDRESS = 357;
+
+  /*
+   * The node account is not allowed to be updated
+   */
+  UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 358;
 }
