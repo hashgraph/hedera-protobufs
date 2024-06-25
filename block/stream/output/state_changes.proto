@@ -48,7 +48,7 @@ package com.hedera.hapi.block.stream.output;
  * limitations under the License.
  */
 
-option java_package = "com.hedera.hapi.block.stream.output";
+option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.block.stream.output">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
@@ -229,17 +229,17 @@ message NewStateChange {
      * The type (e.g. Singleton, Virtual Map, Queue) of state to add.
      */
     NewStateType state_type = 1;
+}
 
-    /**
-     * An enumeration of the types of named states.<br/>
-     * The default, Singleton, is the type of state most frequently
-     * added and removed.
-     */
-    enum NewStateType {
-        SINGLETON = 0;
-        VIRTUAL_MAP = 1;
-        QUEUE = 2;
-    }
+/**
+ * An enumeration of the types of named states.<br/>
+ * The default, Singleton, is the type of state most frequently
+ * added and removed.
+ */
+enum NewStateType {
+    SINGLETON = 0;
+    VIRTUAL_MAP = 1;
+    QUEUE = 2;
 }
 
 /**
@@ -288,7 +288,7 @@ message SingletonUpdateChange {
         /**
          * A change to the exchange rates singleton.
          * <p>
-         * This change SHALL be present if the HBAR`<=>`USD exchange
+         * This change SHALL be present if the HBAR:USD exchange
          * rate, as stored in the "midnight rates" singleton changed
          * during the current block.
          */
@@ -553,24 +553,24 @@ message MapChangeValue {
          * An updated set of staking information for all nodes in
          * the address book.
          */
-        proto.StakingNodeInfo staking_node_info_value = 33;
+        proto.StakingNodeInfo staking_node_info_value = 10;
 
         /**
          * An HTS token value.
          */
-        proto.Token token_value = 10;
+        proto.Token token_value = 11;
 
         /**
          * A token relationship value.<br/>
          * These values track which accounts are willing to transact
          * in specific HTS tokens.
          */
-        proto.TokenRelation token_relation_value = 11;
+        proto.TokenRelation token_relation_value = 12;
 
         /**
          * An HCS topic value.
          */
-        proto.Topic topic_value = 12;
+        proto.Topic topic_value = 13;
     }
 }
 

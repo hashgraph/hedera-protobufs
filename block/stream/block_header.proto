@@ -30,7 +30,7 @@ package com.hedera.hapi.block.stream;
  * limitations under the License.
  */
 
-option java_package = "com.hedera.hapi.block.stream";
+option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
@@ -106,7 +106,7 @@ message BlockHeader {
      *         </ol>
      *       </li>
      *       <li>The second "internal" node SHALL be the parent of the
-     *           two "right-most" nodes.</li>
+     *           two "right-most" nodes.
      *         <ol>
      *           <li>The third leaf MUST be the root of a, strictly binary,
      *               merkle tree composed of all "output" block items in

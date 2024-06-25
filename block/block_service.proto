@@ -62,7 +62,7 @@ package com.hedera.hapi.block;
  * limitations under the License.
  */
 
-option java_package = "com.hedera.hapi.block.stream";
+option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
@@ -206,7 +206,7 @@ message PublishStreamResponse {
          * This code indicates the reason the stream ended.<br/>
          * This value MUST be set to a non-default value.
          */
-        ResponseCode status = 1;
+        EndOfStreamResponseCode status = 1;
 
         /**
          * The number of the last completed and _verified_ block.
@@ -220,45 +220,45 @@ message PublishStreamResponse {
          */
         uint64 block_number = 2;
     }
+}
+
+/**
+ * An enumeration indicating the status of this request.
+ *
+ * This enumeration describes the reason a block stream
+ * (sent via `writeBlockStream`) ended.
+ */
+enum EndOfStreamResponseCode {
+    /**
+     * An "unset value" flag, this value SHALL NOT be used.<br/>
+     * This status indicates the server software failed to set a
+     * status, and SHALL be considered a software defect.
+     */
+    STREAM_ITEMS_UNKNOWN = 0;
 
     /**
-     * An enumeration indicating the status of this request.
-     *
-     * This enumeration describes the reason a block stream
-     * (sent via `writeBlockStream`) ended.
+     * The request succeeded.<br/>
+     * No errors occurred and the source node orderly ended the stream.
      */
-    enum ResponseCode {
-        /**
-         * An "unset value" flag, this value SHALL NOT be used.<br/>
-         * This status indicates the server software failed to set a
-         * status, and SHALL be considered a software defect.
-         */
-        STREAM_ITEMS_UNKNOWN = 0;
+    STREAM_ITEMS_SUCCESS = 1;
 
-        /**
-         * The request succeeded.<br/>
-         * No errors occurred and the source node orderly ended the stream.
-         */
-        STREAM_ITEMS_SUCCESS = 1;
+    /**
+     * The delay between items was too long.<br/>
+     * The source MUST start a new stream before the failed block.
+     */
+    STREAM_ITEMS_TIMEOUT = 2;
 
-        /**
-         * The delay between items was too long.<br/>
-         * The source MUST start a new stream before the failed block.
-         */
-        STREAM_ITEMS_TIMEOUT = 2;
+    /**
+     * An item was received out-of-order.<br/>
+     * The source MUST start a new stream before the failed block.
+     */
+    STREAM_ITEMS_OUT_OF_ORDER = 3;
 
-        /**
-         * An item was received out-of-order.<br/>
-         * The source MUST start a new stream before the failed block.
-         */
-        STREAM_ITEMS_OUT_OF_ORDER = 3;
-
-        /**
-         * A block state proof item could not be validated.<br/>
-         * The source MUST start a new stream before the failed block.
-         */
-        STREAM_ITEMS_BAD_STATE_PROOF = 4;
-    }
+    /**
+     * A block state proof item could not be validated.<br/>
+     * The source MUST start a new stream before the failed block.
+     */
+    STREAM_ITEMS_BAD_STATE_PROOF = 4;
 }
 
 // ---- ReadBlock RPC ----
@@ -316,7 +316,7 @@ message SingleBlockResponse {
      * The reported status SHALL reflect the success of the request, or
      * a detailed reason the request failed.
      */
-    ResponseCode status = 1;
+    SingleBlockResponseCode status = 1;
 
     /**
      * The requested block.
@@ -329,48 +329,48 @@ message SingleBlockResponse {
      * a `BlockStateProof` applicable to this block.
      */
     com.hedera.hapi.block.stream.Block block = 2;
+}
 
-    /**
+/**
      * An enumeration indicating the status of this request.
      */
-    enum ResponseCode {
-        /**
-         * An "unset value" flag, this value SHALL NOT be used.<br/>
-         * This status indicates the server software failed to set a status,
-         * and SHALL be considered a software defect.
-         */
-        READ_BLOCK_UNKNOWN = 0;
+enum SingleBlockResponseCode {
+    /**
+     * An "unset value" flag, this value SHALL NOT be used.<br/>
+     * This status indicates the server software failed to set a status,
+     * and SHALL be considered a software defect.
+     */
+    READ_BLOCK_UNKNOWN = 0;
 
-        /**
-         * The requesting client account lacks sufficient HBAR to pay the
-         * service fee for this request.<br/>
-         * The client MAY retry the request, but MUST increase the client
-         * account balance with this block node server before doing so.
-         */
-        READ_BLOCK_INSUFFICIENT_BALANCE = 1;
+    /**
+     * The requesting client account lacks sufficient HBAR to pay the
+     * service fee for this request.<br/>
+     * The client MAY retry the request, but MUST increase the client
+     * account balance with this block node server before doing so.
+     */
+    READ_BLOCK_INSUFFICIENT_BALANCE = 1;
 
-        /**
-         * The request succeeded.<br/>
-         * The requested block SHALL be returned in the `block` field.
-         */
-        READ_BLOCK_SUCCESS = 2;
+    /**
+     * The request succeeded.<br/>
+     * The requested block SHALL be returned in the `block` field.
+     */
+    READ_BLOCK_SUCCESS = 2;
 
-        /**
-         * The requested block was not found.<br/>
-         * Something failed and a block that SHOULD be available was
-         * not found.<br/>
-         * The client MAY retry the request; if this result is repeated the
-         * request SHOULD be directed to a different block node server.
-         */
-        READ_BLOCK_NOT_FOUND = 3;
+    /**
+     * The requested block was not found.<br/>
+     * Something failed and a block that SHOULD be available was
+     * not found.<br/>
+     * The client MAY retry the request; if this result is repeated the
+     * request SHOULD be directed to a different block node server.
+     */
+    READ_BLOCK_NOT_FOUND = 3;
 
-        /**
-         * The requested block is not available on this block node server.<br/>
-         * The client SHOULD send a `serverStatus` request to determine the
-         * lowest and highest block numbers available at this block node server.
-         */
-        READ_BLOCK_NOT_AVAILABLE = 4;
-    }
+    /**
+     * The requested block is not available on this block node server.<br/>
+     * The client SHOULD send a `serverStatus` request to determine the
+     * lowest and highest block numbers available at this block node server.
+     */
+    READ_BLOCK_NOT_AVAILABLE = 4;
 }
 
 // ---- ReadBlockStream RPC ----
@@ -462,7 +462,7 @@ message SubscribeStreamResponse {
          * <p>
          * The block node server SHALL end the stream following this message.
          */
-        ResponseCode status = 1;
+        SubscribeStreamResponseCode status = 1;
 
         /**
          * A stream response item containing a single `BlockItem`.
@@ -472,55 +472,55 @@ message SubscribeStreamResponse {
          */
         com.hedera.hapi.block.stream.BlockItem block_item = 2;
     }
+}
 
+/**
+* An enumeration indicating the status of this request.
+*
+* This response code SHALL be the last message in the stream of responses.
+* This code SHALL represent the final status of the full request.
+*/
+enum SubscribeStreamResponseCode {
     /**
-     * An enumeration indicating the status of this request.
-     *
-     * This response code SHALL be the last message in the stream of responses.
-     * This code SHALL represent the final status of the full request.
-     */
-    enum ResponseCode {
-        /**
          * An "unset value" flag, this value SHALL NOT be used.<br/>
          * This status indicates the server software failed to set a status,
          * and SHALL be considered a software defect.
          */
-        READ_STREAM_UNKNOWN = 0;
+    READ_STREAM_UNKNOWN = 0;
 
-        /**
-         * The requesting client account lacks sufficient HBAR to pay the
-         * service fee for this request.<br/>
-         * The client MAY retry the request, but MUST increase the client
-         * account balance with this block node server before doing so.
-         */
-        READ_STREAM_INSUFFICIENT_BALANCE = 1;
+    /**
+     * The requesting client account lacks sufficient HBAR to pay the
+     * service fee for this request.<br/>
+     * The client MAY retry the request, but MUST increase the client
+     * account balance with this block node server before doing so.
+     */
+    READ_STREAM_INSUFFICIENT_BALANCE = 1;
 
-        /**
-         * The request succeeded.
-         * <p>
-         * The requested block(s) SHALL precede the status response
-         * with this value.
-         */
-        READ_STREAM_SUCCESS = 2;
+    /**
+     * The request succeeded.
+     * <p>
+     * The requested block(s) SHALL precede the status response
+     * with this value.
+     */
+    READ_STREAM_SUCCESS = 2;
 
-        /**
-         * The requested start block number is not valid.<br/>
-         * The start block number is after the end block number, less
-         * than `0`, or otherwise invalid.<br/>
-         * The client MAY retry this request, but MUST change the
-         * `start_block_number` field to a valid start block.
-         */
-        READ_STREAM_INVALID_START_BLOCK_NUMBER = 3;
+    /**
+     * The requested start block number is not valid.<br/>
+     * The start block number is after the end block number, less
+     * than `0`, or otherwise invalid.<br/>
+     * The client MAY retry this request, but MUST change the
+     * `start_block_number` field to a valid start block.
+     */
+    READ_STREAM_INVALID_START_BLOCK_NUMBER = 3;
 
-        /**
-         * The requested end block number is not valid.<br/>
-         * The end block number is greater than the highest current block
-         * number, less than `0`, or otherwise invalid.<br/>
-         * The client MAY retry this request, but MUST change the
-         * `end_block_number` field to a valid end block.
-         */
-        READ_STREAM_INVALID_END_BLOCK_NUMBER = 4;
-    }
+    /**
+     * The requested end block number is not valid.<br/>
+     * The end block number is greater than the highest current block
+     * number, less than `0`, or otherwise invalid.<br/>
+     * The client MAY retry this request, but MUST change the
+     * `end_block_number` field to a valid end block.
+     */
+    READ_STREAM_INVALID_END_BLOCK_NUMBER = 4;
 }
 
 // ---- StateSnapshot RPC ----
@@ -578,7 +578,7 @@ message StateSnapshotResponse {
      * This code SHALL indicate a successful call, or the detailed
      * reason for failure.
      */
-    ResponseCode status = 1;
+    StateSnapshotResponseCode status = 1;
 
     /**
      * A block number.
@@ -599,33 +599,33 @@ message StateSnapshotResponse {
      * </blockquote></blockquote>
      */
     string snapshot_reference = 3;
+}
 
+/**
+ * An enumeration indicating the status of a StateSnapshotResponse request.
+ */
+enum StateSnapshotResponseCode {
     /**
-     * An enumeration indicating the status of this request.
-     */
-    enum ResponseCode {
-        /**
          * An "unset value" flag, this value SHALL NOT be used.<br/>
          * This status indicates the server software failed to set a status,
          * and SHALL be considered a software defect.
          */
-        STATE_SNAPSHOT_UNKNOWN = 0;
+    STATE_SNAPSHOT_UNKNOWN = 0;
 
-        /**
-         * The requesting client account lacks sufficient HBAR to pay the
-         * service fee for this request.<br/>
-         * The client MAY retry the request, but MUST increase the client
-         * account balance with this block node server before doing so.
-         */
-        STATE_SNAPSHOT_INSUFFICIENT_BALANCE = 1;
+    /**
+     * The requesting client account lacks sufficient HBAR to pay the
+     * service fee for this request.<br/>
+     * The client MAY retry the request, but MUST increase the client
+     * account balance with this block node server before doing so.
+     */
+    STATE_SNAPSHOT_INSUFFICIENT_BALANCE = 1;
 
-        /**
-         * The request succeeded.<br/>
-         * The full snapshot data MAY be read via the endpoint provided in the
-         * `snapshot_reference` field for the duration specified.
-         */
-        STATE_SNAPSHOT_SUCCESS = 2;
-    }
+    /**
+     * The request succeeded.<br/>
+     * The full snapshot data MAY be read via the endpoint provided in the
+     * `snapshot_reference` field for the duration specified.
+     */
+    STATE_SNAPSHOT_SUCCESS = 2;
 }
 
 /**
