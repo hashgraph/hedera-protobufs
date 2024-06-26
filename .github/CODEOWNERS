@@ -1,4 +1,4 @@
-* @hashgraph/hedera-services                    @hashgraph/mirror-node
+*                                               @hashgraph/hedera-services @hashgraph/mirror-node
 /platform/                                      @hashgraph/platform-hashgraph
 /mirror/                                        @hashgraph/mirror-node
 
