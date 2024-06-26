@@ -1,5 +1,28 @@
-* @hashgraph/hedera-services @hashgraph/mirror-node
-/platform/ @hashgraph/platform-hashgraph
-/.github/ @hashgraph/release-engineering
-.gitignore @hashgraph/release-engineering
-LICENSE @hashgraph/release-engineering
+* @hashgraph/hedera-services                    @hashgraph/mirror-node
+/platform/                                      @hashgraph/platform-hashgraph
+/mirror/                                        @hashgraph/mirror-node
+
+
+#########################
+#####  Core Files  ######
+#########################
+
+# NOTE: Must be placed last to ensure enforcement over all other rules
+
+# Protection Rules for Github Configuration Files and Actions Workflows
+/.github/                                       @hashgraph/release-engineering-managers @hashgraph/devops-ci
+/.github/workflows/                             @hashgraph/devops-ci
+
+# Self-protection for root CODEOWNERS files (this file should not exist and should definitely require approval)
+/CODEOWNERS                                     @hashgraph/release-engineering-managers
+
+# Protect the repository root files
+/README.md                                      @hashgraph/release-engineering-managers @hashgraph/devops-ci
+**/LICENSE                                      @hashgraph/release-engineering-managers
+
+# CodeCov configuration
+**/codecov.yml                                  @hashgraph/release-engineering-managers @hashgraph/devops-ci
+
+# Git Ignore definitions
+**/.gitignore                                   @hashgraph/release-engineering-managers @hashgraph/devops-ci
+**/.gitignore.*                                 @hashgraph/release-engineering-managers @hashgraph/devops-ci
