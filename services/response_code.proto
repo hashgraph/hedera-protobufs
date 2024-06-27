@@ -1528,5 +1528,5 @@ enum ResponseCodeEnum {
    /*
     * The node account is not allowed to be updated
     */
-   UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 358;
+   UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
 }
