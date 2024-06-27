@@ -1458,41 +1458,41 @@ enum ResponseCodeEnum {
      */
     INVALID_GRPC_CERTIFICATE = 345;
 
-  /**
-   * The maximum automatic associations value is not valid.<br/>
-   * The most common cause for this error is a value less than `-1`.
-   */
-  INVALID_MAX_AUTO_ASSOCIATIONS = 346;
+    /**
+     * The maximum automatic associations value is not valid.<br/>
+     * The most common cause for this error is a value less than `-1`.
+     */
+    INVALID_MAX_AUTO_ASSOCIATIONS = 346;
 
-  /**
-   * The maximum number of nodes allowed in the address book have been created.
-   */
-  MAX_NODES_CREATED = 347;
+    /**
+     * The maximum number of nodes allowed in the address book have been created.
+     */
+    MAX_NODES_CREATED = 347;
 
-  /**
-   * In ServiceEndpoint, domain_name and ipAddressV4 are mutually exclusive
-   */
-  IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT = 348;
+    /**
+     * In ServiceEndpoint, domain_name and ipAddressV4 are mutually exclusive
+     */
+    IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT = 348;
 
-  /**
-   *  Fully qualified domain name is not allowed in gossip_endpoint
-   */
-  GOSSIP_ENDPOINT_CANNOT_HAVE_FQDN = 349;
+    /**
+     *  Fully qualified domain name is not allowed in gossip_endpoint
+     */
+    GOSSIP_ENDPOINT_CANNOT_HAVE_FQDN = 349;
 
-  /**
-   * In ServiceEndpoint, domain_name size too large
-   */
-  FQDN_SIZE_TOO_LARGE = 350;
+    /**
+     * In ServiceEndpoint, domain_name size too large
+     */
+    FQDN_SIZE_TOO_LARGE = 350;
 
-  /**
-   * ServiceEndpoint is invalid
-   */
-  INVALID_ENDPOINT = 351;
+    /**
+     * ServiceEndpoint is invalid
+     */
+    INVALID_ENDPOINT = 351;
 
-  /**
-   * The number of gossip endpoints exceeds the limit
-   */
-  GOSSIP_ENDPOINTS_EXCEEDED_LIMIT = 352;
+    /**
+     * The number of gossip endpoints exceeds the limit
+     */
+    GOSSIP_ENDPOINTS_EXCEEDED_LIMIT = 352;
 
     /**
      * The transaction attempted to use duplicate `TokenReference`.<br/>
@@ -1525,8 +1525,8 @@ enum ResponseCodeEnum {
      */
     EMPTY_TOKEN_REFERENCE_LIST = 358;
 
-   /*
-    * The node account is not allowed to be updated
-    */
-   UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
+    /*
+     * The node account is not allowed to be updated
+     */
+    UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
 }
