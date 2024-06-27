@@ -1524,4 +1524,9 @@ enum ResponseCodeEnum {
      * The transaction attempted to use empty `TokenReference` list.
      */
     EMPTY_TOKEN_REFERENCE_LIST = 358;
+
+    /*
+     * The node account is not allowed to be updated
+     */
+    UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
 }
