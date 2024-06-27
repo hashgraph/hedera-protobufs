@@ -1206,6 +1206,11 @@ enum HederaFunctionality {
      * Delete a node
      */
     NodeDelete = 91;
+
+    /**
+     * Transfer one or more token balances held by the requesting account to the treasury for each token type.
+     */
+    TokenReject = 92;
 }
 
 /**
