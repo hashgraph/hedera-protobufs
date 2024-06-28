@@ -137,4 +137,13 @@ message Node {
      * node SHALL fail.
      */
     bool deleted = 9;
+
+    /**
+    * An administrative key controlled by the node operator.
+     * <p>
+     * This key MUST sign each transaction to update this node.<br/>
+     * This field MUST contain a valid `Key` value.<br/>
+     * This field is REQUIRED and MUST NOT be set to an empty `KeyList`.
+     */
+    proto.Key admin_key = 10;
 }

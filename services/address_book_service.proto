@@ -155,12 +155,4 @@ service AddressBookService {
      * Hedera governing council.
      */
     rpc updateNode (proto.Transaction) returns (proto.TransactionResponse);
-
-    /**
-     * A transaction to query the current state of a consensus node in the
-     * network address book state.
-     * <p>
-     * Hedera governing council authorization is REQUIRED for this transaction.
-     */
-    rpc getNodeInfo (proto.Query) returns (proto.Response);
 }
