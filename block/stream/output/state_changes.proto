@@ -48,7 +48,7 @@ package com.hedera.hapi.block.stream.output;
  * limitations under the License.
  */
 
-option java_package = "com.hederahashgraph.api.proto.java";
+option java_package = "com.hedera.hapi.block.stream.output.protoc";
 // <<<pbj.java_package = "com.hedera.hapi.block.stream.output">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
@@ -288,7 +288,7 @@ message SingletonUpdateChange {
         /**
          * A change to the exchange rates singleton.
          * <p>
-         * This change SHALL be present if the HBAR:USD exchange
+         * This change SHALL be present if the <tt>HBAR&lt;=&gt;USD</tt> exchange
          * rate, as stored in the "midnight rates" singleton changed
          * during the current block.
          */

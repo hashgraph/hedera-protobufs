@@ -62,8 +62,8 @@ package com.hedera.hapi.block;
  * limitations under the License.
  */
 
-option java_package = "com.hederahashgraph.api.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.hedera.hapi.block.protoc";
+// <<<pbj.java_package = "com.hedera.hapi.block">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "stream/block.proto";
@@ -206,7 +206,7 @@ message PublishStreamResponse {
          * This code indicates the reason the stream ended.<br/>
          * This value MUST be set to a non-default value.
          */
-        EndOfStreamResponseCode status = 1;
+        PublishStreamResponseCode status = 1;
 
         /**
          * The number of the last completed and _verified_ block.
@@ -228,7 +228,7 @@ message PublishStreamResponse {
  * This enumeration describes the reason a block stream
  * (sent via `writeBlockStream`) ended.
  */
-enum EndOfStreamResponseCode {
+enum PublishStreamResponseCode {
     /**
      * An "unset value" flag, this value SHALL NOT be used.<br/>
      * This status indicates the server software failed to set a
