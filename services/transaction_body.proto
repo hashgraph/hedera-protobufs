@@ -364,7 +364,7 @@ message TransactionBody {
          * This transaction SHALL create a new consensus node record and add
          * that record to the network address book.
          */
-        NodeCreateTransactionBody nodeCreate = 54;
+        com.hedera.hapi.node.addressbook.NodeCreateTransactionBody nodeCreate = 54;
 
         /**
          * A transaction body for an `updateNode` request.
@@ -372,7 +372,7 @@ message TransactionBody {
          * This transaction SHALL update an existing consensus node record in
          * the network address book.
          */
-        NodeUpdateTransactionBody nodeUpdate = 55;
+        com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody nodeUpdate = 55;
 
         /**
          * A transaction body for a `deleteNode` request.
@@ -380,7 +380,7 @@ message TransactionBody {
          * This transaction SHALL remove an existing consensus node record from
          * the network address book.
          */
-        NodeDeleteTransactionBody nodeDelete = 56;
+        com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 56;
 
         /**
          * A transaction body to "reject" undesired tokens.<br/>

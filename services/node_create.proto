@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package com.hedera.hapi.node.addressbook;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -59,7 +59,7 @@ message NodeCreateTransactionBody {
      * Multiple nodes MAY share the same node account.<br/>
      * This field is REQUIRED.
      */
-    AccountID account_id = 1;
+    proto.AccountID account_id = 1;
 
     /**
      * A short description of the node.
@@ -90,7 +90,7 @@ message NodeCreateTransactionBody {
      * then endpoints in this list MAY supply either IP address or FQDN, but
      * MUST NOT supply both values for the same endpoint.
      */
-    repeated ServiceEndpoint gossip_endpoint = 3;
+    repeated proto.ServiceEndpoint gossip_endpoint = 3;
 
     /**
      * A list of service endpoints for gRPC calls.
@@ -103,7 +103,7 @@ message NodeCreateTransactionBody {
      * This list MUST NOT be empty.<br/>
      * This list MUST NOT contain more than `8` entries.
      */
-    repeated ServiceEndpoint service_endpoint = 4;
+    repeated proto.ServiceEndpoint service_endpoint = 4;
 
     /**
      * A certificate used to sign gossip events.
@@ -136,5 +136,5 @@ message NodeCreateTransactionBody {
      * This field MUST contain a valid `Key` value.<br/>
      * This field is REQUIRED and MUST NOT be set to an empty `KeyList`.
      */
-    Key admin_key = 7;
+    proto.Key admin_key = 7;
 }

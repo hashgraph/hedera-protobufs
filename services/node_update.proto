@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package com.hedera.hapi.node.addressbook;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -62,7 +62,7 @@ message NodeUpdateTransactionBody {
      * If set, this transaction MUST be signed by the active `key` for _both_
      * the current node account _and_ the identified new node account.
      */
-    AccountID account_id = 2;
+    proto.AccountID account_id = 2;
 
     /**
      * A short description of the node.
@@ -102,7 +102,7 @@ message NodeUpdateTransactionBody {
      * <p>
      * If set, the new list SHALL replace the existing list.
      */
-    repeated ServiceEndpoint gossip_endpoint = 4;
+    repeated proto.ServiceEndpoint gossip_endpoint = 4;
 
     /**
      * A list of service endpoints for gRPC calls.
@@ -123,7 +123,7 @@ message NodeUpdateTransactionBody {
      * <p>
      * If set, the new list SHALL replace the existing list.
      */
-    repeated ServiceEndpoint service_endpoint = 5;
+    repeated proto.ServiceEndpoint service_endpoint = 5;
 
     /**
      * A certificate used to sign gossip events.
@@ -160,5 +160,5 @@ message NodeUpdateTransactionBody {
      * If set, this field MUST contain a valid `Key` value.<br/>
      * If set, this field MUST NOT be set to an empty `KeyList`.
      */
-    Key admin_key = 8;
+    proto.Key admin_key = 8;
 }

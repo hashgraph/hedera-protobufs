@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package com.hedera.hapi.node.state.addressbook;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -52,7 +52,7 @@ message Node {
      * This account SHALL be charged transaction fees for any transactions that
      * are submitted to the network by this node and fail due diligence checks.
      */
-    AccountID account_id = 2;
+    proto.AccountID account_id = 2;
 
     /**
      * A short description of the node.
@@ -77,7 +77,7 @@ message Node {
      * all consensus nodes.<br/>
      * All other entries SHALL be reserved for future use.
      */
-    repeated ServiceEndpoint gossip_endpoint = 4;
+    repeated proto.ServiceEndpoint gossip_endpoint = 4;
 
     /**
      * A list of service endpoints for gRPC calls.
@@ -90,7 +90,7 @@ message Node {
      * This list SHALL NOT be empty.<br/>
      * This list SHALL NOT contain more than `8` entries.
      */
-    repeated ServiceEndpoint service_endpoint = 5;
+    repeated proto.ServiceEndpoint service_endpoint = 5;
 
     /**
      * A certificate used to sign gossip events.
@@ -145,5 +145,5 @@ message Node {
      * This field MUST contain a valid `Key` value.<br/>
      * This field is REQUIRED and MUST NOT be set to an empty `KeyList`.
      */
-    Key admin_key = 10;
+    proto.Key admin_key = 10;
 }
