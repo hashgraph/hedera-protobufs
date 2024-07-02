@@ -1529,4 +1529,14 @@ enum ResponseCodeEnum {
      * The node account is not allowed to be updated
      */
     UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
+
+    /**
+    * The transaction attempted to the use an empty List of `PendingAirdropId`.
+    */
+    EMPTY_PENDING_AIRDROP_ID_LIST = 360;
+
+    /**
+    * The transaction attempted to the same `PendingAirdropId` twice.
+    */
+    PENDING_AIRDROP_ID_REPEATED = 361;
 }

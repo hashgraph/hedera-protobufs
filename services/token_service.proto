@@ -174,4 +174,10 @@ service TokenService {
      * tokens, SHALL be charged to the account submitting this transaction.
      */
     rpc airdropTokens (Transaction) returns (TransactionResponse);
+
+    /**
+     * Cancel one or more pending airdrops.<br/>
+     * This transaction MUST be signed by _each_ account *sending* an airdrop to be canceled.
+     */
+    rpc cancelAirdrop (Transaction) returns (TransactionResponse);
 }
