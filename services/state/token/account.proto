@@ -203,6 +203,10 @@ message Account {
      * It will be null if if the account is not a contract or the contract has no storage mappings.
      */
     bytes first_contract_storage_key = 33;
+    /**
+     * The pending airdrop ID of the head of the linked list from pending airdrops map for the account.
+     */
+    PendingAirdropId head_pending_airdrop_id = 34;
 }
 
 /**

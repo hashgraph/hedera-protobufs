@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package proto;
+
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * ​
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ‍
+ */
+
+import "basic_types.proto";
+
+option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+
+/**
+ * Representation of a pending airdrops for a given sender account in the network Merkle tree.
+ */
+message AccountAirdrop {
+  /**
+   * The airdrop involved in the relation between a sender account and the airdrop initiated by them
+   */
+  PendingAirdropId pending_airdrop_id = 1;
+
+  /**
+   * The previous airdrop id of sender account's airdrops linked list
+   */
+  PendingAirdropId previous_airdrop = 2;
+
+  /**
+   * The next airdrop id of sender account's airdrops linked list
+   */
+  PendingAirdropId next_airdrop = 3;
+}
