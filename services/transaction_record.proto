@@ -32,6 +32,7 @@ import "custom_fees.proto";
 import "transaction_receipt.proto";
 import "crypto_transfer.proto";
 import "contract_call_local.proto";
+import "state/token/account_airdrop.proto";
 
 /**
  * Response when the client sends the node TransactionGetRecordResponse
@@ -184,5 +185,5 @@ message PendingAirdropRecord {
      * If the pending airdrop is for a non-fungible/unique token, this field SHALL NOT
      * be set.
      */
-    PendingAirdropValue pending_airdrop_value = 2;
+    AccountAirdrop account_airdrop = 2;
 }
