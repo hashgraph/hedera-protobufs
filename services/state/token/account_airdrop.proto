@@ -6,7 +6,7 @@ package proto;
  * ‌
  * Hedera Network Services Protobuf
  * ​
- * Copyright (C) 2018 - 2023 Hedera Hashgraph, LLC
+ * Copyright (C) 2018 - 2024 Hedera Hashgraph, LLC
  * ​
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,13 +34,14 @@ option java_multiple_files = true;
  */
 message AccountAirdrop {
   /**
-     * The account sending the airdrop.
-     */
-  AccountID account_id = 1;
-  /**
    * The airdrop involved in the relation between a sender account and the airdrop initiated by them
    */
-  PendingAirdropId pending_airdrop_id = 2;
+  PendingAirdropId pending_airdrop_id = 1;
+
+  /**
+   * The value of the current airdrop id
+   */
+  PendingAirdropValue pending_airdrop_value = 2;
 
   /**
    * The previous airdrop id of sender account's airdrops linked list
