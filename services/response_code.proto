@@ -1539,4 +1539,9 @@ enum ResponseCodeEnum {
     * The transaction attempted to the same `PendingAirdropId` twice.
     */
     PENDING_AIRDROP_ID_REPEATED = 361;
+
+    /**
+    * The transaction attempted to use more than the allowed number of `PendingAirdropId`.
+    */
+    MAX_PENDING_AIRDROP_ID_EXCEEDED = 362;
 }
