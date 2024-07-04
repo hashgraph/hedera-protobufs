@@ -179,10 +179,10 @@ message PendingAirdropRecord {
     PendingAirdropId pending_airdrop_id = 1;
 
     /**
-     * A single pending airdrop amount.
-     * If the pending airdrop is for a fungible/common token this field is REQUIRED
+     * Account to airdrop relation for the given airdrop id
+     * If the pending airdrop is for a fungible/common token this field's pending value is REQUIRED
      * and SHALL be the current amount of tokens offered.
-     * If the pending airdrop is for a non-fungible/unique token, this field SHALL NOT
+     * If the pending airdrop is for a non-fungible/unique token, this field pending value SHALL NOT
      * be set.
      */
     AccountAirdrop account_airdrop = 2;

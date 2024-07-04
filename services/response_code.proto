@@ -1529,4 +1529,14 @@ enum ResponseCodeEnum {
      * The node account is not allowed to be updated
      */
     UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
+
+    /*
+     * NFT already exist in the pending state.
+     */
+    PENDING_NFT_AIRDROP_ALREADY_EXISTS = 360;
+
+    /*
+     * Account with pending airdrops can not be deleted.
+     */
+    ACCOUNT_HAS_PENDING_AIRDROPS = 361;
 }

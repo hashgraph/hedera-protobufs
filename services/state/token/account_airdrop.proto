@@ -39,7 +39,7 @@ message AccountAirdrop {
   PendingAirdropId pending_airdrop_id = 1;
 
   /**
-   * The value of the current airdrop id
+   * The value of the current airdrop id. SHALL NOT be set for non fungible tokens
    */
   PendingAirdropValue pending_airdrop_value = 2;
 
