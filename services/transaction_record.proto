@@ -32,7 +32,6 @@ import "custom_fees.proto";
 import "transaction_receipt.proto";
 import "crypto_transfer.proto";
 import "contract_call_local.proto";
-import "state/token/account_airdrop.proto";
 
 /**
  * Response when the client sends the node TransactionGetRecordResponse
@@ -179,11 +178,11 @@ message PendingAirdropRecord {
     PendingAirdropId pending_airdrop_id = 1;
 
     /**
-     * Account to airdrop relation for the given airdrop id
-     * If the pending airdrop is for a fungible/common token this field's pending value is REQUIRED
+     * A single pending airdrop amount.
+     * If the pending airdrop is for a fungible/common token this field is REQUIRED
      * and SHALL be the current amount of tokens offered.
-     * If the pending airdrop is for a non-fungible/unique token, this field pending value SHALL NOT
+     * If the pending airdrop is for a non-fungible/unique token, this field SHALL NOT
      * be set.
      */
-    AccountAirdrop account_airdrop = 2;
+    PendingAirdropValue pending_airdrop_value = 2;
 }
