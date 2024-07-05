@@ -75,6 +75,7 @@ import "token_unpause.proto";
 import "token_update_nfts.proto";
 import "token_reject.proto";
 import "token_airdrop.proto";
+import "token_cancel_airdrop.proto";
 
 import "schedule_create.proto";
 import "schedule_delete.proto";
@@ -406,5 +407,10 @@ message TransactionBody {
          * A transaction body for a `tokenAirdrop` request.
          */
         TokenAirdropTransactionBody tokenAirdrop = 58;
+
+        /**
+        * A transaction body for a `cancelAirdrop` request.
+        */
+        TokenCancelAirdropTransactionBody tokenCancelAirdrop = 59;
     }
 }

@@ -1539,4 +1539,19 @@ enum ResponseCodeEnum {
      * Account with pending airdrops can not be deleted.
      */
     ACCOUNT_HAS_PENDING_AIRDROPS = 361;
+
+    /**
+    * The transaction attempted to the use an empty List of `PendingAirdropId`.
+    */
+    EMPTY_PENDING_AIRDROP_ID_LIST = 362;
+
+    /**
+    * The transaction attempted to the same `PendingAirdropId` twice.
+    */
+    PENDING_AIRDROP_ID_REPEATED = 363;
+
+    /**
+    * The transaction attempted to use more than the allowed number of `PendingAirdropId`.
+    */
+    MAX_PENDING_AIRDROP_ID_EXCEEDED = 364;
 }
