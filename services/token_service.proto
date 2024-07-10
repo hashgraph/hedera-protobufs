@@ -181,4 +181,13 @@ service TokenService {
      * This transaction MUST be signed by _each_ account *sending* an airdrop to be canceled.
      */
     rpc cancelAirdrop (Transaction) returns (TransactionResponse);
+    
+    /**
+     * Claim one or more pending airdrops.<br/>
+     * This transaction MUST be signed by _each_ account *receiving* an airdrop to be claimed.<br>
+     * If a Sender lacks sufficient balance to fulfill the airdrop at the time the claim is made,
+     * that claim SHALL fail.
+     */
+    rpc claimAirdrop (Transaction) returns (TransactionResponse);
+
 }
