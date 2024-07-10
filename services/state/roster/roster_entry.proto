@@ -27,13 +27,9 @@ option java_multiple_files = true;
 /**
  * A single roster in the network state.
  *
- * Each roster entry in the roster list SHALL encapsulate the pieces of data
- * required to manage node participation in the Threshold Signature Scheme (TSS)
- *
- * Roster nodeIDs SHALL NOT be _globally_ uniquely identified. A given nodeId
- * is only valid within a single realm and shard combination, so the identifier
- * for a network node SHALL only be unique within a single realm and shard
- * combination.
+ * Each roster entry in the roster list SHALL encapsulate the elements required
+ * to manage node participation in the Threshold Signature Scheme (TSS).<br/>
+ * All fields are REQUIRED.
  */
 message RosterEntry {
 
