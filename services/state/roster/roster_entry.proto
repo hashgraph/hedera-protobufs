@@ -58,7 +58,7 @@ message RosterEntry {
     uint64 weight = 2;
 
     /**
-     * The RSA public certificate used for signing gossip events.
+     * An RSA public certificate used for signing gossip events.
      * <p>
      * This value SHALL be a certificate of a type permitted for gossip
      * signatures.<br/>
