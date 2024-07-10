@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package com.hedera.hapi.node.state.roster;
+
+/*
+ * Copyright (C) 2024 Hedera Hashgraph, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import "basic_types.proto";
+
+option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.state.roster">>> This comment is special code for setting PBJ Compiler java package
+option java_multiple_files = true;
+
+/**
+ * A single roster in the network state.
+ *
+ * Each roster entry in the roster list SHALL encapsulate the pieces of data
+ * required to manage node participation in the Threshold Signature Scheme (TSS)
+ *
+ * Roster nodeIDs SHALL NOT be _globally_ uniquely identified. A given nodeId
+ * is only valid within a single realm and shard combination, so the identifier
+ * for a network node SHALL only be unique within a single realm and shard
+ * combination.
+ */
+message RosterEntry {
+
+    /**
+     * A consensus node identifier.
+     * <p>
+     * Node identifiers SHALL be unique _within_ a shard and realm,
+     * but a node SHALL NOT, ever, serve multiple shards or realms,
+     * therefore the node identifier MAY be repeated _between_ shards and realms.
+     */
+    uint64 node_id = 1;
+
+    /**
+     * A consensus weight.
+     * <p>
+     * Each node SHALL have a weight in consensus calculations.<br/>
+     * The consensus weight of a node SHALL be calculated based on the amount
+     * of HBAR staked to that node.<br/>
+     * Consensus SHALL be calculated based on agreement of greater than `2/3`
+     * of the total `weight` value of all nodes on the network.
+     */
+    uint64 weight = 2;
+
+    /**
+     * The RSA public certificate used for signing gossip events.
+     * <p>
+     * This value SHALL be a certificate of a type permitted for gossip
+     * signatures.<br/>
+     * This value SHALL be the DER encoding of the certificate presented.<br/>
+     * This field is REQUIRED and MUST NOT be empty.
+     */
+    bytes gossip_ca_certificate = 3;
+
+    /**
+     * The long term elliptic-curve cryptography
+     * public key for the node used in TSS.
+     * <p>
+     * This value SHALL be the DER encoding of the presented elliptic-curve
+     * public key that supports TSS<br/>
+     * This field is REQUIRED and MUST NOT be empty.
+     */
+    bytes tss_ec_public_key = 4;
+
+    /**
+     * A list of service endpoints for gossip.
+     * <p>
+     * These endpoints SHALL represent the published endpoints to which other
+     * consensus nodes may _gossip_ transactions.<br/>
+     * If the network configuration value `gossipFqdnRestricted` is set, then
+     * all endpoints in this list SHALL supply only IP address.<br/>
+     * If the network configuration value `gossipFqdnRestricted` is _not_ set,
+     * then endpoints in this list MAY supply either IP address or FQDN, but
+     * SHALL NOT supply both values for the same endpoint.<br/>
+     * This list SHALL NOT be empty.<br/>
+     * This list SHALL NOT contain more than `10` entries.<br/>
+     * The first two entries in this list SHALL be the endpoints published to
+     * all consensus nodes.<br/>
+     * All other entries SHALL be reserved for future use.
+     */
+    repeated proto.ServiceEndpoint gossip_endpoint = 5;
+}
