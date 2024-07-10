@@ -93,11 +93,13 @@ message PlatformState {
     bytes candidate_roster_hash = 6;
 
     /**
-     * The SHA-384 hash of an active roster
-     * This is the hash of the roster that has already been adopted by the
-     * network.
-     * A Node SHALL NOT, ever, have more than one active roster
-     * at the same time.
+     * A cryptographic hash of a roster.<br/>
+     * This hash represents an active roster, which is a roster that
+     * is adopted by the network and in current use.
+     * <p>
+     * The network SHALL NOT have more than one active roster at
+     * any given moment.<br/>
+     * This value MUST be a SHA-384 hash.
      */
     bytes active_roster_hash = 7;
 
