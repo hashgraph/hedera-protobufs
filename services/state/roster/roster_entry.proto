@@ -68,11 +68,11 @@ message RosterEntry {
     bytes gossip_ca_certificate = 3;
 
     /**
-     * The long term elliptic-curve cryptography
-     * public key for the node used in TSS.
+     * An elliptic curve public key.<br/>
+     * This contains the _long term_ public key for this node.
      * <p>
-     * This value SHALL be the DER encoding of the presented elliptic-curve
-     * public key that supports TSS<br/>
+     * This value SHALL be the DER encoding of the presented elliptic curve
+     * public key.<br/>
      * This field is REQUIRED and MUST NOT be empty.
      */
     bytes tss_ec_public_key = 4;
