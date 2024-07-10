@@ -82,12 +82,13 @@ message PlatformState {
     proto.Timestamp last_frozen_time = 5;
 
     /**
-     * The SHA-384 hash of a candidate roster.
+     * A cryptographic hash of a roster.<br/>
+     * This hash represents a candidate roster, which is a roster that
+     * is not yet active, but is being considered.
      * <p>
-     * This is the hash of the roster that is currently being considered
-     * for adoption.
-     * A Node SHALL NOT, ever, have more than one candidate roster
-     * at the same time.
+     * A Node SHOULD NOT have more than one candidate roster at
+     * any given moment.<br/>
+     * This value MUST be a SHA-384 hash.
      */
     bytes candidate_roster_hash = 6;
 
