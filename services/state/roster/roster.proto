@@ -3,6 +3,8 @@ syntax = "proto3";
 package com.hedera.hapi.node.state.roster;
 
 /*
+ * Hedera Network Services Protobuf
+ *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +28,22 @@ option java_multiple_files = true;
 
 /**
  * A single roster in the network state.
+ * <p>
+ * The roster SHALL be a list of `RosterEntry` objects.
+ */
+message Roster {
+
+    /**
+     * List of roster entries, one per consensus node.
+     * <p>
+     * This list SHALL contain roster entries in natural order of ascending node ids.
+     * This list SHALL NOT be empty.<br/>
+     */
+    repeated RosterEntry rosters = 1;
+}
+
+/**
+ * A single roster entry in the roster.
  *
  * Each roster entry in the roster list SHALL encapsulate the elements required
  * to manage node participation in the Threshold Signature Scheme (TSS).<br/>
@@ -64,14 +82,14 @@ message RosterEntry {
     bytes gossip_ca_certificate = 3;
 
     /**
-     * An elliptic curve public key.<br/>
+     * An elliptic curve public encryption key.<br/>
      * This contains the _long term_ public key for this node.
      * <p>
      * This value SHALL be the DER encoding of the presented elliptic curve
      * public key.<br/>
      * This field is REQUIRED and MUST NOT be empty.
      */
-    bytes tss_ec_public_key = 4;
+    bytes tss_encryption_key = 4;
 
     /**
      * A list of service endpoints for gossip.
@@ -90,4 +108,19 @@ message RosterEntry {
      * All other entries SHALL be reserved for future use.
      */
     repeated proto.ServiceEndpoint gossip_endpoint = 5;
+}
+
+/**
+ * A map of roster hashes to roster entries.
+ * The map will be stored in the state as a PBJ map.
+ * It will itself be managed as a Singleton state object.
+ */
+message RosterMap {
+
+    /**
+     * A map of roster hashes to roster entries.
+     * The map will be stored in the state as a PBJ map.
+     * It will itself be managed as a Singleton state object.
+     */
+    map<string, RosterEntry> entries = 1;
 }
