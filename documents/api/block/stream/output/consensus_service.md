@@ -6,7 +6,7 @@
     - [SubmitMessageOutput](#com-hedera-hapi-block-stream-output-SubmitMessageOutput)
     - [UpdateTopicOutput](#com-hedera-hapi-block-stream-output-UpdateTopicOutput)
   
-    - [SubmitMessageOutput.RunningHashVersion](#com-hedera-hapi-block-stream-output-SubmitMessageOutput-RunningHashVersion)
+    - [RunningHashVersion](#com-hedera-hapi-block-stream-output-RunningHashVersion)
   
 
 
@@ -71,7 +71,7 @@ item, and is not duplicated here.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| topic_running_hash_version | [SubmitMessageOutput.RunningHashVersion](#com-hedera-hapi-block-stream-output-SubmitMessageOutput-RunningHashVersion) |  | The version of inputs to the SHA-384 running hash. <p> For all current transactions, this value SHALL be `WITH_MESSAGE_DIGEST_AND_PAYER`. |
+| topic_running_hash_version | [RunningHashVersion](#com-hedera-hapi-block-stream-output-RunningHashVersion) |  | The version of inputs to the SHA-384 running hash. <p> For all current transactions, this value SHALL be `WITH_MESSAGE_DIGEST_AND_PAYER`. |
 
 
 
@@ -93,9 +93,9 @@ original transaction.
  <!-- end messages -->
 
 
-<a name="com-hedera-hapi-block-stream-output-SubmitMessageOutput-RunningHashVersion"></a>
+<a name="com-hedera-hapi-block-stream-output-RunningHashVersion"></a>
 
-### SubmitMessageOutput.RunningHashVersion
+### RunningHashVersion
 A version of the topic running hash.
 
 The inputs to the topic running hash have changed over time.
@@ -105,7 +105,8 @@ and clarity. Placing the most recent, and most common/highest
 volume, version as `0` reduces the serialized size of this message
 by not serializing that default value.
 
-<hr style="margin: 0.2em 5em 0.2em 5em; height: 0.5em; border-style: solid none solid none; border-width: 2px;"/>
+<hr style="margin: 0.2em 5em 0.2em 5em; height: 0.5em;
+    border-style: solid none solid none; border-width: 2px;"/>
 
 The topic running hash is a 48-byte value that is the output
 of a SHA-384 digest with input data determined by the value of

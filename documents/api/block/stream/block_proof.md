@@ -78,9 +78,9 @@ leaf.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| round | [uint64](#uint64) |  | The round this proof secures.<br/> We provide this because a proof for a future round can be used to prove the state of the ledger at that round and the rounds before it.<br/> <p> This value SHOULD match the round of the current block, under normal operation. |
+| block | [uint64](#uint64) |  | The block this proof secures.<br/> We provide this because a proof for a future block can be used to prove the state of the ledger at that block and the blocks before it.<br/> <p> This value SHOULD match the block number of the current block, under normal operation. |
 | block_root_hash | [bytes](#bytes) |  | A merkle root hash. <p> This MUST contain a SHA-384 hash of the "block" merkle tree root. |
-| block_signature | [BlockSignature](#com-hedera-hapi-block-stream-BlockSignature) |  | A TSS-BLS network signature. <p> This signature SHALL use a TSS-BLS threshold signature to provide a single signature that represents the consensus signature of at least the current threshold (i.e. 2/3 + 1) of consensus nodes. The exact subset of nodes that signed SHALL neither be known nor tracked, but it SHALL be cryptographically verifiable that the threshold was met if the signature itself can be validated with the network public key. |
+| block_signature | [BlockSignature](#com-hedera-hapi-block-stream-BlockSignature) |  | A TSS network signature. <p> This signature SHALL use a TSS signature to provide a single signature that represents the consensus signature of at least the current threshold (i.e. 2/3 + 1) of consensus nodes. The exact subset of nodes that signed SHALL neither be known nor tracked, but it SHALL be cryptographically verifiable that the threshold was met if the signature itself can be validated with the network public key. |
 
 
 
@@ -90,7 +90,7 @@ leaf.
 <a name="com-hedera-hapi-block-stream-BlockSignature"></a>
 
 ### BlockSignature
-A TSS-BLS signature for one block.
+A TSS signature for one block.
 This is a single signature representing the collection of partial
 signatures from nodes holding strictly greater than 2/3 of the current
 network "weight" in aggregate. The signature is produced by cryptographic

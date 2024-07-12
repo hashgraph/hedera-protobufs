@@ -70,7 +70,7 @@ message BlockHeader {
     uint64 number = 2;
 
     /**
-     * The block proof hash for the previous block.
+     * The block proof root hash for the previous block.
      * <p>
      * This value MUST match the block merkle tree root hash of the previous
      * block in the block stream.<br/>
@@ -132,7 +132,7 @@ message BlockHeader {
     /**
      * The hash algorithm used in this block.
      */
-    BlockHashAlgorithm hash_algorithm = 4;
+    proto.BlockHashAlgorithm hash_algorithm = 4;
 
     /**
      * A version for the network address book.<br/>
@@ -143,23 +143,4 @@ message BlockHeader {
      * block.
      */
     proto.SemanticVersion address_book_version = 5;
-}
-
-/**
- * A specific hash algorithm used within a block.
- *
- * We did not reuse HashAlgorithm here because in all cases for now it will
- * be `SHA_384` and if that is the default value then we can save space by
- * not serializing it, whereas `HASH_ALGORITHM_UNKNOWN` is the
- * default for HashAlgorithm.
- */
-enum BlockHashAlgorithm {
-    /**
-     * A SHA2 algorithm SHA-384 hash.
-     * <p>
-     * This is the default value, if a field of this enumerated type is
-     * not set, then this is the value that will be decoded when the
-     * serialized message is read.
-     */
-    SHA_384 = 0;
 }

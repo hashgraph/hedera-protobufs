@@ -13,7 +13,7 @@
     - [StateChange](#com-hedera-hapi-block-stream-output-StateChange)
     - [StateChanges](#com-hedera-hapi-block-stream-output-StateChanges)
   
-    - [NewStateChange.NewStateType](#com-hedera-hapi-block-stream-output-NewStateChange-NewStateType)
+    - [NewStateType](#com-hedera-hapi-block-stream-output-NewStateType)
     - [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause)
   
 
@@ -172,7 +172,7 @@ state change items specific to the type of state
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| state_type | [NewStateChange.NewStateType](#com-hedera-hapi-block-stream-output-NewStateChange-NewStateType) |  | The type (e.g. Singleton, Virtual Map, Queue) of state to add. |
+| state_type | [NewStateType](#com-hedera-hapi-block-stream-output-NewStateType) |  | The type (e.g. Singleton, Virtual Map, Queue) of state to add. |
 
 
 
@@ -239,7 +239,7 @@ An update to a `Singleton` state.
 | block_info_value | [proto.BlockInfo](#proto-BlockInfo) |  | A change to the block info singleton. <p> The `BlockInfo` SHALL be updated at the end of every block and SHALL store, among other fields, the last 256 block hash values. <blockquote>REVIEW NOTE<blockquote> The full BlockInfo will be in the state proof, and may not be necessary here.</blockquote></blockquote> |
 | congestion_level_starts_value | [proto.CongestionLevelStarts](#proto-CongestionLevelStarts) |  | A change to the congestion level starts singleton. <p> This change SHALL be present if congestion level pricing for general fees or gas fees started during the current block. |
 | entity_number_value | [proto.EntityNumber](#proto-EntityNumber) |  | A change to the Entity Identifier singleton. <p> The Entity Identifier singleton SHALL track the highest entity identifier used for the current shard and realm and SHALL be used to issue new entity numbers. |
-| exchange_rate_set_value | [proto.ExchangeRateSet](#proto-ExchangeRateSet) |  | A change to the exchange rates singleton. <p> This change SHALL be present if the HBAR`<=>`USD exchange rate, as stored in the "midnight rates" singleton changed during the current block. |
+| exchange_rate_set_value | [proto.ExchangeRateSet](#proto-ExchangeRateSet) |  | A change to the exchange rates singleton. <p> This change SHALL be present if the <tt>HBAR&lt;=&gt;USD</tt> exchange rate, as stored in the "midnight rates" singleton changed during the current block. |
 | network_staking_rewards_value | [proto.NetworkStakingRewards](#proto-NetworkStakingRewards) |  | A change to the network staking rewards singleton. <p> Network staking rewards SHALL be updated for every non-empty block. |
 | bytes_value | [google.protobuf.BytesValue](#google-protobuf-BytesValue) |  | A change to a raw byte array singleton. <p> This change SHALL present a change made to a raw byte array singleton.<br/> The "upgrade file hash" state is an example of a raw byte array singleton. |
 | string_value | [google.protobuf.StringValue](#google-protobuf-StringValue) |  | A change to a raw string singleton. <p> <dl><dt>Note</dt><dd>There are no current examples of a raw string singleton state.</dd></dl> |
@@ -313,9 +313,9 @@ determined by network consensus.
  <!-- end messages -->
 
 
-<a name="com-hedera-hapi-block-stream-output-NewStateChange-NewStateType"></a>
+<a name="com-hedera-hapi-block-stream-output-NewStateType"></a>
 
-### NewStateChange.NewStateType
+### NewStateType
 An enumeration of the types of named states.<br/>
 The default, Singleton, is the type of state most frequently
 added and removed.

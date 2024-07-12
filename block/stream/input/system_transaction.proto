@@ -7,17 +7,11 @@
  * to ensure the block node may record these internal details for later query
  * or independent verification.
  *
- * > NOTE
- * >> This message may be removed soon as the platform removes the concept of
- * >> "System Transaction" entirely.
- *
  * System transactions include
- * - State signature<br/>
- *   Individual state signatures sent between network nodes.
- * - Average bits-per-second sent<br/>
- *   Throughput metric data sent between network nodes.
- * - Average ping time<br/>
- *   Latency metric data sent between network nodes.
+ * <dl>
+ *   <dt>State signature</dt>
+ *   <dd>Individual state signatures sent between network nodes.</dd>
+ * </dl>
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -72,30 +66,6 @@ message SystemTransaction {
          * book have received and verified that signature.
          */
         StateSignatureSystemTransaction state_signature = 1;
-
-        /**
-         * A metric sharing transaction.
-         * <p>
-         * Each node SHALL calculate the observed network throughput to
-         * all other nodes each round.<br/>
-         * This information SHALL be shared with all other nodes via this
-         * transaction type. The aggregate of these measurements MAY be used
-         * to determine if one or more nodes is losing or has lost
-         * full connectivity to the network.
-         */
-        BitsPerSecondSystemTransaction bits_per_second = 2;
-
-        /**
-         * A metric sharing transaction.
-         * <p>
-         * Each node SHALL calculate the observed network latency to all
-         * other nodes each round.<br/>
-         * This information SHALL be shared with all other nodes via this
-         * transaction type. The aggregate of these measurements MAY be
-         * used to determine if one or more nodes is losing or has lost
-         * full connectivity to the network.
-         */
-        PingSystemTransaction ping = 3;
     }
 }
 
@@ -142,42 +112,4 @@ message StateSignatureSystemTransaction {
      * Round number of this state signature.
      */
     uint64 round = 4;
-}
-
-/**
- * A network throughput system transaction.
- *
- * This type of system-internal transaction SHALL be shared via gossip
- * between all consensus nodes at the end of each consensus round to maintain
- * visibility to network throughput statistics for the network.
- */
-message BitsPerSecondSystemTransaction {
-    /**
-     * Network throughput measurements.
-     * <p>
-     * This field SHALL contain one measurement for each consensus node present
-     * in the network address book at the end of the corresponding round.<br/>
-     * These values SHALL be computed from the metric information
-     * gathered during regular gossip communications.
-     */
-    repeated uint64 avg_bits_per_sec_sent = 1;
-}
-
-/**
- * A network latency system transaction.
- *
- * This type of system-internal transaction SHALL be shared via gossip
- * between all consensus nodes at the end of each consensus round to maintain
- * visibility to network latency statistics for the network.
- */
-message PingSystemTransaction {
-    /**
-     * Network latency measurements.
-     * <p>
-     * This field SHALL contain one measurement for each consensus node present
-     * in the network address book at the end of the corresponding round.<br/>
-     * These values SHALL be computed from the metric information
-     * gathered during regular gossip communications.
-     */
-    repeated uint32 avg_ping_milliseconds = 1;
 }

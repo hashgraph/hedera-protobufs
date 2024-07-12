@@ -4,6 +4,8 @@
     - [BlockItem](#com-hedera-hapi-block-stream-BlockItem)
     - [FilteredBlockItem](#com-hedera-hapi-block-stream-FilteredBlockItem)
   
+    - [FilteredItemType](#com-hedera-hapi-block-stream-FilteredItemType)
+  
 
 
 
@@ -101,12 +103,6 @@ contained in other items.
 ### FilteredBlockItem
 Verification data for an item filtered from the stream.
 
-> Note:
->> This may change. We are exploring options that may change this value to
->> work with merkle hashing rather than a simple running hash chain; the
->> change is expected to improve some forms of verification and resolve
->> edge cases with simple running hashes.
-
 Items of this type SHALL NOT be present in the full (unfiltered) block
 stream.<br/>
 Items of this type SHALL replace any item removed from a partial (filtered)
@@ -118,13 +114,29 @@ of consensus state.<br/>
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| item_hash | [bytes](#bytes) |  | A SHA-384 hash of an item filtered from the stream. |
+| item_hash | [bytes](#bytes) |  | A SHA-384 hash of an item filtered from the stream. <p> This field is REQUIRED. |
+| item_type | [FilteredItemType](#com-hedera-hapi-block-stream-FilteredItemType) |  | A record of the type of item that was filtered from the stream. <p> This REQUIRED field SHALL describe which subtree of the virtual merkle tree constructed for the block proof contained the item filtered from the stream. |
 
 
 
 
 
  <!-- end messages -->
+
+
+<a name="com-hedera-hapi-block-stream-FilteredItemType"></a>
+
+### FilteredItemType
+A type of item that was filtered from a block stream.
+
+This enumeration describes each type of merkle subtree constructed to form
+the virtual merkle tree required to construct or verify a block proof.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| FILTERED_OUTPUT_ITEM | 0 | A filtered item originally present in the "output items" subtree. |
+| FILTERED_INPUT_ITEM | 1 | A filtered item originally present in the "input items" subtree. |
+
 
  <!-- end enums -->
 

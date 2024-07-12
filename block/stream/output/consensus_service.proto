@@ -91,7 +91,8 @@ message SubmitMessageOutput {
  * volume, version as `0` reduces the serialized size of this message
  * by not serializing that default value.
  *
- * <hr style="margin: 0.2em 5em 0.2em 5em; height: 0.5em; border-style: solid none solid none; border-width: 2px;"/>
+ * <hr style="margin: 0.2em 5em 0.2em 5em; height: 0.5em;
+ *     border-style: solid none solid none; border-width: 2px;"/>
  *
  * The topic running hash is a 48-byte value that is the output
  * of a SHA-384 digest with input data determined by the value of
