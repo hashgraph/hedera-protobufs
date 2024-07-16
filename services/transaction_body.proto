@@ -412,5 +412,10 @@ message TransactionBody {
         * A transaction body for a `cancelAirdrop` request.
         */
         TokenCancelAirdropTransactionBody tokenCancelAirdrop = 59;
+
+        /**
+        * A transaction body for a `claimAirdrop` request.
+         */
+        TokenClaimAirdropTransactionBody tokenClaimAirdrop = 60;
     }
 }
