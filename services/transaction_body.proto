@@ -76,6 +76,7 @@ import "token_update_nfts.proto";
 import "token_reject.proto";
 import "token_airdrop.proto";
 import "token_cancel_airdrop.proto";
+import "token_claim_airdrop.proto";
 
 import "schedule_create.proto";
 import "schedule_delete.proto";
