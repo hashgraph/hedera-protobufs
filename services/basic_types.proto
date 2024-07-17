@@ -82,7 +82,7 @@ enum BlockHashAlgorithm {
      * not set, then this is the value that will be decoded when the
      * serialized message is read.
      */
-    SHA_384 = 0;
+    BLOCK_HASH_SHA_384 = 0;
 }
 
 /**
