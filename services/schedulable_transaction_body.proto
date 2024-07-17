@@ -68,6 +68,7 @@ import "token_update_nfts.proto";
 import "token_reject.proto";
 import "token_cancel_airdrop.proto";
 import "token_claim_airdrop.proto";
+import "token_airdrop.proto";
 
 import "schedule_delete.proto";
 import "util_prng.proto";
@@ -336,5 +337,10 @@ message SchedulableTransactionBody {
      * Transaction body for a scheduled transaction to claim an airdrop.
      */
     TokenClaimAirdropTransactionBody tokenClaimAirdrop = 47;
+
+    /**
+     * Transaction body for a scheduled transaction to airdrop tokens.
+     */
+    TokenAirdropTransactionBody tokenAirdrop = 48;
   }
 }
