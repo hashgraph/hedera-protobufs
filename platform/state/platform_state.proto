@@ -321,7 +321,7 @@ message Address {
    * <p>
    * This SHALL be used for establishing TLS connections.
    */
-  bytes agree_cert = 10;
+  bytes agreement_certificate = 10;
 
   /**
    * A string that provides additional information about this consensus node.
