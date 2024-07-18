@@ -314,7 +314,7 @@ message Address {
    * <p>
    * This SHALL provide the public key used for signing.
    */
-  bytes sig_cert = 9;
+  bytes signing_certificate = 9;
 
   /**
    * The agreement x509 certificate of the consensus node.
