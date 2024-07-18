@@ -44,7 +44,7 @@ message AccountPendingAirdrop {
   /**
    * The value of the current airdrop id. SHALL NOT be set for non fungible tokens
    */
-  PendingAirdropValue pending_airdrop_value = 2;
+  PendingAirdropValue pending_airdrop_value = 1;
 
   /**
    * A pending airdrop identifier.<br/>
@@ -55,7 +55,7 @@ message AccountPendingAirdrop {
    * This SHALL match `pending_airdrop_id` if this is the only entry
    * in the "list".
    */
-  PendingAirdropId previous_airdrop = 3;
+  PendingAirdropId previous_airdrop = 2;
 
   /**
    * A pending airdrop identifier.<br/>
@@ -66,5 +66,5 @@ message AccountPendingAirdrop {
    * This SHALL match `pending_airdrop_id` if this is the only entry
    * in the "list".
    */
-  PendingAirdropId next_airdrop = 4;
+  PendingAirdropId next_airdrop = 3;
 }
