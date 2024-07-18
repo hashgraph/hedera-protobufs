@@ -13,8 +13,9 @@
     - [StateChange](#com-hedera-hapi-block-stream-output-StateChange)
     - [StateChanges](#com-hedera-hapi-block-stream-output-StateChanges)
   
-    - [NewStateChange.NewStateType](#com-hedera-hapi-block-stream-output-NewStateChange-NewStateType)
+    - [NewStateType](#com-hedera-hapi-block-stream-output-NewStateType)
     - [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause)
+    - [StateIdentifier](#com-hedera-hapi-block-stream-output-StateIdentifier)
   
 
 
@@ -30,20 +31,6 @@ during a block.
 The _ordered_ application of all `StateChanges` in a block to an initial
 state that matches network state at the beginning of that block MUST produce
 a resultant state that matches the network state at the end of that block.
-
-> REVIEW NOTE
->> We have quite a few very large bytes values in state (e.g. files,
->> contracts, etc..). Would it be worthwhile to store changes to a bytes
->> value as a simplified difference set? Would it be worthwhile to do the
->> same for repeated items (perhaps only when over some threshold in length)?
->> This might also help with things like the 0.0.98 problem, because we
->> could record an empty difference set for the large repeated items.
->
->> Another thought. Protobuf is pretty good at optimizing a difference/merge
->> entry for a protobuf encoded message. Could we perhaps only write changed
->> fields for state mutations and apply those changed fields to the existing
->> entity to recreate the modified state?
-
 
 ### Keywords
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -172,7 +159,7 @@ state change items specific to the type of state
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| state_type | [NewStateChange.NewStateType](#com-hedera-hapi-block-stream-output-NewStateChange-NewStateType) |  | The type (e.g. Singleton, Virtual Map, Queue) of state to add. |
+| state_type | [NewStateType](#com-hedera-hapi-block-stream-output-NewStateType) |  | The type (e.g. Singleton, Virtual Map, Queue) of state to add. |
 
 
 
@@ -239,7 +226,7 @@ An update to a `Singleton` state.
 | block_info_value | [proto.BlockInfo](#proto-BlockInfo) |  | A change to the block info singleton. <p> The `BlockInfo` SHALL be updated at the end of every block and SHALL store, among other fields, the last 256 block hash values. <blockquote>REVIEW NOTE<blockquote> The full BlockInfo will be in the state proof, and may not be necessary here.</blockquote></blockquote> |
 | congestion_level_starts_value | [proto.CongestionLevelStarts](#proto-CongestionLevelStarts) |  | A change to the congestion level starts singleton. <p> This change SHALL be present if congestion level pricing for general fees or gas fees started during the current block. |
 | entity_number_value | [proto.EntityNumber](#proto-EntityNumber) |  | A change to the Entity Identifier singleton. <p> The Entity Identifier singleton SHALL track the highest entity identifier used for the current shard and realm and SHALL be used to issue new entity numbers. |
-| exchange_rate_set_value | [proto.ExchangeRateSet](#proto-ExchangeRateSet) |  | A change to the exchange rates singleton. <p> This change SHALL be present if the HBAR`<=>`USD exchange rate, as stored in the "midnight rates" singleton changed during the current block. |
+| exchange_rate_set_value | [proto.ExchangeRateSet](#proto-ExchangeRateSet) |  | A change to the exchange rates singleton. <p> This change SHALL be present if the <tt>HBAR&lt;=&gt;USD</tt> exchange rate, as stored in the "midnight rates" singleton changed during the current block. |
 | network_staking_rewards_value | [proto.NetworkStakingRewards](#proto-NetworkStakingRewards) |  | A change to the network staking rewards singleton. <p> Network staking rewards SHALL be updated for every non-empty block. |
 | bytes_value | [google.protobuf.BytesValue](#google-protobuf-BytesValue) |  | A change to a raw byte array singleton. <p> This change SHALL present a change made to a raw byte array singleton.<br/> The "upgrade file hash" state is an example of a raw byte array singleton. |
 | string_value | [google.protobuf.StringValue](#google-protobuf-StringValue) |  | A change to a raw string singleton. <p> <dl><dt>Note</dt><dd>There are no current examples of a raw string singleton state.</dd></dl> |
@@ -270,7 +257,7 @@ TODO: Need documentation for how the merkle tree is constructed.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| state_name | [string](#string) |  | A state name. <p> This name SHALL identify the merkle subtree "state" to be modified and often corresponds to a `VirtualMap` name. |
+| state_id | [uint32](#uint32) |  | A state identifier.<br/> The reason we use an integer field here, and not an enum field is to better support forward compatibility. There will be many cases when a block node or other client (such as a dApp) with HAPI version N wants to process blocks from HAPI version N+1, for example. If we use a protobuf enum then when that is mapped Java or Rust it would not be parsed as an enum value because those languages do not support unknown enum values. ProtoC has a workaround for this but it is complex and requires non-deterministic parsing. Our solution to create an integer field and provide an enumeration for mapping that integer is intended as an acceptable compromise solution. <p> This number SHALL identify the merkle subtree "state" to be modified and often corresponds to a `VirtualMap` identifier. This number SHALL be a valid value for the `StateIdentifier` enum. |
 | state_add | [NewStateChange](#com-hedera-hapi-block-stream-output-NewStateChange) |  | Addition of a new state.<br/> This may be a singleton, virtual map, or queue state. |
 | state_remove | [RemovedStateChange](#com-hedera-hapi-block-stream-output-RemovedStateChange) |  | Removal of an existing state.<br/> The entire singleton, virtual map, or queue state is removed, and not just the contents. |
 | singleton_update | [SingletonUpdateChange](#com-hedera-hapi-block-stream-output-SingletonUpdateChange) |  | An add or update to a `Singleton` state. |
@@ -299,11 +286,24 @@ The order of state change sets SHALL be determined by the
 `consensus_timestamp`, which is a strictly ascending value
 determined by network consensus.
 
+### Consensus Timestamp
+This value enables a consumer of the block stream to order state
+changes by a consistent ascending value that is determined by network
+consensus. A primary use case would be to enter state changes in a
+time-series database.<br/>
+This value depends on the cause of the state change.
+ 1. For transactions, this is the transaction consensus timestamp.
+ 1. For events without transactions, this is the consensus timestamp of
+    the event (round?).
+ 1. For changes that are not the result of a transaction, but still follow
+    a transaction within an event, this is the consensus timestamp of the
+    preceding transaction.
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | cause | [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause) |  | The proximate source of this state change set. <p> This field describes the source (e.g. user transaction, system "housekeeping", end of block, etc...) of the changes included in this change set. |
-| consensus_timestamp | [proto.Timestamp](#proto-Timestamp) |  | The consensus timestamp of this set of changes. <p> This value SHALL be the same value the network used to order events in this block. |
+| consensus_timestamp | [proto.Timestamp](#proto-Timestamp) |  | The consensus timestamp of this set of changes. <p> This value SHALL be deterministic with the cause of the state change. |
 | state_changes | [StateChange](#com-hedera-hapi-block-stream-output-StateChange) | repeated | An ordered list of individual changes. <p> These changes MUST be applied in the order listed to produce a correct modified state. |
 
 
@@ -313,9 +313,9 @@ determined by network consensus.
  <!-- end messages -->
 
 
-<a name="com-hedera-hapi-block-stream-output-NewStateChange-NewStateType"></a>
+<a name="com-hedera-hapi-block-stream-output-NewStateType"></a>
 
-### NewStateChange.NewStateType
+### NewStateType
 An enumeration of the types of named states.<br/>
 The default, Singleton, is the type of state most frequently
 added and removed.
@@ -344,6 +344,72 @@ data migration, and "system" transactions.
 | STATE_CHANGE_CAUSE_SYSTEM | 1 | A system-internal state change.<br/> System-initiated transactions exist to enable the network to maintain state signatures and network communication. |
 | STATE_CHANGE_CAUSE_END_OF_BLOCK | 2 | A set of end-of-block state changes.<br/> The network performs certain processes, such as writing to the block stream, updating singleton states, or updating queue states at the end of a block to minimize impacts on consensus nodes. |
 | STATE_CHANGE_CAUSE_MIGRATION | 3 | A set of data migration state changes.<br/> Data migration is typically necessary following a network upgrade to make required storage format updates and enable new features. |
+
+
+
+<a name="com-hedera-hapi-block-stream-output-StateIdentifier"></a>
+
+### StateIdentifier
+An informational enumeration of all known states.
+This enumeration is included here So that people know the mapping from
+integer to state "name".
+
+State changes are expressed in terms of changes to named states at the
+high level conceptual model of the state type like map key/values or
+queue appends. To say which state the change is on we will include an
+`integer` number for the state name. This is done for performance and
+efficiency as there will be 10s of thousands of state changes in a block.
+
+We use an integer, and provide this enumeration, for the following reasons.
+- If we have a extra 8-10 bytes per state change at 40-50K state changes
+  per second then that is an extra 2.5-4 megabits of bandwidth. Compression
+  should help a lot but that is not guaranteed.
+- When the state name is used as part of complex key in the big state
+  merkle map. The smaller the key is, in bytes, the more efficient the
+  database is, because more keys can fit in a single disk page.
+- When parsing keys, parsing a UTF-8 string to a Java String is a many
+  times more expensive than parsing a VARINT to an integer.
+
+Note: This enumeration is never transmitted directly in the block stream.
+This enumeration is provided for clients to _interpret_ the value
+of the `StateChange`.`state_id` field.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| STATE_ID_TOPICS | 0 | A state identifier for the Topics state. |
+| STATE_ID_ENTITY_ID | 1 | A state identifier for the next entity Identifier. |
+| STATE_ID_ACCOUNTS | 2 | A state identifier for the Accounts state. |
+| STATE_ID_ALIASES | 3 | A state identifier for account aliases. |
+| STATE_ID_CONTRACT_STORAGE | 4 | A state identifier for contract storage slots. |
+| STATE_ID_CONTRACT_BYTECODE | 5 | A state identifier for contract bytecode. |
+| STATE_ID_FILES | 6 | A state identifier for Hedera File Service (HFS). |
+| STATE_ID_TOKENS | 7 | A state identifier for Hedera Token Service (HTS). |
+| STATE_ID_NFTS | 8 | A state identifier for non-fungible/unique tokens. |
+| STATE_ID_TOKEN_RELATIONS | 9 | A state identifier for token relationships. |
+| STATE_ID_STAKING_INFO | 10 | A state identifier for network staking information. |
+| STATE_ID_NETWORK_REWARDS | 11 | A state identifier for network staking rewards. |
+| STATE_ID_THROTTLE_USAGE | 12 | A state identifier for throttle usage. |
+| STATE_ID_CONGESTION_STARTS | 13 | A state identifier for network congestion start times. |
+| STATE_ID_SCHEDULES_BY_ID | 14 | A state identifier for scheduled transactions. |
+| STATE_ID_SCHEDULES_BY_EXPIRY | 15 | A state identifier for scheduled transaction expiration. |
+| STATE_ID_SCHEDULES_BY_EQUALITY | 16 | A state identifier for scheduled transaction deduplication. |
+| STATE_ID_MIDNIGHT_RATES | 17 | A state identifier for conversion rate updates. |
+| STATE_ID_RUNNING_HASHES | 18 | A state identifier for the network running hash(es). |
+| STATE_ID_BLOCK_INFO | 19 | A state identifier for network block information. |
+| STATE_ID_NODES | 20 | A state identifier for address book nodes. |
+| STATE_ID_UPGRADE_FILE | 21 | A state identifier for the next "upgrade" file. |
+| STATE_ID_UPGRADE_FILE_HASH | 22 | A state identifier for the hash of the next "upgrade" file. |
+| STATE_ID_FREEZE_TIME | 23 | A state identifier for the next network freeze time. |
+| STATE_ID_UPGRADE_DATA_150 | 10001 | A state for the `150` upgrade file data |
+| STATE_ID_UPGRADE_DATA_151 | 10002 | A state for the `151` upgrade file data |
+| STATE_ID_UPGRADE_DATA_152 | 10003 | A state for the `152` upgrade file data |
+| STATE_ID_UPGRADE_DATA_153 | 10004 | A state for the `153` upgrade file data |
+| STATE_ID_UPGRADE_DATA_154 | 10005 | A state for the `154` upgrade file data |
+| STATE_ID_UPGRADE_DATA_155 | 10006 | A state for the `155` upgrade file data |
+| STATE_ID_UPGRADE_DATA_156 | 10007 | A state for the `156` upgrade file data |
+| STATE_ID_UPGRADE_DATA_157 | 10008 | A state for the `157` upgrade file data |
+| STATE_ID_UPGRADE_DATA_158 | 10009 | A state for the `158` upgrade file data |
+| STATE_ID_UPGRADE_DATA_159 | 10010 | A state for the `159` upgrade file data |
 
 
  <!-- end enums -->

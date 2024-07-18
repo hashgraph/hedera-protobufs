@@ -36,10 +36,13 @@ in the original transaction nor present in state changes.
 >> and also not reflected in state changes. All other transaction types
 >> are _currently_ not included here. We have, however, allocated names
 >> and indexes for those transaction types to preserve consistency if we
->> add them later. We have reserved field indexes 9 to 43 for this purpose.
+>> add them later.
 
 <!--
 Reserved definitions:
+import "stream/output/consensus_service.proto";
+   SubmitMessageOutput submit_message;
+
 import "stream/smart_contract_service.proto";
    UpdateContractOutput contract_update;
    DeleteContractOutput contract_delete;
@@ -95,7 +98,6 @@ import "stream/network_service.proto";
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| submit_message | [SubmitMessageOutput](#com-hedera-hapi-block-stream-output-SubmitMessageOutput) |  | Output from a submit message transaction. |
 | crypto_transfer | [CryptoTransferOutput](#com-hedera-hapi-block-stream-output-CryptoTransferOutput) |  | Output from a crypto transfer transaction. |
 | util_prng | [UtilPrngOutput](#com-hedera-hapi-block-stream-output-UtilPrngOutput) |  | Output from a utilPrng transaction to request a deterministic pseudo-random number. |
 | contract_call | [CallContractOutput](#com-hedera-hapi-block-stream-output-CallContractOutput) |  | Output from a contract call transaction. |

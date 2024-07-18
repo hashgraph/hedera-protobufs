@@ -159,7 +159,7 @@ message TransactionResult {
      * A congestion pricing multiplier.
      * <p>
      * This SHALL be the multiplier that is applied to the transaction
-     *fees charged for this transaction.
+     * fees charged for this transaction.
      */
     uint64 congestion_pricing_multiplier = 11;
 }

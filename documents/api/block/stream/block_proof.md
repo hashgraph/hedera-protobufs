@@ -2,7 +2,7 @@
 
 - [stream/block_proof.proto](#stream_block_proof-proto)
     - [BlockProof](#com-hedera-hapi-block-stream-BlockProof)
-    - [BlockSignature](#com-hedera-hapi-block-stream-BlockSignature)
+    - [MerkleSiblingHash](#com-hedera-hapi-block-stream-MerkleSiblingHash)
   
 
 
@@ -68,8 +68,10 @@ structured in a strictly binary tree.
          the block items are encountered in the stream.
       1. The fourth leaf MUST be the merkle tree root hash for network state
          at the end of the block, and is a single 48-byte value.
-- The block hash SHALL be the SHA-384 hash calculated for the root
-  of this merkle tree.
+- The block hash SHALL be the hash calculated for the root of this merkle
+  tree.
+- The hash algorithm used SHALL be the algorithm specified in the
+  corresponding block header.
 
 The "inputs" and "outputs" subtrees SHALL be "complete" binary merkle trees,
 with nodes that would otherwise be missing replaced by a "null" hash
@@ -78,33 +80,34 @@ leaf.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| round | [uint64](#uint64) |  | The round this proof secures.<br/> We provide this because a proof for a future round can be used to prove the state of the ledger at that round and the rounds before it.<br/> <p> This value SHOULD match the round of the current block, under normal operation. |
-| block_root_hash | [bytes](#bytes) |  | A merkle root hash. <p> This MUST contain a SHA-384 hash of the "block" merkle tree root. |
-| block_signature | [BlockSignature](#com-hedera-hapi-block-stream-BlockSignature) |  | A TSS-BLS network signature. <p> This signature SHALL use a TSS-BLS threshold signature to provide a single signature that represents the consensus signature of at least the current threshold (i.e. 2/3 + 1) of consensus nodes. The exact subset of nodes that signed SHALL neither be known nor tracked, but it SHALL be cryptographically verifiable that the threshold was met if the signature itself can be validated with the network public key. |
+| block | [uint64](#uint64) |  | The block this proof secures.<br/> We provide this because a proof for a future block can be used to prove the state of the ledger at that block and the blocks before it.<br/> <p> This value SHOULD match the block number of the current block, under normal operation. |
+| previous_block_root_hash | [bytes](#bytes) |  | A merkle root hash of the previous block. <p> This MUST contain a hash of the "block" merkle tree root for the previous block.<br/> The hash algorithm used MUST match the algorithm declared in the block header _for that block_. |
+| end_of_block_state_root_hash | [bytes](#bytes) |  | A merkle root hash of the network state.<br/> This is present to support validation of this block proof by clients that do not maintain a full copy of the network state. <p> This MUST contain a hash of the "state" merkle tree root at the end of the current block (which this block proof verifies).<br/> State processing clients SHOULD calculate the state root hash independently and SHOULD NOT rely on this value.<br/> Stateless (non-state-processing) clients MUST use this value to construct the block merkle tree. |
+| block_signature | [bytes](#bytes) |  | A TSS signature for one block.<br/> This is a single signature representing the collection of partial signatures from nodes holding strictly greater than 2/3 of the current network "weight" in aggregate. The signature is produced by cryptographic "aggregation" of the partial signatures to produce a single signature that can be verified with the network public key, but could not be produced by fewer nodes than required to meet the threshold for network stake "weight". <p> This message MUST make use of a threshold signature scheme like `BLS` which provides the necessary cryptographic guarantees.<br/> This signature SHALL use a TSS signature to provide a single signature that represents the consensus signature of consensus nodes.<br/> The exact subset of nodes that signed SHALL neither be known nor tracked, but it SHALL be cryptographically verifiable that the threshold was met if the signature itself can be validated with the network public key (a.k.a `LedgerID`). |
+| sibling_hashes | [MerkleSiblingHash](#com-hedera-hapi-block-stream-MerkleSiblingHash) | repeated | A set of hash values along with ordering information.<br/> This list of hash values form the set of sibling hash values needed to correctly reconstruct the parent hash, and all hash values "above" that hash in the merkle tree. <p> A Block proof can be constructed by combining the sibling hashes for a previous block hash and sibling hashes for each entry "above" that node in the merkle tree of a block proof that incorporates that previous block hash. This form of block proof may be used to prove a chain of blocks when one or more older blocks is missing the original block proof that signed the block's merkle root directly. <p> This list MUST be ordered from the sibling of the node that contains this block's root node hash, and continues up the merkle tree to the root hash of the signed block proof. <p> If this block proof has a "direct" signature, then this list MUST be empty.<br/> If this list is not empty, then this block proof MUST be verified by first constructing the "block" merkle tree and computing the root hash of that tree, then combining that hash with the values in this list, paying attention to the first/second sibling ordering, until the root merkle hash is produced from the last pair of sibling hashes. That "secondary" root hash MUST then be verified using the value of `block_signature`. |
 
 
 
 
 
 
-<a name="com-hedera-hapi-block-stream-BlockSignature"></a>
+<a name="com-hedera-hapi-block-stream-MerkleSiblingHash"></a>
 
-### BlockSignature
-A TSS-BLS signature for one block.
-This is a single signature representing the collection of partial
-signatures from nodes holding strictly greater than 2/3 of the current
-network "weight" in aggregate. The signature is produced by cryptographic
-"aggregation" of the partial signatures to produce a single signature that
-can be verified with the network public key, but could not be produced by
-fewer nodes than required to meet the threshold for network stake "weight".
+### MerkleSiblingHash
+A hash of a "sibling" to an entry in a Merkle tree.
 
-This message MUST make use of a threshold signature scheme like `BLS` which
-provides the necessary cryptographic guarantees.
+When constructing a binary merkle tree, each internal node is a hash
+constructed from the hash of two "descendant" nodes. Those two nodes
+are "siblings" and the order (first, second) in which the two hash values
+are combined affects the parent hash.<br/>
+This may be used to reconstruct a portion of a merkle tree starting from
+a node of interest up to the root of the tree.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| signature | [bytes](#bytes) |  | A single TSS-BLS signature for the block merkle tree. |
+| is_first | [bool](#bool) |  | A flag for the position of this sibling. <p> If this is set then this sibling MUST be the first hash in the pair of sibling hashes of a binary merkle tree.<br/> If this is unset, then this sibling MUST be the second hash in the pair of sibling hashes of a binary merkle tree. |
+| sibling_hash | [bytes](#bytes) |  | A byte array of a sibling hash.<br/> This is the hash for the sibling at this point in the merkle tree. <p> The algorithm for this hash SHALL match the algorithm for the block that contains this sibling.<br/> This SHALL contain the raw (e.g.) 384 bits (48 bytes) of the hash value. |
 
 
 

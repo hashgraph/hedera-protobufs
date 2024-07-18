@@ -66,23 +66,22 @@ option java_package = "com.hedera.hapi.block.protoc";
 // <<<pbj.java_package = "com.hedera.hapi.block">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
+import "basic_types.proto";
 import "stream/block.proto";
 import "stream/block_item.proto";
 
-// ---- WriteBlockStream RPC ----
-
 /**
- * Write a stream of blocks.
+ * Publish a stream of blocks.
  *
  * Each item in the stream MUST contain one `BlockItem`.<br/>
  * Each Block MUST begin with a single `BlockHeader` block item.<br/>
  * The block node SHALL append each `BlockItem` to an internal structure
- * to construct full blocks.<br/>
- * The block node MUST verify the running hash for each item before sending a
- * response message acknowledging that item.
+ * to reconstruct full blocks.<br/>
+ * The block node MUST verify the block proof for each block before sending a
+ * response message acknowledging that block.<br/>
  * Each Block MUST end with a single `BlockStateProof` block item.<br/>
  * The block node MUST verify the Block using the `BlockStateProof` to
- * ensure all data was received correctly.<br/>
+ * ensure all data was received and processed correctly.<br/>
  */
 message PublishStreamRequest {
     /**
@@ -92,17 +91,18 @@ message PublishStreamRequest {
 }
 
 /**
- * A partial response to writing a block stream.
+ * A response to writing a block stream.
  *
- * This message is sent in response to each BlockItem in a block stream sent
+ * This message is sent in response to each Block in a block stream sent
  * to a block node. The block stream is sent as a stream of messages, and each
- * message MUST be acknowledged with a message of this type.<br/>
- * Each `BlockItem` SHALL be acknowledged with an
- * `Acknowledgement` response.<br/>
- * Each completed block SHALL be acknowledged with an
- * `Acknowledgement` response.<br/>
+ * message MAY be acknowledged with a message of this type.<br/>
+ * Each `BlockItem` MAY be acknowledged with an `Acknowledgement`
+ * response. Item acknowledgement is an OPTIONAL feature.<br/>
+ * Each completed block SHALL be acknowledged with an `Acknowledgement`
+ * response. Block acknowledgement is a REQUIRED feature.<br/>
  * A final response SHALL be sent with an `EndOfStream` status result after
- * the last block stream item is received.<br/>
+ * the last block stream item is received, or when the receiving system
+ * must end the stream for any reason.<br/>
  * If a failure is detected (which may include a block or block item that
  * fails validation) an `EndOfStream` response SHALL be sent with a
  * relevant error status.
@@ -110,7 +110,7 @@ message PublishStreamRequest {
 message PublishStreamResponse {
     oneof response {
         /**
-         * A response sent for each item and for each block.
+         * A response sent for each block, and optionally for each item.
          */
         Acknowledgement acknowledgement = 1;
 
@@ -128,21 +128,28 @@ message PublishStreamResponse {
         oneof acknowledgements {
             /**
              * A response type to acknowledge a full and complete block.
+             * <p>
+             * All block node implementations SHOULD acknowledge each block.
              */
             BlockAcknowledgement block_ack = 1;
 
             /**
-             * A response type to acknowledge a single `BlockItem`.
+             * A response type to acknowledge a single `BlockItem`.<br/>
+             * This is an OPTIONAL message and implementations MAY choose to
+             * only acknowledge full blocks.
              */
             ItemAcknowledgement item_ack = 2;
         }
     }
 
     /**
-     * Acknowledgement for a single `BlockItem`.
+     * Acknowledgement for a single `BlockItem`.<br/>
+     * Most nodes are expected to implement this acknowledgement only for
+     * debugging and development purposes.
      *
-     * The block node SHALL send one `ItemAcknowledgement` for each `BlockItem`
-     * received and verified.<br/>
+     * If a node implements single item acknowledgement, the block node SHALL
+     * send one `ItemAcknowledgement` for each `BlockItem` received
+     * and verified.
      */
     message ItemAcknowledgement {
         /**
@@ -157,40 +164,53 @@ message PublishStreamResponse {
     }
 
     /**
-     * Acknowledgement of a full block.
+     * Acknowledgement of a full block.<br/>
+     * This message is a necessary part of the block streaming protocol.
      *
      * This response SHALL be sent after a block state proof item is
      * received and verified.<br/>
      * The block node SHALL send exactly one `BlockAcknowledgement` for
      * each successful block.<br/>
-     * The `BlockAcknowledgement` response SHALL be sent after sending an
+     * The `BlockAcknowledgement` response MAY be sent after sending an
      * `ItemAcknowledgement` response for the `BlockStateProof` item
-     * at the end of the block.
+     * at the end of the block, if item acknowledgement is enabled.
      */
     message BlockAcknowledgement {
         /**
-         * The number of the acknowledged block.
+         * A block number number of the acknowledged block.
          * <p>
          * A source system SHOULD verify that this value matches the block sent.
          */
         uint64 block_number = 1;
 
         /**
-         * A flag indicating that the received block duplicates an
-         * existing block.<br/>
-         * If a source system receives acknowledgement with this flag set
-         * true the source system SHOULD end the stream and query the block
-         * node for the highest known block before continuing.
+         * A hash of the virtual merkle root for the block.
+         * <p>
+         * This SHALL be the hash calculated by the block node for the
+         * root node of the virtual merkle tree that is signed by the source
+         * system to validate the block.
          */
-        bool block_already_exists = 2;
+        bytes block_root_hash = 2;
+
+        /**
+         * A flag indicating that the received block duplicates an
+         * existing block.
+         * <p>
+         * If a source system receives acknowledgement with this flag set
+         * true the source system SHOULD end the stream. The `block_number`
+         * returned SHALL be the last block known and verified by the receiving
+         * system, and the source system MAY resume publishing immediately
+         * after that block.
+         */
+        bool block_already_exists = 3;
     }
 
     /**
      * A message sent to end a stream.
      *
      * This response message SHALL be sent from a block node to a block
-     * stream source system when a `writeBlockStream` stream ends.<br/>
-     * This message SHALL be sent exactly once for each `writeBlockStream`
+     * stream source system when a `publishBlockStream` stream ends.<br/>
+     * This message SHALL be sent exactly once for each `publishBlockStream`
      * call.<br/>
      * The source system SHALL cease sending block items upon receiving
      * this response, and MAY determine the ending state of the stream from
@@ -226,7 +246,7 @@ message PublishStreamResponse {
  * An enumeration indicating the status of this request.
  *
  * This enumeration describes the reason a block stream
- * (sent via `writeBlockStream`) ended.
+ * (sent via `publishBlockStream`) ended.
  */
 enum PublishStreamResponseCode {
     /**
@@ -259,9 +279,20 @@ enum PublishStreamResponseCode {
      * The source MUST start a new stream before the failed block.
      */
     STREAM_ITEMS_BAD_STATE_PROOF = 4;
-}
 
-// ---- ReadBlock RPC ----
+    /**
+     * The block node is "behind" the publisher.<br/>
+     * Ths consensus node has sent a block later than this block node
+     * can process. The publisher may retry by sending blocks immediately
+     * following the `block_number` returned, or may end the stream and
+     * try again later.
+     * <p>
+     * Block nodes that are "behind" SHOULD attempt to "catch up" by requesting
+     * blocks from another block node or other source of recent historical
+     * block stream data.
+     */
+    STREAM_ITEMS_BEHIND = 5;
+}
 
 /**
  * A request to read a single block.
@@ -298,7 +329,7 @@ message SingleBlockRequest {
 }
 
 /**
- * A response to a `readBlock` request.
+ * A response to a `singleBlock` request.
  *
  * This message SHALL be sent in response to a request, and SHALL contain at
  * least a valid `status`.<br/>
@@ -373,14 +404,11 @@ enum SingleBlockResponseCode {
     READ_BLOCK_NOT_AVAILABLE = 4;
 }
 
-// ---- ReadBlockStream RPC ----
-
-
 /**
  * A request to stream block items from block node to a client.
  *
  * The block node SHALL respond to this request with a stream of
- * `ReadStreamResponse` messages.<br/>
+ * `SubscribeStreamResponse` messages.<br/>
  * The block node SHALL stream the full contents of the blocks requested.<br/>
  * The block items SHALL be streamed in order originally produced within
  * a block.<br/>
@@ -391,22 +419,10 @@ enum SingleBlockResponseCode {
  * when the stream is complete.<br/>
  * The client SHOULD call the `serverStatus` rpc prior to constructing this
  * request to determine the available start and end blocks.
- *
- * > REVIEW NOTE
- * >> This lacks application-level error detection. If the client receives
- * >> a bad message (e.g. due to networking errors) it must await the full
- * >> stream, then determine which item failed, then request at least one,
- * >> and possibly many, blocks again.
- * >
- * >> Should we offer a more callback-style interface where the client
- * >> offers a gRPC endpoint that implements `publishBlockStream`, as
- * >> specified below? That would allow the client to perform ack/nack
- * >> on a per-item basis and we could immediately retransmit only
- * >> failed items (reducing waste).
  */
 message SubscribeStreamRequest {
     /**
-     * A block number
+     * A block number to start the stream.
      * <p>
      * This SHALL be the block number of the first block returned.<br/>
      * This field MUST be less than or equal to the latest available
@@ -415,28 +431,34 @@ message SubscribeStreamRequest {
     uint64 start_block_number = 1;
 
     /**
-     * A block number
+     * A block number to end the stream.<br/>
+     * This is optional, and if not set (0), the stream will be "infinite".
      * <p>
-     * This value SHALL be the block number of the last block returned.<br/>
-     * This field MUST NOT be less than `start_block_number`.<br/>
-     * This SHOULD be a block number that is immediately available from the
-     * block node.<br/>
-     * A block node SHALL continue to stream blocks until the last requested
-     * block is transmitted.<br/>
-     * A block node implementation MAY reject a request for a block that is not
-     * yet available.<br/>
-     * A block node implementation MAY accept future block numbers.
-     * Block node implementations SHOULD charge increased fees for such
-     * "future" streams.
+     * This field MAY be zero (`0`) to indicate the stream SHOULD continue
+     * indefinitely, streaming new blocks as each becomes available.<br/>
+     * If this value is greater than zero (`0`)
+     * <ul>
+     *   <li>This value SHALL be the number of the last block returned.</li>
+     *   <li>This field MUST NOT be less than `start_block_number`.</li>
+     *   <li>This SHOULD be a block number that is immediately available
+     *       from the block node.</li>
+     *   <li>A block node SHALL continue to stream blocks until the last
+     *       requested block is transmitted.</li>
+     *   <li>A block node implementation MAY reject a request for a block
+     *       that is not yet available.</li>
+     *   <li>A block node implementation MAY accept future block numbers.</li>
+     *   <li>Block node implementations MAY charge increased fees for such
+     *       "future" streams.</li>
+     * </ul>
      */
     uint64 end_block_number = 2;
 }
 
 /**
- * One item in a stream of `readBlockStream` responses.
+ * One item in a stream of `subscribeBlockStream` responses.
  *
- * The block node SHALL respond to a `readBlockStream` request with a stream
- * of `ReadStreamResponse` messages.<br/>
+ * The block node SHALL respond to a `subscribeBlockStream` request with a
+ * stream of `SubscribeStreamResponse` messages.<br/>
  * The block node SHALL stream the full contents of the blocks requested.<br/>
  * The block items SHALL be streamed in order originally produced within
  * a block.<br/>
@@ -522,8 +544,6 @@ enum SubscribeStreamResponseCode {
      */
     READ_STREAM_INVALID_END_BLOCK_NUMBER = 4;
 }
-
-// ---- StateSnapshot RPC ----
 
 /**
  * A request to read a state snapshot.
@@ -667,6 +687,54 @@ message ServerStatusResponse {
      * in any `StateSnapshotRequest` sent to this block node.
      */
     bool only_latest_state = 3;
+
+    /**
+     * Version information.<br/>
+     * Versions for the block network address book, block stream protocol
+     * buffer schema, and block node software.
+     */
+    BlockNodeVersions version_information = 4;
+}
+
+/**
+ * Version information for a block node.
+ *
+ * The `stream_proto_version` SHOULD be an officially released Block Stream
+ * version.
+ * The `address_book_version` SHALL be defined by networks of block nodes.
+ * The `software_version` SHALL be defined by the implementation of the
+ * Block Node specification.
+ */
+message BlockNodeVersions {
+    /**
+     * A version of the Block Node network address book.<br/>
+     * The address book version describes what version of address book
+     * this block node holds for discovering and identifying other block nodes.
+     * <p>
+     * This version SHALL be specific to each "network" of interconnected
+     * Block Nodes.
+     */
+    proto.SemanticVersion address_book_version = 1;
+
+    /**
+     * A version of the Block Stream specification.<br/>
+     * This is the Stream version currently supported by this Block Node.
+     * <p>
+     * Implementations SHOULD make reasonable effort to ensure the latest
+     * released Block Stream version is supported.<br/>
+     * This version MUST be an officially released Block Stream version if
+     * the responding block node is not private.
+     */
+    proto.SemanticVersion stream_proto_version = 2;
+
+    /**
+     * A version of the block node software.<br/>
+     * This is the software version that this block node is currently
+     * running.
+     * <p>
+     * This value is implementation-defined.
+     */
+    proto.SemanticVersion software_version = 3;
 }
 
 /**
@@ -725,8 +793,11 @@ service BlockStreamService {
      * The block items SHALL be streamed in order originally produced within
      * a block.<br/>
      * The blocks shall be streamed in ascending order by `block_number`.<br/>
-     * The block node SHALL end the stream when the last requested block has
-     * been sent.<br/>
+     * The block node SHALL end the stream when the last requested block,
+     * if set, has been sent.<br/>
+     * A request with an end block of `0` SHALL be interpreted to indicate the
+     * stream has no end. The block node SHALL continue to stream new blocks
+     * as soon as each becomes available.<br/>
      * The block node SHALL end the stream with response code containing a
      * status of SUCCESS when the stream is complete.<br/>
      * The block node SHALL end the stream with a response code containing a
@@ -739,5 +810,5 @@ service BlockStreamService {
      * of the request as possible in the event payment is not sufficient to
      * complete the request.
      */
-    rpc subscribeBlockStream(stream SubscribeStreamRequest) returns (stream SubscribeStreamResponse);
+    rpc subscribeBlockStream(SubscribeStreamRequest) returns (stream SubscribeStreamResponse);
 }

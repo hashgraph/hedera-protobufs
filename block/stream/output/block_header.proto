@@ -12,7 +12,7 @@
  */
 syntax = "proto3";
 
-package com.hedera.hapi.block.stream;
+package com.hedera.hapi.block.stream.output;
 
 /*
  * Copyright (C) 2024 Hedera Hashgraph, LLC
@@ -30,11 +30,12 @@ package com.hedera.hapi.block.stream;
  * limitations under the License.
  */
 
-option java_package = "com.hedera.hapi.block.stream.protoc";
-// <<<pbj.java_package = "com.hedera.hapi.block.stream">>> This comment is special code for setting PBJ Compiler java package
+option java_package = "com.hedera.hapi.block.stream.output.protoc";
+// <<<pbj.java_package = "com.hedera.hapi.block.stream.output">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "basic_types.proto";
+import "timestamp.proto";
 
 /**
  * A Block Header.
@@ -55,22 +56,30 @@ import "basic_types.proto";
  */
 message BlockHeader {
     /**
-     * Version of the HAPI specification that was used to serialize the block.
+     * A version of the HAPI specification.<br/>
+     * This is the API version that was used to serialize the block.
      */
     proto.SemanticVersion hapi_proto_version = 1;
 
     /**
-     * The block number of this block.
+     * A version of the consensus node software.<br/>
+     * This is the software version that executed the transactions
+     * within this block.
+     */
+    proto.SemanticVersion software_version = 2;
+
+    /**
+     * A block number for this block.
      * <p>
      * This value MUST be exactly `1` more than the previous block.<br/>
      * Client systems SHOULD optimistically reject any block with a gap or
      * reverse in `number` sequence, and MAY assume the block stream has
      * encountered data loss, data corruption, or unauthorized modification.
      */
-    uint64 number = 2;
+    uint64 number = 3;
 
     /**
-     * The block proof hash for the previous block.
+     * A block root hash for the previous block.
      * <p>
      * This value MUST match the block merkle tree root hash of the previous
      * block in the block stream.<br/>
@@ -127,12 +136,22 @@ message BlockHeader {
      *       of this merkle tree.</li>
      * </ul>
      */
-    bytes previous_block_proof_hash = 3;
+    bytes previous_block_hash = 4;
 
     /**
-     * The hash algorithm used in this block.
+     * A consensus timestamp for the start of this block.
+     * <p>
+     * This SHALL be the timestamp assigned by the hashgraph consensus
+     * algorithm to the first transaction of this block.
      */
-    BlockHashAlgorithm hash_algorithm = 4;
+    proto.Timestamp first_transaction_consensus_time = 5;
+
+    /**
+     * A hash algorithm used for this block, including the block proof.
+     * <p>
+     * This SHOULD always be `SHA2_384`, currently.
+     */
+    proto.BlockHashAlgorithm hash_algorithm = 6;
 
     /**
      * A version for the network address book.<br/>
@@ -142,24 +161,5 @@ message BlockHeader {
      * This MUST be the version of the address book that signed this
      * block.
      */
-    proto.SemanticVersion address_book_version = 5;
-}
-
-/**
- * A specific hash algorithm used within a block.
- *
- * We did not reuse HashAlgorithm here because in all cases for now it will
- * be `SHA_384` and if that is the default value then we can save space by
- * not serializing it, whereas `HASH_ALGORITHM_UNKNOWN` is the
- * default for HashAlgorithm.
- */
-enum BlockHashAlgorithm {
-    /**
-     * A SHA2 algorithm SHA-384 hash.
-     * <p>
-     * This is the default value, if a field of this enumerated type is
-     * not set, then this is the value that will be decoded when the
-     * serialized message is read.
-     */
-    SHA_384 = 0;
+    proto.SemanticVersion address_book_version = 7;
 }

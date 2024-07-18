@@ -1,6 +1,7 @@
 ## Table of Contents
 
 - [block_service.proto](#block_service-proto)
+    - [BlockNodeVersions](#com-hedera-hapi-block-BlockNodeVersions)
     - [PublishStreamRequest](#com-hedera-hapi-block-PublishStreamRequest)
     - [PublishStreamResponse](#com-hedera-hapi-block-PublishStreamResponse)
     - [PublishStreamResponse.Acknowledgement](#com-hedera-hapi-block-PublishStreamResponse-Acknowledgement)
@@ -16,10 +17,10 @@
     - [SubscribeStreamRequest](#com-hedera-hapi-block-SubscribeStreamRequest)
     - [SubscribeStreamResponse](#com-hedera-hapi-block-SubscribeStreamResponse)
   
-    - [PublishStreamResponse.ResponseCode](#com-hedera-hapi-block-PublishStreamResponse-ResponseCode)
-    - [SingleBlockResponse.ResponseCode](#com-hedera-hapi-block-SingleBlockResponse-ResponseCode)
-    - [StateSnapshotResponse.ResponseCode](#com-hedera-hapi-block-StateSnapshotResponse-ResponseCode)
-    - [SubscribeStreamResponse.ResponseCode](#com-hedera-hapi-block-SubscribeStreamResponse-ResponseCode)
+    - [PublishStreamResponseCode](#com-hedera-hapi-block-PublishStreamResponseCode)
+    - [SingleBlockResponseCode](#com-hedera-hapi-block-SingleBlockResponseCode)
+    - [StateSnapshotResponseCode](#com-hedera-hapi-block-StateSnapshotResponseCode)
+    - [SubscribeStreamResponseCode](#com-hedera-hapi-block-SubscribeStreamResponseCode)
   
     - [BlockStreamService](#com-hedera-hapi-block-BlockStreamService)
   
@@ -74,20 +75,43 @@ document are to be interpreted as described in
 [RFC8174](https://www.ietf.org/rfc/rfc8174).
 
 
+<a name="com-hedera-hapi-block-BlockNodeVersions"></a>
+
+### BlockNodeVersions
+Version information for a block node.
+
+The `stream_proto_version` SHOULD be an officially released Block Stream
+version.
+The `address_book_version` SHALL be defined by networks of block nodes.
+The `software_version` SHALL be defined by the implementation of the
+Block Node specification.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| address_book_version | [proto.SemanticVersion](#proto-SemanticVersion) |  | A version of the Block Node network address book.<br/> The address book version describes what version of address book this block node holds for discovering and identifying other block nodes. <p> This version SHALL be specific to each "network" of interconnected Block Nodes. |
+| stream_proto_version | [proto.SemanticVersion](#proto-SemanticVersion) |  | A version of the Block Stream specification.<br/> This is the Stream version currently supported by this Block Node. <p> Implementations SHOULD make reasonable effort to ensure the latest released Block Stream version is supported.<br/> This version MUST be an officially released Block Stream version if the responding block node is not private. |
+| software_version | [proto.SemanticVersion](#proto-SemanticVersion) |  | A version of the block node software.<br/> This is the software version that this block node is currently running. <p> This value is implementation-defined. |
+
+
+
+
+
+
 <a name="com-hedera-hapi-block-PublishStreamRequest"></a>
 
 ### PublishStreamRequest
-Write a stream of blocks.
+Publish a stream of blocks.
 
 Each item in the stream MUST contain one `BlockItem`.<br/>
 Each Block MUST begin with a single `BlockHeader` block item.<br/>
 The block node SHALL append each `BlockItem` to an internal structure
-to construct full blocks.<br/>
-The block node MUST verify the running hash for each item before sending a
-response message acknowledging that item.
+to reconstruct full blocks.<br/>
+The block node MUST verify the block proof for each block before sending a
+response message acknowledging that block.<br/>
 Each Block MUST end with a single `BlockStateProof` block item.<br/>
 The block node MUST verify the Block using the `BlockStateProof` to
-ensure all data was received correctly.<br/>
+ensure all data was received and processed correctly.<br/>
 
 
 | Field | Type | Label | Description |
@@ -102,17 +126,18 @@ ensure all data was received correctly.<br/>
 <a name="com-hedera-hapi-block-PublishStreamResponse"></a>
 
 ### PublishStreamResponse
-A partial response to writing a block stream.
+A response to writing a block stream.
 
-This message is sent in response to each BlockItem in a block stream sent
+This message is sent in response to each Block in a block stream sent
 to a block node. The block stream is sent as a stream of messages, and each
-message MUST be acknowledged with a message of this type.<br/>
-Each `BlockItem` SHALL be acknowledged with an
-`Acknowledgement` response.<br/>
-Each completed block SHALL be acknowledged with an
-`Acknowledgement` response.<br/>
+message MAY be acknowledged with a message of this type.<br/>
+Each `BlockItem` MAY be acknowledged with an `Acknowledgement`
+response. Item acknowledgement is an OPTIONAL feature.<br/>
+Each completed block SHALL be acknowledged with an `Acknowledgement`
+response. Block acknowledgement is a REQUIRED feature.<br/>
 A final response SHALL be sent with an `EndOfStream` status result after
-the last block stream item is received.<br/>
+the last block stream item is received, or when the receiving system
+must end the stream for any reason.<br/>
 If a failure is detected (which may include a block or block item that
 fails validation) an `EndOfStream` response SHALL be sent with a
 relevant error status.
@@ -120,7 +145,7 @@ relevant error status.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| acknowledgement | [PublishStreamResponse.Acknowledgement](#com-hedera-hapi-block-PublishStreamResponse-Acknowledgement) |  | A response sent for each item and for each block. |
+| acknowledgement | [PublishStreamResponse.Acknowledgement](#com-hedera-hapi-block-PublishStreamResponse-Acknowledgement) |  | A response sent for each block, and optionally for each item. |
 | status | [PublishStreamResponse.EndOfStream](#com-hedera-hapi-block-PublishStreamResponse-EndOfStream) |  | A response sent when a stream ends. |
 
 
@@ -137,8 +162,8 @@ or full block.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| block_ack | [PublishStreamResponse.BlockAcknowledgement](#com-hedera-hapi-block-PublishStreamResponse-BlockAcknowledgement) |  | A response type to acknowledge a full and complete block. |
-| item_ack | [PublishStreamResponse.ItemAcknowledgement](#com-hedera-hapi-block-PublishStreamResponse-ItemAcknowledgement) |  | A response type to acknowledge a single `BlockItem`. |
+| block_ack | [PublishStreamResponse.BlockAcknowledgement](#com-hedera-hapi-block-PublishStreamResponse-BlockAcknowledgement) |  | A response type to acknowledge a full and complete block. <p> All block node implementations SHOULD acknowledge each block. |
+| item_ack | [PublishStreamResponse.ItemAcknowledgement](#com-hedera-hapi-block-PublishStreamResponse-ItemAcknowledgement) |  | A response type to acknowledge a single `BlockItem`.<br/> This is an OPTIONAL message and implementations MAY choose to only acknowledge full blocks. |
 
 
 
@@ -148,21 +173,23 @@ or full block.
 <a name="com-hedera-hapi-block-PublishStreamResponse-BlockAcknowledgement"></a>
 
 ### PublishStreamResponse.BlockAcknowledgement
-Acknowledgement of a full block.
+Acknowledgement of a full block.<br/>
+This message is a necessary part of the block streaming protocol.
 
 This response SHALL be sent after a block state proof item is
 received and verified.<br/>
 The block node SHALL send exactly one `BlockAcknowledgement` for
 each successful block.<br/>
-The `BlockAcknowledgement` response SHALL be sent after sending an
+The `BlockAcknowledgement` response MAY be sent after sending an
 `ItemAcknowledgement` response for the `BlockStateProof` item
-at the end of the block.
+at the end of the block, if item acknowledgement is enabled.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| block_number | [uint64](#uint64) |  | The number of the acknowledged block. <p> A source system SHOULD verify that this value matches the block sent. |
-| block_already_exists | [bool](#bool) |  | A flag indicating that the received block duplicates an existing block.<br/> If a source system receives acknowledgement with this flag set true the source system SHOULD end the stream and query the block node for the highest known block before continuing. |
+| block_number | [uint64](#uint64) |  | A block number number of the acknowledged block. <p> A source system SHOULD verify that this value matches the block sent. |
+| block_root_hash | [bytes](#bytes) |  | A hash of the virtual merkle root for the block. <p> This SHALL be the hash calculated by the block node for the root node of the virtual merkle tree that is signed by the source system to validate the block. |
+| block_already_exists | [bool](#bool) |  | A flag indicating that the received block duplicates an existing block. <p> If a source system receives acknowledgement with this flag set true the source system SHOULD end the stream. The `block_number` returned SHALL be the last block known and verified by the receiving system, and the source system MAY resume publishing immediately after that block. |
 
 
 
@@ -175,8 +202,8 @@ at the end of the block.
 A message sent to end a stream.
 
 This response message SHALL be sent from a block node to a block
-stream source system when a `writeBlockStream` stream ends.<br/>
-This message SHALL be sent exactly once for each `writeBlockStream`
+stream source system when a `publishBlockStream` stream ends.<br/>
+This message SHALL be sent exactly once for each `publishBlockStream`
 call.<br/>
 The source system SHALL cease sending block items upon receiving
 this response, and MAY determine the ending state of the stream from
@@ -188,7 +215,7 @@ here does not match the expected value.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [PublishStreamResponse.ResponseCode](#com-hedera-hapi-block-PublishStreamResponse-ResponseCode) |  | A response code. <p> This code indicates the reason the stream ended.<br/> This value MUST be set to a non-default value. |
+| status | [PublishStreamResponseCode](#com-hedera-hapi-block-PublishStreamResponseCode) |  | A response code. <p> This code indicates the reason the stream ended.<br/> This value MUST be set to a non-default value. |
 | block_number | [uint64](#uint64) |  | The number of the last completed and _verified_ block. <p> Nodes SHOULD only end a stream after a block state proof to avoid the need to resend items.<br/> If status is a failure code, the source node MUST start a new stream at the beginning of the first block _following_ this number (e.g. if this is 91827362983, then the new stream must start with the _header_ for block 91827362984). |
 
 
@@ -199,10 +226,13 @@ here does not match the expected value.
 <a name="com-hedera-hapi-block-PublishStreamResponse-ItemAcknowledgement"></a>
 
 ### PublishStreamResponse.ItemAcknowledgement
-Acknowledgement for a single `BlockItem`.
+Acknowledgement for a single `BlockItem`.<br/>
+Most nodes are expected to implement this acknowledgement only for
+debugging and development purposes.
 
-The block node SHALL send one `ItemAcknowledgement` for each `BlockItem`
-received and verified.<br/>
+If a node implements single item acknowledgement, the block node SHALL
+send one `ItemAcknowledgement` for each `BlockItem` received
+and verified.
 
 
 | Field | Type | Label | Description |
@@ -242,6 +272,7 @@ outside that range SHOULD fail.
 | first_available_block | [uint64](#uint64) |  | The lowest numbered block available on this block node server. <p> Any request for a block with lower number than this value SHALL fail with a status value indicating and invalid start block number. |
 | last_available_block | [uint64](#uint64) |  | The greatest block number available from this block node server. <p> Any request for a block with a block number higher than this value MAY fail. |
 | only_latest_state | [bool](#bool) |  | A flag indicating this block node only offers the latest state snapshot. <p> If this value is `true` the client MUST set `retrieve_latest` `true` in any `StateSnapshotRequest` sent to this block node. |
+| version_information | [BlockNodeVersions](#com-hedera-hapi-block-BlockNodeVersions) |  | Version information.<br/> Versions for the block network address book, block stream protocol buffer schema, and block node software. |
 
 
 
@@ -277,7 +308,7 @@ including the block state proof.
 <a name="com-hedera-hapi-block-SingleBlockResponse"></a>
 
 ### SingleBlockResponse
-A response to a `readBlock` request.
+A response to a `singleBlock` request.
 
 This message SHALL be sent in response to a request, and SHALL contain at
 least a valid `status`.<br/>
@@ -291,7 +322,7 @@ requested block in the `block` field.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [SingleBlockResponse.ResponseCode](#com-hedera-hapi-block-SingleBlockResponse-ResponseCode) |  | A response status. <p> The reported status SHALL reflect the success of the request, or a detailed reason the request failed. |
+| status | [SingleBlockResponseCode](#com-hedera-hapi-block-SingleBlockResponseCode) |  | A response status. <p> The reported status SHALL reflect the success of the request, or a detailed reason the request failed. |
 | block | [stream.Block](#com-hedera-hapi-block-stream-Block) |  | The requested block. <p> This container object SHALL hold the entire sequence of block items for the requested block.<br/> The block items in this message SHALL be in the same order as received.<br/> The items in this message SHALL begin with a `BlockHeader` and end with a `BlockStateProof` applicable to this block. |
 
 
@@ -337,7 +368,7 @@ if unsuccessful.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [StateSnapshotResponse.ResponseCode](#com-hedera-hapi-block-StateSnapshotResponse-ResponseCode) |  | A status response. <p> This code SHALL indicate a successful call, or the detailed reason for failure. |
+| status | [StateSnapshotResponseCode](#com-hedera-hapi-block-StateSnapshotResponseCode) |  | A status response. <p> This code SHALL indicate a successful call, or the detailed reason for failure. |
 | last_block_number | [uint64](#uint64) |  | A block number. <p> This SHALL be the number of the last block included in this state snapshot. |
 | snapshot_reference | [string](#string) |  | A reference to where the requested state snapshot may be obtained. <p> <blockquote>REVIEW NOTE<blockquote> This is TEMPORARY. We have not yet designed how state snapshots may be sent. One idea is to use `Any` and let implementations decide; another is to use a time limited URL (with the same login as the block node server); another is to use a customer-pays cloud storage bucket. </blockquote></blockquote> |
 
@@ -352,7 +383,7 @@ if unsuccessful.
 A request to stream block items from block node to a client.
 
 The block node SHALL respond to this request with a stream of
-`ReadStreamResponse` messages.<br/>
+`SubscribeStreamResponse` messages.<br/>
 The block node SHALL stream the full contents of the blocks requested.<br/>
 The block items SHALL be streamed in order originally produced within
 a block.<br/>
@@ -364,23 +395,11 @@ when the stream is complete.<br/>
 The client SHOULD call the `serverStatus` rpc prior to constructing this
 request to determine the available start and end blocks.
 
-> REVIEW NOTE
->> This lacks application-level error detection. If the client receives
->> a bad message (e.g. due to networking errors) it must await the full
->> stream, then determine which item failed, then request at least one,
->> and possibly many, blocks again.
->
->> Should we offer a more callback-style interface where the client
->> offers a gRPC endpoint that implements `publishBlockStream`, as
->> specified below? That would allow the client to perform ack/nack
->> on a per-item basis and we could immediately retransmit only
->> failed items (reducing waste).
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| start_block_number | [uint64](#uint64) |  | A block number <p> This SHALL be the block number of the first block returned.<br/> This field MUST be less than or equal to the latest available block number. |
-| end_block_number | [uint64](#uint64) |  | A block number <p> This value SHALL be the block number of the last block returned.<br/> This field MUST NOT be less than `start_block_number`.<br/> This SHOULD be a block number that is immediately available from the block node.<br/> A block node SHALL continue to stream blocks until the last requested block is transmitted.<br/> A block node implementation MAY reject a request for a block that is not yet available.<br/> A block node implementation MAY accept future block numbers. Block node implementations SHOULD charge increased fees for such "future" streams. |
+| start_block_number | [uint64](#uint64) |  | A block number to start the stream. <p> This SHALL be the block number of the first block returned.<br/> This field MUST be less than or equal to the latest available block number. |
+| end_block_number | [uint64](#uint64) |  | A block number to end the stream.<br/> This is optional, and if not set (0), the stream will be "infinite". <p> This field MAY be zero (`0`) to indicate the stream SHOULD continue indefinitely, streaming new blocks as each becomes available.<br/> If this value is greater than zero (`0`) <ul> <li>This value SHALL be the number of the last block returned.</li> <li>This field MUST NOT be less than `start_block_number`.</li> <li>This SHOULD be a block number that is immediately available from the block node.</li> <li>A block node SHALL continue to stream blocks until the last requested block is transmitted.</li> <li>A block node implementation MAY reject a request for a block that is not yet available.</li> <li>A block node implementation MAY accept future block numbers.</li> <li>Block node implementations MAY charge increased fees for such "future" streams.</li> </ul> |
 
 
 
@@ -390,10 +409,10 @@ request to determine the available start and end blocks.
 <a name="com-hedera-hapi-block-SubscribeStreamResponse"></a>
 
 ### SubscribeStreamResponse
-One item in a stream of `readBlockStream` responses.
+One item in a stream of `subscribeBlockStream` responses.
 
-The block node SHALL respond to a `readBlockStream` request with a stream
-of `ReadStreamResponse` messages.<br/>
+The block node SHALL respond to a `subscribeBlockStream` request with a
+stream of `SubscribeStreamResponse` messages.<br/>
 The block node SHALL stream the full contents of the blocks requested.<br/>
 The block items SHALL be streamed in order originally produced within
 a block.<br/>
@@ -415,7 +434,7 @@ sufficient to complete the request.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [SubscribeStreamResponse.ResponseCode](#com-hedera-hapi-block-SubscribeStreamResponse-ResponseCode) |  | A final response item describing the terminal status of this stream. <p> The block node server SHALL end the stream following this message. |
+| status | [SubscribeStreamResponseCode](#com-hedera-hapi-block-SubscribeStreamResponseCode) |  | A final response item describing the terminal status of this stream. <p> The block node server SHALL end the stream following this message. |
 | block_item | [stream.BlockItem](#com-hedera-hapi-block-stream-BlockItem) |  | A stream response item containing a single `BlockItem`. <p> The full response SHALL consist of many `block_item` messages followed by a single `status` message. |
 
 
@@ -425,13 +444,13 @@ sufficient to complete the request.
  <!-- end messages -->
 
 
-<a name="com-hedera-hapi-block-PublishStreamResponse-ResponseCode"></a>
+<a name="com-hedera-hapi-block-PublishStreamResponseCode"></a>
 
-### PublishStreamResponse.ResponseCode
+### PublishStreamResponseCode
 An enumeration indicating the status of this request.
 
 This enumeration describes the reason a block stream
-(sent via `writeBlockStream`) ended.
+(sent via `publishBlockStream`) ended.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
@@ -440,12 +459,13 @@ This enumeration describes the reason a block stream
 | STREAM_ITEMS_TIMEOUT | 2 | The delay between items was too long.<br/> The source MUST start a new stream before the failed block. |
 | STREAM_ITEMS_OUT_OF_ORDER | 3 | An item was received out-of-order.<br/> The source MUST start a new stream before the failed block. |
 | STREAM_ITEMS_BAD_STATE_PROOF | 4 | A block state proof item could not be validated.<br/> The source MUST start a new stream before the failed block. |
+| STREAM_ITEMS_BEHIND | 5 | The block node is "behind" the publisher.<br/> Ths consensus node has sent a block later than this block node can process. The publisher may retry by sending blocks immediately following the `block_number` returned, or may end the stream and try again later. <p> Block nodes that are "behind" SHOULD attempt to "catch up" by requesting blocks from another block node or other source of recent historical block stream data. |
 
 
 
-<a name="com-hedera-hapi-block-SingleBlockResponse-ResponseCode"></a>
+<a name="com-hedera-hapi-block-SingleBlockResponseCode"></a>
 
-### SingleBlockResponse.ResponseCode
+### SingleBlockResponseCode
 An enumeration indicating the status of this request.
 
 | Name | Number | Description |
@@ -458,10 +478,10 @@ An enumeration indicating the status of this request.
 
 
 
-<a name="com-hedera-hapi-block-StateSnapshotResponse-ResponseCode"></a>
+<a name="com-hedera-hapi-block-StateSnapshotResponseCode"></a>
 
-### StateSnapshotResponse.ResponseCode
-An enumeration indicating the status of this request.
+### StateSnapshotResponseCode
+An enumeration indicating the status of a StateSnapshotResponse request.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
@@ -471,9 +491,9 @@ An enumeration indicating the status of this request.
 
 
 
-<a name="com-hedera-hapi-block-SubscribeStreamResponse-ResponseCode"></a>
+<a name="com-hedera-hapi-block-SubscribeStreamResponseCode"></a>
 
-### SubscribeStreamResponse.ResponseCode
+### SubscribeStreamResponseCode
 An enumeration indicating the status of this request.
 
 This response code SHALL be the last message in the stream of responses.
@@ -504,7 +524,7 @@ Remote procedure calls (RPCs) for the Block Node.
 | singleBlock | [SingleBlockRequest](#com-hedera-hapi-block-SingleBlockRequest) | [SingleBlockResponse](#com-hedera-hapi-block-SingleBlockResponse) | Read a single block from the block node. <p> The request SHALL describe the block number of the block to retrieve. |
 | stateSnapshot | [StateSnapshotRequest](#com-hedera-hapi-block-StateSnapshotRequest) | [StateSnapshotResponse](#com-hedera-hapi-block-StateSnapshotResponse) | Read a state snapshot from the block node. <p> The request SHALL describe the last block number present in the snapshot.<br/> Block node implementations MAY decline a request for a snapshot older than the latest available, but MUST clearly document this behavior. |
 | publishBlockStream | [PublishStreamRequest](#com-hedera-hapi-block-PublishStreamRequest) stream | [PublishStreamResponse](#com-hedera-hapi-block-PublishStreamResponse) stream | Publish a stream of blocks. <p> Each item in the stream MUST contain one `BlockItem`.<br/> Each Block MUST begin with a single `BlockHeader` block item.<br/> The block node SHALL append each `BlockItem` to an internal structure to construct full blocks.<br/> Each Block MUST end with a single `BlockStateProof` block item.<br/> It is RECOMMENDED that the implementations verify the Block using the `BlockStateProof` to validate all data was received correctly.<br/> This API SHOULD, generally, be restricted based on mTLS authentication to a limited set of source (i.e. consensus node) systems. |
-| subscribeBlockStream | [SubscribeStreamRequest](#com-hedera-hapi-block-SubscribeStreamRequest) stream | [SubscribeStreamResponse](#com-hedera-hapi-block-SubscribeStreamResponse) stream | Subscribe to a stream of blocks. <p> Each item in the stream SHALL contain one `BlockItem` or a response code.<br/> The request message MUST specify start and end block numbers to return/<br/> The block node SHALL stream the full contents of the blocks requested.<br/> The block items SHALL be streamed in order originally produced within a block.<br/> The blocks shall be streamed in ascending order by `block_number`.<br/> The block node SHALL end the stream when the last requested block has been sent.<br/> The block node SHALL end the stream with response code containing a status of SUCCESS when the stream is complete.<br/> The block node SHALL end the stream with a response code containing a status of `READ_STREAM_INVALID_START_BLOCK_NUMBER` if the start block number is greater than the end block number.<br/> The block node SHALL end the stream with a response code containing a status of `READ_STREAM_PAYMENT_INSUFFICIENT` if insufficient payment remains to complete the requested stream.<br/> The block node SHALL make every reasonable effort to fulfill as much of the request as possible in the event payment is not sufficient to complete the request. |
+| subscribeBlockStream | [SubscribeStreamRequest](#com-hedera-hapi-block-SubscribeStreamRequest) | [SubscribeStreamResponse](#com-hedera-hapi-block-SubscribeStreamResponse) stream | Subscribe to a stream of blocks. <p> Each item in the stream SHALL contain one `BlockItem` or a response code.<br/> The request message MUST specify start and end block numbers to return/<br/> The block node SHALL stream the full contents of the blocks requested.<br/> The block items SHALL be streamed in order originally produced within a block.<br/> The blocks shall be streamed in ascending order by `block_number`.<br/> The block node SHALL end the stream when the last requested block, if set, has been sent.<br/> A request with an end block of `0` SHALL be interpreted to indicate the stream has no end. The block node SHALL continue to stream new blocks as soon as each becomes available.<br/> The block node SHALL end the stream with response code containing a status of SUCCESS when the stream is complete.<br/> The block node SHALL end the stream with a response code containing a status of `READ_STREAM_INVALID_START_BLOCK_NUMBER` if the start block number is greater than the end block number.<br/> The block node SHALL end the stream with a response code containing a status of `READ_STREAM_PAYMENT_INSUFFICIENT` if insufficient payment remains to complete the requested stream.<br/> The block node SHALL make every reasonable effort to fulfill as much of the request as possible in the event payment is not sufficient to complete the request. |
 
  <!-- end services -->
 
