@@ -408,33 +408,28 @@ message TransactionBody {
         TokenRejectTransactionBody tokenReject = 57;
 
         /**
-         * Update the metadata of one or more NFT's of a specific token type.
-         */
-        TokenUpdateNftsTransactionBody token_update_nfts = 53;
-
-        /**
          * Create new partition
          */
-        TokenCreatePartitionDefinitionTransactionBody token_create_partition = 54;
+        TokenCreatePartitionDefinitionTransactionBody token_create_partition = 58;
 
         /**
          * Update the partition
          */
-        TokenUpdatePartitionTransactionBody token_update_partition = 55;
+        TokenUpdatePartitionTransactionBody token_update_partition = 59;
 
         /**
          * Delete the partition
          */
-        TokenDeletePartitionDefinitionTransactionBody token_delete_partition = 56;
+        TokenDeletePartitionDefinitionTransactionBody token_delete_partition = 60;
 
         /**
          * Lock the token
          */
-        TokenLockTransactionBody token_lock = 57;
+        TokenLockTransactionBody token_lock = 61;
 
         /**
          * Unlock the token
          */
-        TokenUnlockTransactionBody token_unlock = 58;
+        TokenUnlockTransactionBody token_unlock = 62;
     }
 }
