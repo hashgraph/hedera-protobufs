@@ -1529,4 +1529,9 @@ enum ResponseCodeEnum {
      * The node account is not allowed to be updated
      */
     UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
+
+    /*
+     * The token has no metadata or supply key
+     */
+    TOKEN_HAS_NO_METADATA_OR_SUPPLY_KEY = 360;
 }
