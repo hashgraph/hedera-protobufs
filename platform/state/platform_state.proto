@@ -247,9 +247,6 @@ message AddressBook {
  * This is one address in the network address book, including all required
  * information to include that consensus node in the consensus gossip.
  *
- * ### Implementation Detail
- * When `enableEventStreaming` is set to true, the memo field is REQUIRED
- * and MUST be unique.
  */
 message Address {
   /**
