@@ -257,7 +257,7 @@ message Address {
   NodeId id = 1;
 
   /**
-   * The nickname this consensus node uses to refer to another consensus node.
+   * The nickname other consensus nodes will use to refer to this consensus node.
    */
   string nickname = 2;
 
