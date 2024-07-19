@@ -1530,18 +1530,23 @@ enum ResponseCodeEnum {
      */
     UPDATE_NODE_ACCOUNT_NOT_ALLOWED = 359;
 
+    /*
+     * The token has no metadata or supply key
+     */
+    TOKEN_HAS_NO_METADATA_OR_SUPPLY_KEY = 360;
+
     /**
     * The transaction attempted to the use an empty List of `PendingAirdropId`.
     */
-    EMPTY_PENDING_AIRDROP_ID_LIST = 360;
+    EMPTY_PENDING_AIRDROP_ID_LIST = 361;
 
     /**
     * The transaction attempted to the same `PendingAirdropId` twice.
     */
-    PENDING_AIRDROP_ID_REPEATED = 361;
+    PENDING_AIRDROP_ID_REPEATED = 362;
 
     /**
     * The transaction attempted to use more than the allowed number of `PendingAirdropId`.
     */
-    MAX_PENDING_AIRDROP_ID_EXCEEDED = 362;
+    MAX_PENDING_AIRDROP_ID_EXCEEDED = 363;
 }
