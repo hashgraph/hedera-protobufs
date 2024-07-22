@@ -1221,6 +1221,11 @@ enum HederaFunctionality {
     * Remove one or more pending airdrops from state on behalf of the sender(s) for each airdrop.
     */
     TokenCancelAirdrop = 94;
+    
+    /**
+      * Claim one or more pending airdrops
+     */
+    TokenClaimAirdrop = 95;
 }
 
 /**
