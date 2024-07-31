@@ -1,6 +1,6 @@
 /**
- * # Event Payload
- * An Event Payload gossiped between nodes as part of events.
+ * # State Signature Transaction
+ * An signature of a state snapshot gossiped to other nodes.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -29,34 +29,36 @@ package com.hedera.hapi.platform.event;
  * limitations under the License.
  */
 
-import "event/state_signature_payload.proto";
-
 option java_package = "com.hedera.hapi.platform.event.legacy";
 // <<<pbj.java_package = "com.hedera.hapi.platform.event">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 /**
- * An Event Payload gossiped between nodes as part of events.
- * Each node MUST extract this payload and process according to the type
- * of payload encoded.
- * Both the platform and the application built on that platform MAY define event
- * payloads.
- * The encoded data SHOULD be a serialized protobuf message.
+ * An signature of a state snapshot gossiped to other nodes.
+ * Each node SHALL hash the root of the merkle tree of a state snapshot every
+ * round. Once this hash is calculated, it SHOULD be signed with the nodes
+ * private signing key. This signature, together with the hash SHOULD be added
+ * to an event as a StateSignatureTransaction.
  */
-message EventPayload {
-  oneof payload {
-      /**
-       * An application payload.<br/>
-       * The contents of this payload SHALL be defined by the application
-       * subsystem that created the event.<br/>
-       * The contents SHOULD be a serialized protobuf message.
-       */
-      bytes application_payload = 1;
-      /**
-       * A state signature.<br/>
-       * This payload SHALL be a valid state signature for a state snapshot.
-       */
-      StateSignaturePayload state_signature_payload = 2;
-  }
+message StateSignatureTransaction {
 
+  /**
+   * The round number corresponding to the round number of the state snapshot
+   * being signed.<br/>
+   * This number MUST be greater than 0.
+   */
+  int64 round = 1;
+
+  /**
+   * The signature of state snapshot hash.<br/>
+   * This signature MUST be a RSA signature with a maximum length of 384 bytes.<br/>
+   * The signature algorithm used MUST be RSASSA-PKCS1-v1_5 with SHA-384.
+   */
+  bytes signature = 2;
+
+  /**
+   * The hash of the state snapshot being signed.<br/>
+   * This hash MUST be a SHA-384 hash.
+   */
+  bytes hash = 3;
 }
