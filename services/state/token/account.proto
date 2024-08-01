@@ -219,7 +219,7 @@ message Account {
      * The number of pending airdrops owned by the account. This number is used to collect rent
      * for the account.
      */
-    int64 number_pending_airdrops = 35;
+    uint64 number_pending_airdrops = 35;
 }
 
 /**
