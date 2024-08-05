@@ -41,8 +41,10 @@ option java_multiple_files = true;
 import "google/protobuf/wrappers.proto";
 import "basic_types.proto";
 import "exchange_rate.proto";
+import "state/addressbook/node.proto";
 import "state/blockrecords/block_info.proto";
 import "state/blockrecords/running_hashes.proto";
+import "state/blockstream/block_stream_info.proto";
 import "state/common.proto";
 import "state/congestion/congestion_level_starts.proto";
 import "state/consensus/topic.proto";
@@ -53,6 +55,7 @@ import "state/recordcache/recordcache.proto";
 import "state/schedule/schedule.proto";
 import "state/throttles/throttle_usage_snapshots.proto";
 import "state/token/account.proto";
+import "state/token/account_pending_airdrop.proto";
 import "state/token/network_staking_rewards.proto";
 import "state/token/nft.proto";
 import "state/token/staking_node_info.proto";
@@ -162,7 +165,7 @@ message StateChanges {
  * is applied to the network state at the start of that round the result
  * SHALL match the network state at the end of the round.
  * TODO: Need documentation for how the merkle tree is constructed.
- *       Need to reference that document, stored in platform docs, here.
+ *       Need to reference that document, stored in platform docs?, here.
  */
 message StateChange {
     /**
@@ -372,6 +375,21 @@ enum StateIdentifier {
     STATE_ID_FREEZE_TIME = 23;
 
     /**
+     * A state identifier for the block stream status singleton.
+     */
+    STATE_ID_BLOCK_STREAM_INFO = 24;
+
+    /**
+     * A state identifier for pending airdrops.
+     */
+    STATE_ID_PENDING_AIRDROPS = 25;
+
+    /**
+     * A state identifier for the record cache.
+     */
+    STATE_ID_RECORD_QUEUE = 126;
+
+    /**
      * A state for the `150` upgrade file data
      */
     STATE_ID_UPGRADE_DATA_150 = 10001;
@@ -557,6 +575,14 @@ message SingletonUpdateChange {
          * the time for the next scheduled freeze.
          */
         proto.Timestamp timestamp_value = 10;
+
+        /**
+         * A change to the block stream status singleton.
+         * <p>
+         * This MUST be updated at the beginning of a block, with the
+         * information for the immediately prior block.
+         */
+        com.hedera.hapi.node.state.blockstream.BlockStreamInfo block_stream_info_value = 11;
     }
 }
 
@@ -600,7 +626,8 @@ message MapDeleteChange {
     /**
      * A key in a virtual map.
      * <p>
-     * This key SHALL be removed. The mapped value, also, SHALL be removed.<br/>
+     * This key SHALL be removed.<br/>
+     * The mapped value SHALL also be removed.<br/>
      * This field is REQUIRED.
      */
     MapChangeKey key = 1;
@@ -634,7 +661,7 @@ message MapChangeKey {
         /**
          * A change to a virtual map keyed by File identifier.
          */
-        proto.FileID filed_id_key = 4;
+        proto.FileID file_id_key = 4;
 
         /**
          * A change to a virtual map keyed by NFT identifier.
@@ -675,24 +702,21 @@ message MapChangeKey {
          * A change to a virtual map keyed by a Topic identifier.
          */
         proto.TopicID topic_id_key = 12;
+
+        /**
+         * A change to a virtual map keyed by contract id identifier.
+         */
+        proto.ContractID contract_id_key = 13;
+
+        /**
+         * A change to a virtual map keyed by pending airdrop id identifier.
+         */
+        proto.PendingAirdropId pending_airdrop_id_key = 14;
     }
 }
 
 /**
  * A value updated in, or added to, a virtual map.
- *
- * > REVIEW NOTE
- * >> Should we only set the modified fields here, possibly with a field mask
- * >> protobuf to tell the recipient which fields are _actually_ set?
- * >> <p>
- * >> It is not clear if we can easily detect what to send (perhaps we
- * >> can during record processing in the consensus node, we just don't
- * >> currently), though. If we can do that the total data volume would
- * >> probably shrink quite a lot...<br/>
- * >> It requires a block node to apply to an existing state copy to create
- * >> a "materialized" block stream (higher cost?) for many consumers, but
- * >> could save a ton of cost (and shift more cost to consumers of the block
- * >> nodes, improving "fairness" by moving cost closer to the demand).
  *
  */
 message MapChangeValue {
@@ -777,6 +801,17 @@ message MapChangeValue {
          * An HCS topic value.
          */
         proto.Topic topic_value = 13;
+
+        /**
+         * An network node value.
+        */
+        com.hedera.hapi.node.state.addressbook.Node node_value = 14;
+
+        /**
+         * A pending airdrop value.
+         */
+        proto.AccountPendingAirdrop account_pending_airdrop_value = 15;
+
     }
 }
 

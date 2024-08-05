@@ -51,7 +51,7 @@ A key identifying a specific entry in a key-value "virtual map".
 | account_id_key | [proto.AccountID](#proto-AccountID) |  | A key for a change affecting a map keyed by an Account identifier. |
 | entity_id_pair_key | [proto.EntityIDPair](#proto-EntityIDPair) |  | A change to the token relationships virtual map.<br/> This map is keyed by the pair of account identifier and token identifier. |
 | entity_number_key | [proto.EntityNumber](#proto-EntityNumber) |  | A change to a map keyed by an EntityNumber (which is a single int64). <p> This SHOULD NOT be used. Virtual maps SHOULD be keyed to full identifiers that include shard and realm information. |
-| filed_id_key | [proto.FileID](#proto-FileID) |  | A change to a virtual map keyed by File identifier. |
+| file_id_key | [proto.FileID](#proto-FileID) |  | A change to a virtual map keyed by File identifier. |
 | nft_id_key | [proto.NftID](#proto-NftID) |  | A change to a virtual map keyed by NFT identifier. |
 | proto_bytes_key | [google.protobuf.BytesValue](#google-protobuf-BytesValue) |  | A change to a virtual map keyed by a byte array. |
 | proto_long_key | [google.protobuf.Int64Value](#google-protobuf-Int64Value) |  | A change to a virtual map keyed by an int64 value. |
@@ -60,6 +60,8 @@ A key identifying a specific entry in a key-value "virtual map".
 | slot_key_key | [proto.SlotKey](#proto-SlotKey) |  | A change to the EVM storage "slot" virtual map. |
 | token_id_key | [proto.TokenID](#proto-TokenID) |  | A change to a virtual map keyed by a Token identifier. |
 | topic_id_key | [proto.TopicID](#proto-TopicID) |  | A change to a virtual map keyed by a Topic identifier. |
+| contract_id_key | [proto.ContractID](#proto-ContractID) |  | A change to a virtual map keyed by contract id identifier. |
+| pending_airdrop_id_key | [proto.PendingAirdropId](#proto-PendingAirdropId) |  | A change to a virtual map keyed by pending airdrop id identifier. |
 
 
 
@@ -70,19 +72,6 @@ A key identifying a specific entry in a key-value "virtual map".
 
 ### MapChangeValue
 A value updated in, or added to, a virtual map.
-
-> REVIEW NOTE
->> Should we only set the modified fields here, possibly with a field mask
->> protobuf to tell the recipient which fields are _actually_ set?
->> <p>
->> It is not clear if we can easily detect what to send (perhaps we
->> can during record processing in the consensus node, we just don't
->> currently), though. If we can do that the total data volume would
->> probably shrink quite a lot...<br/>
->> It requires a block node to apply to an existing state copy to create
->> a "materialized" block stream (higher cost?) for many consumers, but
->> could save a ton of cost (and shift more cost to consumers of the block
->> nodes, improving "fairness" by moving cost closer to the demand).
 
 
 | Field | Type | Label | Description |
@@ -100,6 +89,8 @@ A value updated in, or added to, a virtual map.
 | token_value | [proto.Token](#proto-Token) |  | An HTS token value. |
 | token_relation_value | [proto.TokenRelation](#proto-TokenRelation) |  | A token relationship value.<br/> These values track which accounts are willing to transact in specific HTS tokens. |
 | topic_value | [proto.Topic](#proto-Topic) |  | An HCS topic value. |
+| node_value | [com.hedera.hapi.node.state.addressbook.Node](#com-hedera-hapi-node-state-addressbook-Node) |  | An network node value. |
+| account_pending_airdrop_value | [proto.AccountPendingAirdrop](#proto-AccountPendingAirdrop) |  | A pending airdrop value. |
 
 
 
@@ -114,7 +105,7 @@ A removal of a single item from a `VirtualMap`.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [MapChangeKey](#com-hedera-hapi-block-stream-output-MapChangeKey) |  | A key in a virtual map. <p> This key SHALL be removed. The mapped value, also, SHALL be removed.<br/> This field is REQUIRED. |
+| key | [MapChangeKey](#com-hedera-hapi-block-stream-output-MapChangeKey) |  | A key in a virtual map. <p> This key SHALL be removed.<br/> The mapped value SHALL also be removed.<br/> This field is REQUIRED. |
 
 
 
@@ -233,6 +224,7 @@ An update to a `Singleton` state.
 | running_hashes_value | [proto.RunningHashes](#proto-RunningHashes) |  | A change to the running hashes singleton. <p> Running hashes SHALL be updated for each transaction. <p> <blockquote>REVIEW NOTE<blockquote> Running hashes is a record stream item. Can it be elided from the block stream? It's not written to the record stream, as far as I can tell. If we do write this it's adding over 144 bytes for every transaction. It's also not clear how we'll calculate this, as it's a hash of the records currently, so it would have to be a hash of the block items, including this one... </blockquote></blockquote> |
 | throttle_usage_snapshots_value | [proto.ThrottleUsageSnapshots](#proto-ThrottleUsageSnapshots) |  | A change to the throttle usage snapshots singleton. <p> Throttle usage snapshots SHALL be updated for _every transaction_ to reflect the amount used for each tps throttle and for the gas throttle. |
 | timestamp_value | [proto.Timestamp](#proto-Timestamp) |  | A change to a raw `Timestamp` singleton.<br/> An example of a raw `Timestamp` singleton is the "network freeze time" singleton state, which, if set, stores the time for the next scheduled freeze. |
+| block_stream_info_value | [com.hedera.hapi.node.state.blockstream.BlockStreamInfo](#com-hedera-hapi-node-state-blockstream-BlockStreamInfo) |  | A change to the block stream status singleton. <p> This MUST be updated at the beginning of a block, with the information for the immediately prior block. |
 
 
 
@@ -252,7 +244,7 @@ When the full set of state change items from the block stream for a round
 is applied to the network state at the start of that round the result
 SHALL match the network state at the end of the round.
 TODO: Need documentation for how the merkle tree is constructed.
-      Need to reference that document, stored in platform docs, here.
+      Need to reference that document, stored in platform docs?, here.
 
 
 | Field | Type | Label | Description |
@@ -400,6 +392,9 @@ of the `StateChange`.`state_id` field.
 | STATE_ID_UPGRADE_FILE | 21 | A state identifier for the next "upgrade" file. |
 | STATE_ID_UPGRADE_FILE_HASH | 22 | A state identifier for the hash of the next "upgrade" file. |
 | STATE_ID_FREEZE_TIME | 23 | A state identifier for the next network freeze time. |
+| STATE_ID_BLOCK_STREAM_INFO | 24 | A state identifier for the block stream status singleton. |
+| STATE_ID_PENDING_AIRDROPS | 25 | A state identifier for pending airdrops. |
+| STATE_ID_RECORD_QUEUE | 126 | A state identifier for the record cache. |
 | STATE_ID_UPGRADE_DATA_150 | 10001 | A state for the `150` upgrade file data |
 | STATE_ID_UPGRADE_DATA_151 | 10002 | A state for the `151` upgrade file data |
 | STATE_ID_UPGRADE_DATA_152 | 10003 | A state for the `152` upgrade file data |

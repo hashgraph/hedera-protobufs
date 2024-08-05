@@ -76,7 +76,7 @@ option java_multiple_files = true;
  *          Leaf nodes in this subtree SHALL be ordered in the same order that
  *          the block items are encountered in the stream.
  *       1. The fourth leaf MUST be the merkle tree root hash for network state
- *          at the end of the block, and is a single 48-byte value.
+ *          at the start of the block, and is a single 48-byte value.
  * - The block hash SHALL be the hash calculated for the root of this merkle
  *   tree.
  * - The hash algorithm used SHALL be the algorithm specified in the
@@ -112,14 +112,21 @@ message BlockProof {
      * This is present to support validation of this block proof by clients
      * that do not maintain a full copy of the network state.
      * <p>
-     * This MUST contain a hash of the "state" merkle tree root at the end
+     * This MUST contain a hash of the "state" merkle tree root at the start
      * of the current block (which this block proof verifies).<br/>
      * State processing clients SHOULD calculate the state root hash
      * independently and SHOULD NOT rely on this value.<br/>
+     * State processing clients MUST validate the application of state changes
+     * for a block using the value present in the Block Proof of the
+     * _following_ block.
+     * Compliant consensus nodes MUST produce an "empty" block (containing
+     * only `BlockHeader` and `BlockProof` as the last block prior to a
+     * network "freeze" to ensure the final state hash is incorporated into
+     * the Block Stream correctly.
      * Stateless (non-state-processing) clients MUST use this value to
      * construct the block merkle tree.
      */
-    bytes end_of_block_state_root_hash = 3;
+    bytes start_of_block_state_root_hash = 3;
 
     /**
      * A TSS signature for one block.<br/>
