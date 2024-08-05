@@ -98,7 +98,7 @@ message RecordFileItem {
 
     /**
      * A collection of RSA signatures from consensus nodes.<br/>
-     * These signatures secure the hash of the record_file_contents field.
+     * These signatures validate the hash of the record_file_contents field.
      */
     repeated bytes record_file_hash_signatures = 6;
 }

@@ -285,20 +285,22 @@ outside that range SHOULD fail.
 A request to read a single block.
 
 A client system SHALL send this message to request a single block,
-including the block state proof.
-
-> REVIEW NOTE
->> We _could_ make `block_number` optional and remove `retrieve_latest`.
->> An **unset** `block_number` would then result in returning the latest
->> block.<br/>
->> It is not entirely clear which option would be easier for developers to
->> use, but initial intuition is that a boolean is easier to understand.
+including the block state proof.<br/>
+A client MAY request that the block be sent without verification.
+A compliant Block Node MAY respond to requests that allow unverified
+responses by returning the full requested block before verifying
+the included block proof.<br/>
+A compliant Block Node MAY support _only_ requests that allow unverified
+blocks, but MUST clearly document that limitation, and MUST respond to
+a request that does not allow unverified blocks with the
+`ALLOW_UNVERIFIED_REQUIRED` response code.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | block_number | [uint64](#uint64) |  | The block number of a block to retrieve. <p> The requested block MUST exist on the block node.<br/> This value MUST NOT be set if `retrieve_latest` is set `true`.<br/> This value MUST be set to a valid block number if `retrieve_latest` is unset or is set `false`. |
-| retrieve_latest | [bool](#bool) |  | A boolean to request the latest available block. <p> This value MAY be set `true` to request the last block available.<br/> If this value is set to `true` then `block_number` MUST NOT be set and SHALL be ignored. |
+| allow_unverified | [bool](#bool) |  | A flag to indicate that the requested block may be sent without verifying its `BlockProof`.<br/> This might be set by a client that expects to perform its own verification and wishes lower latency or, potentially, lower cost. <p> If this value is set, then the responding Block Node MAY respond with a block that has not completed verification of its `BlockProof`.<br/> If this is _not_ set then the Block Node MUST respond with either a fully verified and validated block, or `VERIFIED_BLOCK_UNAVAILABLE` if the requested block is not yet verified.<br/> The default value is _not set_. |
+| retrieve_latest | [bool](#bool) |  | A flag to request the latest available block. <p> This value MAY be set `true` to request the last block available.<br/> If this value is set to `true` then `block_number` MUST NOT be set and SHALL be ignored. |
 
 
 
@@ -400,6 +402,7 @@ request to determine the available start and end blocks.
 | ----- | ---- | ----- | ----------- |
 | start_block_number | [uint64](#uint64) |  | A block number to start the stream. <p> This SHALL be the block number of the first block returned.<br/> This field MUST be less than or equal to the latest available block number. |
 | end_block_number | [uint64](#uint64) |  | A block number to end the stream.<br/> This is optional, and if not set (0), the stream will be "infinite". <p> This field MAY be zero (`0`) to indicate the stream SHOULD continue indefinitely, streaming new blocks as each becomes available.<br/> If this value is greater than zero (`0`) <ul> <li>This value SHALL be the number of the last block returned.</li> <li>This field MUST NOT be less than `start_block_number`.</li> <li>This SHOULD be a block number that is immediately available from the block node.</li> <li>A block node SHALL continue to stream blocks until the last requested block is transmitted.</li> <li>A block node implementation MAY reject a request for a block that is not yet available.</li> <li>A block node implementation MAY accept future block numbers.</li> <li>Block node implementations MAY charge increased fees for such "future" streams.</li> </ul> |
+| allow_unverified | [bool](#bool) |  | A flag to indicate that the requested block(s) may be sent before verifying each block's `BlockProof`.<br/> This might be set by a client that expects to perform its own verification and wishes lower latency or, potentially, lower cost. <p> If this value is set, then the responding Block Node MAY respond with blocks that have not (yet) completed block proof verification.<br/> If this is _not set_ then the Block Node MUST respond with only fully verified and validated block(s).<br/> If this is _set_, then a Block Node MAY stream items from blocks that have not yet been verified or do not yet have a block proof available.<br/> The default value is _not set_. |
 
 
 
@@ -475,6 +478,8 @@ An enumeration indicating the status of this request.
 | READ_BLOCK_SUCCESS | 2 | The request succeeded.<br/> The requested block SHALL be returned in the `block` field. |
 | READ_BLOCK_NOT_FOUND | 3 | The requested block was not found.<br/> Something failed and a block that SHOULD be available was not found.<br/> The client MAY retry the request; if this result is repeated the request SHOULD be directed to a different block node server. |
 | READ_BLOCK_NOT_AVAILABLE | 4 | The requested block is not available on this block node server.<br/> The client SHOULD send a `serverStatus` request to determine the lowest and highest block numbers available at this block node server. |
+| ALLOW_UNVERIFIED_REQUIRED | 5 | The request for a verified block cannot be fulfilled.<br/> The client requested a verified block from a block node that does not offer verified blocks. <p> The client MAY retry the request with the `allow_unverified` flag set. |
+| VERIFIED_BLOCK_UNAVAILABLE | 6 | The request for a verified block cannot be fulfilled.<br/> The client requested a verified block from a block node but the requested block is not yet verified. <p> The client MAY retry the request after a short delay (typically 2 seconds or more). |
 
 
 

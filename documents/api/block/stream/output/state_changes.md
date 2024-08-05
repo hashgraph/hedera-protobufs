@@ -71,19 +71,6 @@ A key identifying a specific entry in a key-value "virtual map".
 ### MapChangeValue
 A value updated in, or added to, a virtual map.
 
-> REVIEW NOTE
->> Should we only set the modified fields here, possibly with a field mask
->> protobuf to tell the recipient which fields are _actually_ set?
->> <p>
->> It is not clear if we can easily detect what to send (perhaps we
->> can during record processing in the consensus node, we just don't
->> currently), though. If we can do that the total data volume would
->> probably shrink quite a lot...<br/>
->> It requires a block node to apply to an existing state copy to create
->> a "materialized" block stream (higher cost?) for many consumers, but
->> could save a ton of cost (and shift more cost to consumers of the block
->> nodes, improving "fairness" by moving cost closer to the demand).
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -114,7 +101,7 @@ A removal of a single item from a `VirtualMap`.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [MapChangeKey](#com-hedera-hapi-block-stream-output-MapChangeKey) |  | A key in a virtual map. <p> This key SHALL be removed. The mapped value, also, SHALL be removed.<br/> This field is REQUIRED. |
+| key | [MapChangeKey](#com-hedera-hapi-block-stream-output-MapChangeKey) |  | A key in a virtual map. <p> This key SHALL be removed.<br/> The mapped value SHALL also be removed.<br/> This field is REQUIRED. |
 
 
 
@@ -252,7 +239,7 @@ When the full set of state change items from the block stream for a round
 is applied to the network state at the start of that round the result
 SHALL match the network state at the end of the round.
 TODO: Need documentation for how the merkle tree is constructed.
-      Need to reference that document, stored in platform docs, here.
+      Need to reference that document, stored in platform docs?, here.
 
 
 | Field | Type | Label | Description |

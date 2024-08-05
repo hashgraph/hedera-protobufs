@@ -53,7 +53,7 @@ Any block containing this item requires special handling.
 | record_file_contents | [bytes](#bytes) |  | The contents of a record file.<br/> The first 4 bytes are a 32bit int little endian version number. The versions that existed are 2,3,5 and 6. |
 | sidecar_file_contents | [bytes](#bytes) | repeated | The contents of sidecar files for this block.<br/> Each block can have zero or more sidecar files. |
 | hash_algorithm | [proto.BlockHashAlgorithm](#proto-BlockHashAlgorithm) |  | A hash algorithm.<br/> This is the algorithm used to hash the block. <p> This SHOULD always be `SHA2_384`. |
-| record_file_hash_signatures | [bytes](#bytes) | repeated | A collection of RSA signatures from consensus nodes.<br/> These signatures secure the hash of the record_file_contents field. |
+| record_file_hash_signatures | [bytes](#bytes) | repeated | A collection of RSA signatures from consensus nodes.<br/> These signatures validate the hash of the record_file_contents field. |
 
 
 
