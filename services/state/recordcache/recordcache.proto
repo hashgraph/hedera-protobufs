@@ -64,7 +64,7 @@ message TransactionReceiptEntry {
     * The ID of the node that submitted the transaction to consensus. The ID is the ID of the node as known by the
     * address book. Valid node IDs are in the range 0..2^63-1, inclusive.
     */
-    int64 node_id = 1;
+    uint64 node_id = 1;
 
     /**
      * The id of the submitted transaction.
