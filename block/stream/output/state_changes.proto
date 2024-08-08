@@ -41,8 +41,10 @@ option java_multiple_files = true;
 import "google/protobuf/wrappers.proto";
 import "basic_types.proto";
 import "exchange_rate.proto";
+import "state/addressbook/node.proto";
 import "state/blockrecords/block_info.proto";
 import "state/blockrecords/running_hashes.proto";
+import "state/blockstream/block_stream_info.proto";
 import "state/common.proto";
 import "state/congestion/congestion_level_starts.proto";
 import "state/consensus/topic.proto";
@@ -53,6 +55,7 @@ import "state/recordcache/recordcache.proto";
 import "state/schedule/schedule.proto";
 import "state/throttles/throttle_usage_snapshots.proto";
 import "state/token/account.proto";
+import "state/token/account_pending_airdrop.proto";
 import "state/token/network_staking_rewards.proto";
 import "state/token/nft.proto";
 import "state/token/staking_node_info.proto";
@@ -372,6 +375,21 @@ enum StateIdentifier {
     STATE_ID_FREEZE_TIME = 23;
 
     /**
+     * A state identifier for the block stream information.
+     */
+    STATE_ID_BLOCK_STREAM_INFO = 24;
+
+    /**
+     * A state identifier for the record cache.
+     */
+    STATE_ID_RECORD_QUEUE = 25;
+
+    /**
+     * A state identifier for pending airdrops.
+     */
+    STATE_ID_PENDING_AIRDROPS = 26;
+
+    /**
      * A state for the `150` upgrade file data
      */
     STATE_ID_UPGRADE_DATA_150 = 10001;
@@ -557,6 +575,11 @@ message SingletonUpdateChange {
          * the time for the next scheduled freeze.
          */
         proto.Timestamp timestamp_value = 10;
+
+        /**
+         * A change to the block stream information singleton.
+         */
+        proto.BlockStreamInfo block_stream_info_value = 11;
     }
 }
 
@@ -635,7 +658,7 @@ message MapChangeKey {
         /**
          * A change to a virtual map keyed by File identifier.
          */
-        proto.FileID filed_id_key = 4;
+        proto.FileID file_id_key = 4;
 
         /**
          * A change to a virtual map keyed by NFT identifier.
@@ -676,6 +699,16 @@ message MapChangeKey {
          * A change to a virtual map keyed by a Topic identifier.
          */
         proto.TopicID topic_id_key = 12;
+
+        /**
+         * A change to a virtual map keyed by contract id identifier.
+         */
+        proto.ContractID contract_id_key = 13;
+
+        /**
+         * A change to a virtual map keyed by pending airdrop id identifier.
+         */
+        proto.PendingAirdropId pending_airdrop_id_key = 14;
     }
 }
 
@@ -765,6 +798,17 @@ message MapChangeValue {
          * An HCS topic value.
          */
         proto.Topic topic_value = 13;
+
+        /**
+         * An network node value.
+        */
+        com.hedera.hapi.node.state.addressbook.Node node_value = 14;
+
+        /**
+         * A pending airdrop value.
+         */
+        proto.AccountPendingAirdrop account_pending_airdrop_value = 15;
+
     }
 }
 
