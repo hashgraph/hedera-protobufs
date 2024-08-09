@@ -10,19 +10,19 @@
 # NOTE: Must be placed last to ensure enforcement over all other rules
 
 # Protection Rules for Github Configuration Files and Actions Workflows
-/.github/                                       @hashgraph/release-engineering-managers @hashgraph/devops-ci
-/.github/workflows/                             @hashgraph/devops-ci
+/.github/                                       @hashgraph/release-engineering-managers @hashgraph/devops-ci @hashgraph/devops-ci-committers
+/.github/workflows/                             @hashgraph/devops-ci @hashgraph/devops-ci-committers
 
 # Self-protection for root CODEOWNERS files (this file should not exist and should definitely require approval)
 /CODEOWNERS                                     @hashgraph/release-engineering-managers
 
 # Protect the repository root files
-/README.md                                      @hashgraph/release-engineering-managers @hashgraph/devops-ci
+/README.md                                      @hashgraph/release-engineering-managers @hashgraph/devops-ci @hashgraph/devops-ci-committers
 **/LICENSE                                      @hashgraph/release-engineering-managers
 
 # CodeCov configuration
-**/codecov.yml                                  @hashgraph/release-engineering-managers @hashgraph/devops-ci
+**/codecov.yml                                  @hashgraph/release-engineering-managers @hashgraph/devops-ci @hashgraph/devops-ci-committers
 
 # Git Ignore definitions
-**/.gitignore                                   @hashgraph/release-engineering-managers @hashgraph/devops-ci
-**/.gitignore.*                                 @hashgraph/release-engineering-managers @hashgraph/devops-ci
+**/.gitignore                                   @hashgraph/release-engineering-managers @hashgraph/devops-ci @hashgraph/devops-ci-committers
+**/.gitignore.*                                 @hashgraph/release-engineering-managers @hashgraph/devops-ci @hashgraph/devops-ci-committers
