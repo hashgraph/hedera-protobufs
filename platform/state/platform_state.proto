@@ -50,7 +50,7 @@ message PlatformState {
      * <p>
      * This SHALL be the software version that created this state.
      */
-    proto.SemanticVersion creation_software_version = 1;
+    PlatformVersion creation_software_version = 1;
 
     /**
      * A number of non-ancient rounds.
@@ -117,7 +117,7 @@ message PlatformState {
      * If birth round migration is complete, this SHALL be the _first_ software
      * version that enabled birth round mode.
     */
-    proto.SemanticVersion first_version_in_birth_round_mode = 10003 [deprecated = true];
+    PlatformVersion first_version_in_birth_round_mode = 10003 [deprecated = true];
 
     /**
      * An address book for this round.
@@ -338,4 +338,18 @@ message NodeId {
    * A numeric identifier.
    */
   uint64 id = 1;
+}
+
+/**
+ * A version of the platform software.
+ */
+message PlatformVersion {
+    /**
+     * Version of the HAPI specification that was used to serialize the state.
+     */
+    proto.SemanticVersion hapi_version = 1;
+    /**
+     * The software version of the state
+     */
+    proto.SemanticVersion software_version = 2;
 }
