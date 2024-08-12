@@ -81,28 +81,6 @@ message PlatformState {
      */
     proto.Timestamp last_frozen_time = 5;
 
-    /**
-     * A cryptographic hash of a roster.<br/>
-     * This hash represents a candidate roster, which is a roster that
-     * is not yet active, but is being considered.
-     * <p>
-     * A Node SHOULD NOT have more than one candidate roster at
-     * any given moment.<br/>
-     * This value MUST be a SHA-384 hash.
-     */
-    bytes candidate_roster_hash = 6;
-
-    /**
-     * A cryptographic hash of a roster.<br/>
-     * This hash represents an active roster, which is a roster that
-     * is adopted by the network and in current use.
-     * <p>
-     * The network SHALL NOT have more than one active roster at
-     * any given moment.<br/>
-     * This value MUST be a SHA-384 hash.
-     */
-    bytes active_roster_hash = 7;
-
     // Fields below are to be deprecated in the foreseeable future.
 
     /**
