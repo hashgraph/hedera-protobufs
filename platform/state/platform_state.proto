@@ -351,7 +351,9 @@ message PlatformVersion {
      */
     proto.SemanticVersion hapi_version = 1;
     /**
-     * The software version of the state
+     * A software version for the Hashgraph Platform SDK.<br/>
+     * This is the version of the software that produced the state containing
+     * this message.
      */
     proto.SemanticVersion software_version = 2;
 }
