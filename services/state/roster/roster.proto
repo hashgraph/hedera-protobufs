@@ -43,9 +43,9 @@ message Roster {
 }
 
 /**
- * A single roster entry in the roster.
+ * A single roster entry in the network state.
  *
- * Each roster entry in the roster list SHALL encapsulate the elements required
+ * Each roster entry in SHALL encapsulate the elements required
  * to manage node participation in the Threshold Signature Scheme (TSS).<br/>
  * All fields are REQUIRED.
  */
@@ -54,20 +54,17 @@ message RosterEntry {
     /**
      * A consensus node identifier.
      * <p>
-     * Node identifiers SHALL be unique _within_ a shard and realm,
-     * but a node SHALL NOT, ever, serve multiple shards or realms,
-     * therefore the node identifier MAY be repeated _between_ shards and realms.
+     * Node identifiers SHALL be unique _within_ a ledger,
+     * and MAY NOT be repeated _between_ shards and realms.
      */
     uint64 node_id = 1;
 
     /**
      * A consensus weight.
      * <p>
-     * Each node SHALL have a weight in consensus calculations.<br/>
-     * The consensus weight of a node SHALL be calculated based on the amount
-     * of HBAR staked to that node.<br/>
-     * Consensus SHALL be calculated based on agreement of greater than `2/3`
-     * of the total `weight` value of all nodes on the network.
+     * Each node SHALL have a weight of zero or more in consensus calculations.<br/>
+     * The sum of the weights of all nodes in the roster SHALL form the total weight of the system,<br/>
+     * and each node's individual weight SHALL be proportional to that sum.<br/>
      */
     uint64 weight = 2;
 
@@ -82,12 +79,18 @@ message RosterEntry {
     bytes gossip_ca_certificate = 3;
 
     /**
-     * An elliptic curve public encryption key.<br/>
-     * This contains the _long term_ public key for this node.
+     * An ALT_BN128 elliptic curve public encryption key.<br/>
      * <p>
-     * This value SHALL be the DER encoding of the presented elliptic curve
-     * public key.<br/>
-     * This field is REQUIRED and MUST NOT be empty.
+     * The elliptic curve type may change in the future. For example, <br/>
+     * if the Ethereum ecosystem creates precompiles for BLS12_381,
+     * we may switch to that curve.
+     * <p>
+     * This value SHALL be specified according to EIP-196 and EIP-197 standards, <br/>
+     * See https://eips.ethereum.org/EIPS/eip-196#encoding and <br/>
+     * https://eips.ethereum.org/EIPS/eip-197#encoding
+     * <p>
+     * This field is OPTIONAL (that is, it can initially be null)
+     * but once set, it can no longer be null.
      */
     bytes tss_encryption_key = 4;
 
@@ -102,10 +105,6 @@ message RosterEntry {
      * then endpoints in this list MAY supply either IP address or FQDN, but
      * SHALL NOT supply both values for the same endpoint.<br/>
      * This list SHALL NOT be empty.<br/>
-     * This list SHALL NOT contain more than `10` entries.<br/>
-     * The first two entries in this list SHALL be the endpoints published to
-     * all consensus nodes.<br/>
-     * All other entries SHALL be reserved for future use.
      */
     repeated proto.ServiceEndpoint gossip_endpoint = 5;
 }
