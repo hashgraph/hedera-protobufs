@@ -108,18 +108,3 @@ message RosterEntry {
      */
     repeated proto.ServiceEndpoint gossip_endpoint = 5;
 }
-
-/**
- * A map of roster hashes to roster entries.
- * The map will be stored in the state as a PBJ map.
- * It will itself be managed as a Singleton state object.
- */
-message RosterMap {
-
-    /**
-     * A map of roster hashes to roster entries.
-     * The map will be stored in the state as a PBJ map.
-     * It will itself be managed as a Singleton state object.
-     */
-    map<string, RosterEntry> entries = 1;
-}
