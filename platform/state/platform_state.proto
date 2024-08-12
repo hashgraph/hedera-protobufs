@@ -352,6 +352,7 @@ message PlatformVersion {
      * the Hashgraph Platform SDK that produced this message.
      */
     proto.SemanticVersion hapi_version = 1;
+
     /**
      * A software version for the Hashgraph Platform SDK.<br/>
      * This is the version of the software that produced the state containing
