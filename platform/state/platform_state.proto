@@ -341,7 +341,9 @@ message NodeId {
 }
 
 /**
- * A version of the platform software.
+ * A combined software version.<br/>
+ * This message describes both the API version and the software version
+ * supported by a release of the Hashgraph Platform SDK.
  */
 message PlatformVersion {
     /**
