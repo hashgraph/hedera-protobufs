@@ -45,7 +45,7 @@ message Roster {
 /**
  * A single roster entry in the network state.
  *
- * Each roster entry in SHALL encapsulate the elements required
+ * Each roster entry SHALL encapsulate the elements required
  * to manage node participation in the Threshold Signature Scheme (TSS).<br/>
  * All fields are REQUIRED.
  */
