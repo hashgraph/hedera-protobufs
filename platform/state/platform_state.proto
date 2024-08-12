@@ -347,7 +347,9 @@ message NodeId {
  */
 message PlatformVersion {
     /**
-     * Version of the HAPI specification that was used to serialize the state.
+     * An API version.<br/>
+     * This is the Hedera API specification supported by the release of
+     * the Hashgraph Platform SDK that produced this message.
      */
     proto.SemanticVersion hapi_version = 1;
     /**
