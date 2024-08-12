@@ -44,7 +44,7 @@ message RosterState {
    * A Node SHALL NOT, ever, have more than one candidate roster
    * at the same time.
    */
-  byte candidate_roster_hash = 1;
+  bytes candidate_roster_hash = 1;
 
   /**
    * A list of round numbers and roster hashes.
@@ -76,5 +76,5 @@ message RoundRosterPair {
    * <p>
    * This value SHALL be the hash of the active roster used for the round.
    */
-  byte active_roster_hash = 2;
+  bytes active_roster_hash = 2;
 }
