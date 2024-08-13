@@ -1568,4 +1568,14 @@ enum ResponseCodeEnum {
      * consensus level.
      */
     THROTTLED_AT_CONSENSUS = 366;
+
+    /**
+     * Sender tried to cancel an airdrop, when there are no airdrops existing on the account.
+     */
+    SENDER_HAS_NO_AIRDROPS_TO_CANCEL = 367;
+
+    /**
+     * The provided pending airdrop id is invalid.
+     */
+    INVALID_PENDING_AIRDROP_ID = 368;
 }
