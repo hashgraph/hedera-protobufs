@@ -47,7 +47,7 @@ message Roster {
  *
  * Each roster entry SHALL encapsulate the elements required
  * to manage node participation in the Threshold Signature Scheme (TSS).<br/>
- * All fields are REQUIRED.
+ * All fields except tss_encryption_key are REQUIRED.
  */
 message RosterEntry {
 

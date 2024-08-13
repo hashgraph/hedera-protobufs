@@ -50,8 +50,7 @@ message RosterState {
    * A list of round numbers and roster hashes.
    * The round number indicates the round in which the corresponding roster became active
    * <p>
-   * This list SHALL be ordered by round numbers.<br/>
-   * This list MUST be deterministically ordered.
+   * This list SHALL be ordered by round numbers in descending order.
    */
   repeated RoundRosterPair round_roster_pairs = 2;
 }
