@@ -3,8 +3,6 @@ syntax = "proto3";
 package com.hedera.hapi.node.state.roster;
 
 /*
- * Hedera Network Services Protobuf
- *
  * Copyright (C) 2024 Hedera Hashgraph, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
