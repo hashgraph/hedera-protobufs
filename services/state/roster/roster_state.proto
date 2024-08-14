@@ -40,7 +40,7 @@ message RosterState {
    * The SHA-384 hash of a candidate roster.
    * <p>
    * This is the hash of the roster that is currently being considered
-   * for adoption.
+   * for adoption.<br/>
    * A Node SHALL NOT, ever, have more than one candidate roster
    * at the same time.
    */
