@@ -30,7 +30,7 @@ option java_multiple_files = true;
  * The current state of platform rosters.<br/>
  * This message stores a roster data for the platform in network state.
  *
- * The roster state SHALL encapsulate the incoming candidate roster's hash,<br/>
+ * The roster state SHALL encapsulate the incoming candidate roster's hash,
  * and a list of pairs of round number and active roster hash.<br/>
  * This data SHALL be used to track round numbers and the rosters used in determining the consensus.<br/>
  */
