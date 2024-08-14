@@ -47,7 +47,7 @@ message RosterState {
   bytes candidate_roster_hash = 1;
 
   /**
-   * A list of round numbers and roster hashes.
+   * A list of round numbers and roster hashes.<br/>
    * The round number indicates the round in which the corresponding roster became active
    * <p>
    * This list SHALL be ordered by round numbers in descending order.
