@@ -53,7 +53,7 @@ message RosterEntry {
      * A consensus node identifier.
      * <p>
      * Node identifiers SHALL be unique _within_ a ledger,
-     * and MAY NOT be repeated _between_ shards and realms.
+     * and MUST NOT be repeated _between_ shards and realms.
      */
     uint64 node_id = 1;
 
@@ -61,7 +61,7 @@ message RosterEntry {
      * A consensus weight.
      * <p>
      * Each node SHALL have a weight of zero or more in consensus calculations.<br/>
-     * The sum of the weights of all nodes in the roster SHALL form the total weight of the system,<br/>
+     * The sum of the weights of all nodes in the roster SHALL form the total weight of the system,
      * and each node's individual weight SHALL be proportional to that sum.<br/>
      */
     uint64 weight = 2;
@@ -77,18 +77,17 @@ message RosterEntry {
     bytes gossip_ca_certificate = 3;
 
     /**
-     * An ALT_BN128 elliptic curve public encryption key.<br/>
-     * <p>
-     * The elliptic curve type may change in the future. For example, <br/>
+     * An elliptic curve public encryption key.<br/>
+     * This is currently an ALT_BN128 curve, but the elliptic curve
+     * type may change in the future. For example,
      * if the Ethereum ecosystem creates precompiles for BLS12_381,
      * we may switch to that curve.
      * <p>
-     * This value SHALL be specified according to EIP-196 and EIP-197 standards, <br/>
-     * See https://eips.ethereum.org/EIPS/eip-196#encoding and <br/>
-     * https://eips.ethereum.org/EIPS/eip-197#encoding
-     * <p>
-     * This field is OPTIONAL (that is, it can initially be null)
-     * but once set, it can no longer be null.
+     * This value SHALL be specified according to EIP-196 and EIP-197 standards,
+     * See <a href='https://eips.ethereum.org/EIPS/eip-196#encoding'>EIP-196</a> and
+     * <a href='https://eips.ethereum.org/EIPS/eip-197#encoding'>EIP-197</a><br/>
+     * This field is _initially_ OPTIONAL (i.e. it can be unset _when created_)
+     * but once set, it is REQUIRED thereafter.
      */
     bytes tss_encryption_key = 4;
 
