@@ -55,7 +55,7 @@ message RosterEntry {
      * A consensus node identifier.
      * <p>
      * Node identifiers SHALL be unique _within_ a ledger,
-     * and MAY NOT be repeated _between_ shards and realms.
+     * and MUST NOT be repeated _between_ shards and realms.
      */
     uint64 node_id = 1;
 
