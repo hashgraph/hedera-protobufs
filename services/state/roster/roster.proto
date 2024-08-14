@@ -104,5 +104,4 @@ message RosterEntry {
      * This list SHALL NOT be empty.<br/>
      */
     repeated proto.ServiceEndpoint gossip_endpoint = 5;
-
 }
