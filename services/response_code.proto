@@ -1548,7 +1548,7 @@ enum ResponseCodeEnum {
     /**
     * The transaction attempted to use more than the allowed number of `PendingAirdropId`.
     */
-    MAX_PENDING_AIRDROP_ID_EXCEEDED = 363;
+    PENDING_AIRDROP_ID_LIST_TOO_LONG = 363;
 
     /*
     * A pending airdrop already exists for the specified NFT.
