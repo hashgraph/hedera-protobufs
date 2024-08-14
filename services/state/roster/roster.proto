@@ -79,9 +79,9 @@ message RosterEntry {
     bytes gossip_ca_certificate = 3;
 
     /**
-     * An ALT_BN128 elliptic curve public encryption key.<br/>
-     * <p>
-     * The elliptic curve type may change in the future. For example, <br/>
+     * An elliptic curve public encryption key.<br/>
+     * This is currently an ALT_BN128 curve, but the elliptic curve
+     * type may change in the future. For example,
      * if the Ethereum ecosystem creates precompiles for BLS12_381,
      * we may switch to that curve.
      * <p>
