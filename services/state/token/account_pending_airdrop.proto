@@ -35,7 +35,7 @@ option java_multiple_files = true;
  * The pending airdrop MUST NOT be claimed.<br/>
  * The pending airdrop MUST NOT be canceled.<br/>
  * The pending airdrop `sender` account's `head_pending_airdrop_id` field
- * MUST match the `pending_airdrop_id` field in this message. 
+ * MUST match the `pending_airdrop_id` field in this message.
  *
  * ### Record Stream Effects
  * This value is not currently published in the record stream.
