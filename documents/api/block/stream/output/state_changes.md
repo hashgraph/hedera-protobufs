@@ -14,7 +14,6 @@
     - [StateChanges](#com-hedera-hapi-block-stream-output-StateChanges)
   
     - [NewStateType](#com-hedera-hapi-block-stream-output-NewStateType)
-    - [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause)
     - [StateIdentifier](#com-hedera-hapi-block-stream-output-StateIdentifier)
   
 
@@ -49,8 +48,8 @@ A key identifying a specific entry in a key-value "virtual map".
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | account_id_key | [proto.AccountID](#proto-AccountID) |  | A key for a change affecting a map keyed by an Account identifier. |
-| entity_id_pair_key | [proto.EntityIDPair](#proto-EntityIDPair) |  | A change to the token relationships virtual map.<br/> This map is keyed by the pair of account identifier and token identifier. |
-| entity_number_key | [proto.EntityNumber](#proto-EntityNumber) |  | A change to a map keyed by an EntityNumber (which is a single int64). <p> This SHOULD NOT be used. Virtual maps SHOULD be keyed to full identifiers that include shard and realm information. |
+| token_relationship_key | [proto.TokenAssociation](#proto-TokenAssociation) |  | A change to the token relationships virtual map.<br/> This map is keyed by the pair of account identifier and token identifier. |
+| entity_number_key | [google.protobuf.UInt64Value](#google-protobuf-UInt64Value) |  | A change to a map keyed by an EntityNumber (which is a whole number). <p> This SHOULD NOT be used. Virtual maps SHOULD be keyed to full identifiers that include shard and realm information. |
 | file_id_key | [proto.FileID](#proto-FileID) |  | A change to a virtual map keyed by File identifier. |
 | nft_id_key | [proto.NftID](#proto-NftID) |  | A change to a virtual map keyed by NFT identifier. |
 | proto_bytes_key | [google.protobuf.BytesValue](#google-protobuf-BytesValue) |  | A change to a virtual map keyed by a byte array. |
@@ -216,7 +215,7 @@ An update to a `Singleton` state.
 | ----- | ---- | ----- | ----------- |
 | block_info_value | [proto.BlockInfo](#proto-BlockInfo) |  | A change to the block info singleton. <p> The `BlockInfo` SHALL be updated at the end of every block and SHALL store, among other fields, the last 256 block hash values. <blockquote>REVIEW NOTE<blockquote> The full BlockInfo will be in the state proof, and may not be necessary here.</blockquote></blockquote> |
 | congestion_level_starts_value | [proto.CongestionLevelStarts](#proto-CongestionLevelStarts) |  | A change to the congestion level starts singleton. <p> This change SHALL be present if congestion level pricing for general fees or gas fees started during the current block. |
-| entity_number_value | [proto.EntityNumber](#proto-EntityNumber) |  | A change to the Entity Identifier singleton. <p> The Entity Identifier singleton SHALL track the highest entity identifier used for the current shard and realm and SHALL be used to issue new entity numbers. |
+| entity_number_value | [google.protobuf.UInt64Value](#google-protobuf-UInt64Value) |  | A change to the Entity Identifier singleton. <p> The Entity Identifier singleton SHALL track the highest entity identifier used for the current shard and realm and SHALL be used to issue new entity numbers. |
 | exchange_rate_set_value | [proto.ExchangeRateSet](#proto-ExchangeRateSet) |  | A change to the exchange rates singleton. <p> This change SHALL be present if the <tt>HBAR&lt;=&gt;USD</tt> exchange rate, as stored in the "midnight rates" singleton changed during the current block. |
 | network_staking_rewards_value | [proto.NetworkStakingRewards](#proto-NetworkStakingRewards) |  | A change to the network staking rewards singleton. <p> Network staking rewards SHALL be updated for every non-empty block. |
 | bytes_value | [google.protobuf.BytesValue](#google-protobuf-BytesValue) |  | A change to a raw byte array singleton. <p> This change SHALL present a change made to a raw byte array singleton.<br/> The "upgrade file hash" state is an example of a raw byte array singleton. |
@@ -294,7 +293,6 @@ This value depends on the cause of the state change.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| cause | [StateChangesCause](#com-hedera-hapi-block-stream-output-StateChangesCause) |  | The proximate source of this state change set. <p> This field describes the source (e.g. user transaction, system "housekeeping", end of block, etc...) of the changes included in this change set. |
 | consensus_timestamp | [proto.Timestamp](#proto-Timestamp) |  | The consensus timestamp of this set of changes. <p> This value SHALL be deterministic with the cause of the state change. |
 | state_changes | [StateChange](#com-hedera-hapi-block-stream-output-StateChange) | repeated | An ordered list of individual changes. <p> These changes MUST be applied in the order listed to produce a correct modified state. |
 
@@ -317,25 +315,6 @@ added and removed.
 | SINGLETON | 0 |  |
 | VIRTUAL_MAP | 1 |  |
 | QUEUE | 2 |  |
-
-
-
-<a name="com-hedera-hapi-block-stream-output-StateChangesCause"></a>
-
-### StateChangesCause
-The "cause" of a state change.
-
-What was the network doing that led to the change in state?<br/>
-The most common event is, of course, a user transaction.
-Other sources of state changes include end-of-block housekeeping changes,
-data migration, and "system" transactions.
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| STATE_CHANGE_CAUSE_TRANSACTION | 0 | A set of transaction state changes.<br/> This is a deliberate default because this is the most common 'cause' and we wish to minimize serialized size. |
-| STATE_CHANGE_CAUSE_SYSTEM | 1 | A system-internal state change.<br/> System-initiated transactions exist to enable the network to maintain state signatures and network communication. |
-| STATE_CHANGE_CAUSE_END_OF_BLOCK | 2 | A set of end-of-block state changes.<br/> The network performs certain processes, such as writing to the block stream, updating singleton states, or updating queue states at the end of a block to minimize impacts on consensus nodes. |
-| STATE_CHANGE_CAUSE_MIGRATION | 3 | A set of data migration state changes.<br/> Data migration is typically necessary following a network upgrade to make required storage format updates and enable new features. |
 
 
 
