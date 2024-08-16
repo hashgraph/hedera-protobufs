@@ -1570,17 +1570,19 @@ enum ResponseCodeEnum {
     THROTTLED_AT_CONSENSUS = 366;
 
     /**
-     * Sender tried to cancel an airdrop, when there are no airdrops existing on the account.
+     * The provided pending airdrop id is invalid. It could be that the pending airdrop is already claimed
+     * or cancelled.
      */
-    SENDER_HAS_NO_AIRDROPS_TO_CANCEL = 367;
-
-    /**
-     * The provided pending airdrop id is invalid.
-     */
-    INVALID_PENDING_AIRDROP_ID = 368;
+    INVALID_PENDING_AIRDROP_ID = 367;
 
     /**
      * The token having fallback royalty fee cannot be airdropped or claimed.
      */
-    TOKEN_AIRDROP_WITH_FALLBACK_ROYALTY = 369;
+    TOKEN_AIRDROP_WITH_FALLBACK_ROYALTY = 368;
+
+    /**
+     * The token in the pending airdrop that was tried to claim is deleted or the sender is no more
+     * owning the token.
+     */
+    INVALID_TOKEN_IN_PENDING_AIRDROP = 369;
 }
