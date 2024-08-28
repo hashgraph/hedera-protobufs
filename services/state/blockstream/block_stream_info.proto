@@ -76,11 +76,13 @@ message BlockStreamInfo {
     bytes trailing_output_hashes = 3;
 
     /**
-     * A concatenation of up to 256 trailing block hashes.<br/>
+     * A concatenation of hash values.<br/>
+     * This field combines up to 256 trailing block hashes.
+     * <p>
      * If this message is for block number N, then the earliest available
-     * hash will be for block number N-256, and the latest available hash
-     * will be for block N-1. This is required to implement the EVM
-     * `BLOCKHASH` opcode.
+     * hash SHALL be for block number N-256.<br/>
+     * The latest available hash SHALL be for block N-1.<br/>
+     * This is REQUIRED to implement the EVM `BLOCKHASH` opcode.
      */
     bytes trailing_block_hashes = 4;
 }
