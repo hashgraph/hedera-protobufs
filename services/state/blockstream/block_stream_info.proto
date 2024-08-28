@@ -37,11 +37,12 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * A message stored in state to maintain block stream parameters. Nodes use this
- * information for three purposes. First, to maintain hash chain continuity at
- * restart and reconnect boundaries. Second, to store historical hashes for
- * implementation of the EVM `BLOCKHASH` and `PREVRANDAO` opcodes. Third, to track
- * the amount of consensus time that has passed between blocks.
+ * A message stored in state to maintain block stream parameters.<br/>
+ * Nodes use this information for three purposes.
+ * 1. To maintain hash chain continuity at restart and reconnect boundaries.
+ * 1. To store historical hashes for implementation of the EVM `BLOCKHASH`
+ *    and `PREVRANDAO` opcodes.
+ * 1. To track the amount of consensus time that has passed between blocks.
  *
  * This value MUST be updated for every block.<br/>
  * This value MUST be transmitted in the "state changes" section of
