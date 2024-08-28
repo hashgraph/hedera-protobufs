@@ -69,6 +69,7 @@ option java_multiple_files = true;
 import "basic_types.proto";
 import "stream/block.proto";
 import "stream/block_item.proto";
+import "google/protobuf/timestamp.proto";
 
 /**
  * Publish a stream of blocks.
@@ -88,6 +89,11 @@ message PublishStreamRequest {
      * A single item written to the block stream.
      */
     com.hedera.hapi.block.stream.BlockItem block_item = 1;
+
+    /**
+     * A timestamp indicating when the request was made. Nanosecond precision.
+     */
+    google.protobuf.Timestamp request_timestamp = 2;
 }
 
 /**
