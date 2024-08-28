@@ -69,7 +69,7 @@ option java_multiple_files = true;
 import "basic_types.proto";
 import "stream/block.proto";
 import "stream/block_item.proto";
-import "google/protobuf/timestamp.proto";
+import "timestamp.proto";
 
 /**
  * Publish a stream of blocks.
@@ -93,7 +93,7 @@ message PublishStreamRequest {
     /**
      * A timestamp indicating when the request was made. Nanosecond precision.
      */
-    google.protobuf.Timestamp request_timestamp = 2;
+    Timestamp request_timestamp = 2;
 }
 
 /**
