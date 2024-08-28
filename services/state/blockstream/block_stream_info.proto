@@ -53,7 +53,7 @@ option java_multiple_files = true;
 message BlockStreamInfo {
     /**
      * A block number.<br/>
-     * The number of the block this message describes.
+     * This is the current block number.
      */
     uint64 block_number = 1;
 
