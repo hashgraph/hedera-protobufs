@@ -93,7 +93,7 @@ message PublishStreamRequest {
     /**
      * A timestamp indicating when the request was made. Nanosecond precision.
      */
-    Timestamp request_timestamp = 2;
+    proto.Timestamp request_timestamp = 2;
 }
 
 /**
