@@ -58,8 +58,9 @@ message BlockStreamInfo {
     uint64 block_number = 1;
 
     /**
-     * The first consensus time in this block.<br/>
-     * This is used to determine if this block was the first across an
+     * A consensus time for the current block.<br/>
+     * This is the _first_ consensus time in the current block, and
+     * is used to determine if this block was the first across an
      * important boundary in consensus time, such as UTC midnight.
      * This may also be used to purge entities expiring between the last
      * block time and this time.
