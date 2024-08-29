@@ -2,39 +2,6 @@
  * # Block Service
  * The Service API exposed by the Block Nodes.
  *
- * ## Workarounds
- * > There are incorrect elements in this file to work around bugs in the
- * > PBJ Compiler.
- * >> Issues 262, 263, 240, 218, 217, and 216 are related.
- * >
- * > Issue 263
- * >> A number of fields reference child messages, these _should_ specify
- * >> the parent message (i.e. `Parent.child field = #;`) but do not do
- * >> so due to issue 263.
- * >
- * > Issue 262
- * >> Some fields reference messages defined in other packages that share
- * >> a common prefix (e.g. `com.hedera.hapi.block.stream`). These fields
- * >> specify the entire package instead of the shorter and clearer suffix
- * >> due to issue 262
- * >
- * > Issue 240
- * >> These files currently cause PBJ integration tests to fail if included
- * >> due to issue 240.
- * >
- * > Issue 218
- * >> These files have the same value for package and java_package. Ideally
- * >> we would not specify `java_package` or the pbj comment in that situation,
- * >> but Issue 218 prevents eliding the unnecessary directives.
- * >
- * > Issue 217
- * >> These files may cause PBJ to fail compilation due to comments preceeding
- * >> the `syntax` keyword.
- * >
- * > Issue 216
- * >> These files would do well with validation support, but cannot make
- * >> use of validation, even as an advisory element, due to Issue 216.
- *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -71,23 +38,34 @@ import "stream/block.proto";
 import "stream/block_item.proto";
 
 /**
- * Publish a stream of blocks.
+ * Publish a stream of block items.
  *
- * Each item in the stream MUST contain one `BlockItem`.<br/>
+ * Each request in the stream MUST contain at least one `BlockItem`.<br/>
+ * Each request MAY contain more than one `BlockItem`.<br/>
+ * A single request MUST NOT contain `BlockItem`s from more than one block.<br/>
+ * Each request MAY contain a variable number of `BlockItem`s.<br/>
  * Each Block MUST begin with a single `BlockHeader` block item.<br/>
+ * If a `BlockHeader` is present in a request, it MUST be the first `BlockItem`
+ * in the `block_items` list.<br/>
  * The block node SHALL append each `BlockItem` to an internal structure
  * to reconstruct full blocks.<br/>
  * The block node MUST verify the block proof for each block before sending a
  * response message acknowledging that block.<br/>
- * Each Block MUST end with a single `BlockStateProof` block item.<br/>
- * The block node MUST verify the Block using the `BlockStateProof` to
- * ensure all data was received and processed correctly.<br/>
+ * Each Block MUST end with a single `BlockProof` block item.<br/>
+ * If a `BlockProof` is present in a request, it MUST be the last `BlockItem`
+ * in the `block_items` list.<br/>
+ * The block node MUST verify each Block using the `BlockProof` to
+ * ensure all data was received and processed correctly.
  */
 message PublishStreamRequest {
     /**
-     * A single item written to the block stream.
+     * An ordered list of items written to the block stream.
+     * <p>
+     * This list MAY contain as little as one item, as much as an entire
+     * block, or any amount between those extremes.<br/>
+     * This list MUST NOT contain more than one block.
      */
-    com.hedera.hapi.block.stream.BlockItem block_item = 1;
+    repeated com.hedera.hapi.block.stream.BlockItem block_items = 1;
 }
 
 /**
@@ -143,24 +121,24 @@ message PublishStreamResponse {
     }
 
     /**
-     * Acknowledgement for a single `BlockItem`.<br/>
+     * Acknowledgement for a single repeated `BlockItem`.<br/>
      * Most nodes are expected to implement this acknowledgement only for
      * debugging and development purposes.
      *
      * If a node implements single item acknowledgement, the block node SHALL
-     * send one `ItemAcknowledgement` for each `BlockItem` received
+     * send one `ItemAcknowledgement` for each repeated `BlockItem` received
      * and verified.
      */
     message ItemAcknowledgement {
         /**
-         * A SHA2-384 hash of the `BlockItem` received.
+         * A SHA2-384 hash of the `BlockItem`s received.
          * <p>
          * This field is REQUIRED.<br/>
          * A source system MUST verify that this value matches its own internal
          * calculated hash value, and MUST end the stream if the values do not
          * match.
          */
-        bytes item_hash = 1;
+        bytes items_hash = 1;
     }
 
     /**
@@ -539,13 +517,39 @@ message SubscribeStreamResponse {
         SubscribeStreamResponseCode status = 1;
 
         /**
-         * A stream response item containing a single `BlockItem`.
+         * A stream response item containing one or more `BlockItem`s.
          * <p>
-         * The full response SHALL consist of many `block_item` messages
+         * The full response SHALL consist of many `block_items` messages
          * followed by a single `status` message.
          */
-        com.hedera.hapi.block.stream.BlockItem block_item = 2;
+        SubscribeStreamResponseSet block_items = 2;
     }
+}
+
+/**
+ * A wrapper message to permit repeated block items in a response.<br/>
+ * This message is required so that we can return ordered lists of block
+ * items to a subscriber.
+ *
+ * Each `SubscribeStreamResponseSet` MUST contain at least one `BlockItem`,
+ * and MAY contain up to one full block.<br/>
+ * A single `SubscribeStreamResponseSet` SHALL NOT contain block items from
+ * more than one block.<br/>
+ * If a `BlockHeader` is present in a `SubscribeStreamResponseSet`, that item
+ * MUST be the first item in the list.<br/>
+ * If a `BlockProof` is present in a `SubscribeStreamResponseSet`, that item
+ * MUST be the last item in the list.
+ */
+message SubscribeStreamResponseSet {
+    /**
+     * An ordered list of `BlockItem`s.<br/>
+     * This list supports sending block items to subscribers in batches
+     * for greater channel efficiency.
+     * <p>
+     * The full response SHALL consist of many of these collections
+     * followed by a single `status` message.
+     */
+    repeated com.hedera.hapi.block.stream.BlockItem block_items = 1;
 }
 
 /**
@@ -790,9 +794,9 @@ message BlockNodeVersions {
 }
 
 /**
- * Remote procedure calls (RPCs) for the Block Node.
+ * Remote procedure calls (RPCs) for the Block Node ancillary services.
  */
-service BlockStreamService {
+service BlockNodeService {
     /**
      * Read the status of this block node server.
      * <p>
@@ -800,14 +804,25 @@ service BlockStreamService {
      * data or a state snapshot.
      */
     rpc serverStatus(ServerStatusRequest) returns (ServerStatusResponse);
+}
 
+/**
+ * Remote procedure calls (RPCs) for the Block Node block services.
+ */
+service BlockAccessService {
     /**
      * Read a single block from the block node.
      * <p>
      * The request SHALL describe the block number of the block to retrieve.
      */
     rpc singleBlock(SingleBlockRequest) returns (SingleBlockResponse);
+}
 
+/**
+ * Remote procedure calls (RPCs) for the Block Node state snapshot
+ * and query services.
+ */
+service StateService {
     /**
      * Read a state snapshot from the block node.
      * <p>
@@ -818,6 +833,12 @@ service BlockStreamService {
      */
     rpc stateSnapshot(StateSnapshotRequest) returns (StateSnapshotResponse);
 
+}
+
+/**
+ * Remote procedure calls (RPCs) for the Block Node stream services.
+ */
+service BlockStreamService {
     /**
      * Publish a stream of blocks.
      * <p>
