@@ -151,7 +151,7 @@ message EthereumOutput {
         proto.ContractFunctionResult ethereum_call_result = 3;
 
         /**
-         * A result for an Ethereum Transaction executed as a create.
+         * A result for an Ethereum _contract create_ transaction.
          * <p>
          * This field SHALL contain all of the data produced by the contract
          * create transaction as well as basic accounting results.
