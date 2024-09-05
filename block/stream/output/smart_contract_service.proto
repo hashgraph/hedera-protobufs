@@ -135,9 +135,9 @@ message EthereumOutput {
     /**
      * An ethereum hash value.
      * <p>
-     * This SHALL be a keccak256 hash of the ethereumData, after
-     * interpolating the calldata from the referenced calldata file
-     * (if set).
+     * This SHALL be a keccak256 hash of the ethereumData<br/>
+     * This hash SHALL be computed strictly _after_ interpolating
+     * the calldata from the calldata file (if set).
      */
     bytes ethereum_hash = 2;
 
