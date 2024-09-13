@@ -43,37 +43,33 @@ option java_multiple_files = true;
 /**
  * A single Account in the Hedera distributed ledger.
  *
- * Each Account has a unique three-part identifier, a Key, and one or more token
- * balances.
- *
- * Accounts also have an alias, which has multiple forms, and may be set
- * automatically.
- *
- * Several additional items are associated with the Account to enable full
- * functionality.
- *
- * Assets are represented as linked-lists with only the "head" item referenced
- * directly in the Account, and the remaining items are accessible via the
- * token relation or unique tokens maps.
- *
- * Accounts, as most items in the network, have an expiration time, recorded as
- * seconds since the epoch, and must be "renewed" for a small fee at expiration.
- * This helps to reduce the amount of inactive accounts retained in state.
- * Another account may be designated to pay any renewal fees and automatically
- * renew the account for (by default) 30-90 days at a time as a means to
- * optionally ensure important accounts remain active.
- *
- * Accounts may participate in securing the network by "staking" the account
- * balances to a particular network node, and receive a portion of network fees
- * as a reward. An account may optionally decline these rewards but still stake
- * its balances.
- *
- * An account may optionally require that inbound transfer transactions be
- * signed by that account as receiver (in addition to the sender's signature).
- *
- * As with all network entities, Account ID is represented as shard.realm.X.
- * Alias and contractId are additional identifiers used to connect accounts to
- * transactions before the account is fully enabled, or in EVM contracts.
+ * Each Account SHALL have a unique three-part identifier, a Key, and one
+ * or more token balances.<br/>
+ * Each Account SHALL have an alias, which has multiple forms, and MAY be set automatically.<br/>
+ * Several additional items SHALL be associated with the Account to enable
+ * full functionality.<br/>
+ * Assets SHALL be represented as linked-lists with only the "head" item
+ * referenced directly in the Account, and the remaining items SHALL be
+ * accessible via the token relation or unique tokens maps.<br/>
+ * Accounts, as most items in the network, SHALL have an expiration time,
+ * recorded as seconds since the epoch, and MUST be "renewed" for a small fee
+ * at expiration. This helps to reduce the amount of inactive accounts retained
+ * in state.<br/>
+ * Another account MAY be designated to pay any renewal fees and automatically
+ * renew an account for (by default) 30-90 days at a time as a means to
+ * optionally ensure important accounts remain active.<br/>
+ * Accounts MAY participate in securing the network by "staking" the account
+ * balances to a particular network node, and receive a portion of network
+ * fees as a reward. An account MAY optionally decline these rewards but still
+ * stake its balances.<br/>
+ * An account MAY optionally require that inbound transfer transactions be
+ * signed by that account as receiver
+ * (in addition to the sender's signature).<br/>
+ * As with all network entities, Account ID SHALL be represented as
+ * shard.realm.X.<br/>
+ * Alias and contractId SHALL be additional identifiers used to connect accounts
+ * to transactions before the account is fully enabled,
+ * or in EVM contracts.<br/>
  *
  * ---
  *
