@@ -2,10 +2,31 @@
  * # Get Account Details
  * A standard query to inspect the full detail of an account.
  *
- * > REVIEW NOTE
- * >> This query in NetworkAdmin service duplicates CryptoGetInfo in Token Service.<br/>
- * >> What is the value of having both?<br/>
- * >> Should this version be deprecated? Should that version be deprecated?
+ * <blockquote style="background-color: #200000; color: lightblue">
+ *
+ * #### REVIEW NOTE
+ * > This query in NetworkAdmin service duplicates CryptoGetInfo in Token Service.<br/>
+ * > What is the value of having both?<br/>
+ * > Should this version be deprecated? Should that version be deprecated?
+ *
+ * The biggest difference between CryptoGetInfo and NetworkGetAccountDetails is
+ * that NetworkGetAccountDetails is privileged, i.e. it must be signed by a
+ * superuser. However it is not clear why privileged users can't use the
+ * non-privileged query too.
+ *
+ * ##### Other differences
+ * CryptoGetAccountInfo response contains the following data which NetworkGetAccountDetails does not:
+ * - long generateSendRecordThreshold
+ * - long generateReceiveRecordThreshold
+ * - List<LiveHash> liveHashes
+ * - long ethereumNonce
+ * - StakingInfo stakingInfo
+ *
+ * Conversely, NetworkGetAccountDetails contains the following data which CryptoGetAccountInfo does not:
+ * - List<GrantedCryptoAllowance> grantedCryptoAllowances
+ * - List<GrantedNftAllowance> grantedNftAllowances
+ * - List<GrantedTokenAllowance> grantedTokenAllowances
+ * </blockquote>
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
