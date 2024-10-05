@@ -73,21 +73,15 @@ import "stream/block_item.proto";
 /**
  * Publish a stream of blocks.
  *
- * Each item in the stream MUST contain one `BlockItem`.<br/>
- * Each Block MUST begin with a single `BlockHeader` block item.<br/>
- * The block node SHALL append each `BlockItem` to an internal structure
- * to reconstruct full blocks.<br/>
+ * Each item in the stream MUST contain one `Block`.<br/>
  * The block node MUST verify the block proof for each block before sending a
  * response message acknowledging that block.<br/>
- * Each Block MUST end with a single `BlockStateProof` block item.<br/>
- * The block node MUST verify the Block using the `BlockStateProof` to
- * ensure all data was received and processed correctly.<br/>
  */
 message PublishStreamRequest {
     /**
-     * A single item written to the block stream.
+     * A single block written to the block stream.
      */
-    com.hedera.hapi.block.stream.BlockItem block_item = 1;
+    com.hedera.hapi.block.stream.Block Block = 1;
 }
 
 /**
