@@ -500,29 +500,6 @@ message SubscribeStreamRequest {
     bool allow_unverified = 3;
 }
 
-/**
- * One item in a stream of `subscribeBlockStream` responses.
- *
- * The block node SHALL respond to a `subscribeBlockStream` request with a
- * stream of `SubscribeStreamResponse` messages.<br/>
- * The block node SHALL stream the full contents of the blocks requested.<br/>
- * The block items SHALL be streamed in order originally produced within
- * a block.<br/>
- * The blocks SHALL be streamed in ascending order by `block_number`.<br/>
- * The block node SHALL end the stream when the last requested block has
- * been sent.<br/>
- * The block node SHALL end the stream with a response code status of SUCCESS
- * when the stream is complete.<br/>
- * The block node SHALL end the stream with a response code status of
- * `READ_STREAM_INVALID_START_BLOCK_NUMBER` if the start block number is
- * greater than the end block number.<br/>
- * The block node SHALL end the stream with a response code status of
- * `READ_STREAM_INSUFFICIENT_BALANCE` if insufficient balance remains to
- * complete the requested stream.
- * The block node SHALL make every reasonable effort to fulfill as much of the
- * request as available balance supports, in the event balance is not
- * sufficient to complete the request.
- */
 message SubscribeStreamResponse {
     oneof response {
         /**
@@ -532,13 +509,7 @@ message SubscribeStreamResponse {
          */
         SubscribeStreamResponseCode status = 1;
 
-        /**
-         * A stream response item containing a single `BlockItem`.
-         * <p>
-         * The full response SHALL consist of many `block_item` messages
-         * followed by a single `status` message.
-         */
-        com.hedera.hapi.block.stream.BlockItem block_item = 2;
+        com.hedera.hapi.block.stream.Block block = 2;
     }
 }
 
