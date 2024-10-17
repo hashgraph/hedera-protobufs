@@ -58,12 +58,135 @@ import "stream/block_item.proto";
  * ensure all data was received and processed correctly.
  */
 message PublishStreamRequest {
+    oneof request {
+        /**
+         * A stream item containing one or more `BlockItem`s.
+         * <p>
+         * The full stream SHALL consist of many `block_items` messages
+         * followed by a single `status` message.
+         */
+        BlockItemSet block_items = 1;
+
+        /**
+         * An item sent when a stream is ended by the publisher.
+         */
+        EndOfStream status = 2;
+    }
+
     /**
-     * An ordered list of items written to the block stream.
+     * A message sent to end a stream.
+     *
+     * This request message SHALL be sent from a Publisher to a block
+     * node system when a `publishBlockStream` stream ends.<br/>
+     * This message SHALL be sent _at most_ once for each `publishBlockStream`
+     * call.<br/>
+     * The source system SHALL cease sending block items after sending
+     * this item.
+     */
+    message EndOfStream {
+        /**
+         * A status code.
+         * <p>
+         * This code indicates the reason the stream ended.<br/>
+         * This value MUST be set to a non-default value.
+         */
+        PublishStreamEndCode status = 1;
+
+        /**
+         * The number of the earliest available block.
+         * <p>
+         * Publishers MUST provide the earliest available block still
+         * present in local cache.
+         */
+        uint64 earliest_block_number = 2;
+
+        /**
+         * The number of the last available block.
+         * <p>
+         * Publishers MUST provide the most recent available block.
+         */
+        uint64 latest_block_number = 3;
+    }
+}
+
+/**
+ * An enumeration indicating why a publisher ended a stream.
+ *
+ * This enumeration describes the reason a block stream
+ * (sent via `publishBlockStream`) was ended by the publisher.
+ */
+enum PublishStreamEndCode {
+    /**
+     * An "unset value" flag, this value SHALL NOT be used.<br/>
+     * This status indicates the server software failed to set a
+     * status, and SHALL be considered a software defect.
+     */
+    STREAM_END_UNKNOWN = 0;
+
+    /**
+     * The Publisher reached a reset point.<br/>
+     * No errors occurred and the source node orderly ended the stream.
+     *
+     * Publishers SHOULD use this code to end a stream and restart
+     * occasionally. Occasionally resetting the stream increases stability and
+     * allows for routine network configuration changes.
+     */
+    STREAM_END_RESET = 1;
+
+    /**
+     * The delay between items was too long.<br/>
+     * The destination system did not timely acknowledge a block.
      * <p>
-     * This list MAY contain as little as one item, as much as an entire
-     * block, or any amount between those extremes.<br/>
-     * This list MUST NOT contain more than one block.
+     * The source SHALL start a new stream before the failed block.
+     */
+    STREAM_END_TIMEOUT = 2;
+
+    /**
+     * The publisher encountered an error.<br/>
+     * The publisher encountered an internal error and must try again later.
+     * <p>
+     * Publishers that encounter internal logic errors, find themselves
+     * "behind" the network, or otherwise detect an unexpected situation MUST
+     * send this code and restart the stream before the failed block.
+     */
+    STREAM_END_ERROR = 3;
+
+    /**
+     * The block node is too far behind to catch up directly.<br/>
+     * The block node responded to a block header with "BEHIND" and is
+     * too far behind the publisher.
+     * <p>
+     * The block node MUST recover and "catch up" from another trustworthy
+     * block node.<br/>
+     * The publisher MAY stream items to a different block node.<br/>
+     * The publisher MAY resume streaming to this block node later.<br/>
+     * The `EndOfStream` message MUST include the earliest and latest blocks
+     * currently available from the publisher.<br/>
+     * The block node SHOULD attempt to "catch up" to the _latest_ block
+     * available from the publisher.
+     */
+    STREAM_END_TOO_FAR_BEHIND = 4;
+}
+
+/**
+ * A wrapper around a repeated BlockItem.<br/>
+ * This message is required so that we can include ordered lists of block
+ * items as `oneof` alternatives in streams.
+ *
+ * Each `BlockItemSet` MUST contain at least one `BlockItem`,
+ * and MAY contain up to one full block.<br/>
+ * A single `BlockItemSet` SHALL NOT contain block items from
+ * more than one block.<br/>
+ * If a `BlockHeader` is present in a `BlockItemSet`, that item
+ * MUST be the first item in the list.<br/>
+ * If a `BlockProof` is present in a `BlockItemSet`, that item
+ * MUST be the last item in the list.
+ */
+message BlockItemSet {
+    /**
+     * An ordered list of `BlockItem`s.<br/>
+     * This list supports sending block items to subscribers in batches
+     * for greater channel efficiency.
      */
     repeated com.hedera.hapi.block.stream.BlockItem block_items = 1;
 }
@@ -519,37 +642,11 @@ message SubscribeStreamResponse {
         /**
          * A stream response item containing one or more `BlockItem`s.
          * <p>
-         * The full response SHALL consist of many `block_items` messages
+         * The full stream SHALL consist of many `block_items` messages
          * followed by a single `status` message.
          */
-        SubscribeStreamResponseSet block_items = 2;
+        BlockItemSet block_items = 2;
     }
-}
-
-/**
- * A wrapper message to permit repeated block items in a response.<br/>
- * This message is required so that we can return ordered lists of block
- * items to a subscriber.
- *
- * Each `SubscribeStreamResponseSet` MUST contain at least one `BlockItem`,
- * and MAY contain up to one full block.<br/>
- * A single `SubscribeStreamResponseSet` SHALL NOT contain block items from
- * more than one block.<br/>
- * If a `BlockHeader` is present in a `SubscribeStreamResponseSet`, that item
- * MUST be the first item in the list.<br/>
- * If a `BlockProof` is present in a `SubscribeStreamResponseSet`, that item
- * MUST be the last item in the list.
- */
-message SubscribeStreamResponseSet {
-    /**
-     * An ordered list of `BlockItem`s.<br/>
-     * This list supports sending block items to subscribers in batches
-     * for greater channel efficiency.
-     * <p>
-     * The full response SHALL consist of many of these collections
-     * followed by a single `status` message.
-     */
-    repeated com.hedera.hapi.block.stream.BlockItem block_items = 1;
 }
 
 /**
