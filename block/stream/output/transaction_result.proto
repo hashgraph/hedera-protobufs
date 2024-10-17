@@ -81,14 +81,6 @@ message TransactionResult {
     proto.Timestamp parent_consensus_timestamp = 3;
 
     /**
-     * An exchange rate set.
-     * <p>
-     * This field SHALL describe the exchange rates in effect when this
-     * transaction reached consensus.
-     */
-    proto.ExchangeRateSet exchange_rate = 4;
-
-    /**
      * A schedule that executed this transaction, if this transaction
      * was scheduled.
      * <p>
