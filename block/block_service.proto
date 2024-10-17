@@ -2,39 +2,6 @@
  * # Block Service
  * The Service API exposed by the Block Nodes.
  *
- * ## Workarounds
- * > There are incorrect elements in this file to work around bugs in the
- * > PBJ Compiler.
- * >> Issues 262, 263, 240, 218, 217, and 216 are related.
- * >
- * > Issue 263
- * >> A number of fields reference child messages, these _should_ specify
- * >> the parent message (i.e. `Parent.child field = #;`) but do not do
- * >> so due to issue 263.
- * >
- * > Issue 262
- * >> Some fields reference messages defined in other packages that share
- * >> a common prefix (e.g. `com.hedera.hapi.block.stream`). These fields
- * >> specify the entire package instead of the shorter and clearer suffix
- * >> due to issue 262
- * >
- * > Issue 240
- * >> These files currently cause PBJ integration tests to fail if included
- * >> due to issue 240.
- * >
- * > Issue 218
- * >> These files have the same value for package and java_package. Ideally
- * >> we would not specify `java_package` or the pbj comment in that situation,
- * >> but Issue 218 prevents eliding the unnecessary directives.
- * >
- * > Issue 217
- * >> These files may cause PBJ to fail compilation due to comments preceeding
- * >> the `syntax` keyword.
- * >
- * > Issue 216
- * >> These files would do well with validation support, but cannot make
- * >> use of validation, even as an advisory element, due to Issue 216.
- *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -245,7 +212,7 @@ message PublishStreamResponse {
 /**
  * An enumeration indicating the status of this request.
  *
- * This enumeration describes the reason a block stream
+ * This enumeration SHALL describe the reason a block stream
  * (sent via `publishBlockStream`) ended.
  */
 enum PublishStreamResponseCode {
@@ -378,9 +345,9 @@ message SingleBlockResponse {
     com.hedera.hapi.block.stream.Block block = 2;
 }
 
-    /**
-     * An enumeration indicating the status of this request.
-     */
+/**
+ * An enumeration indicating the status of this request.
+ */
 enum SingleBlockResponseCode {
     /**
      * An "unset value" flag, this value SHALL NOT be used.<br/>
@@ -790,9 +757,9 @@ message BlockNodeVersions {
 }
 
 /**
- * Remote procedure calls (RPCs) for the Block Node.
+ * Remote procedure calls (RPCs) for the Block Node ancillary services.
  */
-service BlockStreamService {
+service BlockNodeService {
     /**
      * Read the status of this block node server.
      * <p>
@@ -800,14 +767,25 @@ service BlockStreamService {
      * data or a state snapshot.
      */
     rpc serverStatus(ServerStatusRequest) returns (ServerStatusResponse);
+}
 
+/**
+ * Remote procedure calls (RPCs) for the Block Node block services.
+ */
+service BlockAccessService {
     /**
      * Read a single block from the block node.
      * <p>
      * The request SHALL describe the block number of the block to retrieve.
      */
     rpc singleBlock(SingleBlockRequest) returns (SingleBlockResponse);
+}
 
+/**
+ * Remote procedure calls (RPCs) for the Block Node state snapshot
+ * and query services.
+ */
+service StateService {
     /**
      * Read a state snapshot from the block node.
      * <p>
@@ -817,7 +795,12 @@ service BlockStreamService {
      * than the latest available, but MUST clearly document this behavior.
      */
     rpc stateSnapshot(StateSnapshotRequest) returns (StateSnapshotResponse);
+}
 
+/**
+ * Remote procedure calls (RPCs) for the Block Node stream services.
+ */
+service BlockStreamService {
     /**
      * Publish a stream of blocks.
      * <p>
