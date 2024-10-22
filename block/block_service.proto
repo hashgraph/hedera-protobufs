@@ -346,7 +346,7 @@ message PublishStreamResponse {
 /**
  * An enumeration indicating the status of this request.
  *
- * This enumeration describes the reason a block stream
+ * This enumeration SHALL describe the reason a block stream
  * (sent via `publishBlockStream`) ended.
  */
 enum PublishStreamResponseCode {
@@ -479,9 +479,9 @@ message SingleBlockResponse {
     com.hedera.hapi.block.stream.Block block = 2;
 }
 
-    /**
-     * An enumeration indicating the status of this request.
-     */
+/**
+ * An enumeration indicating the status of this request.
+ */
 enum SingleBlockResponseCode {
     /**
      * An "unset value" flag, this value SHALL NOT be used.<br/>
@@ -929,7 +929,6 @@ service StateService {
      * than the latest available, but MUST clearly document this behavior.
      */
     rpc stateSnapshot(StateSnapshotRequest) returns (StateSnapshotResponse);
-
 }
 
 /**

@@ -42,9 +42,11 @@ import "basic_types.proto";
  *   configuration during the next `freeze` transaction with the field
  *   `freeze_type` set to `PREPARE_UPGRADE`.
  *
- * ### Record Stream Effects
- * Upon completion the `node_id` for the updated entry SHALL be in the
- * transaction receipt.
+ * ### Block Stream Effects
+ * Upon successful completion the `node_id` for the updated entry SHALL be
+ * repeated in the transaction receipt.<br/>
+ * The `node_id` in the transaction receipt SHALL match the `node_id`
+ * provided in the transaction.
  */
 message NodeUpdateTransactionBody {
     /**
