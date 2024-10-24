@@ -1246,9 +1246,19 @@ enum HederaFunctionality {
     TokenCancelAirdrop = 94;
 
     /**
-      * Claim one or more pending airdrops
+     * Claim one or more pending airdrops
      */
     TokenClaimAirdrop = 95;
+
+    /**
+     * A message produced as part of Threshold Signature Scheme (TSS) processing.
+     */
+    TssMessage = 96;
+
+    /**
+     * Submit a vote as part of the Threshold Signature Scheme (TSS) processing.
+     */
+    TssVote = 97;
 }
 
 /**
