@@ -59,8 +59,8 @@ message BlockStreamInfo {
 
     /**
      * A consensus time for the current block.<br/>
-     * This is the _first_ consensus time in the current block, and
-     * is used to determine if this block was the first across an
+     * This is the consensus time of the first round in the current block,
+     * and is used to determine if this block was the first across an
      * important boundary in consensus time, such as UTC midnight.
      * This may also be used to purge entities expiring between the last
      * block time and this time.
@@ -71,7 +71,8 @@ message BlockStreamInfo {
      * A concatenation of hash values.<br/>
      * This combines several trailing output block item hashes and
      * is used as a seed value for a pseudo-random number generator.<br/>
-     * This is also requiried to implement the EVM `PREVRANDAO` opcode.
+     * This is also requiried to implement the EVM `PREVRANDAO` opcode.<br/>
+     * This MUST contain at least 256 bits of entropy.
      */
     bytes trailing_output_hashes = 3;
 
@@ -83,6 +84,12 @@ message BlockStreamInfo {
      * hash SHALL be for block number N-256.<br/>
      * The latest available hash SHALL be for block N-1.<br/>
      * This is REQUIRED to implement the EVM `BLOCKHASH` opcode.
+     * <p>
+     * <div style="display: block;font-size: .83em;margin-top: 1.67em;margin-bottom: 1.67em;margin-left: 0;margin-right: 0;font-weight: bold;">Field Length</div>
+     * Each hash value SHALL be the trailing 265 bits of a SHA2-384 hash.<br/>
+     * The length of this field SHALL be an integer multiple of 32 bytes.<br/>
+     * This field SHALL be at least 32 bytes.<br/>
+     * The maximum length of this field SHALL be 8192 bytes.
      */
     bytes trailing_block_hashes = 4;
 }
