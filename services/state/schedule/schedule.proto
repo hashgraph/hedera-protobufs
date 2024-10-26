@@ -38,7 +38,12 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 /**
- * Representation of a Hedera Schedule entry in the network Merkle tree.
+ * Representation of a Hedera Schedule entry in the network Merkle tree.<br/>
+ * A Schedule represents a request to run a transaction _at some future time_
+ * either when the `Schedule` expires (if long term schedules are enabled and
+ * `wait_for_expiry` is true) or as soon as the `Schedule` has gathered
+ * enough signatures via any combination of the `scheduleCreate` and 0 or more
+ * subsequent `scheduleSign` transactions.
  */
 message Schedule {
     /**
@@ -81,7 +86,8 @@ message Schedule {
     /**
      * A short description for this schedule.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 5;
 

@@ -45,7 +45,8 @@ message ConsensusTopicInfo {
     /**
      * A short description of this topic.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 1;
 
@@ -83,13 +84,13 @@ message ConsensusTopicInfo {
     bytes runningHash = 2;
 
     /**
-     * The current sequence number (starting at 1 for the first message)
+     * A current sequence number (starting at 1 for the first message)
      * for messages on this topic.
      */
     uint64 sequenceNumber = 3;
 
     /**
-     * The expiration time for this topic, in seconds since the epoch.
+     * An expiration time for this topic, in seconds since the epoch.
      * <p>
      * For this purpose, `epoch` SHALL be the UNIX epoch
      * with 0 at `1970-01-01T00:00:00.000Z`.
@@ -97,7 +98,7 @@ message ConsensusTopicInfo {
     Timestamp expirationTime = 4;
 
     /**
-     * The key that MUST sign any transaction to update or modify this topic.
+     * A key that MUST sign any transaction to update or delete this topic.
      * <p>
      * If this value is not set (null) then the topic CANNOT be deleted,
      * modified, or updated.
@@ -105,7 +106,7 @@ message ConsensusTopicInfo {
     Key adminKey = 5;
 
     /**
-     * The key that MUST sign any transaction to submit a message to this topic.
+     * A key that MUST sign any transaction to submit a message to this topic.
      * <p>
      * If this value is not set (null) then any account MAY submit messages to
      * this topic.
@@ -113,7 +114,7 @@ message ConsensusTopicInfo {
     Key submitKey = 6;
 
     /**
-     * The duration, in seconds, to extend the `expirationTime` value when
+     * A duration, in seconds, to extend the `expirationTime` value when
      * this topic is automatically renewed.
      * <p>
      * If the `autoRenewAccount` value for this topic is set to a valid account
@@ -142,17 +143,10 @@ message ConsensusTopicInfo {
     AccountID autoRenewAccount = 8;
 
     /**
-     * The ledger ID of the network that generated this response.
+     * A ledger ID of the network that generated this response.
      * <p>
-     * This is originally defined in HIP-198 and depends on network
-     * configuration. The current values, as of Q1 2024, are
-     * <dl>
-     *   <dt>Mainnet</dt><dd>0x00</dd>
-     *   <dt>Testnet</dt><dd>0x01</dd>
-     *   <dt>Previewnet</dt><dd>0x02</dd>
-     *   <dt>Undefined</dt><dd>0x03</dd>
-     *   <dt>Reserved</dt><dd>0x04</dd>
-     * </dl>
+     * This value SHALL identify the distributed ledger that responded to
+     * this query.
      */
     bytes ledger_id = 9;
 }

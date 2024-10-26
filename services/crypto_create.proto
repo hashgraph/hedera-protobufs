@@ -45,10 +45,12 @@ import "duration.proto";
  * This is expected to change in the future.
  *
  * ### Block Stream Effects
- * The account identifier for the newly created account SHALL be in the
- * transaction receipt.
+ * The newly created account SHALL be included in State Changes.
  */
 message CryptoCreateTransactionBody {
+    // Removed prior to oldest available history
+    reserved 4,5;
+
     /**
      * The identifying key for this account.
      * This key represents the account owner, and is required for most actions
@@ -131,24 +133,21 @@ message CryptoCreateTransactionBody {
      * <p>
      * The shard number for this realm MUST match the value in `shardID`.<br/>
      * Currently, this MUST be `0` for both fields.<br/>
-     * If the desired realm is `0.0`, this SHOULD NOT be set.
+     * If the desired realm is `0`, this SHOULD NOT be set.
      */
     RealmID realmID = 11;
 
     /**
-     * If realmID is null, then this the admin key for the new realm that will be created
-     * <blockquote>Should this be deprecated?<blockquote>
-     * The "create realm" was never enabled, and
-     * probably should not be possible on account creation.
-     * </blockquote></blockquote>
-     * Added deprecated tag 2024-05 based on above.
+     * This field was never actually used or enabled, and is not expected to
+     * ever be used in the future.<br/>
      */
     Key newRealmAdminKey = 12 [deprecated = true];
 
     /**
      * A short description of this Account.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 13;
 
@@ -156,7 +155,7 @@ message CryptoCreateTransactionBody {
      * A maximum number of tokens that can be auto-associated
      * with this account.<br/>
      * By default this value is 0 for all accounts except for automatically
-     * created accounts (i.e smart contracts) which default to -1.
+     * created accounts (e.g. smart contracts), which default to -1.
      * <p>
      * If this value is `0`, then this account MUST manually associate to
      * a token before holding or transacting in that token.<br/>
@@ -198,7 +197,7 @@ message CryptoCreateTransactionBody {
     /**
      * Bytes to be used as the account's alias.
      * <p>
-     * This value, if set, MUST be one of the following values.<br/>
+     * This value, if set, MUST be one of the following values<br/>
      * <ul>
      *   <li>The 32-byte serialized form of the ED25519 account key.</li>
      *   <li>The 33-byte _compressed_ serialized form of the ECDSA(secp256k1)
@@ -214,7 +213,4 @@ message CryptoCreateTransactionBody {
      * Once set, an account alias is immutable and MUST NOT be changed.
      */
     bytes alias = 18;
-
-    // Removed prior to oldest available history
-    reserved 4,5;
 }

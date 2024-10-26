@@ -51,6 +51,7 @@ import "basic_types.proto";
  * The total size of a file MUST remain within the maximum file size limit for
  * the network (typically 1048576 bytes).
  *
+ * #### Signature Requirements
  * Append transactions MUST have signatures from _all_ keys in the `KeyList`
  * assigned to the `keys` field of the file.<br/>
  * See the [File Service](#FileService) specification for a detailed

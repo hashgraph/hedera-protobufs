@@ -67,12 +67,12 @@ import "basic_types.proto";
  *
  * ### Block Stream Effects
  * All debits and credits completed by this transaction SHALL be included in
- * the transaction record transfer list.<br/>
+ * the transaction result transfer list.<br/>
  * Multiple fungible/common debits from one account, or credits to one account,
  * MAY be consolidated to a single debit or credit entry in the
- * transaction record.<br/>
+ * transaction result.<br/>
  * Multiple non-fungible/unique transfers SHALL NOT be consolidated in the
- * transaction record.
+ * transaction result.
  */
 message CryptoTransferTransactionBody {
     /**

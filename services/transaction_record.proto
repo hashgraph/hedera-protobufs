@@ -82,7 +82,8 @@ message TransactionRecord {
      * A transaction memo.<br/>
      * This is the memo that was submitted as part of the transaction.
      * <p>
-     * This value, if set, SHALL NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 5;
 

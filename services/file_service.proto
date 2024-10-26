@@ -46,8 +46,9 @@ import "transaction.proto";
  * Service gRPC definitions for the Hedera File Service (HFS).
  *
  * #### Signature Requirements
- * The HFS manages file authorization in a manner that can confuse a new
- * developer. The core element of file authorization is the `keys` field,
+ * The HFS manages file authorization differently, depending on type of file
+ * transaction, and this can be surprising.<br/>
+ * The core element of file authorization is the `keys` field,
  * which is a `KeyList`; a list of individual `Key` messages, each of which
  * may represent a simple or complex key.<br/>
  * The file service transactions treat this list differently.<br/>
@@ -79,12 +80,12 @@ service FileService {
     /**
      * Delete a file in HFS.<br/>
      * The content of a file deleted in this manner is completely removed
-     * from network state.
+     * from network state, but the file metadata remains.
      */
     rpc deleteFile (Transaction) returns (TransactionResponse);
 
     /**
-     * Append to a file in HFS.
+     * Append content to a file in HFS.
      */
     rpc appendContent (Transaction) returns (TransactionResponse);
 
@@ -124,7 +125,7 @@ service FileService {
      * <p>
      * This transaction SHALL NOT accept a file identifier for
      * a "system" file.<br/>
-     * The file identified MUST be deleted.<br/>
+     * The file identified SHOULD have been previously deleted.<br/>
      * This transaction SHALL NOT recover the _content_ of a file unless that
      * file was deleted with a `systemDelete` transaction. The _content_ of a
      * file deleted with a `fileDelete` transaction is not retained in state.

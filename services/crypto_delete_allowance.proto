@@ -76,8 +76,12 @@ message CryptoDeleteAllowanceTransactionBody {
  * The combination of field values in this message MUST match existing
  * allowances for one or more individual non-fungible/unique tokens.
  *
- * > REVIEW NOTE
- * >> How does one remove an `approve_for_all` allowance?
+ * ### Removing an allowance that is `approve_for_all`
+ * To remove an allowance that has set the `approve_for_all` flag, the
+ * `owner` account must first _approve_ a **new** allowance for a specific
+ * serial number using a `cryptoApproveAllowance`, and then, if desired,
+ * that newly approved allowance to a specific serial number may be
+ * deleted in a separate `cryptoDeleteAllowance` transaction.
  */
 message NftRemoveAllowance {
     /**

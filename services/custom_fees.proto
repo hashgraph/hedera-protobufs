@@ -95,7 +95,7 @@ message FractionalFee {
     /**
      * Flag requesting to assess the calculated fee against the sender,
      * without reducing the amount transferred.<br/>
-     * <h4>Effects of this flag</h4>
+     * #### Effects of this flag
      * <ol>
      *   <li>If this value is true
      *     <ul>

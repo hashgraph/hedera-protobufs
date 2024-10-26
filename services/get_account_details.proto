@@ -2,11 +2,6 @@
  * # Get Account Details
  * A standard query to inspect the full detail of an account.
  *
- * > REVIEW NOTE
- * >> This query in NetworkAdmin service duplicates CryptoGetInfo in Token Service.<br/>
- * >> What is the value of having both?<br/>
- * >> Should this version be deprecated? Should that version be deprecated?
- *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -64,6 +59,10 @@ message GetAccountDetailsQuery {
 
     /**
      * An account ID for which information is requested
+     * <p>
+     * This value SHALL identify the account to be queried.<br/>
+     * This value MUST identify a valid account.<br/>
+     * This field is REQUIRED.
      */
     AccountID account_id = 2;
 }
@@ -82,7 +81,7 @@ message GetAccountDetailsResponse {
     ResponseHeader header = 1;
 
     /**
-     * Information describing A single Account in the Hedera distributed ledger.
+     * Information describing a single Account in the Hedera distributed ledger.
      *
      * #### Attributes
      * Each Account may have a unique three-part identifier, a Key, and one or
@@ -124,7 +123,9 @@ message GetAccountDetailsResponse {
         AccountID account_id = 1;
 
         /**
-         * A Solidity ID.
+         * A Solidity ID.<br/>
+         * This identifies the contract instance, and the `Account` associated
+         * with that contract instance.
          * <p>
          * This SHALL be populated if this account is a smart contract, and
          * SHALL NOT be populated otherwise.<br/>
@@ -213,19 +214,18 @@ message GetAccountDetailsResponse {
         /**
          * As of `HIP-367`, which enabled unlimited token associations, the
          * potential scale for this value requires that users consult a mirror
-         * node for this information.<br/>
+         * node for this information. Only the top `maxRelsPerInfoQuery`
+         * (default 1000) relationships will be returned by this query.<br/>
          * A list of tokens to which this account is "associated", enabling the
          * transfer of that token type by this account.
-         * <blockquote>REVIEW NOTE<blockquote>
-         * Should this be deprecated, much as it is in crypto get info?
-         * </blockquote></blockquote>
          */
         repeated TokenRelationship token_relationships = 11;
 
         /**
          * A short description of this account.
          * <p>
-         * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+         * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+         * (default 100) bytes when encoded as UTF-8.
          */
         string memo = 12;
 
@@ -258,17 +258,10 @@ message GetAccountDetailsResponse {
         bytes alias = 15;
 
         /**
-         * The ledger ID of the network that generated this response.<br/>
-         * This is originally defined in `HIP-198` and depends on network
-         * configuration.<br/>
-         * The current values, as of Q1 2024, are
-         * <dl>
-         *   <dt>Mainnet</dt><dd>0x00</dd>
-         *   <dt>Testnet</dt><dd>0x01</dd>
-         *   <dt>Previewnet</dt><dd>0x02</dd>
-         *   <dt>Undefined</dt><dd>0x03</dd>
-         *   <dt>Reserved</dt><dd>0x04</dd>
-         * </dl>
+         * The ledger ID of the network that generated this response.
+         * <p>
+         * This value SHALL identify the distributed ledger that responded to
+         * this query.
          */
         bytes ledger_id = 16;
 
