@@ -47,6 +47,7 @@ import "response_header.proto";
  * them, give the amount currently staked. This was never implemented.
  */
 message CryptoGetStakersQuery {
+    option deprecated = true;
     /**
      * Standard information sent with every query operation.<br/>
      * This includes the signed payment and what kind of response is requested
@@ -64,6 +65,7 @@ message CryptoGetStakersQuery {
  * information about a single account that is proxy staking
  */
 message ProxyStaker {
+    option deprecated = true;
     /**
      * The Account ID that is proxy staking
      */
@@ -80,6 +82,7 @@ message ProxyStaker {
  * staked
  */
 message AllProxyStakers {
+    option deprecated = true;
     /**
      * The Account ID that is being proxy staked to
      */
@@ -95,6 +98,7 @@ message AllProxyStakers {
  * Response when the client sends the node CryptoGetStakersQuery
  */
 message CryptoGetStakersResponse {
+    option deprecated = true;
     /**
      * The standard response information for queries.<br/>
      * This includes the values requested in the `QueryHeader`

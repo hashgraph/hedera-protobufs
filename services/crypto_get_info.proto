@@ -140,9 +140,10 @@ message CryptoGetInfoResponse {
         AccountID proxyAccountID = 4 [deprecated = true];
 
         /**
+         * Replaced by StakingInfo.<br/>
          * The total amount of tinybar proxy staked to this account.
          */
-        int64 proxyReceived = 6;
+        int64 proxyReceived = 6 [deprecated = true];
 
         /**
          * The key to be used to sign transactions from this account, if any.
@@ -236,7 +237,8 @@ message CryptoGetInfoResponse {
         /**
          * A short description of this account.
          * <p>
-         * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+         * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+         * (default 100) bytes when encoded as UTF-8.
          */
         string memo = 16;
 
@@ -259,7 +261,7 @@ message CryptoGetInfoResponse {
         int32 max_automatic_token_associations = 18;
 
         /**
-         * An account EVM alias.<br/>
+         * An account alias.<br/>
          * This is a value used in some contexts to reference an account when
          * the tripartite account identifier is not available.
          * <p>
@@ -269,17 +271,10 @@ message CryptoGetInfoResponse {
         bytes alias = 19;
 
         /**
-         * The ledger ID of the network that generated this response.<br/>
-         * This is originally defined in `HIP-198` and depends on network
-         * configuration.<br/>
-         * The current values, as of Q1 2024, are
-         * <dl>
-         *   <dt>Mainnet</dt><dd>0x00</dd>
-         *   <dt>Testnet</dt><dd>0x01</dd>
-         *   <dt>Previewnet</dt><dd>0x02</dd>
-         *   <dt>Undefined</dt><dd>0x03</dd>
-         *   <dt>Reserved</dt><dd>0x04</dd>
-         * </dl>
+         * The ledger ID of the network that generated this response.
+         * <p>
+         * This value SHALL identify the distributed ledger that responded to
+         * this query.
          */
         bytes ledger_id = 20;
 

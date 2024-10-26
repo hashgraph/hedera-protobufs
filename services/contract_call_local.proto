@@ -40,8 +40,11 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Call a query function of a given smart contract, providing function parameter
- * inputs as needed.
+ * Call a view function of a given smart contract<br/>
+ * The call must provide function parameter inputs as needed.<br/>
+ * This is potentially useful for calling view functions that will not revert
+ * when executed in a static EVM context. Many such use cases will be better
+ * served by using a Mirror Node API, however.
  *
  * This is performed locally on the particular node that the client is
  * communicating with. Executing the call locally is faster and less costly,
@@ -51,11 +54,8 @@ import "response_header.proto";
  * The call SHALL NOT have a separate consensus timestamp.<br/>
  * The call SHALL NOT generate a record nor a receipt.<br/>
  * The response SHALL contain the output returned by the function call.<br/>
- *
- * This is generally useful for calling accessor functions which read (query)
- * state without changes or side effects. Any contract call that would use the
- * `STATICCALL` opcode MAY be called via contract call local with performance
- * and cost benefits.
+ * Any contract call that would use the `STATICCALL` opcode MAY be called via
+ * contract call local with performance and cost benefits.
  *
  * Unlike a ContractCall transaction, the node SHALL always consume the
  * _entire_ amount of offered "gas" in determining the fee for this query, so

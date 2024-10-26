@@ -1,6 +1,6 @@
 # Protocol Buffer Style Guidelines
-
 ## Style Guidelines for "specification" comments
+### General Style
 - Wrapping is 80 characters for top-level messages.
 - Wrap everything else to 80 characters or 100, depending
    - Prefer to wrap lines to 80 characters
@@ -13,11 +13,20 @@
      comment boxes are limited to roughly 80 characters width. The primary
      "code" interaction with proto files and markdown files is in review.
      Also, some markdown processors struggle with longer lines.
+- Use HTML tags where appropriate, but stick to markdown as much as possible.
 - Use blank lines (with `*` prefix) for paragraph breaks in message or
   enum declarations, regardless of where defined.
    - Use `<p>` tags for _fields_, and _no_ "empty" lines (it breaks the tables).
-- Use HTML tags where appropriate, but stick to markdown as much as possible.
-- Use correct US-English spelling and grammar to the maximum extent possible.
+   - For messages (including `enum` or `service` messages), we prefer to use
+     blank lines exclusively, and _not_ use a `<p>` tag.
+- We use line breaks (`<br/>`) in several areas of the specification text.
+  All such line breaks should be placed at the _end_ of the prior line, and
+  should not be placed alone on a line, in the middle of a line, or at the
+  beginning of a line.
+- Certain elements (headings, code blocks, lists, etc...) are "block" elements
+  in markdown and HTML.  Such elements _should not_ be followed by either
+  a break (`<br/>`) or paragraph (`<p>`) tag (or equivalent markdown).
+- Use formal US-English spelling and grammar to the maximum extent possible.
    - Write proper and complete sentences, avoid partial sentences and
      unnecessary abbreviations.
    - Do not use partial words (e.g. instead of "spec" write "specification").
@@ -26,9 +35,23 @@
         but "HCS" may be used thereafter.
       - Extremely common acronyms (e.g. RAM or LASER) do not need
         to be expanded.
-- First line of each document block is "what is this", and should be a single
-  sentence.  Examples: "An identifier for an account." or "A `tokenTransfer`
-  transaction request body.".
+
+#### Specification Equivalency
+For the purposes of specification document comments, _only_, the following
+protocol buffer "types" are considered equivalent.
+- Message
+   - `service`
+   - `enum`
+- Field
+   - `rpc`
+Equivalent types require equivalent specification, so a `service` should be
+specified using the same guidelines as a `message` or `enum`.  A `rpc` should
+be specified using the same guidelines as a "field".
+
+### Description
+- The first line of each document block is "what is this", and should be a
+  single sentence.  Examples: "An identifier for an account." or
+  "A `tokenTransfer` transaction request body.".
    - Avoid "this is a thing" (or shorter "thing") type sentences,
      write "A thing" instead.
       - This applies for the _first sentence_ only, **not** elsewhere.
@@ -38,20 +61,24 @@
      description or requirements, not here.
       - A good rule of thumb is that if this first sentence exceeds 60
         characters, then it is trying to describe too much.
-- Include a line break (`<br/>`) after the first line, then a brief description,
-  if appropriate.
-   - Not every field needs additional description, but _every_ `message` does.
-   - Descriptions may be detailed, but should not include internal
-     implementation details or requirements. The description _should_ be
-     detailed enough to explain to an external contributor what the
-     message or field contains, where it fits within the overall network
-     system, and why it is needed.
-      - This is a long-term goal; we have a long way to go to get to this
-        level of description. Every PR to change `.proto` files should seek
-        to improve the documentation for that file.
-   - Avoid describing what must, should, must not, or should not be
-     sent, or how the field values affect output. Those items belong in the
-     _requirements_, instead.
+- An optional description _may_ be added to any field or message.
+   - Include a line break (`<br/>`) after the first line, then a brief
+     description, if appropriate.
+      - Not every field needs additional description,
+        but nearly all `message` blocks do.
+      - Descriptions may be detailed, but should not include internal
+        implementation details or requirements. The description _should_ be
+        detailed enough to explain to an external contributor what the
+        message or field contains, where it fits within the overall network
+        system, and why it is needed.
+         - This is a long-term goal; we have a long way to go to get to this
+           level of description. Every PR to change `.proto` files should seek
+           to improve the documentation for that file.
+      - Avoid describing what must, should, must not, or should not be
+        sent, or how the field values affect output. Those items belong in the
+        _requirements_, instead.
+
+### Requirements
 - After a paragraph break (a blank line for messages), one requirement per
   line. Use break tags at the end of each requirement except the last.
    - In field comments a `<p>` tag is _required_ for paragraph breaks.
@@ -79,13 +106,35 @@
      is not only acceptable, but often recommended.
    - Well written specification tends to be much more short and clipped
      sentences than "normal" prose. Some describe the flow as "staccato".
+- Required and Optional fields
+   - The default state for any field is "optional", and all required fields
+     should be specified as `REQUIRED`. If the presence or absence of a field
+     must be clear _separate_ from the default value of that field, that field
+     should use proto3 "explicit presence" and be marked with
+     the `optional` keyword.
 - Add another blank line after requirements for `message` documents only.
+
+### Other elements
 - Each message that represents a transaction body **must** document the
   Block Stream effects with a heading `### Block Stream Effects`.
 - General notes go last, for `message` only, with a heading
   `#### Additional Notes`.
+- There are cases where description text for a message or field is
+  exceptionally detailed. In these cases it _may_ be appropriate to
+  separate broad categories of information with a single horizontal line
+  (i.e. an `<hr>` tag, `---` in markdown). These cases _should_ be quite
+  rare, however; we prefer to avoid the need for such large blocks of
+  specification text.
+- Line oriented comments (i.e. lines prefixed with `//`) may be used for
+  any comments needed in a proto file that are not intended for API
+  specification.  Examples include explaining an `oneof` block, or describing
+  why a particular field number or name is reserved.
 
 ## Content Guidelines
+### General `proto` File Guidelines
+- Protocol buffers are compiled for the `hedera-services` codebase using a
+  custom processor 'PBJ'. While no other entity is required to use `PBJ`, all
+  Hiero protocol buffer files MUST be compatible with `PBJ` processing.
 
 ### Field Type Guidelines
 - There are some negative patterns present in existing `proto` files.  These
@@ -96,6 +145,15 @@
      types where appropriate.
       - We MUST NOT change existing field types without very careful
         consideration for binary compatibility and impact to clients.
+- Protocol buffer encoding for Hedera MUST be deterministic.
+   - For this reason `Map' fields CANNOT be used because most protocol buffer
+     implementations are _intentionally_ non-deterministic in
+     serializing and parsing those fields.
+   - Unknown fields are, likewise, not handled deterministically by most
+     protocol buffer implementations, so unknown fields MUST NOT be used.
+      - One exception here is forward compatibility, as implemented in the
+        `PBJ` processor, which is supported in selected scenarios where
+        deterministic behavior is not strictly required.
 
 ### Package Directive Guidelines
 - There are some negative patterns present in existing `proto` files.  These
@@ -119,31 +177,82 @@
    - The "namespace" behavior of package names is not well supported by PBJ at
      this time, so packages must be fully specified whenever used.
 
-
 ## Examples
+### General Samples
+```protobuf
+/**
+ * A selection of positive and negative examples
+ *
+ * ## Summary and optional description.
+ * A simple Summary.<br/>
+ * This example shows recommended structure of summary line and detail
+ * description, including line length limits.
+ *
+ * ## An example for line break placement.
+ * text ending in a break.<br/>
+ * is generally easier to read than
+ * <br/>text starting with a break or
+ * text that contains<br/>a line break mid-line.
+ */
+message SampleMessage {
+    // OneOf does not become an element in the final protobuf, so any
+    // description needed for oneof blocks must be in "code" comments.
+    // Such "code" comments are permitted anywhere a comment is permitted,
+    // but writers should be aware that these comments are not processed and
+    // remain local to the proto file.
+    oneof samples {
+        // We may present "code" level comments, that are not API specification
+        // wherever needed and appropriate. These comments are not processed
+        // into documentation, and should be used for information specific to
+        // the "code" of the protocol buffer definitions, not the API that
+        // those protocol buffers represent.
+        /**
+         * A sample 32-bit integer field.
+         * <p>
+         * This block MUST NOT contain a blank line, as fields are presented
+         * using tables in markdown, so we use a paragraph tag instead.<br/>
+         * We SHALL separate requirements with a single `<br/>` tag as used
+         * at the end of the line above.
+         * <p>
+         * ### Headings in fields
+         * We MAY use headings in fields, but it is important to note
+         * that Javadoc's exceptionally strict view of headings means that
+         * headings in fields MAY NOT be rendered correctly and MAY cause
+         * javadoc errors for "out of order" headings.
+         */
+        int32 field_one = 1;
+
+        // This field does not require description or specific requirements
+        // so those are not present. Lack of requirements is very rare indeed,
+        // so most fields should have a bit more than we see here.
+        /**
+         * A simple unsigned 64-bit integer field.
+         */
+        uint64 field_two = 2;
+    }
+}
+```
 
 ### A Message Example
 ```protobuf
 /**
- * A transaction body to add a new consensus node to the network address book.
- *
- * This transaction body SHALL be considered a "privileged transaction".
- *
- * This message supports a transaction to create a new node in the network
- * address book. The transaction, once complete, enables a new consensus node
+ * A transaction body to add a new consensus node to the network
+ * address book.<br/>
+ * This transaction, once complete, enables a new consensus node
  * to join the network, and requires governing council authorization.
  *
- * - A `NodeCreateTransactionBody` MUST be signed by the governing council.
- * - A `NodeCreateTransactionBody` MUST be signed by the `Key` assigned to the
- *   `admin_key` field.
- * - The newly created node information SHALL be added to the network address
- *   book information in the network state.
- * - The new entry SHALL be created in "state" but SHALL NOT participate in
- *   network consensus and SHALL NOT be present in network "configuration"
- *   until the next "upgrade" transaction (as noted below).
- * - All new address book entries SHALL be added to the active network
- *   configuration during the next `freeze` transaction with the field
- *   `freeze_type` set to `PREPARE_UPGRADE`.
+ * This transaction body SHALL be considered a "privileged transaction".<br/>
+ * A `NodeCreateTransactionBody` MUST be signed by the governing council.<br/>
+ * A `NodeCreateTransactionBody` MUST be signed by the `Key` assigned to the
+ * `admin_key` field.<br/>
+ * The newly created node information SHALL be added to the network address
+ * book information in the network state.<br/>
+ * The new entry SHALL be created in "state" but SHALL NOT participate in
+ * network consensus and SHALL NOT be present in network "configuration"
+ * until the next "upgrade" transaction (as noted below).<br/>
+ * All new address book entries SHALL be added to the active network
+ * configuration during the next `freeze` transaction with the field
+ * `freeze_type` set to `PREPARE_UPGRADE`.
  *
  * ### Block Stream Effects
  * Upon completion the newly assigned `node_id` SHALL be recorded in
@@ -179,12 +288,13 @@
 ```
 
 ### An Enum Example
+Note that this example is _all_ description, there are no requirements
+listed.  This is unusual, but does occur.
 ```protobuf
 /**
- * An informational enumeration of all known states.
+ * An informational enumeration of all known states.<br/>
  * This enumeration is included here So that people know the mapping from
- * integer to state "name".
- *
+ * integer to state "name".<br/>
  * State changes are expressed in terms of changes to named states at the
  * high level conceptual model of the state type like map key/values or
  * queue appends. To say which state the change is on we will include an
@@ -208,13 +318,16 @@
 ```
 
 ### A Complex Message Example
+Note the added block for the "Alias" detail, which specifies some complex
+behavior that has, historically, caused much confusion.
 ```protobuf
 /**
  * A single Account in the Hedera distributed ledger.
  * 
  * Each Account SHALL have a unique three-part identifier, a Key, and one
  * or more token balances.<br/>
- * Each Account SHALL have an alias, which has multiple forms, and MAY be set automatically.<br/>
+ * Each Account SHALL have an alias, which has multiple forms, and MAY be
+ * set automatically.<br/>
  * Several additional items SHALL be associated with the Account to enable
  * full functionality.<br/>
  * Assets SHALL be represented as linked-lists with only the "head" item
@@ -284,8 +397,7 @@
  * MAY be referenced by `alias` in an `AccountID` by using the `long_zero`
  * address for the account. This "hidden default" alias SHALL NOT be stored,
  * but is synthesized by the node software as needed, and may be synthesized by
- * an EVM contract or client software as well.
- *
+ * an EVM contract or client software as well.<br/>
  * An AccountID in a transaction MAY reference an `Account` with
  * `shard`.`realm`.`alias`.<br/>
  * If the account `alias` field is set for an Account, that value SHALL be the

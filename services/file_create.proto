@@ -103,10 +103,7 @@ message FileCreateTransactionBody {
     /**
      * A byte array of file content.
      * <p>
-     * The file SHALL be created with initial content equal to this field.<br/>
-     * Additional `fileAppend` transactions MAY add additional content
-     * to the end of this file.<br/>
-     * A `fileUpdate` transaction MAY replace the file content.
+     * The file SHALL be created with initial content equal to this field.
      */
     bytes contents = 4;
 
@@ -125,23 +122,18 @@ message FileCreateTransactionBody {
     RealmID realmID = 6;
 
     /**
-     * An admin key for a new realm, if one is created.
-     * <blockquote>Should this be deprecated?<blockquote>
      * The "create realm" was never enabled, and
-     * probably should not be possible on file creation.
-     * </blockquote></blockquote>
-     * Added deprecated tag 2024-05 based on above.
+     * should not be possible on file creation.<br/>
+     * An admin key for a new realm, if one is created.
+     * Added deprecated tag 2024-05.
      */
     Key newRealmAdminKey = 7 [deprecated = true];
 
     /**
      * A short description of this file.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 8;
-
-    // Removed auto_renew_account_id and auto_renew_period
-    // "temporarily" in January 2023.
-    reserved 9, 10;
 }

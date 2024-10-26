@@ -43,7 +43,8 @@ import "basic_types.proto";
  * contract execution, including any storage required.<br/>
  * The total transaction fee SHALL incorporate all of the "gas" actually
  * consumed as well as the standard fees for transaction handling, data
- * transfers, signature verification, etc...
+ * transfers, signature verification, etc...<br/>
+ * The response SHALL contain the output returned by the function call.
  *
  * ### Block Stream Effects
  * A `CallContractOutput` message SHALL be emitted for each transaction.
@@ -76,10 +77,11 @@ message ContractCallTransactionBody {
     int64 amount = 3;
 
     /**
-     * The smart contract function to call, and the parameters to pass to that
-     * function.
+     * The smart contract function to call.
      * <p>
-     * These MUST be presented in EVM bytecode function call format.
+     * This MUST contain The application binary interface (ABI) encoding of the
+     * function call per the Ethereum contract ABI standard, giving the
+     * function signature and arguments being passed to the function.
      */
     bytes functionParameters = 4;
 }

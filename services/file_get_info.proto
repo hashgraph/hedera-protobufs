@@ -49,7 +49,6 @@ import "response_header.proto";
  * block node or mirror node, generally at lower cost.
  *
  * File metadata SHALL be available for active files and deleted files.<br/>
- * File metadata MAY be unavailable for expired files.<br/>
  * The size of a deleted file SHALL be `0` and the content SHALL be empty.
  */
 message FileGetInfoQuery {
@@ -127,7 +126,8 @@ message FileGetInfoResponse {
         /**
          * A short description for this file.
          * <p>
-         * This value, if set, SHALL NOT exceed 100 bytes when encoded as UTF-8.
+         * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+         * (default 100) bytes when encoded as UTF-8.
          */
         string memo = 6;
 
@@ -138,10 +138,6 @@ message FileGetInfoResponse {
          * this query.
          */
         bytes ledger_id = 7;
-
-        // Removed auto_renew_account_id and auto_renew_period
-        // "temporarily" in January 2023.
-        reserved 8, 9;
     }
 
     /**

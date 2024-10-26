@@ -36,9 +36,10 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 /**
- * Information describing the way in which a message submitted for consensus
- * is broken into multiple fragments to fit within network transaction
- * size limits.
+ * Consensus message "chunk" detail.<br/>
+ * This message carries information describing the way in which a message
+ * submitted for consensus is broken into multiple fragments to fit within
+ * network transaction size limits.
  *
  * The use of multiple message fragments is RECOMMENDED for any message
  * greater than 4KiB in total size.
@@ -67,8 +68,10 @@ message ConsensusMessageChunkInfo {
 }
 
 /**
- * Submit a message for consensus.
- * <p>
+ * Submit a message for consensus.<br/>
+ * This transaction adds a new entry to the "end" of a topic, and provides
+ * the core function of the consensus service.
+ *
  * Valid and authorized messages on valid topics SHALL be ordered by the
  * consensus service, published in the block stream, and available to all
  * subscribers on this topic via the mirror nodes.<br/>

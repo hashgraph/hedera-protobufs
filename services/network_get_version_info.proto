@@ -55,9 +55,6 @@ message NetworkGetVersionInfoQuery {
  *
  * This SHALL return `SemanticVersion` information for both Hedera API (HAPI)
  * and Hedera Services.
- *
- * > Note that the Hedera software MAY use the fields of the `SemanticVersion`
- * > in a somewhat unorthodox manner.
  */
 message NetworkGetVersionInfoResponse {
     /**

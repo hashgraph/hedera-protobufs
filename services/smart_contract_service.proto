@@ -125,15 +125,13 @@ service SmartContractService {
      * A standard query to obtain account and contract identifiers for a smart
      * contract, given the Solidity identifier for that contract.
      */
-    rpc getBySolidityID (Query) returns (Response);
+    rpc getBySolidityID (Query) returns (Response) {option deprecated = true;};
 
     /**
      * <blockquote>This query is no longer supported.</blockquote>
      * This query always returned an empty record list.
      */
-    rpc getTxRecordByContractID (Query) returns (Response) {
-        option deprecated = true;
-    };
+    rpc getTxRecordByContractID (Query) returns (Response) {option deprecated = true;};
 
     /**
      * Delete a smart contract, and transfer any remaining HBAR balance
@@ -157,7 +155,7 @@ service SmartContractService {
      * If this call succeeds then all subsequent calls to that smart
      * contract SHALL fail.<br/>
      */
-    rpc systemDelete (Transaction) returns (TransactionResponse);
+    rpc systemDelete (Transaction) returns (TransactionResponse) {option deprecated = true;};
 
     /**
      * Un-Delete a smart contract, returning it (mostly) to its state
@@ -176,7 +174,7 @@ service SmartContractService {
      * If this call succeeds then subsequent calls to that smart
      * contract MAY succeed.<br/>
      */
-    rpc systemUndelete (Transaction) returns (TransactionResponse);
+    rpc systemUndelete (Transaction) returns (TransactionResponse) {option deprecated = true;};
 
     /**
      * Make an Ethereum transaction "call" with all data in Ethereum formats,

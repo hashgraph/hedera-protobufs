@@ -45,13 +45,6 @@ option java_multiple_files = true;
  * As with all network entities, a file has a unique entity number, which is
  * given along with the network's shard and realm in the form of a
  * shard.realm.number id.
- *
- * > Review Question
- * >> File lacks auto renewal (account and period).  We need to add that here,
- * >> and also to create and update transactions.
- * >
- * >> The keys field is weird and really needs to change to adminKey and
- * >> deleteKey to be more correct and match other things.
  */
 message File {
     /**
@@ -62,17 +55,25 @@ message File {
     FileID file_id = 1;
 
     /**
-     * The file's expiration time in seconds since the epoch.
+     * The file's expiration time in seconds since the epoch.<br/>
+     * This value should be compared against consensus time, which may not
+     * exactly match clock time at the moment of expiration.
      * <p>
      * For this purpose, `epoch` SHALL be the UNIX epoch with 0 at `1970-01-01T00:00:00.000Z`.
      */
     int64 expiration_second = 2;
 
     /**
-     * A list of keys that MUST sign any transaction to update this file.
+     * A list of keys that MUST sign any transaction to create
+     * or update this file.
      * <p>
      * Only _one_ of these keys must sign a transaction to delete the file.<br/>
-     * This field SHOULD NOT be `null` or an empty list.
+     * This field MAY be `null` or an empty list.<br/>
+     * If this field is null or an empty `KeyList`, then the file SHALL be
+     * immutable.<br/>
+     * For an immutable file, the only transaction permitted to modify that
+     * file SHALL be a `fileUpdate` transaction with _only_ the
+     * `expirationTime` set.
      */
     KeyList keys = 3;
 
@@ -87,7 +88,8 @@ message File {
     /**
      * A short description of the file.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 5;
 

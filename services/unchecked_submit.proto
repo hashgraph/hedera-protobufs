@@ -3,7 +3,10 @@
  * Submit a transaction to the network, bypassing all but the most minimal
  * validation.
  *
- * This is used for testing only and MUST NOT be enabled in mainnet.
+ * > Important
+ * >> This transaction is obsolete and not supported.<br/>
+ * >> Any transaction of this type that is submitted SHALL fail with a
+ * >> `PRE_CHECK` result of `NOT_SUPPORTED`.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -44,6 +47,7 @@ option java_multiple_files = true;
  * (e.g. the `treasury` or `systemAdmin` accounts).
  */
 message UncheckedSubmitBody {
+    option deprecated = true;
     /**
      * The serialized bytes of a `Transaction`.
      * <p>
