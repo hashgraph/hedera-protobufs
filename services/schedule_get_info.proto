@@ -133,7 +133,8 @@ message ScheduleInfo {
     /**
      * A short description for this schedule.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 6;
 
@@ -183,17 +184,10 @@ message ScheduleInfo {
     TransactionID scheduledTransactionID = 11;
 
     /**
-     * The ledger ID of the network that generated this response.<br/>
-     * This is originally defined in `HIP-198` and depends on network
-     * configuration.<br/>
-     * The current values, as of Q1 2024, are
-     * <dl>
-     *   <dt>Mainnet</dt><dd>0x00</dd>
-     *   <dt>Testnet</dt><dd>0x01</dd>
-     *   <dt>Previewnet</dt><dd>0x02</dd>
-     *   <dt>Undefined</dt><dd>0x03</dd>
-     *   <dt>Reserved</dt><dd>0x04</dd>
-     * </dl>
+     * The ledger ID of the network that generated this response.
+     * <p>
+     * This value SHALL identify the distributed ledger that responded to
+     * this query.
      */
     bytes ledger_id = 12;
 

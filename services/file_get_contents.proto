@@ -39,7 +39,12 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * A query request to the Hedera File Service (HFS) for file content.
+ * A query request to the Hedera File Service (HFS) for file content.<br/>
+ * This query requests the content of a file, but none of the information
+ * _about_ a file. A client should submit a `fileGetInfo` query to view
+ * information about a file.<br/>
+ * File content may also be available from a block node or mirror node,
+ * generally at lower cost.
  */
 message FileGetContentsQuery {
     /**

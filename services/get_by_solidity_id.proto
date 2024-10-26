@@ -3,6 +3,11 @@
  * A standard query to obtain account and contract identifiers for a smart
  * contract, given the Solidity identifier for that contract.
  *
+ * > Important
+ * >> This query is obsolete and not supported.<br/>
+ * >> Any query of this type that is submitted SHALL fail with a `PRE_CHECK`
+ * >> result of `NOT_SUPPORTED`.
+ *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
  * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -43,6 +48,7 @@ import "response_header.proto";
  * contract given a Solidity identifier.
  */
 message GetBySolidityIDQuery {
+    option deprecated = true;
     /**
      * Standard information sent with every query operation.<br/>
      * This includes the signed payment and what kind of response is requested
@@ -65,6 +71,7 @@ message GetBySolidityIDQuery {
  * a smart contract.
  */
 message GetBySolidityIDResponse {
+    option deprecated = true;
     /**
      * The standard response information for queries.<br/>
      * This includes the values requested in the `QueryHeader`

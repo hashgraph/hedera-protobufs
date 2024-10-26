@@ -74,7 +74,7 @@ import "duration.proto";
  * contract SHALL run with the parameters provided in the
  * `constructorParameters` field.<br/>
  * The gas to "power" that constructor MUST be provided via the `gas` field,
- * and SHALL be charged to the payer for this transaction.</br>
+ * and SHALL be charged to the payer for this transaction.<br/>
  * If the contract _constructor_ stores information, it is charged gas for that
  * storage. There is a separate fee in HBAR to maintain that storage until the
  * expiration, and that fee SHALL be added to this transaction as part of the
@@ -218,7 +218,8 @@ message ContractCreateTransactionBody {
     /**
      * A short memo for this smart contract.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 13;
 

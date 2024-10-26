@@ -58,6 +58,11 @@ import "basic_types.proto";
  * This transaction MUST be signed by an Hedera administrative ("system")
  * account.
  *
+ * ### What is a "system" file
+ * A "system" file is any file with a file number less than or equal to the
+ * current configuration value for `ledger.numReservedSystemEntities`,
+ * typically `750`.
+ *
  * ### Block Stream Effects
  * None
  */
@@ -70,6 +75,7 @@ message SystemUndeleteTransactionBody {
          * The identified file MUST be deleted.<br/>
          * The identified file deletion MUST be a result of a
          * `systemDelete` transaction.<br/>
+         * The identified file MUST NOT be a "system" file.<br/>
          * This field is REQUIRED.
          */
         FileID fileID = 1;

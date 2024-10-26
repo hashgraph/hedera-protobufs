@@ -59,12 +59,9 @@ import "response_header.proto";
  * network, this query MAY be sent to any node, and results MAY be different
  * between different nodes.
  *
- * > REVIEW NOTE
- * >> This query is no longer supported.  Should we deprecate the messages
- * >> and service gRPC call?
- *
  */
 message NetworkGetExecutionTimeQuery {
+    option deprecated = true;
     /**
      * Standard information sent with every query operation.<br/>
      * This includes the signed payment and what kind of response is requested
@@ -86,6 +83,7 @@ message NetworkGetExecutionTimeQuery {
  * A response to a `networkGetExecutionTime` query.
  */
 message NetworkGetExecutionTimeResponse {
+    option deprecated = true;
     /**
      * The standard response information for queries.<br/>
      * This includes the values requested in the `QueryHeader`

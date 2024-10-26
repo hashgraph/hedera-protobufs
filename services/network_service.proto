@@ -73,18 +73,16 @@ service NetworkService {
      * This query is obsolete, not supported, and SHALL fail with a pre-check
      * result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
-    rpc getExecutionTime (Query) returns (Response);
+    rpc getExecutionTime (Query) returns (Response) {option deprecated = true;};
 
     /**
      * Submit a transaction that wraps another transaction which will
      * skip most validation.
      * <p>
      * <blockquote>Important<blockquote>
-     * This transaction SHALL NOT, under any circumstances, be
-     * enabled in mainnet.<br/>
-     * The `uncheckedSubmit` transaction SHALL NOT be accepted unless signed
-     * by the `treasury` account or the `systemAdmin` account.
+     * This query is obsolete, not supported, and SHALL fail with a pre-check
+     * result of `NOT_SUPPORTED`.
      * </blockquote></blockquote>
      */
-    rpc uncheckedSubmit (Transaction) returns (TransactionResponse);
+    rpc uncheckedSubmit (Transaction) returns (TransactionResponse) {option deprecated = true;};
 }

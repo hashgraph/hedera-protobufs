@@ -47,20 +47,21 @@ import "freeze_type.proto";
  *
  * For a scheduled freeze, at the scheduled time, according to
  * network consensus time
- *   - A freeze causes the network nodes to stop creating events or accepting
- *     transactions, and enter a persistent maintenance state.
- *   - A freeze upgrade causes the network nodes to stop creating events or
- *     accepting transactions, and upgrade the node software from a previously
- *     prepared upgrade package. The network nodes then restart and rejoin
- *     the network after upgrading.
+ *   - A freeze (`FREEZE_ONLY`) causes the network nodes to stop creating
+ *     events or accepting transactions, and enter a persistent
+ *     maintenance state.
+ *   - A freeze upgrade (`FREEZE_UPGRADE`) causes the network nodes to stop
+ *     creating events or accepting transactions, and upgrade the node software
+ *     from a previously prepared upgrade package. The network nodes then
+ *     restart and rejoin the network after upgrading.
  *
  * For other freeze types, immediately upon processing the freeze transaction
- *   - A Freeze Abort cancels any pending scheduled freeze.
- *   - A prepare upgrade begins to extract the contents of the specified
- *     upgrade file to the local filesystem.
- *   - A telemetry upgrade causes the network nodes to extract a telemetry
- *     upgrade package to the local filesystem and signal other software
- *     on the machine to upgrade, without impacting the node or
+ *   - A Freeze Abort (`FREEZE_ABORT`) cancels any pending scheduled freeze.
+ *   - A prepare upgrade (`PREPARE_UPGRADE`) begins to extract the contents of
+ *     the specified upgrade file to the local filesystem.
+ *   - A telemetry upgrade (`TELEMETRY_UPGRADE`) causes the network nodes to
+ *     extract a telemetry upgrade package to the local filesystem and signal
+ *     other software on the machine to upgrade, without impacting the node or
  *     network processing.
  *
  * ### Block Stream Effects
@@ -99,7 +100,7 @@ message FreezeTransactionBody {
      * If set, the identifier of a file in network state.<br/>
      * The contents of this file MUST be a `zip` file and this data
      * SHALL be extracted to the node filesystem during a
-     * `PREPARE_UPGRADE` freeze type.<br/>
+     * `PREPARE_UPGRADE` or `TELEMETRY_UPGRADE` freeze type.<br/>
      * The `file_hash` field MUST match the SHA384 hash of the content
      * of this file.<br/>
      * The extracted data SHALL be used to perform a network software update

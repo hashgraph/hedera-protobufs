@@ -90,7 +90,7 @@ service CryptoService {
      * This transaction is obsolete, not supported, and SHALL fail with a
      * pre-check result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
-    rpc addLiveHash (Transaction) returns (TransactionResponse);
+    rpc addLiveHash (Transaction) returns (TransactionResponse) {option deprecated = true;};
 
     /**
      * Delete a livehash
@@ -98,7 +98,7 @@ service CryptoService {
      * This transaction is obsolete, not supported, and SHALL fail with a
      * pre-check result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
-    rpc deleteLiveHash (Transaction) returns (TransactionResponse);
+    rpc deleteLiveHash (Transaction) returns (TransactionResponse) {option deprecated = true;};
 
     /**
      * Retrieve a livehash for an account
@@ -106,7 +106,7 @@ service CryptoService {
      * This query is obsolete, not supported, and SHALL fail with a pre-check
      * result of `NOT_SUPPORTED`.</blockquote></blockquote>
      */
-    rpc getLiveHash (Query) returns (Response);
+    rpc getLiveHash (Query) returns (Response) {option deprecated = true;};
 
     /**
      * Return all transactions in the last 180s of consensus time for which

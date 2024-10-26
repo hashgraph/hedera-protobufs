@@ -118,8 +118,10 @@ message ContractUpdateTransactionBody {
         string memo = 9 [deprecated = true];
 
         /**
-         * If set, modify the short memo for this smart contract.<br/>
-         * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+         * If set, modify the short memo for this smart contract.
+         * <p>
+         * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+         * (default 100) bytes when encoded as UTF-8.
          */
         google.protobuf.StringValue memoWrapper = 10;
     }

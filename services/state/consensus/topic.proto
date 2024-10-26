@@ -88,14 +88,14 @@ message Topic {
 
     /**
      * The current running hash of this topic.
-     * <p/>
+     * <p>
      * This 48-byte field is the output of a SHA-384 digest with input data
      * determined by the current version of the running hash algorithm used
      * by the network.<br/>
      * All topics in state SHALL use running hash algorithm version `3`.<br/>
      * The bytes of each uint64 or uint32 encoded for the hash input MUST be in
      * Big-Endian format.
-     * <p/>
+     * <p>
      * <hr/>
      * If the algorithm version is '3', then the input data to the SHA-384
      * digest are, in order:
@@ -126,7 +126,8 @@ message Topic {
     /**
      * A short description of this topic.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 8;
 

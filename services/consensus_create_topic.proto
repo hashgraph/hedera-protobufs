@@ -46,8 +46,8 @@ import "duration.proto";
  * created `TopicId`.
  *
  * The `autoRenewPeriod` on a topic MUST be set to a value between
- * `MIN_AUTORENEW_PERIOD` (6999999 seconds/81 days) and
- * `MAX_AUTORENEW_PERIOD` (8000001 seconds/92 days).<br/>
+ * `autoRenewPeriod.minDuration` and `autoRenewPeriod.maxDuration`. These
+ * values are configurable, typically 30 and 92 days.<br/>
  * This also sets the initial expirationTime of the topic.
  *
  * If no `adminKey` is set on a topic
@@ -63,7 +63,7 @@ import "duration.proto";
  *      - Except an updateTopic() call that only extends the expirationTime.
  *   - getTopicInfo() SHALL succeed, and show the topic is expired.
  * The topic SHALL remain in the `EXPIRED` state for a time determined by the
- * `AUTORENEW_GRACE_PERIOD` (configurable, originally 7 days).<br/>
+ * `autorenew.gracePeriod` (configurable, originally 7 days).<br/>
  * After the grace period, if the topic's expirationTime is not extended, the
  * topic SHALL be automatically deleted from state entirely, and cannot be
  * recovered or recreated.
@@ -75,7 +75,8 @@ message ConsensusCreateTopicTransactionBody {
     /**
      * A short memo for this topic.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 1;
 

@@ -56,8 +56,8 @@ message CryptoDeleteTransactionBody {
     /**
      * An account identifier.
      * <p>
-     * The identified account SHALL receive all tokens from the deleted
-     * account.<br/>
+     * The identified account SHALL receive all tokens, token balances,
+     * and non-fungible/unique from the deleted account.<br/>
      * The identified account MUST sign this transaction.<br/>
      * If not set, the account to be deleted MUST NOT have a balance in any
      * token, a balance in HBAR, or hold any NFT.
@@ -68,7 +68,9 @@ message CryptoDeleteTransactionBody {
      * An account identifier.
      * <p>
      * This account SHALL be deleted if this transaction succeeds.<br/>
-     * This account SHOULD not hold any balance other than HBAR.<br/>
+     * This account SHOULD NOT hold any balance other than HBAR.<br/>
+     * If this account _does_ hold balances, the `transferAccountID` value
+     * MUST be set to a valid transfer account.<br/>
      * This account MUST sign this transaction.<br/>
      * This field MUST be set to a valid account identifier.
      */

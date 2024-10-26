@@ -107,6 +107,9 @@ message ContractLoginfo {
  * function result, which is the results of the call to the constructor.
  */
 message ContractFunctionResult {
+    // No comments here: PBJ issue #217
+    reserved 8; // Removed Field.
+
     /**
      * A contract identifier.<br/>
      * This identifies the smart contract that defines the function called.
@@ -116,7 +119,7 @@ message ContractFunctionResult {
     /**
      * Result data from the function call.
      * <p>
-     * This SHALL be encoded in EVM bytecode format.
+     * This SHALL be encoded in RLP bytecode format.
      */
     bytes contractCallResult = 2;
 
@@ -160,9 +163,6 @@ message ContractFunctionResult {
      * Solidity address.
      */
     repeated ContractID createdContractIDs = 7 [deprecated = true];
-
-    // No comments here: PBJ issue #217
-    reserved 8; // <h2>Removed Field.</h2>
 
     /**
      * A created contract address.<br/>

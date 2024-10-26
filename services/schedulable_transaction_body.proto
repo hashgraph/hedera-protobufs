@@ -110,7 +110,8 @@ message SchedulableTransactionBody {
     /**
      * A short description of the schedulable transaction.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 2;
 

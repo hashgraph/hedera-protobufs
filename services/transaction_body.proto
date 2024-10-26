@@ -192,36 +192,14 @@ message TransactionBody {
     /**
      * A short description for this transaction.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string memo = 6;
 
-    // The choices here are arranged by service in roughly lexicographic
-    // order. The field ordinals are non-sequential, and a result of the
-    // historical order of implementation.
+    // The fields here are ordered in strictly ascending field ordinal
+    // order due to limitations in PBJ.
     oneof data {
-        /**
-         * Create a topic.
-         */
-        ConsensusCreateTopicTransactionBody consensusCreateTopic = 24;
-
-        /**
-         * Update a topic.
-         */
-        ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 25;
-
-        /**
-         * Delete a topic.
-         */
-        ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 26;
-
-        /**
-         * Submit a message to a topic.<br/>
-         * A message may be "chunked", and submitted in parts, if the total
-         * message size exceeds the limit for a single transaction.
-         */
-        ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 27;
-
         /**
          * Call a function defined on a smart contract.
          */
@@ -238,33 +216,10 @@ message TransactionBody {
         ContractUpdateTransactionBody contractUpdateInstance = 9;
 
         /**
-         * Delete a smart contract and transfer remaining balance
-         * to a specified account.
-         */
-        ContractDeleteTransactionBody contractDeleteInstance = 22;
-
-        /**
-         * Perform an Ethereum encoded transaction.
-         */
-        EthereumTransactionBody ethereumTransaction = 50;
-
-        /**
          * An obsolete, and unsupported, operation to add a "live hash" to
          * an account.
          */
         CryptoAddLiveHashTransactionBody cryptoAddLiveHash = 10 [deprecated = true];
-
-        /**
-         * Add one or more approved allowances for spenders to transfer the
-         * paying account's hbar or tokens.
-         */
-        CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 48;
-
-        /**
-         * Delete one or more approvals for spenders to transfer the
-         * paying account's hbar or tokens.
-         */
-        CryptoDeleteAllowanceTransactionBody cryptoDeleteAllowance = 49;
 
         /**
          * Create a new Hedera account.
@@ -330,12 +285,40 @@ message TransactionBody {
         SystemUndeleteTransactionBody systemUndelete = 21;
 
         /**
+         * Delete a smart contract and transfer remaining balance
+         * to a specified account.
+         */
+        ContractDeleteTransactionBody contractDeleteInstance = 22;
+
+        /**
          * Freeze the network.<br/>
          * This is actually several possible operations, and the caller
          * should examine the "freeze service" for more detail.<br/>
          * This is a privileged operation.
          */
         FreezeTransactionBody freeze = 23;
+
+        /**
+         * Create a topic.
+         */
+        ConsensusCreateTopicTransactionBody consensusCreateTopic = 24;
+
+        /**
+         * Update a topic.
+         */
+        ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 25;
+
+        /**
+         * Delete a topic.
+         */
+        ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 26;
+
+        /**
+         * Submit a message to a topic.<br/>
+         * A message may be "chunked", and submitted in parts, if the total
+         * message size exceeds the limit for a single transaction.
+         */
+        ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 27;
 
         /**
          * Unsupported system transaction.
@@ -348,72 +331,6 @@ message TransactionBody {
          * execute an `uncheckedSubmit`.
          */
         UncheckedSubmitBody uncheckedSubmit = 28;
-
-        /**
-         * Update the staking information.<br/>
-         * This internal transaction is performed at the end of a staking
-         * period to complete staking calculations and indicate that new
-         * staking period has started.
-         */
-        NodeStakeUpdateTransactionBody node_stake_update = 51;
-
-        /**
-         * Provide a deterministic pseudorandom number based on network state.
-         */
-        UtilPrngTransactionBody util_prng = 52;
-
-        /**
-         * Create a new node in the network address book.<br/>
-         * This is a privileged operation.
-         * <p>
-         * This transaction SHALL create a new consensus node record and add
-         * that record to the network address book.
-         */
-        com.hedera.hapi.node.addressbook.NodeCreateTransactionBody nodeCreate = 54;
-
-        /**
-         * Update a node in the network address book.<br/>
-         * This is a privileged operation.
-         * <p>
-         * This transaction SHALL update an existing consensus node record in
-         * the network address book.
-         */
-        com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody nodeUpdate = 55;
-
-        /**
-         * Delete a node from the network address book.<br/>
-         * This is a privileged operation.
-         * <p>
-         * This transaction SHALL mark an existing consensus node record as
-         * deleted and remove that node from the network address book.
-         */
-        com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 56;
-
-         /**
-         * Create a schedule.<br/>
-         * A schedule is a request to execute a specific transaction, included
-         * in the create body, in the future. The scheduled transaction may
-         * execute as soon as all signature requirements are met with the
-         * schedule create or a subsequent schedule sign transaction.
-         * A schedule may, alternatively, execute on expiration if
-         * long-term schedules are enabled and the schedule meets signature
-         * requirements at that time.
-         */
-        ScheduleCreateTransactionBody scheduleCreate = 42;
-
-        /**
-         * Delete a schedule.<br/>
-         * The schedule will be marked as deleted.
-         */
-        ScheduleDeleteTransactionBody scheduleDelete = 43;
-
-        /**
-         * Sign a schedule.<br/>
-         * Add one or more cryptographic keys to the list of keys that have
-         * signed a schedule, and which may serve to meet the signature
-         * requirements for the scheduled transaction.
-         */
-        ScheduleSignTransactionBody scheduleSign = 44;
 
         /**
          * Create a new Hedera token.
@@ -459,13 +376,6 @@ message TransactionBody {
         TokenUpdateTransactionBody tokenUpdate = 36;
 
         /**
-         * Update one or more non-fungible/unique tokens.<br/>
-         * This will update metadata for one or more serial numbers within
-         * a collection (token type).
-         */
-        TokenUpdateNftsTransactionBody token_update_nfts = 53;
-
-        /**
          * Mint new tokens.<br/>
          * All minted tokens will be delivered to the treasury account for
          * the token type. The "mint key" for the token must sign this
@@ -500,6 +410,32 @@ message TransactionBody {
         TokenDissociateTransactionBody tokenDissociate = 41;
 
         /**
+         * Create a schedule.<br/>
+         * A schedule is a request to execute a specific transaction, included
+         * in the create body, in the future. The scheduled transaction may
+         * execute as soon as all signature requirements are met with the
+         * schedule create or a subsequent schedule sign transaction.
+         * A schedule may, alternatively, execute on expiration if
+         * long-term schedules are enabled and the schedule meets signature
+         * requirements at that time.
+         */
+        ScheduleCreateTransactionBody scheduleCreate = 42;
+
+        /**
+         * Delete a schedule.<br/>
+         * The schedule will be marked as deleted.
+         */
+        ScheduleDeleteTransactionBody scheduleDelete = 43;
+
+        /**
+         * Sign a schedule.<br/>
+         * Add one or more cryptographic keys to the list of keys that have
+         * signed a schedule, and which may serve to meet the signature
+         * requirements for the scheduled transaction.
+         */
+        ScheduleSignTransactionBody scheduleSign = 44;
+
+        /**
          * Update the custom fee schedule for a token.<br/>
          * This transaction must be signed by the "fee schedule key"
          * for the token.
@@ -519,6 +455,70 @@ message TransactionBody {
          * This transaction MUST be signed by the "pause key" for the token.
          */
         TokenUnpauseTransactionBody token_unpause = 47;
+
+        /**
+         * Add one or more approved allowances for spenders to transfer the
+         * paying account's hbar or tokens.
+         */
+        CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 48;
+
+        /**
+         * Delete one or more approvals for spenders to transfer the
+         * paying account's hbar or tokens.
+         */
+        CryptoDeleteAllowanceTransactionBody cryptoDeleteAllowance = 49;
+
+        /**
+         * Perform an Ethereum encoded transaction.
+         */
+        EthereumTransactionBody ethereumTransaction = 50;
+
+        /**
+         * Update the staking information.<br/>
+         * This internal transaction is performed at the end of a staking
+         * period to complete staking calculations and indicate that new
+         * staking period has started.
+         */
+        NodeStakeUpdateTransactionBody node_stake_update = 51;
+
+        /**
+         * Provide a deterministic pseudorandom number based on network state.
+         */
+        UtilPrngTransactionBody util_prng = 52;
+
+        /**
+         * Update one or more non-fungible/unique tokens.<br/>
+         * This will update metadata for one or more serial numbers within
+         * a collection (token type).
+         */
+        TokenUpdateNftsTransactionBody token_update_nfts = 53;
+
+        /**
+         * Create a new node in the network address book.<br/>
+         * This is a privileged operation.
+         * <p>
+         * This transaction SHALL create a new consensus node record and add
+         * that record to the network address book.
+         */
+        com.hedera.hapi.node.addressbook.NodeCreateTransactionBody nodeCreate = 54;
+
+        /**
+         * Update a node in the network address book.<br/>
+         * This is a privileged operation.
+         * <p>
+         * This transaction SHALL update an existing consensus node record in
+         * the network address book.
+         */
+        com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody nodeUpdate = 55;
+
+        /**
+         * Delete a node from the network address book.<br/>
+         * This is a privileged operation.
+         * <p>
+         * This transaction SHALL mark an existing consensus node record as
+         * deleted and remove that node from the network address book.
+         */
+        com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 56;
 
         /**
          * Reject and return a token to treasury.<br/>

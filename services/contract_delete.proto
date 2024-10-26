@@ -40,8 +40,8 @@ import "basic_types.proto";
  * Delete a smart contract, and transfer any remaining HBAR balance to a
  * designated account.
  *
- * If this call succeeds then all subsequent calls to that smart
- * contract SHALL fail.
+ * If this call succeeds then all subsequent calls to that smart contract
+ * SHALL execute the `0x0` opcode, as required for EVM equivalence.
  *
  * ### Requirements
  *  - An account or smart contract MUST be designated to receive all remaining

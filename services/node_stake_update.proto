@@ -103,7 +103,7 @@ message NodeStakeUpdateTransactionBody {
      * A limit to the number of staking periods held for inactive accounts.<br/>
      * This is the maximum number of trailing staking periods for which an
      * account can collect staking rewards.<br/>
-     * <h4>Example</h4>
+     * #### Example
      * If this value is 365 with a calendar day period, then each account must
      * collect rewards at least once per calendar year to receive the full
      * amount of staking rewards earned.

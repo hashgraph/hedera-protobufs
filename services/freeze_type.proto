@@ -52,9 +52,10 @@ enum FreezeType {
     /**
      * Freeze the network, and take no further action.
      * <p>
-     * The `start_time` field is REQUIRED and SHOULD be between
-     * `300` and `3600` seconds after the transaction
-     * identifier `transactionValidStart` field.<br/>
+     * The `start_time` field is REQUIRED, MUST be strictly later than the
+     * consensus time when this transaction is handled, and SHOULD be between
+     * `300` and `3600` seconds after the transaction identifier
+     * `transactionValidStart` field.<br/>
      * The fields `update_file` and `file_hash` SHALL be ignored.<br/>
      * A `FREEZE_ONLY` transaction SHALL NOT perform any network
      * changes or upgrades.<br/>
@@ -84,9 +85,10 @@ enum FreezeType {
     /**
      * Freeze the network to perform a software upgrade.
      * <p>
-     * The `start_time` field is REQUIRED and SHOULD be between
-     * `300` and `3600` seconds after the transaction
-     * identifier `transactionValidStart` field.<br/>
+     * The `start_time` field is REQUIRED, MUST be strictly later than the
+     * consensus time when this transaction is handled, and SHOULD be between
+     * `300` and `3600` seconds after the transaction identifier
+     * `transactionValidStart` field.<br/>
      * A software upgrade file MUST be prepared prior to this transaction.<br/>
      * After this transaction completes, the network SHALL initiate an
      * upgrade and restart of all nodes at the start time specified.
@@ -112,9 +114,10 @@ enum FreezeType {
      * Prepare an upgrade of auxiliary services and containers
      * providing telemetry/metrics.
      * <p>
-     * The `start_time` field is REQUIRED and SHOULD be between
-     * `300` and `3600` seconds after the transaction
-     * identifier `transactionValidStart` field.<br/>
+     * The `start_time` field is REQUIRED, MUST be strictly later than the
+     * consensus time when this transaction is handled, and SHOULD be between
+     * `300` and `3600` seconds after the transaction identifier
+     * `transactionValidStart` field.<br/>
      * The `update_file` field is REQUIRED and MUST be valid.<br/>
      * A `TELEMETRY_UPGRADE` transaction SHALL NOT freeze the network or
      * interfere with general transaction processing.<br/>

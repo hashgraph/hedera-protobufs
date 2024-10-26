@@ -167,7 +167,7 @@ service TokenService {
      * from the requesting account to the treasury for each token.<br/>
      * This transfer SHALL NOT charge any custom fee or royalty defined for
      * the token(s) to be rejected.<br/>
-     * <h3>Effects on success</h3>
+     * ### Effects on success
      * <ul>
      *   <li>If the rejected token is fungible/common, the requesting account
      *       SHALL have a balance of 0 for the rejected token.<br/>

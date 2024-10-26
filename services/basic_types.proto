@@ -167,14 +167,18 @@ enum BlockHashAlgorithm {
  *   - `evm_address`<br/>
  *     Exists for every account and is one of
  *      - `contract_address`<br/>
- *        The 20 byte EVM contract address per EIP-1014
+ *        The 20 byte EVM address prescribed by `CREATE` or `CREATE2`
  *      - `evm_key_address`<br/>
- *        The keccak-256 hash of an ECDSA_SECP256K1 `primitive` key.
- *         - This is for accounts lazy-created from EVM public keys, when the
- *           corresponding ECDSA_SECP256K1 public key is presented in a
- *           transaction signed by the private key for that public key, the
- *           account is created that key assigned, and the protobuf-serialized
- *           form is set as the account alias.
+ *        An arbitrary 20 byte EVM address that, for a usable externally owned
+ *        account (EOA) SHALL be the rightmost 20 bytes of the Keccak-256 hash
+ *        of a ECDSA_SECP256K1 key.<br/>
+ *        Such accounts may be created in one of three ways:
+ *        - Sending hbar or fungible tokens to an unused
+ *          ECDSA_SECP256K1 key alias.
+ *        - Sending hbar or fungible tokens to an unassigned 20-byte
+ *          EVM address.
+ *        - Submitting a `CryptoCreate` signed with the corresponding
+ *          private key.
  *      - `long_zero`<br/>
  *        A synthetic 20 byte address inferred for "normally" created accounts.
  *        It is constructed from the "standard" AccountID as follows.
@@ -197,6 +201,7 @@ enum BlockHashAlgorithm {
  * This "hidden default" alias SHALL NOT be stored, but is synthesized by the
  * node software as needed, and may be synthesized by an EVM contract or client
  * software as well.
+ *
  * ---
  *
  * #### Alias forms
@@ -270,7 +275,7 @@ message FileID {
     int64 realmNum = 2;
 
     /**
-     * A whole number File identifier, unique within its realm and shard.
+     * A whole number file identifier, unique within its realm and shard.
      */
     int64 fileNum = 3;
 }
@@ -298,8 +303,9 @@ message ContractID {
         /**
         * A 20-byte EVM address of the contract to call.
         * <p>
-        * Every contract has an EVM address determined by its `shard.realm.num`
-        * identifier. This address is as follows:
+        * A contract created via a HAPI `ContractCreate` call SHALL have
+        * an EVM address determined by its `shard.realm.num` identifier.<br/>
+        * This address is as follows
         * <ol>
         *     <li>4 byte big-endian shard number</li>
         *     <li>8 byte big-endian realm number</li>
@@ -307,14 +313,10 @@ message ContractID {
         * </ol>
         * This address is not stored in state, but is computed when needed.
         * <p>
-        * Contracts created via CREATE2 have an
-        * <b>additional, primary address</b> that is derived from the
-        * <a href="https://eips.ethereum.org/EIPS/eip-1014">EIP-1014</a>
-        * specification, and does not have a simple relation to a
-        * `shard.realm.num` id.
-        * <p>
-        * (Note that CREATE2 contracts MAY also be referred to by the three-part
-        * EVM address described above.)
+        * Contracts created by any other means, including a HAPI
+        * `EthereumTransaction` whose `to` address is the zero address,
+        * SHALL have the EVM address prescribed by the `CREATE` or
+        * `CREATE2` opcode, as applicable.
         */
         bytes evm_address = 4;
     }
@@ -456,7 +458,7 @@ message TransactionID {
  */
 message AccountAmount {
     /**
-     * An Account identifier that will send or receive token(s).
+     * An account identifier that will send or receive token(s).
      */
     AccountID accountID = 1;
 
@@ -533,6 +535,8 @@ message NftTransfer {
      * <p>
      * If set, `senderAccountID` SHALL be the owner that previously approved
      * the allowance.<br/>
+     * If set, the `senderAccountID` MUST be the "payer" account for
+     * the transaction <br/>
      * The default value SHALL be false (unset).
      */
     bool is_approval = 4;
@@ -857,17 +861,15 @@ enum TokenPauseStatus {
  * private key must sign any transaction to send tokens or perform other
  * actions requiring authorization.
  *
- * A Key can also be the ID of a smart contract instance, which is then
- * authorized to perform any precompiled contract action that requires
- * authorization by that key.<br/>
- * Note that when a key is a smart contract ID, it SHALL NOT imply that the
- * contract with that ID will actually create a cryptographic signature.
- * It SHALL signify that when the contract calls a precompiled contract, the
- * resulting "child transaction" SHALL be implicitly authorized to perform any
- * action controlled by that key. A contract ID key MAY be "delegatable", which
- * permits that contract to "authorize" a message frame for which it is
- * recipient, even if the _code_ within that message frame is from a different
- * contract.
+ * A Key can also be the ID of a smart contract, which SHALL authorize that
+ * contract to execute any system contract with signing requirements that are
+ * met by the key.<br/>
+ * > Example
+ * >> If account `0.0.A` has a threshold key whose threshold is satisfied
+ * >> by a contract ID key for contract `0.0.C`, then when `0.0.C` is called,
+ * >> it is authorized to use system contracts to manage any asset owned by
+ * >> `0.0.A`. If the contract ID key is "delegatable", then `0.0.C` can even
+ * >> perform these actions when running code accessed via `DELEGATECALL`.
  *
  * A Key can be a "threshold key", which is a list of N keys, any M of which
  * may sign in order for the signature to be considered valid. The value of
@@ -1114,7 +1116,7 @@ message SignaturePair {
      * If the `pubKeyPrefix` is 0 bytes and more than a single cryptographic
      * key is required to sign the transaction, the request SHALL resolve to
      * `INVALID_SIGNATURE`.
-     * <h3>Important Note</h3>
+     * <blockquote>Important Note<blockquote>
      * In the special case that a signature is provided to authorize a
      * precompiled contract, the `pubKeyPrefix` MUST contain the _entire public
      * key_.<br/>
@@ -1122,6 +1124,18 @@ message SignaturePair {
      * 32 bytes long and contain the full public key bytes.<br/>
      * If the key is an ECDSA(secp256k1) key, the `pubKeyPrefix` MUST be
      * 33 bytes long and contain the full _compressed_ form of the public key.
+     * </blockquote></blockquote>
+     * <p>
+     * <dl><dt>Purpose</dt>
+     * <dd>The `pubKeyPrefix` exists to save cost. A signed transaction with
+     * shorter prefixes will have fewer bytes, and so will have a lower
+     * transaction fee.
+     * The prefixes, however, MUST be long enough to distinguish between all
+     * of the public keys that might be signing the transaction. Therefore,
+     * software signing a transaction SHOULD evaluate which keys might possibly
+     * be required to sign a transaction, and ensure that the shortest prefix
+     * that is sufficient to unambiguously identify the correct key is used.
+     * </dd></dl>
      */
     bytes pubKeyPrefix = 1;
 
@@ -1999,7 +2013,8 @@ message NodeAddress {
     /**
      * A short description of the node.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     string description = 9;
 

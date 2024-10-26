@@ -89,8 +89,9 @@ message ContractGetInfoResponse {
         AccountID accountID = 2;
 
         /**
-         * The "Solidity" form contract and account ID value that refers to
-         * this smart contract.
+         * The "Solidity" form contract ID.<br/>
+         * This is a hexadecimal string form of the 20-byte EVM address
+         * of the contract.
          */
         string contractAccountID = 3;
 
@@ -124,7 +125,8 @@ message ContractGetInfoResponse {
         /**
          * A short description of this smart contract.
          * <p>
-         * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+         * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+         * (default 100) bytes when encoded as UTF-8.
          */
         string memo = 8;
 
@@ -149,17 +151,9 @@ message ContractGetInfoResponse {
 
         /**
          * The ledger ID of the network that generated this response.
-         *
-         * This is originally defined in HIP-198 and depends on network
-         * configuration.<br/>
-         * The current values, as of Q1 2024, are
-         * <dl>
-         *   <dt>Mainnet</dt><dd>0x00</dd>
-         *   <dt>Testnet</dt><dd>0x01</dd>
-         *   <dt>Previewnet</dt><dd>0x02</dd>
-         *   <dt>Undefined</dt><dd>0x03</dd>
-         *   <dt>Reserved</dt><dd>0x04</dd>
-         * </dl>
+         * <p>
+         * This value SHALL identify the distributed ledger that responded to
+         * this query.
          */
         bytes ledger_id = 12;
 

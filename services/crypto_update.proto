@@ -183,7 +183,8 @@ message CryptoUpdateTransactionBody {
     /**
      * A short description of this Account.
      * <p>
-     * This value, if set, MUST NOT exceed 100 bytes when encoded as UTF-8.
+     * This value, if set, MUST NOT exceed `transaction.maxMemoUtf8Bytes`
+     * (default 100) bytes when encoded as UTF-8.
      */
     google.protobuf.StringValue memo = 14;
 

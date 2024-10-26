@@ -57,6 +57,7 @@ import "response_header.proto";
  * This query is free (the payment field is left empty).
  */
 message TransactionGetFastRecordQuery {
+    option deprecated = true;
     /**
      * Standard information sent with every query operation.<br/>
      * This includes the signed payment and what kind of response is requested
@@ -79,6 +80,7 @@ message TransactionGetFastRecordQuery {
  * account that it owned by that instance.
  */
 message TransactionGetFastRecordResponse {
+    option deprecated = true;
     /**
      * The standard response information for queries.<br/>
      * This includes the values requested in the `QueryHeader`
