@@ -72,6 +72,7 @@ message Node {
      * then endpoints in this list MAY supply either IP address or FQDN, but
      * SHALL NOT supply both values for the same endpoint.<br/>
      * This list SHALL NOT be empty.<br/>
+     * Every endpoint in this list SHALL have the "Gossip" purpose.<br/>
      * This list SHALL NOT contain more than `10` entries.<br/>
      * The first two entries in this list SHALL be the endpoints published to
      * all consensus nodes.<br/>
@@ -80,7 +81,7 @@ message Node {
     repeated proto.ServiceEndpoint gossip_endpoint = 4;
 
     /**
-     * A list of service endpoints for gRPC calls.
+     * A list of service endpoints for client calls.
      * <p>
      * These endpoints SHALL represent the published endpoints to which clients
      * may submit transactions.<br/>
@@ -88,6 +89,10 @@ message Node {
      * Endpoints in this list MAY supply either IP address or FQDN, but SHALL
      * NOT supply both values for the same endpoint.<br/>
      * This list SHALL NOT be empty.<br/>
+     * There SHALL NOT be any endpoint in this list with "Gossip" purpose.<br/>
+     * There SHALL NOT be more than one "secure gRPC" endpoint in this list.<br/>
+     * If this list contains a "secure gRPC" endpoint, it SHOULD NOT contain an
+     * "insecure gRPC endpoint.<br/>
      * This list SHALL NOT contain more than `8` entries.
      */
     repeated proto.ServiceEndpoint service_endpoint = 5;

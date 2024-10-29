@@ -1437,6 +1437,52 @@ message ServiceEndpoint {
      * When the `ipAddressV4` field is set, the `domain_name` field MUST NOT be set.
      */
     string domain_name = 3;
+
+    /**
+     * A purpose for this service endpoint.<br/>
+     * This is one of several options, including a gossip endpoint,
+     * a gRPC endpoint, or a gRPC-Web Proxy endpoint, among others.
+     * <p>
+     * This field is REQUIRED.<br/>
+     * This field MUST match the actual purpose of this endpoint.
+     */
+    ServiceEndpointPurpose purpose = 4;
+}
+
+/**
+ * An enumeration of possible "purpose" values.<br/>
+ * This enumeration is used to describe the purpose of each `ServiceEndpoint`
+ * entry in a list of service endpoints. The canonical use is to describe
+ * the service endpoint purpose for values in the `service_endpoint` field
+ * of a `Node`.
+ */
+enum ServiceEndpointPurpose {
+    /**
+     * An endpoint used to gossip transactions or other data.
+     */
+    GOSSIP = 0;
+
+    /**
+     * An endpoint that provides a TLS secured gRPC API.
+     */
+    SECURE_GRPC = 1;
+
+    /**
+     * An endpoint that provides an un-secured gRPC API.
+     */
+    INSECURE_GRPC = 2;
+
+    /**
+     * An endpoint that provides a TLS secured web proxy for gRPC requests
+     * from clients that cannot directly connect to gRPC endpoints.
+     */
+    SECURE_GRPC_WEB_PROXY = 3;
+
+    /**
+     * An endpoint that provides an un-secured web proxy for gRPC requests
+     * from clients that cannot directly connect to gRPC endpoints.
+     */
+    INSECURE_GRPC_WEB_PROXY = 4;
 }
 
 /**

@@ -76,6 +76,7 @@ message NodeCreateTransactionBody {
      * consensus nodes may _gossip_ transactions.<br/>
      * These endpoints MUST specify a port.<br/>
      * This list MUST NOT be empty.<br/>
+     * Every endpoint in this list MUST have the "Gossip" purpose.<br/>
      * This list MUST NOT contain more than `10` entries.<br/>
      * The first two entries in this list SHALL be the endpoints published to
      * all consensus nodes.<br/>
@@ -101,6 +102,10 @@ message NodeCreateTransactionBody {
      * Endpoints in this list MAY supply either IP address or FQDN, but MUST
      * NOT supply both values for the same endpoint.<br/>
      * This list MUST NOT be empty.<br/>
+     * There MUST NOT be any endpoint in this list with "Gossip" purpose.<br/>
+     * There MUST NOT be more than one "secure gRPC" endpoint in this list.<br/>
+     * If this list contains a "secure gRPC" endpoint, it SHOULD NOT contain an
+     * "insecure gRPC endpoint.<br/>
      * This list MUST NOT contain more than `8` entries.
      */
     repeated proto.ServiceEndpoint service_endpoint = 4;
