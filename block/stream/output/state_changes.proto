@@ -807,12 +807,12 @@ message MapChangeValue {
         com.hedera.hapi.node.state.roster.Roster roster_value = 16;
 
         /**
-         * A list of scheduled ids.
+         * A list of scheduled identifiers.
          */
         proto.ScheduleIdList schedule_id_list_value = 17;
 
         /**
-         * A scheduled id value.
+         * A scheduled identifier value.
          */
         proto.ScheduleID schedule_id_value = 18;
     }

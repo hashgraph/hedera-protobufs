@@ -143,6 +143,8 @@ message Schedule {
 message ScheduleList {
     /**
      * a list of schedules, in no particular order.
+     * <p>
+     * While the order is not _specified_, it MUST be deterministic.
      */
     repeated Schedule schedules = 1;
 }
