@@ -141,12 +141,10 @@ message Schedule {
  * simplified hash code.
  */
 message ScheduleList {
-    /**
-     * a list of schedules, in no particular order.
-     * <p>
-     * While the order is not _specified_, it MUST be deterministic.
-     */
-    repeated Schedule schedules = 1;
+  /**
+   * a list of schedules, in no particular order.
+   */
+  repeated Schedule schedules = 1;
 }
 
 /**
@@ -155,10 +153,40 @@ message ScheduleList {
  * One example is all schedules that expire at a particular time.
  */
 message ScheduleIdList {
+  /**
+   * A list of schedule identifiers, in no particular order.
+   * <p>
+   * While the order is not _specified_, it MUST be deterministic.
+   */
+  repeated ScheduleID schedule_ids = 1;
+}
+
+/**
+ * The value of a map summarizing the counts of scheduled and processed transactions
+ * within a particular consensus second.
+ */
+message ScheduledCounts {
     /**
-     * A list of schedule identifiers, in no particular order.
-     * <p>
-     * While the order is not _specified_, it MUST be deterministic.
+     * The number of transactions scheduled to expire at a consensus second.
      */
-    repeated ScheduleID schedule_ids = 1;
+    uint32 number_scheduled = 1;
+    /**
+     * The number of scheduled transactions that have been processed at a consensus second.
+     */
+    uint32 number_processed = 2;
+}
+
+/**
+ * A key mapping to a particular ScheduleID that will execute at a given order number
+ * within a given consensus second.
+ */
+message ScheduledOrder {
+    /**
+     * The consensus second in which the transaction is expired.
+     */
+    uint64 expiry_second = 1;
+    /*
+     * The ordered position within the consensus second that the transaction will be executed.
+     */
+    uint32 order_number = 2;
 }
