@@ -957,5 +957,5 @@ service BlockStreamService {
      * of the request as possible in the event payment is not sufficient to
      * complete the request.
      */
-    rpc subscribeBlockStream(SubscribeStreamRequest) returns (stream SubscribeStreamResponse);
+    rpc subscribeBlockStream(stream SubscribeStreamRequest) returns (stream SubscribeStreamResponse);
 }
