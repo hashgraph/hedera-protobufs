@@ -1,21 +1,13 @@
-/**
- * # Query Response
- * The `Response` message is returned from a query transaction.
- *
- * ### Keywords
- * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
- * "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
- * document are to be interpreted as described in
- * [RFC2119](https://www.ietf.org/rfc/rfc2119) and clarified in
- * [RFC8174](https://www.ietf.org/rfc/rfc8174).
- */
 syntax = "proto3";
 
 package proto;
 
-/*
- * Copyright (C) 2018-2024 Hedera Hashgraph, LLC
- *
+/*-
+ * ‌
+ * Hedera Network Services Protobuf
+ * ​
+ * Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC
+ * ​
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -27,6 +19,7 @@ package proto;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * ‍
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -69,183 +62,133 @@ import "schedule_get_info.proto";
 import "get_account_details.proto";
 
 /**
- * A single query response.
- *
- * Each query MUST define its specific response type.<br/>
- * Each query response MUST include both the information request and a
- * `ResponseHeader`.<br/>
- * All possible query response types MUST be listed here in a `oneof`.
+ * A single response, which is returned from the node to the client, after the client sent the node
+ * a query. This includes all responses.
  */
 message Response {
     oneof response {
         /**
-         * A response for a query requesting all accounts, claims, files, and
-         * smart contract instances whose associated keys include the given Key.
-         * <p>
-         * > This query is no longer supported.
+         * Get all entities associated with a given key
          */
         GetByKeyResponse getByKey = 1;
 
         /**
-         * A response for a query requesting Contract, Account, and File
-         * identifiers for a smart contract, given a Solidity identifier.
+         * Get the IDs in the format used in transactions, given the format used in Solidity
          */
         GetBySolidityIDResponse getBySolidityID = 2;
 
         /**
-         * A response for a _local_ call to a query function of a given smart
-         * contract, providing function parameter inputs as needed.
-         * <p>
-         * > This call is only performed on the local node. It is _not_ a
-         * > network consensus result.
+         * Response to call a function of a smart contract instance
          */
         ContractCallLocalResponse contractCallLocal = 3;
 
         /**
-         * A response for a query requesting the current bytecode for
-         * a smart contract.
+         * Get the runtime code for a smart contract instance
          */
         ContractGetBytecodeResponse contractGetBytecodeResponse = 5;
 
         /**
-         * A response for a query requesting detailed information about
-         * a smart contract.
+         * Get information about a smart contract instance
          */
         ContractGetInfoResponse contractGetInfo = 4;
 
         /**
-         * A response for a query requesting records of all transactions
-         * against the given contract in the last 25 hours.
-         * <p>
-         * > This query is no longer supported.
+         * Get all existing records for a smart contract instance
          */
         ContractGetRecordsResponse contractGetRecordsResponse = 6;
 
         /**
-         * A response for a query requesting the HBAR balance of an account
-         * or contract.
+         * Get the current balance in a cryptocurrency account
          */
         CryptoGetAccountBalanceResponse cryptogetAccountBalance = 7;
 
         /**
-         * A response for a query requesting records of all "recent"
-         * transactions for which the specified account is the effective payer.
+         * Get all the records that currently exist for transactions involving an account
          */
         CryptoGetAccountRecordsResponse cryptoGetAccountRecords = 8;
 
         /**
-         * A response for a query requesting information for an account.<br/>
-         * This query includes balance, but not allowances or token
-         * relationships.
+         * Get all information about an account
          */
         CryptoGetInfoResponse cryptoGetInfo = 9;
 
         /**
-         * A response for a query requesting detail for a specific live hash
-         * associated to a specific account.
-         * <p>
-         * > This query is no longer supported.
+         * Contains a livehash associated to an account
          */
         CryptoGetLiveHashResponse cryptoGetLiveHash = 10;
 
         /**
-         * A response for a query requesting all the accounts that are proxy
-         * staking to this account.
-         * <p>
-         * > This query is no longer supported.
+         * Get all the accounts that proxy stake to a given account, and how much they proxy stake
          */
         CryptoGetStakersResponse cryptoGetProxyStakers = 11;
 
         /**
-         * A response for a query requesting the content of a file in the
-         * Hedera File Service (HFS).
+         * Get the contents of a file (the bytes stored in it)
          */
         FileGetContentsResponse fileGetContents = 12;
 
         /**
-         * A response for a query requesting file metadata from the
-         * Hedera File Service (HFS).
+         * Get information about a file, such as its expiration date
          */
         FileGetInfoResponse fileGetInfo = 13;
 
         /**
-         * A response for a query requesting the post-consensus (final)
-         * result of a transaction.
+         * Get a receipt for a transaction
          */
         TransactionGetReceiptResponse transactionGetReceipt = 14;
 
         /**
-         * A response for a query requesting a transaction record; the detail
-         * changes completed in response to a transaction.
+         * Get a record for a transaction
          */
         TransactionGetRecordResponse transactionGetRecord = 15;
 
         /**
-         * A response for a query requesting a very recent transaction record.
-         * <p>
-         * > This query is no longer supported.
+         * Get a record for a transaction (lasts 180 seconds)
          */
         TransactionGetFastRecordResponse transactionGetFastRecord = 16;
 
         /**
-         * A response for a query requesting the current state of a topic for
-         * the Hedera Consensus Service (HCS).
+         * Parameters of and state of a consensus topic..
          */
         ConsensusGetTopicInfoResponse consensusGetTopicInfo = 150;
 
         /**
-         * A response for a query requesting the deployed versions of Hedera
-         * Services and the API definitions in semantic version format
+         * Semantic versions of Hedera Services and HAPI proto
          */
         NetworkGetVersionInfoResponse networkGetVersionInfo = 151;
 
         /**
-         * A response for a query requesting metadata for a specific Token.
+         * Get all information about a token
          */
         TokenGetInfoResponse tokenGetInfo = 152;
 
         /**
-         * A response for a query requesting detail for a scheduled transaction.
+         * Get all information about a schedule entity
          */
         ScheduleGetInfoResponse scheduleGetInfo = 153;
 
         /**
-         * A response for a query requesting detail for a subset of individual
-         * non-fungible/unique tokens owned by an account.<br/>
-         * The requested tokens are selected by a list index, which is based
-         * on the order in which the tokens were added to the account.
+         * A list of the NFTs associated with the account
          */
         TokenGetAccountNftInfosResponse tokenGetAccountNftInfos = 154;
 
         /**
-         * A response for a query requesting detail for a specific
-         * non-fungible/unique token selected by both token identifier and
-         * serial number.
+         * All information about an NFT
          */
         TokenGetNftInfoResponse tokenGetNftInfo = 155;
 
         /**
-         * A response for a query requesting detail for a subset of individual
-         * non-fungible/unique tokens.<br/>
-         * The requested tokens are selected by a list index, which is based
-         * on the order in which the tokens were minted.
+         * A list of the NFTs for the token
          */
         TokenGetNftInfosResponse tokenGetNftInfos = 156;
 
         /**
-         * A response for a query requesting the time, in nanoseconds, spent
-         * in direct processing for one or more recent transactions.
-         * <p>
-         * > This query is no longer supported.
+         * Execution times of "sufficiently recent" transactions
          */
         NetworkGetExecutionTimeResponse networkGetExecutionTime = 157;
 
         /**
-         * A response for a query requesting detail information
-         * about an account.
-         * <p>
-         * This query is a privileged query and "system" account authorization
-         * is REQUIRED for this query.
+         * Gets all information about an account including allowances granted by the account
          */
         GetAccountDetailsResponse accountDetails = 158;
     }
