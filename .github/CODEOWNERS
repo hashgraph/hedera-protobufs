@@ -8,6 +8,12 @@
 /platform/                                      @hashgraph/platform-base
 /mirror/                                        @hashgraph/mirror-node
 
+# Block Node Folder Rules
+/block/                                           @hashgraph/block-node @hashgraph/hedera-services @hashgraph/mirror-node
+
+# Hedera Services (HAPI) Folder Rules
+/services/                                        @hashgraph/hedera-services @hashgraph/mirror-node
+
 #########################
 #####  Core Files  ######
 #########################
@@ -16,18 +22,18 @@
 
 # Protection Rules for Github Configuration Files and Actions Workflows
 /.github/                                       @hashgraph/release-engineering-managers @hashgraph/devops-ci
-/.github/workflows/                             @hashgraph/devops-ci
+/.github/workflows/                             @hashgraph/devops-ci @hashgraph/devops-ci-committers @hashgraph/release-engineering-managers 
 
 # Self-protection for root CODEOWNERS files (this file should not exist and should definitely require approval)
 /CODEOWNERS                                     @hashgraph/release-engineering-managers
 
 # Protect the repository root files
-/README.md                                      @hashgraph/release-engineering-managers @hashgraph/devops-ci
+/README.md                                      @hashgraph/devops-ci @hashgraph/release-engineering-managers @hashgraph/developer-advocates @hashgraph/platform-base @hashgraph/hedera-services @hashgraph/mirror-node @hashgraph/hedera-smart-contracts @hashgraph/block-node
 **/LICENSE                                      @hashgraph/release-engineering-managers
 
 # CodeCov configuration
 **/codecov.yml                                  @hashgraph/release-engineering-managers @hashgraph/devops-ci
 
 # Git Ignore definitions
-**/.gitignore                                   @hashgraph/release-engineering-managers @hashgraph/devops-ci
-**/.gitignore.*                                 @hashgraph/release-engineering-managers @hashgraph/devops-ci
+**/.gitignore                                   @hashgraph/devops-ci @hashgraph/release-engineering-managers @hashgraph/developer-advocates @hashgraph/platform-base @hashgraph/hedera-services @hashgraph/mirror-node @hashgraph/hedera-smart-contracts @hashgraph/block-node
+**/.gitignore.*                                 @hashgraph/devops-ci @hashgraph/release-engineering-managers @hashgraph/developer-advocates @hashgraph/platform-base @hashgraph/hedera-services @hashgraph/mirror-node @hashgraph/hedera-smart-contracts @hashgraph/block-node
