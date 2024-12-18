@@ -43,11 +43,11 @@ import "basic_types.proto";
 
 /**
  * A single 64-bit number identifying a Hedera native entity.
+ *
+ * Deprecated.<br/>
+ * A primitive `int64` or `google.protobuf.Int64Value` wrapper is preferred.
  */
 message EntityNumber {
-    /**
-     * A primitive `int64` or `google.protobuf.Int64Value` wrapper is preferred.
-     */
     option deprecated = true;
 
     /**
@@ -60,12 +60,10 @@ message EntityNumber {
  * A Pair of AccountID and TokenID.<br/>
  * This is used as a key in certain cases.
  *
+ * Deprecated.<br/>
  * The TokenAssociation message should be used instead of this, when possible.
  */
 message EntityIDPair {
-    /**
-     * The TokenAssociation message should be used in new messages.
-     */
     option deprecated = true;
 
     /**
