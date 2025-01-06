@@ -1308,7 +1308,7 @@ enum HederaFunctionality {
     /**
      * Get the accounts proxy staking to a given account.
      */
-    CryptoGetStakers = 22;
+    CryptoGetStakers = 22 [deprecated = true];
 
     /**
      * Get the contents of a "file" stored in the ledger.
@@ -1328,7 +1328,7 @@ enum HederaFunctionality {
     /**
      * Get all transaction records for a specified contract ID in
      * the past 24 hours.<br/>
-     * @deprecated since version 0.9.0
+     * deprecated since version 0.9.0
      */
     ContractGetRecords = 26 [deprecated = true];
 
@@ -1528,7 +1528,7 @@ enum HederaFunctionality {
      * Get metadata (information) for a specific NFT identified by token and
      * serial number.
      */
-    TokenGetNftInfo = 75;
+    TokenGetNftInfo = 75 [deprecated = true];
 
     /**
      * Get NFT metadata (information) for a range of NFTs associated to a
@@ -1600,7 +1600,7 @@ enum HederaFunctionality {
     /**
      * Get a record for a "recent" transaction.
      */
-    TransactionGetFastRecord = 87;
+    TransactionGetFastRecord = 87 [deprecated = true];
 
     /**
      * Update the metadata of one or more NFT's of a specific token type.
