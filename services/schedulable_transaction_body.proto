@@ -115,32 +115,7 @@ message SchedulableTransactionBody {
      */
     string memo = 2;
 
-    // The choices here are arranged by service in roughly lexicographic
-    // order. The field ordinals are non-sequential, and a result of the
-    // historical order of implementation.
     oneof data {
-        /**
-         * Create a topic.
-         */
-        ConsensusCreateTopicTransactionBody consensusCreateTopic = 18;
-
-        /**
-         * Update a topic.
-         */
-        ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 19;
-
-        /**
-         * Delete a topic.
-         */
-        ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 20;
-
-        /**
-         * Submit a message to a topic.<br/>
-         * A message may be "chunked", and submitted in parts, if the total
-         * message size exceeds the limit for a single transaction.
-         */
-        ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 21;
-
         /**
          * Call a function defined on a smart contract.
          */
@@ -161,18 +136,6 @@ message SchedulableTransactionBody {
          * to a specified account.
          */
         ContractDeleteTransactionBody contractDeleteInstance = 6;
-
-        /**
-         * Add one or more approved allowances for spenders to transfer the
-         * paying account's hbar or tokens.
-         */
-        CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 37;
-
-        /**
-         * Delete one or more approvals for spenders to transfer the
-         * paying account's hbar or tokens.
-         */
-        CryptoDeleteAllowanceTransactionBody cryptoDeleteAllowance = 38;
 
         /**
          * Create a new Hedera account.
@@ -240,34 +203,26 @@ message SchedulableTransactionBody {
         FreezeTransactionBody freeze = 17;
 
         /**
-         * Provide a deterministic pseudorandom number based on network state.
+         * Create a topic.
          */
-        UtilPrngTransactionBody util_prng = 40;
+        ConsensusCreateTopicTransactionBody consensusCreateTopic = 18;
 
         /**
-         * Create a new node in the network address book.<br/>
-         * This is a privileged operation.
+         * Update a topic.
          */
-        com.hedera.hapi.node.addressbook.NodeCreateTransactionBody nodeCreate = 42;
+        ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 19;
 
         /**
-         * Update a node in the network address book.<br/>
-         * This is a privileged operation.
+         * Delete a topic.
          */
-        com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody nodeUpdate = 43;
+        ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 20;
 
         /**
-         * Delete a node from the network address book.<br/>
-         * This will mark the node as deleted.<br/>
-         * This is a privileged operation.
+         * Submit a message to a topic.<br/>
+         * A message may be "chunked", and submitted in parts, if the total
+         * message size exceeds the limit for a single transaction.
          */
-        com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 44;
-
-        /**
-         * Delete a schedule.<br/>
-         * The schedule will be marked as deleted.
-         */
-        ScheduleDeleteTransactionBody scheduleDelete = 34;
+        ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 21;
 
         /**
          * Create a new Hedera token.
@@ -313,13 +268,6 @@ message SchedulableTransactionBody {
         TokenUpdateTransactionBody tokenUpdate = 28;
 
         /**
-         * Update one or more non-fungible/unique tokens.<br/>
-         * This will update metadata for one or more serial numbers within
-         * a collection (token type).
-         */
-        TokenUpdateNftsTransactionBody token_update_nfts = 41;
-
-        /**
          * Mint new tokens.<br/>
          * All minted tokens will be delivered to the treasury account for
          * the token type. The "mint key" for the token must sign this
@@ -354,11 +302,10 @@ message SchedulableTransactionBody {
         TokenDissociateTransactionBody tokenDissociate = 33;
 
         /**
-         * Update the custom fee schedule for a token.<br/>
-         * This transaction must be signed by the "fee schedule key"
-         * for the token.
+         * Delete a schedule.<br/>
+         * The schedule will be marked as deleted.
          */
-        TokenFeeScheduleUpdateTransactionBody token_fee_schedule_update = 39;
+        ScheduleDeleteTransactionBody scheduleDelete = 34;
 
         /**
          * Pause a Token.<br/>
@@ -371,6 +318,56 @@ message SchedulableTransactionBody {
          * This transaction must be signed by the "pause key" for the token.
          */
         TokenUnpauseTransactionBody token_unpause = 36;
+
+        /**
+         * Add one or more approved allowances for spenders to transfer the
+         * paying account's hbar or tokens.
+         */
+        CryptoApproveAllowanceTransactionBody cryptoApproveAllowance = 37;
+
+        /**
+         * Delete one or more approvals for spenders to transfer the
+         * paying account's hbar or tokens.
+         */
+        CryptoDeleteAllowanceTransactionBody cryptoDeleteAllowance = 38;
+
+        /**
+         * Update the custom fee schedule for a token.<br/>
+         * This transaction must be signed by the "fee schedule key"
+         * for the token.
+         */
+        TokenFeeScheduleUpdateTransactionBody token_fee_schedule_update = 39;
+
+        /**
+         * Provide a deterministic pseudorandom number based on network state.
+         */
+        UtilPrngTransactionBody util_prng = 40;
+
+        /**
+         * Update one or more non-fungible/unique tokens.<br/>
+         * This will update metadata for one or more serial numbers within
+         * a collection (token type).
+         */
+        TokenUpdateNftsTransactionBody token_update_nfts = 41;
+
+        /**
+         * Create a new node in the network address book.<br/>
+         * This is a privileged operation.
+         */
+        com.hedera.hapi.node.addressbook.NodeCreateTransactionBody nodeCreate = 42;
+
+        /**
+         * Update a node in the network address book.<br/>
+         * This is a privileged operation.
+         */
+        com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody nodeUpdate = 43;
+
+        /**
+         * Delete a node from the network address book.<br/>
+         * This will mark the node as deleted.<br/>
+         * This is a privileged operation.
+         */
+        com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody nodeDelete = 44;
 
         /**
          * "Reject" undesired tokens.<br/>

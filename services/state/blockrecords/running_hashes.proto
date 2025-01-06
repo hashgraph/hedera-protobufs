@@ -45,14 +45,17 @@ message RunningHashes {
      * A running hash of all record stream items.
      */
     bytes running_hash = 1;
+
     /**
      * The previous running hash of all record stream items.
      */
     bytes n_minus_1_running_hash = 2;
+
     /**
      * The previous, previous running hash of all record stream items.
      */
     bytes n_minus_2_running_hash = 3;
+
     /**
      * The previous, previous, previous running hash of all record stream items.
      */
