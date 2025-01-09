@@ -61,7 +61,7 @@ message EntityNumber {
  * This is used as a key in certain cases.
  *
  * Deprecated.<br/>
- * The TokenAssociation message should be used instead of this, when possible.
+ * The TokenAssociation message should be used instead of this message.
  */
 message EntityIDPair {
     option deprecated = true;
