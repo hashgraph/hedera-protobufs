@@ -1193,6 +1193,10 @@ message SignatureMap {
  * The transactions and queries supported by Hedera Hashgraph.
  */
 enum HederaFunctionality {
+    // FUTURE - Uncomment when https://github.com/hashgraph/pbj/issues/339 is fixed;
+    // currently the PBJ-generated unit tests fail when using reserved ordinals
+    // reserved 96, 97, 98, 99;
+
     /**
      * Unused - The first value is unused because this default value is
      * ambiguous with an "unset" value and therefore should not be used.
@@ -1308,7 +1312,7 @@ enum HederaFunctionality {
     /**
      * Get the accounts proxy staking to a given account.
      */
-    CryptoGetStakers = 22;
+    CryptoGetStakers = 22 [deprecated = true];
 
     /**
      * Get the contents of a "file" stored in the ledger.
@@ -1328,7 +1332,7 @@ enum HederaFunctionality {
     /**
      * Get all transaction records for a specified contract ID in
      * the past 24 hours.<br/>
-     * @deprecated since version 0.9.0
+     * deprecated since version 0.9.0
      */
     ContractGetRecords = 26 [deprecated = true];
 
@@ -1528,7 +1532,7 @@ enum HederaFunctionality {
      * Get metadata (information) for a specific NFT identified by token and
      * serial number.
      */
-    TokenGetNftInfo = 75;
+    TokenGetNftInfo = 75 [deprecated = true];
 
     /**
      * Get NFT metadata (information) for a range of NFTs associated to a
@@ -1600,7 +1604,7 @@ enum HederaFunctionality {
     /**
      * Get a record for a "recent" transaction.
      */
-    TransactionGetFastRecord = 87;
+    TransactionGetFastRecord = 87 [deprecated = true];
 
     /**
      * Update the metadata of one or more NFT's of a specific token type.
@@ -1643,26 +1647,6 @@ enum HederaFunctionality {
      * Claim one or more pending airdrops
      */
     TokenClaimAirdrop = 95;
-
-    /**
-     * A message produced as part of Threshold Signature Scheme (TSS) processing.
-     */
-    TssMessage = 96;
-
-    /**
-     * Submit a vote as part of the Threshold Signature Scheme (TSS) processing.
-     */
-    TssVote = 97;
-
-    /**
-     * Submit a node signature as part of the Threshold Signature Scheme (TSS) processing.
-     */
-    TssShareSignature = 98;
-
-    /**
-     * Submit a node public tss encryption key as part of the Threshold Signature Scheme (TSS).
-     */
-    TssEncryptionKey = 99;
 
     /**
      * Submit a signature of a state root hash gossiped to other nodes

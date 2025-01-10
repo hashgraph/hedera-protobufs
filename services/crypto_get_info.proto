@@ -221,9 +221,6 @@ message CryptoGetInfoResponse {
         /**
          * All of the livehashes attached to the account (each of which is a
          * hash along with the keys that authorized it and can delete it)
-         * <blockquote>REVIEW NOTE<blockquote>
-         * Should this be deprecated?  Live hashes do not appear to be
-         * available any longer.</blockquote></blockquote>
          */
         repeated LiveHash liveHashes = 14;
 
