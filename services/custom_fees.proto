@@ -347,22 +347,22 @@ message AssessedCustomFee {
  * a fractional fee on a consensus submit transaction.
  */
 message FixedCustomFee {
-    /**
-     * A fixed custom fee.
-     * <p>
-     * The amount of HBAR or other token described by this `FixedFee` SHALL
-     * be charged to the transction payer for each message submitted to a
-     * topic that assigns this consensus custom fee.
-     */
-    FixedFee fixed_fee = 1;
+  /**
+   * A fixed custom fee.
+   * <p>
+   * The amount of HBAR or other token described by this `FixedFee` SHALL
+   * be charged to the transction payer for each message submitted to a
+   * topic that assigns this consensus custom fee.
+   */
+  FixedFee fixed_fee = 1;
 
-    /**
-     * A collection account identifier.
-     * <p>
-     * All amounts collected for this consensus custom fee SHALL be transferred
-     * to the account identified by this field.
-     */
-    AccountID fee_collector_account_id = 2;
+  /**
+   * A collection account identifier.
+   * <p>
+   * All amounts collected for this consensus custom fee SHALL be transferred
+   * to the account identified by this field.
+   */
+  AccountID fee_collector_account_id = 2;
 }
 
 /**
@@ -375,11 +375,11 @@ message FixedCustomFee {
  *  existing values.
  */
 message FixedCustomFeeList {
-    /**
-     * A set of custom fee definitions.<br/>
-     * These are fees to be assessed for each submit to a topic.
-     */
-    repeated FixedCustomFee fees = 1;
+  /**
+   * A set of custom fee definitions.<br/>
+   * These are fees to be assessed for each submit to a topic.
+   */
+  repeated FixedCustomFee fees = 1;
 }
 
 /**
@@ -392,15 +392,15 @@ message FixedCustomFeeList {
  * existing values.
  */
 message FeeExemptKeyList {
-    /**
-     * A set of keys.<br/>
-     * The keys in this list are permitted to submit messages to the
-     * topic without paying the topic's custom fees.
-     * <p>
-     * If a submit transaction is signed by _any_ key included in this set,
-     * custom fees SHALL NOT be charged for that transaction.
-     */
-    repeated Key keys = 1;
+  /**
+   * A set of keys.<br/>
+   * The keys in this list are permitted to submit messages to the
+   * topic without paying the topic's custom fees.
+   * <p>
+   * If a submit transaction is signed by _any_ key included in this set,
+   * custom fees SHALL NOT be charged for that transaction.
+   */
+   repeated Key keys = 1;
 }
 
 /**
