@@ -2,22 +2,7 @@ syntax = "proto3";
 
 package com.hedera.hapi.node.state.history;
 
-/*
- * Copyright (C) 2024 Hedera Hashgraph, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+// SPDX-License-Identifier: Apache-2.0
 import "timestamp.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -91,9 +76,11 @@ message HistoryProof {
    */
   bytes source_address_book_hash = 1;
   /**
-   * The proof keys for the source address book.
+   * The proof keys for the target address book, needed to keep
+   * constructing proofs after adopting the target address book's
+   * roster at a handoff.
    */
-  repeated ProofKey proof_keys = 2;
+  repeated ProofKey target_proof_keys = 2;
   /**
    * The target history of the proof.
    */
