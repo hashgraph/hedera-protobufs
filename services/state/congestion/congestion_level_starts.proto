@@ -40,12 +40,6 @@ option java_multiple_files = true;
  * start of each time period when the congestion pricing level changed
  * (increasing, or decreasing, the congestion fee multiplier).
  *
- * > Review Question
- * >> What prunes these lists?
- * >
- * >> Do these grow indefinitely?
- * >
- * >> Are these two lists the same size?
  */
 message CongestionLevelStarts {
     /**
