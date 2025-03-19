@@ -91,7 +91,7 @@ message BlockContentProofRequest {
     /**
      * The full block item to be used for generating the proof.
      */
-    com.hedera.hapi.block.stream.BlockItem block_item = 2;
+    com.hedera.hapi.block.stream.BlockItem complete_block_item = 2;
 
     /**
      * The hash of the block item.
