@@ -56,7 +56,7 @@ message BlockContentProof {
    * These hashes are used to reconstruct the Merkle root, ensuring the block item
    * is included in the corresponding Merkle tree.
    */
-  repeated MerkleSiblingHash sibling_hashes = 2;
+  repeated com.hedera.hapi.block.stream.MerkleSiblingHash sibling_hashes = 2;
 
   /**
    * The digital signature over the block content proof data.
