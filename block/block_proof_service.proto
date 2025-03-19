@@ -113,7 +113,7 @@ message BlockContentProofRequest {
 
 /**
  * An enumeration of response codes for block content proof requests.
- * <p>
+ *
  * These codes indicate the outcome of a request for a block content proof.
  */
 enum BlockContentProofResponseCode {
