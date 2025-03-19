@@ -1,6 +1,6 @@
 /**
- * # Block Service
- * The Service API exposed by the Block Nodes.
+ * # Block Proof Service
+ * The Service API exposed by the Block Nodes for Proofs related endpoints.
  *
  * ### Keywords
  * The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -165,7 +165,7 @@ message BlockContentProofResponse {
    * If the request is successful, this field contains the block item, its
    * Merkle sibling hashes, and the digital signature.
    */
-  com.hedera.hapi.block.stream.BlockContentProof block_content_proof = 2;
+  BlockContentProof block_content_proof = 2;
 }
 
 /**
