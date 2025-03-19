@@ -91,7 +91,7 @@ message BlockContentProofRequest {
     /**
      * The full block item to be used for generating the proof.
      */
-    com.hedera.hapi.block.stream.BlockItem block_item = 1;
+    com.hedera.hapi.block.stream.BlockItem block_item = 2;
 
     /**
      * The hash of the block item.
@@ -99,7 +99,7 @@ message BlockContentProofRequest {
      * Use this field when the block item is identified by its hash. And there
      * is only one block item with the hash withing the block.
      */
-    bytes block_item_hash = 2;
+    bytes block_item_hash = 3;
 
     /**
      * The index of the block item within the block.
@@ -107,7 +107,7 @@ message BlockContentProofRequest {
      * This alternative identifier specifies the position of the block item.
      * In case of multiple block items with the same hash, this field must be used.
      */
-    uint32 block_item_index = 3;
+    uint32 block_item_index = 4;
   }
 }
 
