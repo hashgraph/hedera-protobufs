@@ -458,6 +458,16 @@ enum StateIdentifier {
     STATE_ID_PROOF_VOTES = 47;
 
     /**
+     * A state identifier for the CRS state.
+     */
+    STATE_ID_CRS_STATE = 48;
+
+    /**
+     * A state identifier for the CRS publications.
+     */
+    STATE_ID_CRS_PUBLICATIONS = 49;
+
+    /**
      * A state identifier for the round receipts queue.
      */
     STATE_ID_TRANSACTION_RECEIPTS_QUEUE = 126;
