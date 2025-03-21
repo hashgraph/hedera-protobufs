@@ -155,7 +155,7 @@ enum BlockContentProofResponseCode {
 
 /**
  * A response containing the block content proof.
- * <p>
+ *
  * This response includes a status code and, if successful, the corresponding
  * block content proof data.
  */
@@ -179,7 +179,7 @@ message BlockContentProofResponse {
 
 /**
  * A service to retrieve block content proofs.
- * <p>
+ *
  * This service provides an endpoint for clients to request a proof of block
  * content integrity.
  */
