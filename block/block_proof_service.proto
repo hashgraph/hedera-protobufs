@@ -97,26 +97,26 @@ message BlockContentProofRequest {
      * - `block_item_index` - The index of the block item within the block.
      */
     oneof block_item {
-      /**
-       * The full block item to be used for generating the proof.
-       */
-      com.hedera.hapi.block.stream.BlockItem complete_block_item = 2;
+        /**
+         * The full block item to be used for generating the proof.
+         */
+        com.hedera.hapi.block.stream.BlockItem complete_block_item = 2;
 
-      /**
-       * The hash of the block item.
-       * <p>
-       * Use this field when the block item is identified by its hash. And there
-       * is only one block item with the hash withing the block.
-       */
-      bytes block_item_hash = 3;
+        /**
+         * The hash of the block item.
+         * <p>
+         * Use this field when the block item is identified by its hash. And there
+         * is only one block item with the hash withing the block.
+         */
+        bytes block_item_hash = 3;
 
-      /**
-       * The index of the block item within the block.
-       * <p>
-       * This alternative identifier specifies the position of the block item.
-       * In case of multiple block items with the same hash, this field must be used.
-       */
-      uint32 block_item_index = 4;
+        /**
+         * The index of the block item within the block.
+         * <p>
+         * This alternative identifier specifies the position of the block item.
+         * In case of multiple block items with the same hash, this field must be used.
+         */
+        uint32 block_item_index = 4;
     }
 }
 
@@ -126,31 +126,31 @@ message BlockContentProofRequest {
  * These codes indicate the outcome of a request for a block content proof.
  */
 enum BlockContentProofResponseCode {
-  /**
-   * The response code is unspecified.
-   */
-  BLOCK_CONTENT_PROOF_UNKNOWN = 0;
+    /**
+     * The response code is unspecified.
+     */
+    BLOCK_CONTENT_PROOF_UNKNOWN = 0;
 
-  /**
-   * The block content proof was successfully retrieved.
-   */
-  BLOCK_CONTENT_PROOF_SUCCESS = 1;
+    /**
+     * The block content proof was successfully retrieved.
+     */
+    BLOCK_CONTENT_PROOF_SUCCESS = 1;
 
-  /**
-   * The specified block item was not found.
-   */
-  BLOCK_CONTENT_PROOF_ITEM_NOT_FOUND = 2;
+    /**
+     * The specified block item was not found.
+     */
+    BLOCK_CONTENT_PROOF_ITEM_NOT_FOUND = 2;
 
-  /**
-   * The block content proof is not available for the specified block.
-   */
-  BLOCK_CONTENT_PROOF_NOT_AVAILABLE = 3;
+    /**
+     * The block content proof is not available for the specified block.
+     */
+    BLOCK_CONTENT_PROOF_NOT_AVAILABLE = 3;
 
-  /**
-   * Duplicate hash items were found, causing ambiguity.
-   * Clients MUST use the block item index to resolve the ambiguity.
-   */
-  BLOCK_CONTENT_PROOF_DUPLICATE_HASH_ITEM_FOUND = 4;
+    /**
+     * Duplicate hash items were found, causing ambiguity.
+     * Clients MUST use the block item index to resolve the ambiguity.
+     */
+    BLOCK_CONTENT_PROOF_DUPLICATE_HASH_ITEM_FOUND = 4;
 }
 
 /**
@@ -160,21 +160,21 @@ enum BlockContentProofResponseCode {
  * block content proof data.
  */
 message BlockContentProofResponse {
-  /**
-   * The status of the block content proof request.
-   * <p>
-   * Represented as a value from `BlockContentProofResponseCode` indicating
-   * the outcome of the request.
-   */
-  BlockContentProofResponseCode status = 1;
+    /**
+     * The status of the block content proof request.
+     * <p>
+     * Represented as a value from `BlockContentProofResponseCode` indicating
+     * the outcome of the request.
+     */
+    BlockContentProofResponseCode status = 1;
 
-  /**
-   * The block content proof details.
-   * <p>
-   * If the request is successful, this field contains the block item, its
-   * Merkle sibling hashes, and the digital signature.
-   */
-  BlockContentProof block_content_proof = 2;
+    /**
+     * The block content proof details.
+     * <p>
+     * If the request is successful, this field contains the block item, its
+     * Merkle sibling hashes, and the digital signature.
+     */
+    BlockContentProof block_content_proof = 2;
 }
 
 /**
@@ -184,12 +184,12 @@ message BlockContentProofResponse {
  * content integrity.
  */
 service BlockContentProofService {
-  /**
-   * Retrieves the block content proof for a given request.
-   * <p>
-   * The client MUST provide a `BlockContentProofRequest`, and the service
-   * SHALL return a `BlockContentProofResponse` containing the proof details and
-   * status.
-   */
-  rpc getBlockContentProof(BlockContentProofRequest) returns (BlockContentProofResponse);
+    /**
+     * Retrieves the block content proof for a given request.
+     * <p>
+     * The client MUST provide a `BlockContentProofRequest`, and the service
+     * SHALL return a `BlockContentProofResponse` containing the proof details and
+     * status.
+     */
+    rpc getBlockContentProof(BlockContentProofRequest) returns (BlockContentProofResponse);
 }
