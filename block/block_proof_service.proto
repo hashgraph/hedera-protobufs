@@ -37,78 +37,87 @@ option java_package = "com.hedera.hapi.block.protoc";
 option java_multiple_files = true;
 
 /**
- * A cryptographic proof of a block item within a block.
- * <p>
- * This message contains the block item to be verified, its Merkle tree sibling
- * hashes, and a digital signature that attests to the authenticity of the proof.
+ * A cryptographic proof of a block item within a block. <br/>
+ * This message contains the block item to be verified, its Merkle tree
+ * sibling hashes, and a digital signature that attests to the authenticity
+ * of the proof.
+ *
+ * All fields of this message are REQUIRED. <br/>
+ * The `block_item` field SHALL be identical to the `block_item` requested. <br/>
+ * The `block_signature` SHALL be the aggregate signature of the hiero network
+ * that produced the block. <br/>
+ * The recipient of this message SHOULD verify that the hash of the `block_item`,
+ * when combined with the `sibling_hashes`, produces a block hash that matches
+ * the value signed by the hiero network, as represented by the `block_signature`
+ * field.
  */
 message BlockContentProof {
-  /**
-   * The block item that is proved.
-   * <p>
-   * This field holds the complete block item data that is subject to verification.
-   */
-  com.hedera.hapi.block.stream.BlockItem block_item = 1;
+    /**
+     * The block item that is proved.
+     * <p>
+     * This field holds the complete block item data that is subject to verification.
+     */
+    com.hedera.hapi.block.stream.BlockItem block_item = 1;
 
-  /**
-   * A list of sibling hashes forming the Merkle proof.
-   * <p>
-   * These hashes are used to reconstruct the Merkle root, ensuring the block item
-   * is included in the corresponding Merkle tree.
-   */
-  repeated com.hedera.hapi.block.stream.MerkleSiblingHash sibling_hashes = 2;
+    /**
+     * A list of sibling hashes forming the Merkle proof.
+     * <p>
+     * These hashes are used to reconstruct the Merkle root, ensuring the block item
+     * is included in the corresponding Merkle tree.
+     */
+    repeated com.hedera.hapi.block.stream.MerkleSiblingHash sibling_hashes = 2;
 
-  /**
-   * The digital signature over the block content proof data.
-   * <p>
-   * This signature confirms the integrity and origin of the block content proof.
-   */
-  bytes block_signature = 3;
+    /**
+     * The digital signature over the block content proof data.
+     * <p>
+     * This signature confirms the integrity and origin of the block content proof.
+     */
+    bytes block_signature = 3;
 }
 
 /**
  * A request to obtain the proof for block item within a block.
- * <p>
+ *
  * The request identifies the block and the block item using one of several methods.
  */
 message BlockContentProofRequest {
-  /**
-   * The block number for which the proof is requested.
-   * <p>
-   * This field identifies the specific block that contains the target block item.
-   */
-  uint64 block_number = 1;
-
-  /**
-   * One of several methods to specify the block item.
-   * <p>
-   * Exactly one of the following fields MUST be set:
-   * <br/>- `block_item`: The full block item data.
-   * <br/>- `block_item_hash`: The hash of the block item.
-   * <br/>- `block_item_index`: The index of the block item within the block.
-   */
-  oneof block_item {
     /**
-     * The full block item to be used for generating the proof.
-     */
-    com.hedera.hapi.block.stream.BlockItem complete_block_item = 2;
-
-    /**
-     * The hash of the block item.
+     * The block number for which the proof is requested.
      * <p>
-     * Use this field when the block item is identified by its hash. And there
-     * is only one block item with the hash withing the block.
+     * This field identifies the specific block that contains the target block item.
      */
-    bytes block_item_hash = 3;
+    uint64 block_number = 1;
 
     /**
-     * The index of the block item within the block.
+     * One of several methods to specify the block item.
      * <p>
-     * This alternative identifier specifies the position of the block item.
-     * In case of multiple block items with the same hash, this field must be used.
+     * Exactly one of the following fields MUST be set:
+     * - `block_item` - The full block item data.
+     * - `block_item_hash` - The hash of the block item.
+     * - `block_item_index` - The index of the block item within the block.
      */
-    uint32 block_item_index = 4;
-  }
+    oneof block_item {
+      /**
+       * The full block item to be used for generating the proof.
+       */
+      com.hedera.hapi.block.stream.BlockItem complete_block_item = 2;
+
+      /**
+       * The hash of the block item.
+       * <p>
+       * Use this field when the block item is identified by its hash. And there
+       * is only one block item with the hash withing the block.
+       */
+      bytes block_item_hash = 3;
+
+      /**
+       * The index of the block item within the block.
+       * <p>
+       * This alternative identifier specifies the position of the block item.
+       * In case of multiple block items with the same hash, this field must be used.
+       */
+      uint32 block_item_index = 4;
+    }
 }
 
 /**
