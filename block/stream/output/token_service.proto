@@ -170,11 +170,4 @@ message UpdateTokenNftsOutput {}
  * This message SHALL NOT duplicate information already contained in
  * the original transaction.
  */
-message TokenAirdropOutput {
-  /**
-   * Custom fees assessed during a TokenAirdrop.
-   * <p>
-   * These fees SHALL be present in the full transfer list for the transaction.
-   */
-  repeated proto.AssessedCustomFee assessed_custom_fees = 1;
-}
+message TokenAirdropOutput {}

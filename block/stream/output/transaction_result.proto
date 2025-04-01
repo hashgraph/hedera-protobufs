@@ -156,4 +156,11 @@ message TransactionResult {
      * fees charged for this transaction.
      */
     uint64 congestion_pricing_multiplier = 11;
+
+    /**
+     * Custom fees assessed during a transaction execution.
+     * <p>
+     * These fees SHALL be present in the full transfer list for the transaction.
+     */
+    repeated proto.AssessedCustomFee assessed_custom_fees = 12;
 }
