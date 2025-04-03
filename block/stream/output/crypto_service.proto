@@ -75,7 +75,7 @@ message CreateAccountOutput {
      * This value SHALL be set for every account creation.
      * This value SHALL NOT be set if no account is created.
      */
-    proto.AccountID created_account = 1;
+    proto.AccountID created_account_id = 1;
 }
 
 /**
@@ -92,14 +92,7 @@ message DeleteAccountOutput {}
  * This message SHALL NOT duplicate information already contained in
  * the original transaction.
  */
-message CryptoTransferOutput {
-  /**
-   * Custom fees assessed during a CryptoTransfer.
-   * <p>
-   * These fees SHALL be present in the full transfer list for the transaction.
-   */
-  repeated proto.AssessedCustomFee assessed_custom_fees = 1;
-}
+message CryptoTransferOutput {}
 
 /**
  * Block Stream data for a `updateAccount` transaction.

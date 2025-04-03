@@ -77,15 +77,7 @@ message DeleteTopicOutput {}
  * The actual topic running hash SHALL be present in a `StateChanges` block
  * item, and is not duplicated here.
  */
-message SubmitMessageOutput {
-
-    /**
-     * Custom fees assessed during a SubmitMessage.
-     * <p>
-     * These fees SHALL be present in the full transfer list for the transaction.
-     */
-    repeated proto.AssessedCustomFee assessed_custom_fees = 1;
-}
+message SubmitMessageOutput {}
 
 /**
  * A version of the topic running hash.
