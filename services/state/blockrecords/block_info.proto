@@ -13,23 +13,8 @@ syntax = "proto3";
 
 package proto;
 
-/*
- * Copyright (C) 2023-2024 Hedera Hashgraph, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import "timestamp.proto";
+// SPDX-License-Identifier: Apache-2.0
+import "services/timestamp.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.blockrecords">>> This comment is special code for setting PBJ Compiler java package
@@ -83,10 +68,9 @@ message BlockInfo {
      * A consensus timestamp.
      * <p>
      * The consensus time of the last transaction that was handled by the node
-     * within the current block.<br/>
-     * This property is how we 'advance the consensus clock'. The node MUST
-     * continually set this property to the consensus timestamp for the most
-     * recent transaction completed by the node.
+     * within the current block. Only top-level transactions can trigger stake
+     * period side effects, so we track them separately from the last-used
+     * time of <i>all</i> transactions, which include children.<br/>
      */
     Timestamp cons_time_of_last_handled_txn = 4;
 
@@ -108,4 +92,21 @@ message BlockInfo {
      * is finished.
      */
     Timestamp first_cons_time_of_current_block = 6;
+
+    /**
+     * The consensus time of the last transaction that was handled by the node.
+     * <p>
+     * This property is how we 'advance the consensus clock'. The node MUST
+     * continually set this property to the consensus timestamp for the most
+     * recent transaction completed by the node.
+     */
+    Timestamp last_used_cons_time = 7;
+
+    /**
+     * The time stamp at which the last interval process was done.
+     * <p>
+     * This field SHALL hold the consensus time for the last time
+     * at which an interval of time-dependent events were processed.
+     */
+    proto.Timestamp last_interval_process_time = 8;
 }
