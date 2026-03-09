@@ -13,27 +13,12 @@ syntax = "proto3";
 
 package proto;
 
-/*
- * Copyright (C) 2024 Hedera Hashgraph, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+// SPDX-License-Identifier: Apache-2.0
 option java_package = "com.hederahashgraph.service.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.addressbook">>> This comment is special code for setting PBJ Compiler java package
 
-import "transaction_response.proto";
-import "transaction.proto";
+import "services/transaction_response.proto";
+import "services/transaction.proto";
 
 /**
  * The Address Book service provides the ability for Hedera network node
@@ -149,4 +134,35 @@ service AddressBookService {
      * This transaction is authorized by the node operator
      */
     rpc updateNode (proto.Transaction) returns (proto.TransactionResponse);
+
+    /**
+     * A transaction to create a new registered node in the network
+     * address book.
+     * <p>
+     * This transaction, once complete, SHALL add a new registered node to the
+     * network state.<br/>
+     * The new registered node SHALL be visible and discoverable upon
+     * completion of this transaction.
+     */
+    rpc createRegisteredNode (proto.Transaction) returns (proto.TransactionResponse);
+
+    /**
+     * A transaction to remove a registered node from the network address
+     * book.
+     * <p>
+     * This transaction, once complete, SHALL remove the identified registered
+     * node from the network state.<br/>
+     * This transaction MUST be signed by the existing entry `admin_key` or
+     * authorized by the Hiero network governance structure.
+     */
+    rpc deleteRegisteredNode (proto.Transaction) returns (proto.TransactionResponse);
+
+    /**
+     * A transaction to update an existing registered node in the network
+     * address book.
+     * <p>
+     * This transaction, once complete, SHALL modify the identified registered
+     * node state as requested.
+     */
+    rpc updateRegisteredNode (proto.Transaction) returns (proto.TransactionResponse);
 }
