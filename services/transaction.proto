@@ -14,103 +14,99 @@ syntax = "proto3";
 
 package proto;
 
-/*
- * Copyright (C) 2018-2024 Hedera Hashgraph, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+// SPDX-License-Identifier: Apache-2.0
 option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
-import "basic_types.proto";
+import "services/basic_types.proto";
 
-import "system_delete.proto";
-import "system_undelete.proto";
-import "freeze.proto";
+import "services/system_delete.proto";
+import "services/system_undelete.proto";
+import "services/freeze.proto";
 
-import "contract_call.proto";
-import "contract_create.proto";
-import "contract_update.proto";
+import "services/contract_call.proto";
+import "services/contract_create.proto";
+import "services/contract_update.proto";
 
-import "crypto_add_live_hash.proto";
-import "crypto_create.proto";
-import "crypto_delete.proto";
-import "crypto_delete_live_hash.proto";
-import "crypto_transfer.proto";
-import "crypto_update.proto";
-import "crypto_approve_allowance.proto";
-import "crypto_delete_allowance.proto";
+import "services/crypto_add_live_hash.proto";
+import "services/crypto_create.proto";
+import "services/crypto_delete.proto";
+import "services/crypto_delete_live_hash.proto";
+import "services/crypto_transfer.proto";
+import "services/crypto_update.proto";
+import "services/crypto_approve_allowance.proto";
+import "services/crypto_delete_allowance.proto";
 
-import "ethereum_transaction.proto";
+import "services/ethereum_transaction.proto";
 
-import "file_append.proto";
-import "file_create.proto";
-import "file_delete.proto";
-import "file_update.proto";
+import "services/file_append.proto";
+import "services/file_create.proto";
+import "services/file_delete.proto";
+import "services/file_update.proto";
 
-import "duration.proto";
-import "contract_delete.proto";
+import "services/duration.proto";
+import "services/contract_delete.proto";
 
-import "consensus_create_topic.proto";
-import "consensus_update_topic.proto";
-import "consensus_delete_topic.proto";
-import "consensus_submit_message.proto";
+import "services/consensus_create_topic.proto";
+import "services/consensus_update_topic.proto";
+import "services/consensus_delete_topic.proto";
+import "services/consensus_submit_message.proto";
 
-import "unchecked_submit.proto";
+import "services/unchecked_submit.proto";
 
-import "token_create.proto";
-import "token_freeze_account.proto";
-import "token_unfreeze_account.proto";
-import "token_grant_kyc.proto";
-import "token_revoke_kyc.proto";
-import "token_delete.proto";
-import "token_update.proto";
-import "token_mint.proto";
-import "token_burn.proto";
-import "token_wipe_account.proto";
-import "token_associate.proto";
-import "token_dissociate.proto";
-import "token_fee_schedule_update.proto";
-import "token_pause.proto";
-import "token_unpause.proto";
-import "token_update_nfts.proto";
-import "token_reject.proto";
-import "token_airdrop.proto";
-import "token_cancel_airdrop.proto";
-import "token_claim_airdrop.proto";
+import "services/token_create.proto";
+import "services/token_freeze_account.proto";
+import "services/token_unfreeze_account.proto";
+import "services/token_grant_kyc.proto";
+import "services/token_revoke_kyc.proto";
+import "services/token_delete.proto";
+import "services/token_update.proto";
+import "services/token_mint.proto";
+import "services/token_burn.proto";
+import "services/token_wipe_account.proto";
+import "services/token_associate.proto";
+import "services/token_dissociate.proto";
+import "services/token_fee_schedule_update.proto";
+import "services/token_pause.proto";
+import "services/token_unpause.proto";
+import "services/token_update_nfts.proto";
+import "services/token_reject.proto";
+import "services/token_airdrop.proto";
+import "services/token_cancel_airdrop.proto";
+import "services/token_claim_airdrop.proto";
 
-import "schedule_create.proto";
-import "schedule_delete.proto";
-import "schedule_sign.proto";
+import "services/schedule_create.proto";
+import "services/schedule_delete.proto";
+import "services/schedule_sign.proto";
 
-import "node_stake_update.proto";
-import "util_prng.proto";
+import "services/node_stake_update.proto";
+import "services/util_prng.proto";
 
-import "node_create.proto";
-import "node_update.proto";
-import "node_delete.proto";
+import "services/node_create.proto";
+import "services/node_update.proto";
+import "services/node_delete.proto";
 
-import "custom_fees.proto";
-import "event/state_signature_transaction.proto";
-import "auxiliary/hints/hints_key_publication.proto";
-import "auxiliary/hints/hints_preprocessing_vote.proto";
-import "auxiliary/hints/hints_partial_signature.proto";
-import "auxiliary/hints/crs_publication.proto";
+import "services/custom_fees.proto";
+import "platform/event/state_signature_transaction.proto";
 
-import "auxiliary/history/history_proof_signature.proto";
-import "auxiliary/history/history_proof_key_publication.proto";
-import "auxiliary/history/history_proof_vote.proto";
+import "services/auxiliary/hints/hints_key_publication.proto";
+import "services/auxiliary/hints/hints_preprocessing_vote.proto";
+import "services/auxiliary/hints/hints_partial_signature.proto";
+import "services/auxiliary/hints/crs_publication.proto";
+
+import "services/auxiliary/history/history_proof_signature.proto";
+import "services/auxiliary/history/history_proof_key_publication.proto";
+import "services/auxiliary/history/history_proof_vote.proto";
+
+import "services/auxiliary/tss/ledger_id_publication.proto";
+import "services/auxiliary/blockrecords/migration_root_hash_vote.proto";
+
+import "services/hook_store.proto";
+import "services/hook_dispatch.proto";
+
+import "services/registered_node_create.proto";
+import "services/registered_node_update.proto";
+import "services/registered_node_delete.proto";
 
 /**
  * A wrapper around signed transaction bytes.<br/>
@@ -662,6 +658,50 @@ message TransactionBody {
          * A transaction body for handling a set of transactions atomically.
          */
         AtomicBatchTransactionBody atomic_batch = 74;
+
+        /**
+         * A transaction body for updating the storage of an EVM hook.
+         */
+        com.hedera.hapi.node.hooks.HookStoreTransactionBody hook_store = 75;
+
+        /**
+         * An internal-only transaction body for dispatching a hook CRUD operation.
+         */
+        com.hedera.hapi.node.hooks.HookDispatchTransactionBody hook_dispatch = 76;
+
+        /**
+         * An internal-only transaction body for publishing the ledger id.
+         */
+        com.hedera.hapi.node.tss.LedgerIdPublicationTransactionBody ledger_id_publication = 77;
+
+        /**
+         * Create a new registered node in the network address book.
+         * <p>
+         * This transaction SHALL create a new registered node record and add
+         * that record to the network state.
+         */
+        com.hedera.hapi.node.addressbook.RegisteredNodeCreateTransactionBody registeredNodeCreate = 78;
+
+        /**
+         * Update a registered node in the network address book.
+         * <p>
+         * This transaction SHALL update an existing registered node record in
+         * the network state.
+         */
+        com.hedera.hapi.node.addressbook.RegisteredNodeUpdateTransactionBody registeredNodeUpdate = 79;
+
+        /**
+         * Delete a registered node from the network address book.
+         * <p>
+         * This transaction SHALL mark an existing registered node record as
+         * deleted.
+         */
+        com.hedera.hapi.node.addressbook.RegisteredNodeDeleteTransactionBody registeredNodeDelete = 80;
+
+        /**
+         * A transaction body for voting on migration wrapped record root hash state.
+         */
+        com.hedera.hapi.services.auxiliary.blockrecords.MigrationRootHashVoteTransactionBody migration_root_hash_vote = 81;
     }
 
     /**
@@ -672,6 +712,13 @@ message TransactionBody {
      * If used with a transaction type that does not support custom fee limits, the transaction will fail.
      */
     repeated CustomFeeLimit max_custom_fees = 1001;
+
+    /**
+     * If set to true, this transaction uses high-volume throttles and pricing
+     * for entity creation. It only affects supported transaction types; otherwise,
+     * it is ignored.
+     */
+    bool high_volume = 1002;
 }
 
 /**
