@@ -14,24 +14,9 @@ syntax = "proto3";
 
 package com.hedera.hapi.node.state.blockstream;
 
-/*
- * Copyright (C) 2024 Hedera Hashgraph, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import "timestamp.proto";
-import "basic_types.proto";
+// SPDX-License-Identifier: Apache-2.0
+import "services/timestamp.proto";
+import "services/basic_types.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.blockstream">>> This comment is special code for setting PBJ Compiler java package
@@ -41,9 +26,9 @@ option java_multiple_files = true;
  * A message stored in state to maintain block stream parameters.<br/>
  * Nodes use this information for three purposes.
  * 1. To maintain hash chain continuity at restart and reconnect boundaries.
- * 1. To store historical hashes for implementation of the EVM `BLOCKHASH`
+ * 2. To store historical hashes for implementation of the EVM `BLOCKHASH`
  *    and `PREVRANDAO` opcodes.
- * 1. To track the amount of consensus time that has passed between blocks.
+ * 3. To track the amount of consensus time that has passed between blocks.
  *
  * This value MUST be updated for every block.<br/>
  * This value MUST be transmitted in the "state changes" section of
@@ -63,7 +48,8 @@ message BlockStreamInfo {
     /**
      * A consensus time for the current block.<br/>
      * This is the consensus time of the first round in the current block,
-     * and is used to determine if this block was the first across an
+     * which equates to the first contained transaction's consensus time.
+     * It is used to determine if this block was the first across an
      * important boundary in consensus time, such as UTC midnight.
      * This may also be used to purge entities expiring between the last
      * block time and this time.
@@ -89,41 +75,45 @@ message BlockStreamInfo {
      * This is REQUIRED to implement the EVM `BLOCKHASH` opcode.
      * <p>
      * ### Field Length
-     * Each hash value SHALL be the trailing 265 bits of a SHA2-384 hash.<br/>
+     * Each hash value SHALL be the trailing 256 bits of a SHA2-384 hash.<br/>
      * The length of this field SHALL be an integer multiple of 32 bytes.<br/>
      * This field SHALL be at least 32 bytes.<br/>
-     * The maximum length of this field SHALL be 8192 bytes.
+     * The maximum length of this field SHALL be 8192 bytes.<br/>
+     * After the cutover to block streams, and after each pre-cutover hash has
+     * fallen out of the byte array, each hash value SHALL be the trailing
+     * 256 bits of a SHA2-256 hash. The field length and maximum length SHALL
+     * remain the same (32 bytes).
      */
     bytes trailing_block_hashes = 4;
 
     /**
-     * A SHA2-384 hash value.<br/>
-     * This is the hash of the "input" subtree for this block.
+     * A SHA2-256 hash value.<br/>
+     * This is the final hash of the "input" subtree for this block.
      */
     bytes input_tree_root_hash = 5;
 
     /**
-     * A SHA2-384 hash value.<br/>
+     * A SHA2-256 hash value.<br/>
      * This is the hash of consensus state at the _start_ of this block.
      */
     bytes start_of_block_state_hash = 6;
 
     /**
-     * A count of "output" block items in this block.
+     * A count of "state change" block items in this block.
      * <p>
-     * This SHALL count the number of output block items that _precede_
+     * This SHALL count the number of state change block items that _precede_
      * the state change that updates this singleton.
      */
-    uint32 num_preceding_output_items = 7;
+    uint64 num_preceding_state_changes_items = 7;
 
     /**
-     * A concatenation of SHA2-384 hash values.<br/>
+     * A concatenation of SHA2-256 hash values.<br/>
      * This is the "rightmost" values of the "output" subtree.
      * <p>
      * The subtree containing these hashes SHALL be constructed from all "output"
      * `BlockItem`s in this block that _precede_ the update to this singleton.
      */
-    repeated bytes rightmost_preceding_output_tree_hashes = 8;
+    repeated bytes rightmost_preceding_state_changes_tree_hashes = 8;
 
     /**
      * A block-end consensus time stamp.
@@ -163,4 +153,35 @@ message BlockStreamInfo {
      * at which a user transaction was handled.
      */
     proto.Timestamp last_handle_time = 13;
+
+    /**
+     * A SHA2-256 hash value.<br/>
+     * This is the final hash of the "consensus headers" subtree for this block.
+     */
+    bytes consensus_header_root_hash = 14;
+
+    /**
+     * A SHA2-256 hash value.<br/>
+       * This is the final hash of the "output" subtree for this block.
+     */
+    bytes output_item_root_hash = 15;
+
+    /**
+     * A SHA2-256 hash value.<br/>
+     * This is the final hash of the "trace data" subtree for this block.
+     */
+    bytes trace_data_root_hash = 16;
+
+    /**
+     * The intermediate hashes needed for subroot 2 in the block merkle
+     * tree structure. These hashes SHALL include the minimum required
+     * block root hashes needed to construct subroot 2's final state at
+     * the end of the previous block.
+     */
+    repeated bytes intermediate_previous_block_root_hashes = 17;
+
+    /**
+     * The number of leaves in the intermediate block roots subtree.
+     */
+    uint64 intermediate_block_roots_leaf_count = 18;
 }
