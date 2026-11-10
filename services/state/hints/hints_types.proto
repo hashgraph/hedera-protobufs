@@ -2,23 +2,8 @@ syntax = "proto3";
 
 package com.hedera.hapi.node.state.hints;
 
-/*
- * Copyright (C) 2024 Hedera Hashgraph, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import "timestamp.proto";
+// SPDX-License-Identifier: Apache-2.0
+import "services/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
@@ -38,6 +23,8 @@ message HintsPartyId {
    * The number of parties in the hinTS scheme.
    */
   uint32 num_parties = 2;
+  /** The completed CRS generation used to produce this key. */
+  uint64 crs_id = 3;
 }
 
 /**
@@ -113,7 +100,7 @@ message PreprocessingVote {
 }
 
 /**
- * A node's hinTS party id.
+ * A node's weighted hinTS party id.
  */
 message NodePartyId {
   /**
@@ -124,6 +111,10 @@ message NodePartyId {
    * The party id.
    */
   uint32 party_id = 2;
+  /**
+   * The party's weight in the construction.
+   */
+  uint64 party_weight = 3;
 }
 
 /**
@@ -180,6 +171,11 @@ message HintsConstruction {
      */
     HintsScheme hints_scheme = 6;
   }
+
+  /** The bound CRS generation; zero means this construction is waiting to be bound. */
+  uint64 crs_id = 7;
+  /** The effective party capacity, which MUST NOT decrease across roster transitions. */
+  uint32 num_parties = 8;
 }
 
 /**
@@ -206,6 +202,13 @@ enum CRSStage {
 /**
  * The state of a CRS construction.
  */
+message CrsContributor {
+  /** The node authorized to contribute to the ceremony. */
+  uint64 node_id = 1;
+  /** Its weight in the source roster at the start of the ceremony. */
+  uint64 weight = 2;
+}
+
 message CRSState {
 
   /**
@@ -222,13 +225,37 @@ message CRSState {
     /**
      * The id of the next node that should contribute to the CRS. This is used
      * to ensure that all nodes contribute to the CRS in a round-robin fashion.
-     * If this is null, then all nodes in the network have contributed to the CRS.
+     * If this is absent, every contributor has had a turn, including nodes
+     * whose contribution windows expired without a valid contribution.
      */
-    google.protobuf.UInt64Value  next_contributing_node_id = 3;
+    google.protobuf.UInt64Value next_contributing_node_id = 3;
 
     /**
-     * The time at which the network should stop waiting for the node's contributions
-     * and move on to the next node in the round-robin fashion.
+     * While gathering, the deadline for the current contributor. While waiting
+     * to adopt the final CRS, the deadline for finalization or retry. This is
+     * absent once the ceremony completes.
      */
     proto.Timestamp contribution_end_time = 4;
+    /** A positive generation identifier that MUST NOT be reused after cancellation. */
+    uint64 ceremony_id = 5;
+    /** The power-of-two effective party capacity of this CRS. */
+    uint32 num_parties = 6;
+    /** The source roster authorizing the ceremony. */
+    bytes source_roster_hash = 7;
+    /** The target roster for which this ceremony was started. */
+    bytes target_roster_hash = 8;
+    /** The hints construction owning this ceremony. */
+    uint64 construction_id = 9;
+    /** The current attempt, incremented when restarting an incomplete ceremony. */
+    uint64 attempt = 10;
+    /** The immutable contributor set and weights for the ceremony. */
+    repeated CrsContributor contributors = 11;
+    /** Nodes whose valid contributions were incorporated during this attempt, each at most once. */
+    repeated uint64 contributed_node_ids = 12;
+    /** The deterministic starting CRS for this capacity, before fresh contributions. */
+    bytes initial_crs = 13;
+    /** Allocation high-water mark, retained in the active envelope even when next is discarded. */
+    uint64 last_used_ceremony_id = 14;
+    /** Construction allocation high-water mark, preserved when a candidate is abandoned. */
+    uint64 last_used_construction_id = 15;
 }
