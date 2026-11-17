@@ -2,23 +2,11 @@ syntax = "proto3";
 
 package com.hedera.hapi.node.state.history;
 
-/*
- * Copyright (C) 2024 Hedera Hashgraph, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import "timestamp.proto";
+// SPDX-License-Identifier: Apache-2.0
+import "services/timestamp.proto";
+import "services/basic_types.proto";
+import "services/auxiliary/hints/hints_partial_signature.proto";
+import "google/protobuf/wrappers.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.history">>> This comment is special code for setting PBJ Compiler java package
@@ -67,6 +55,23 @@ message ProofKey {
 }
 
 /**
+ * A member and its original listed weight in a committed WRAPS address book.
+ * Every member is retained, including members whose selected key is the
+ * sentinel key. A sentinel member's listed weight is part of the commitment,
+ * even though it contributes no effective weight to the WRAPS signing quorum.
+ */
+message ProofNodeWeight {
+  /**
+   * The node id.
+   */
+  uint64 node_id = 1;
+  /**
+   * The original listed weight committed for this node.
+   */
+  uint64 weight = 2;
+}
+
+/**
  * A piece of new history in the form of an address book hash and
  * associated metadata.
  */
@@ -82,28 +87,46 @@ message History {
 }
 
 /**
- * A proof that some address book history belongs to the ledger id's
- * chain of trust.
+ * A proof that some address book history belongs to the ledger id's chain of trust.
  */
 message HistoryProof {
-  /**
-   * The hash of the source address book.
-   */
-  bytes source_address_book_hash = 1;
   /**
    * The proof keys for the target address book, needed to keep
    * constructing proofs after adopting the target address book's
    * roster at a handoff.
    */
-  repeated ProofKey target_proof_keys = 2;
+  repeated ProofKey target_proof_keys = 1;
   /**
    * The target history of the proof.
    */
-  History target_history = 3;
+  History target_history = 2;
   /**
-   * The proof of chain of trust from the ledger id.
+   * The proof of chain of trust from the ledger id to the target
+   * history's metadata.
    */
-  bytes proof = 4;
+  ChainOfTrustProof chain_of_trust_proof = 3;
+  /**
+   * If set, the uncompressed proof of chain of trust from the ledger id to
+   * the target address book; the uncompressed version of the WRAPS proof is
+   * required to keep extending the chain of trust.
+   */
+  bytes uncompressed_wraps_proof = 4;
+  /**
+   * The aggregate hinTS signature over the target verification key, made by the
+   * preceding signing generation. Required for rotation proof votes so consensus
+   * can validate and persist explicit key provenance. Absent for genesis.
+   */
+  bytes key_provenance_signature = 5;
+  /**
+   * The complete target address book's weighted membership, ordered by node id.
+   * Together with target_proof_keys (and the sentinel for each member without a
+   * selected key), this reconstructs the committed target book independently of
+   * the platform roster, hinTS participant set, and subsequent key publications.
+   * The snapshot survives ordinary candidate-roster replacement and is required
+   * to extend a WRAPS proof after its original target roster has been pruned.
+   * Absent only on proofs written before this snapshot field was introduced.
+   */
+  repeated ProofNodeWeight target_node_weights = 6;
 }
 
 /**
@@ -112,6 +135,8 @@ message HistoryProof {
  * weight to enact its own constructions.
  */
 message HistoryProofConstruction {
+  reserved 3;
+
   /**
    * The construction id.
    */
@@ -121,12 +146,6 @@ message HistoryProofConstruction {
    * certain thresholds are during construction.
    */
   bytes source_roster_hash = 2;
-  /**
-   * If set, the proof that the address book of the source roster belongs
-   * to the the ledger id's chain of trust; if not set, the source roster's
-   * address book must *be* the ledger id.
-   */
-  HistoryProof source_proof = 3;
   /**
    * The hash of the roster whose weights are used to assess progress
    * toward obtaining proof keys for parties that hold at least a
@@ -138,7 +157,7 @@ message HistoryProofConstruction {
     /**
      * If the network is still gathering proof keys for this
      * construction, the next time at which nodes should stop waiting
-     * for tardy proof keys and assembly the history to be proven as
+     * for tardy proof keys and assemble the history to be proven as
      * soon as it has the associated metadata and proof keys for nodes
      * with >2/3 weight in the target roster.
      */
@@ -150,17 +169,84 @@ message HistoryProofConstruction {
      */
     proto.Timestamp assembly_start_time = 6;
     /**
-     * When this construction is complete, the recursive proof that
-     * the target roster's address book and associated metadata belong
-     * to the ledger id's chain of trust.
+     * When this construction is complete, the proof that the target
+     * roster's address book and associated metadata belong to the
+     * ledger id's chain of trust.
      */
     HistoryProof target_proof = 7;
-
     /**
      * If set, the reason the construction failed.
      */
     string failure_reason = 8;
+    /**
+     * If set, the state of the WRAPS signing protocol for this construction.
+     */
+    WrapsSigningState wraps_signing_state = 9;
   }
+
+  /**
+   * The number of times the network has had to restart this construction.
+   */
+  uint32 wraps_retry_count = 10;
+
+  /**
+   * The metadata this construction proves, once available. This binding survives
+   * a restart and prevents resuming a proof for an obsolete hinTS verification
+   * key when the same roster transition receives a replacement hinTS construction.
+   */
+  google.protobuf.BytesValue target_metadata = 11;
+
+  /**
+   * The consensus cutoff for proof-key selection, frozen when assembly begins.
+   * Unlike assembly_start_time in proof_state, this survives WRAPS phases and
+   * retries so a restarted controller reconstructs the same address book.
+   */
+  proto.Timestamp proof_key_cutoff_time = 12;
+
+  /**
+   * The previous hinTS generation's signature authorizing this construction's
+   * target verification key. This survives WRAPS phases, retries, and proof
+   * completion, and is enqueued only when the construction becomes active.
+   * Absent for genesis, which has no preceding signing generation.
+   */
+  HintsKeyProvenance key_provenance = 13;
+
+  /**
+   * The ids of source nodes whose WRAPS messages this construction ignores:
+   * nodes that published a message honest nodes could not use, or that in
+   * an earlier attempt published an R1 message but not a later one before
+   * its grace period ended.
+   */
+  repeated uint64 wraps_excluded_node_ids = 14;
+
+  /**
+   * The WRAPS signing and book-selection protocol under which this attempt was
+   * created. Version zero identifies legacy attempts whose transcript and votes
+   * may have used hinTS-derived book positions or different source authority.
+   * An unfinished attempt from another protocol is replaced with a fresh
+   * construction id before any transcript or vote is replayed. Completed proofs
+   * retain their original version and committed trust root.
+   */
+  uint32 wraps_protocol_version = 15;
+}
+
+/**
+ * The state of an ongoing WRAPS signature protocol.
+ */
+message WrapsSigningState {
+  /**
+   * The phase of the WRAPS protocol.
+   */
+  WrapsPhase phase = 1;
+
+  /**
+   * If the network is still gathering WRAPS messages for a protocol phase
+   * with a grace period, the next time at which nodes should stop waiting
+   * and start over. R2 and R3 always have one, for tardy messages from R1
+   * participants; R1 has one when a restart excludes some nodes, and when
+   * it ends the next attempt excludes none.
+   */
+  proto.Timestamp grace_period_end_time = 2;
 }
 
 /**
@@ -225,3 +311,165 @@ message RecordedHistorySignature {
   HistorySignature history_signature = 2;
 }
 
+
+/**
+ * The phase of a WRAPS proof construction.
+ */
+enum WrapsPhase {
+  /**
+   * Nodes are publishing their proof keys and R1 messages.
+   */
+  R1 = 0;
+  /**
+   * Nodes are publishing their R2 messages.
+   */
+  R2 = 1;
+  /**
+   * Nodes are publishing their R3 messages.
+   */
+  R3 = 2;
+  /**
+   * Nodes are aggregating all messages to produce a final signature.
+   */
+  AGGREGATE = 3;
+  /**
+   * No longer used; nodes now compute a proof in the AGGREGATE phase
+   * whether it grounds a chain of trust or extends one.
+   */
+  POST_AGGREGATION = 4;
+}
+
+/**
+ * A message published by a node during a WRAPS proof construction.
+ */
+message WrapsMessageDetails {
+  /**
+   * The time at which the message was published.
+   */
+  proto.Timestamp publication_time = 1;
+  /**
+   * The phase of the construction the message applies to.
+   */
+  WrapsPhase phase = 2;
+  /**
+   * The message itself.
+   */
+  bytes message = 3;
+  /**
+   * The validated source-generation hinTS share accepted with this R1 message.
+   * Persisted with the message so restart replays the same eligible signer set.
+   */
+  com.hedera.hapi.services.auxiliary.hints.HintsPartialSignatureTransactionBody hints_partial_signature = 4;
+}
+
+/**
+ * A history of messages published during a WRAPS proof construction.
+ */
+message WrapsMessageHistory {
+  /*
+   * The published messages.
+   */
+  repeated WrapsMessageDetails messages = 1;
+}
+
+message ChainOfTrustProof {
+    oneof proof {
+        /**
+         * No longer used; every chain-of-trust proof, including the one for
+         * the genesis hinTS verification key, is now a WRAPS proof.
+         */
+        AggregatedNodeSignatures aggregated_node_signatures = 1;
+        /**
+         * A ZK-compressed SNARK proof proving the chain of trust from the
+         * ledger id to this hinTS verification key.
+         */
+        bytes wraps_proof = 2;
+    }
+}
+
+/**
+ * An aggregation of node signatures on some data.
+ * <p>
+ * No longer used; it once proved the genesis hinTS verification key in block
+ * proofs until the first recursive proof was available.
+ */
+message AggregatedNodeSignatures {
+  /**
+   * The aggregated signature.
+   */
+  bytes aggregated_signature = 1;
+  /**
+   * In ascending order, the ids of the nodes that contributed signatures.
+   */
+  repeated uint64 signing_node_ids = 2;
+  /**
+   * The hinTS key that this signature witnesses.
+   */
+  bytes verification_key = 3;
+}
+
+/**
+ * An explicit link between consecutive hinTS signing generations.
+ *
+ * The signature MUST verify over exactly target_verification_key under
+ * source_verification_key at the aBFT threshold. The construction identifiers
+ * identify the local generations; they are not included in the signed message.
+ */
+message HintsKeyProvenance {
+  /** The hinTS construction whose signing key authorized the next key. */
+  uint64 source_hints_construction_id = 1;
+  /** The hinTS construction whose verification key is being adopted. */
+  uint64 target_hints_construction_id = 2;
+  /** The previous generation's verification key. */
+  bytes source_verification_key = 3;
+  /** The next generation's verification key, and the exact signed message. */
+  bytes target_verification_key = 4;
+  /** The aggregate hinTS signature from the previous signing generation. */
+  bytes signature = 5;
+  /** The history construction that certified adoption of the target key. */
+  uint64 history_construction_id = 6;
+}
+
+/**
+ * A compact proof of actual block signing by an adopted hinTS key.
+ *
+ * Reconstruct the directly signed block root as
+ * hashInternalNode(hashLeaf(Timestamp.PROTOBUF(timestamp)), sibling_hash).
+ * The timestamp is the left child of that root. The signature MUST verify
+ * under the target verification key recorded in the adopted provenance link.
+ * Construction identifiers are bookkeeping and are not signed.
+ */
+message HintsKeyWitness {
+  /** The adopted hinTS generation whose block signature this carries. */
+  uint64 target_hints_construction_id = 1;
+  /** The directly signed block's canonical consensus timestamp. */
+  proto.Timestamp timestamp = 2;
+  /** The right child of the directly signed block root. */
+  bytes sibling_hash = 3;
+  /** The hinTS aggregate signature over the reconstructed block root. */
+  bytes signature = 4;
+  /** The hash algorithm used by this block, independent of current configuration. */
+  proto.BlockHashAlgorithm hash_algorithm = 5;
+}
+
+/**
+ * Durable companion of an adopted provenance link, keyed by its target hinTS
+ * construction ID. A missing witness means publication is still pending.
+ * Historical links imported from the adoption queue may lack activation_time;
+ * an absent activation boundary MUST NOT be replaced with the current time.
+ */
+message HintsKeyWitnessRecord {
+  /** The existing predecessor authorization, retained unchanged. */
+  HintsKeyProvenance provenance = 1;
+  /** The activation boundary; a witness block must start strictly after it. */
+  proto.Timestamp activation_time = 2;
+  /** The first valid witness accepted in consensus order, if available. */
+  HintsKeyWitness witness = 3;
+  /**
+   * The nodes whose publications for this generation passed the cheap admission
+   * checks and then failed verification. A node is recorded at most once, and
+   * every later publication from a recorded node is ignored before any native
+   * work, so no node can cost more than one failed verification per generation.
+   */
+  repeated int64 rejected_node_ids = 4;
+}
